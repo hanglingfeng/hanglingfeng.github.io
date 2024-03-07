@@ -1,0 +1,1060 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+<title>B16588_02</title>
+<link href="css/style-JRserifv6.css" rel="stylesheet" type="text/css"/>
+<!-- kobo-style -->
+<style id="koboSpanStyle" type="text/css" xmlns="http://www.w3.org/1999/xhtml">.koboSpan { -webkit-text-combine: inherit; }</style>
+</head>
+<body id="B16588_02" xml:lang="en-GB">
+<div id="_idContainer032">
+<h1 class="chapter-number" id="_idParaDest-42"><a id="_idTextAnchor041"/><span class="koboSpan" id="kobo.1.1" xmlns="http://www.w3.org/1999/xhtml">2</span></h1>
+<h1 id="_idParaDest-43"><a id="_idTextAnchor042"/><span class="koboSpan" id="kobo.2.1" xmlns="http://www.w3.org/1999/xhtml">Building Our First .NET MAUI App</span></h1>
+<p><span class="koboSpan" id="kobo.3.1" xmlns="http://www.w3.org/1999/xhtml">In this chapter, we will create a new .NET MAUI project and make the necessary changes so that we can use it in the subsequent development. </span><span class="koboSpan" id="kobo.3.2" xmlns="http://www.w3.org/1999/xhtml">The app that we will develop is a password manager app. </span><span class="koboSpan" id="kobo.3.3" xmlns="http://www.w3.org/1999/xhtml">We will add features to it gradually in the coming chapters. </span><span class="koboSpan" id="kobo.3.4" xmlns="http://www.w3.org/1999/xhtml">When we complete </span><em class="italic"><span class="koboSpan" id="kobo.4.1" xmlns="http://www.w3.org/1999/xhtml">Part 1</span></em><span class="koboSpan" id="kobo.5.1" xmlns="http://www.w3.org/1999/xhtml">, we will have a functional password manager app. </span><span class="koboSpan" id="kobo.5.2" xmlns="http://www.w3.org/1999/xhtml">In this chapter, we will create the app using the Visual Studio template, and initialize the resources of the application. </span><span class="koboSpan" id="kobo.5.3" xmlns="http://www.w3.org/1999/xhtml">After that, we will build and test it on supported platforms. </span><span class="koboSpan" id="kobo.5.4" xmlns="http://www.w3.org/1999/xhtml">To use Shell in our app, we will create a new Xamarin.Forms project with Shell support and then migrate it to our .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.6.1" xmlns="http://www.w3.org/1999/xhtml">MAUI project.</span></span></p>
+<p><span class="koboSpan" id="kobo.7.1" xmlns="http://www.w3.org/1999/xhtml">The following topics will be covered in </span><span class="No-Break"><span class="koboSpan" id="kobo.8.1" xmlns="http://www.w3.org/1999/xhtml">this chapter:</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.9.1" xmlns="http://www.w3.org/1999/xhtml">Setting up a new .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.10.1" xmlns="http://www.w3.org/1999/xhtml">MAUI project</span></span></li>
+<li><span class="koboSpan" id="kobo.11.1" xmlns="http://www.w3.org/1999/xhtml">App startup and </span><span class="No-Break"><span class="koboSpan" id="kobo.12.1" xmlns="http://www.w3.org/1999/xhtml">lifecycle management</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.13.1" xmlns="http://www.w3.org/1999/xhtml">Configuring resources</span></span></li>
+<li><span class="koboSpan" id="kobo.14.1" xmlns="http://www.w3.org/1999/xhtml">Creating a new Xamarin.Forms project </span><span class="No-Break"><span class="koboSpan" id="kobo.15.1" xmlns="http://www.w3.org/1999/xhtml">with Shell</span></span></li>
+<li><span class="koboSpan" id="kobo.16.1" xmlns="http://www.w3.org/1999/xhtml">Migrating this Xamarin.Forms project to .</span><span class="No-Break"><span class="koboSpan" id="kobo.17.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI</span></span></li>
+</ul>
+<h1 id="_idParaDest-44"><a id="_idTextAnchor043"/><span class="koboSpan" id="kobo.18.1" xmlns="http://www.w3.org/1999/xhtml">Technical requirements</span></h1>
+<p><span class="koboSpan" id="kobo.19.1" xmlns="http://www.w3.org/1999/xhtml">To test and debug the source code in this chapter, you need Visual Studio 2022 installed on both Windows and macOS. </span><span class="koboSpan" id="kobo.19.2" xmlns="http://www.w3.org/1999/xhtml">Please refer to the </span><em class="italic"><span class="koboSpan" id="kobo.20.1" xmlns="http://www.w3.org/1999/xhtml">Development environment setup</span></em><span class="koboSpan" id="kobo.21.1" xmlns="http://www.w3.org/1999/xhtml"> section in </span><a href="B16588_01.xhtml#_idTextAnchor015"><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.22.1" xmlns="http://www.w3.org/1999/xhtml">Chapter 1</span></em></span></a><span class="koboSpan" id="kobo.23.1" xmlns="http://www.w3.org/1999/xhtml">, </span><em class="italic"><span class="koboSpan" id="kobo.24.1" xmlns="http://www.w3.org/1999/xhtml">Getting Started with .NET MAUI</span></em><span class="koboSpan" id="kobo.25.1" xmlns="http://www.w3.org/1999/xhtml">, for </span><span class="No-Break"><span class="koboSpan" id="kobo.26.1" xmlns="http://www.w3.org/1999/xhtml">the details.</span></span></p>
+<h1 id="_idParaDest-45"><a id="_idTextAnchor044"/><span class="koboSpan" id="kobo.27.1" xmlns="http://www.w3.org/1999/xhtml">Managing the source code in this book</span></h1>
+<p><span class="koboSpan" id="kobo.28.1" xmlns="http://www.w3.org/1999/xhtml">Since we develop a password manager app incrementally in this book, the source code of each chapter is built on top of the previous chapters. </span><span class="koboSpan" id="kobo.28.2" xmlns="http://www.w3.org/1999/xhtml">To keep working on continuous improvement, we will have separate branches to keep the source code of each chapter. </span><span class="koboSpan" id="kobo.28.3" xmlns="http://www.w3.org/1999/xhtml">If you want to clone the source code of all chapters in one command, you can clone from the main branch. </span><span class="koboSpan" id="kobo.28.4" xmlns="http://www.w3.org/1999/xhtml">In the main branch, we have all chapters in separate folders. </span><span class="koboSpan" id="kobo.28.5" xmlns="http://www.w3.org/1999/xhtml">If you don’t want to use Git, you can also download the source code as a compressed file from the release area, as shown in the following diagram (</span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.29.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.30.1" xmlns="http://www.w3.org/1999/xhtml">.1</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.31.1" xmlns="http://www.w3.org/1999/xhtml">):</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer014">
+<span class="koboSpan" id="kobo.32.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.1: Source code in GitHub" src="image/Figure_2.01_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.33.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.1: Source code in GitHub</span></p>
+<p><span class="koboSpan" id="kobo.34.1" xmlns="http://www.w3.org/1999/xhtml">Since new .NET MAUI releases may be available from time to time, the Git tags and versions in the release area will be updated according to the new .NET MAUI releases and </span><span class="No-Break"><span class="koboSpan" id="kobo.35.1" xmlns="http://www.w3.org/1999/xhtml">bug fixes.</span></span></p>
+<p><span class="koboSpan" id="kobo.36.1" xmlns="http://www.w3.org/1999/xhtml">The source code of this book can be found in the following </span><span class="No-Break"><span class="koboSpan" id="kobo.37.1" xmlns="http://www.w3.org/1999/xhtml">GitHub repository:</span></span></p>
+<p><a href="https://github.com/PacktPublishing/Modern-Cross-Platform-Application-Development-with-.NET-MAUI"><span class="No-Break"><span class="koboSpan" id="kobo.38.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/PacktPublishing/Modern-Cross-Platform-Application-Development-with-.NET-MAUI</span></span></a></p>
+<p><span class="koboSpan" id="kobo.39.1" xmlns="http://www.w3.org/1999/xhtml">There are three ways to download the source code in </span><span class="No-Break"><span class="koboSpan" id="kobo.40.1" xmlns="http://www.w3.org/1999/xhtml">this book:</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.41.1" xmlns="http://www.w3.org/1999/xhtml">Download the source code in a </span><span class="No-Break"><span class="koboSpan" id="kobo.42.1" xmlns="http://www.w3.org/1999/xhtml">compressed file.</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.43.1" xmlns="http://www.w3.org/1999/xhtml">The source code can be downloaded in the release area, or use the </span><span class="No-Break"><span class="koboSpan" id="kobo.44.1" xmlns="http://www.w3.org/1999/xhtml">following URL:</span></span></p>
+<p><a href="https://github.com/PacktPublishing/.NET-MAUI-Cross-Platform-Application-Development/releases/tag/V1.0.0"><span class="No-Break"><span class="koboSpan" id="kobo.45.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/PacktPublishing/.NET-MAUI-Cross-Platform-Application-Development/releases/tag/V1.0.0</span></span></a></p>
+<p><span class="koboSpan" id="kobo.46.1" xmlns="http://www.w3.org/1999/xhtml">The release tag may be changed when a new release </span><span class="No-Break"><span class="koboSpan" id="kobo.47.1" xmlns="http://www.w3.org/1999/xhtml">is available.</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.48.1" xmlns="http://www.w3.org/1999/xhtml">Clone the source code of </span><span class="No-Break"><span class="koboSpan" id="kobo.49.1" xmlns="http://www.w3.org/1999/xhtml">one chapter.</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.50.1" xmlns="http://www.w3.org/1999/xhtml">To check out the source code of a chapter, you can use the following command as </span><span class="No-Break"><span class="koboSpan" id="kobo.51.1" xmlns="http://www.w3.org/1999/xhtml">an example:</span></span></p>
+<pre class="source-code">
+<strong class="bold"><span class="koboSpan" id="kobo.52.1" xmlns="http://www.w3.org/1999/xhtml">$ git clone https://github.com/PacktPublishing/.NET-MAUI-Cross-Platform-Application-Development.git -b chapter02</span></strong></pre>
+<ul>
+<li><span class="koboSpan" id="kobo.53.1" xmlns="http://www.w3.org/1999/xhtml">Clone the source code from the </span><span class="No-Break"><span class="koboSpan" id="kobo.54.1" xmlns="http://www.w3.org/1999/xhtml">main branch.</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.55.1" xmlns="http://www.w3.org/1999/xhtml">To check out the source code of all chapters from the main branch, you can use the </span><span class="No-Break"><span class="koboSpan" id="kobo.56.1" xmlns="http://www.w3.org/1999/xhtml">following command:</span></span></p>
+<pre class="source-code">
+<strong class="bold"><span class="koboSpan" id="kobo.57.1" xmlns="http://www.w3.org/1999/xhtml">$ git clone https://github.com/PacktPublishing/.NET-MAUI-Cross-Platform-Application-Development.git</span></strong></pre>
+<h1 id="_idParaDest-46"><a id="_idTextAnchor045"/><span class="koboSpan" id="kobo.58.1" xmlns="http://www.w3.org/1999/xhtml">Setting up a new .NET MAUI project</span></h1>
+<p><span class="koboSpan" id="kobo.59.1" xmlns="http://www.w3.org/1999/xhtml">We can create a </span><a id="_idIndexMarker091"/><span class="koboSpan" id="kobo.60.1" xmlns="http://www.w3.org/1999/xhtml">new .NET MAUI project using Visual Studio or the </span><span class="No-Break"><span class="koboSpan" id="kobo.61.1" xmlns="http://www.w3.org/1999/xhtml">command line.</span></span></p>
+<h2 id="_idParaDest-47"><a id="_idTextAnchor046"/><span class="koboSpan" id="kobo.62.1" xmlns="http://www.w3.org/1999/xhtml">Creating a new project using Visual Studio</span></h2>
+<p><span class="koboSpan" id="kobo.63.1" xmlns="http://www.w3.org/1999/xhtml">To create a</span><a id="_idIndexMarker092"/><span class="koboSpan" id="kobo.64.1" xmlns="http://www.w3.org/1999/xhtml"> new .NET MAUI project, follow </span><span class="No-Break"><span class="koboSpan" id="kobo.65.1" xmlns="http://www.w3.org/1999/xhtml">these steps:</span></span></p>
+<ol>
+<li><span class="koboSpan" id="kobo.66.1" xmlns="http://www.w3.org/1999/xhtml">Launch Visual </span><a id="_idIndexMarker093"/><span class="koboSpan" id="kobo.67.1" xmlns="http://www.w3.org/1999/xhtml">Studio 2022 and select </span><strong class="bold"><span class="koboSpan" id="kobo.68.1" xmlns="http://www.w3.org/1999/xhtml">Create a new project</span></strong><span class="koboSpan" id="kobo.69.1" xmlns="http://www.w3.org/1999/xhtml"> on the startup screen. </span><span class="koboSpan" id="kobo.69.2" xmlns="http://www.w3.org/1999/xhtml">This will open the </span><strong class="bold"><span class="koboSpan" id="kobo.70.1" xmlns="http://www.w3.org/1999/xhtml">Create a new </span></strong><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.71.1" xmlns="http://www.w3.org/1999/xhtml">project</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.72.1" xmlns="http://www.w3.org/1999/xhtml"> wizard.</span></span></li>
+</ol>
+<p><span class="koboSpan" id="kobo.73.1" xmlns="http://www.w3.org/1999/xhtml">In the top-middle section of the screen, there is a search box. </span><span class="koboSpan" id="kobo.73.2" xmlns="http://www.w3.org/1999/xhtml">We can type </span><strong class="source-inline"><span class="koboSpan" id="kobo.74.1" xmlns="http://www.w3.org/1999/xhtml">Maui</span></strong><span class="koboSpan" id="kobo.75.1" xmlns="http://www.w3.org/1999/xhtml"> in the search box, and .NET MAUI-related project templates will be shown (see </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.76.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.77.1" xmlns="http://www.w3.org/1999/xhtml">.2</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.78.1" xmlns="http://www.w3.org/1999/xhtml">):</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer015">
+<span class="koboSpan" id="kobo.79.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.2: New project setup – Create a new project" src="image/Figure_2.02_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.80.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.2: New project setup – Create a new project</span></p>
+<p><span class="koboSpan" id="kobo.81.1" xmlns="http://www.w3.org/1999/xhtml">There are three templates for the .NET MAUI app </span><span class="No-Break"><span class="koboSpan" id="kobo.82.1" xmlns="http://www.w3.org/1999/xhtml">or library:</span></span></p>
+<ul>
+<li><strong class="bold"><span class="koboSpan" id="kobo.83.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI App</span></strong><span class="koboSpan" id="kobo.84.1" xmlns="http://www.w3.org/1999/xhtml"> – This is for a XAML-based .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.85.1" xmlns="http://www.w3.org/1999/xhtml">MAUI app.</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.86.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI Blazor App</span></strong><span class="koboSpan" id="kobo.87.1" xmlns="http://www.w3.org/1999/xhtml"> – This template can be used to create a .NET MAUI </span><span class="No-Break"><span class="koboSpan" id="kobo.88.1" xmlns="http://www.w3.org/1999/xhtml">Blazor app.</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.89.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI Class Library</span></strong><span class="koboSpan" id="kobo.90.1" xmlns="http://www.w3.org/1999/xhtml"> – This is the option to build a .NET MAUI class library. </span><span class="koboSpan" id="kobo.90.2" xmlns="http://www.w3.org/1999/xhtml">We can build shared</span><a id="_idIndexMarker094"/><span class="koboSpan" id="kobo.91.1" xmlns="http://www.w3.org/1999/xhtml"> components as a .NET MAUI class library when we develop a .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.92.1" xmlns="http://www.w3.org/1999/xhtml">MAUI app.</span></span></li>
+</ul>
+<ol>
+<li value="2"><span class="koboSpan" id="kobo.93.1" xmlns="http://www.w3.org/1999/xhtml">Let’s select </span><strong class="bold"><span class="koboSpan" id="kobo.94.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI App</span></strong><span class="koboSpan" id="kobo.95.1" xmlns="http://www.w3.org/1999/xhtml"> and click the </span><strong class="bold"><span class="koboSpan" id="kobo.96.1" xmlns="http://www.w3.org/1999/xhtml">Next</span></strong><span class="koboSpan" id="kobo.97.1" xmlns="http://www.w3.org/1999/xhtml"> button; it goes to the next step to configure </span><a id="_idIndexMarker095"/><span class="koboSpan" id="kobo.98.1" xmlns="http://www.w3.org/1999/xhtml">your new project, as shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.99.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.100.1" xmlns="http://www.w3.org/1999/xhtml">.3</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.101.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></li>
+</ol>
+<div>
+<div class="IMG---Figure" id="_idContainer016">
+<span class="koboSpan" id="kobo.102.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.3: New project setup – Configure your new project" src="image/Figure_2.03_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.103.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.3: New project setup – Configure your new project</span></p>
+<ol>
+<li value="3"><span class="koboSpan" id="kobo.104.1" xmlns="http://www.w3.org/1999/xhtml">Enter the project name and solution name as </span><strong class="source-inline"><span class="koboSpan" id="kobo.105.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault</span></strong><span class="koboSpan" id="kobo.106.1" xmlns="http://www.w3.org/1999/xhtml"> and click the </span><strong class="bold"><span class="koboSpan" id="kobo.107.1" xmlns="http://www.w3.org/1999/xhtml">Next</span></strong><span class="koboSpan" id="kobo.108.1" xmlns="http://www.w3.org/1999/xhtml"> button. </span><span class="koboSpan" id="kobo.108.2" xmlns="http://www.w3.org/1999/xhtml">After the project is created, the project structure will look like </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.109.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><em class="italic"><span class="koboSpan" id="kobo.110.1" xmlns="http://www.w3.org/1999/xhtml">.4</span></em><span class="koboSpan" id="kobo.111.1" xmlns="http://www.w3.org/1999/xhtml">, displaying </span><span class="No-Break"><span class="koboSpan" id="kobo.112.1" xmlns="http://www.w3.org/1999/xhtml">the following:</span></span><ul><li><em class="italic"><span class="koboSpan" id="kobo.113.1" xmlns="http://www.w3.org/1999/xhtml">Common files</span></em><span class="koboSpan" id="kobo.114.1" xmlns="http://www.w3.org/1999/xhtml"> – In a new project, there are three files included in the template – </span><strong class="source-inline"><span class="koboSpan" id="kobo.115.1" xmlns="http://www.w3.org/1999/xhtml">App.xaml</span></strong><span class="koboSpan" id="kobo.116.1" xmlns="http://www.w3.org/1999/xhtml">, </span><strong class="source-inline"><span class="koboSpan" id="kobo.117.1" xmlns="http://www.w3.org/1999/xhtml">MainPage.xaml</span></strong><span class="koboSpan" id="kobo.118.1" xmlns="http://www.w3.org/1999/xhtml">, and </span><strong class="source-inline"><span class="koboSpan" id="kobo.119.1" xmlns="http://www.w3.org/1999/xhtml">MauiProgram.cs</span></strong><span class="koboSpan" id="kobo.120.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.120.2" xmlns="http://www.w3.org/1999/xhtml">This is the group of files that we will work on throughout the book. </span><span class="koboSpan" id="kobo.120.3" xmlns="http://www.w3.org/1999/xhtml">They are platform agnostic. </span><span class="koboSpan" id="kobo.120.4" xmlns="http://www.w3.org/1999/xhtml">Both business logic and UI can be developed here and shared on </span><span class="No-Break"><span class="koboSpan" id="kobo.121.1" xmlns="http://www.w3.org/1999/xhtml">all platforms.</span></span></li><li><em class="italic"><span class="koboSpan" id="kobo.122.1" xmlns="http://www.w3.org/1999/xhtml">Platform-specific files</span></em><span class="koboSpan" id="kobo.123.1" xmlns="http://www.w3.org/1999/xhtml"> – There are five subfolders (</span><strong class="source-inline"><span class="koboSpan" id="kobo.124.1" xmlns="http://www.w3.org/1999/xhtml">Android</span></strong><span class="koboSpan" id="kobo.125.1" xmlns="http://www.w3.org/1999/xhtml">, </span><strong class="source-inline"><span class="koboSpan" id="kobo.126.1" xmlns="http://www.w3.org/1999/xhtml">iOS</span></strong><span class="koboSpan" id="kobo.127.1" xmlns="http://www.w3.org/1999/xhtml">, </span><strong class="source-inline"><span class="koboSpan" id="kobo.128.1" xmlns="http://www.w3.org/1999/xhtml">MacCatalyst</span></strong><span class="koboSpan" id="kobo.129.1" xmlns="http://www.w3.org/1999/xhtml">, </span><strong class="source-inline"><span class="koboSpan" id="kobo.130.1" xmlns="http://www.w3.org/1999/xhtml">Windows</span></strong><span class="koboSpan" id="kobo.131.1" xmlns="http://www.w3.org/1999/xhtml">, and </span><strong class="source-inline"><span class="koboSpan" id="kobo.132.1" xmlns="http://www.w3.org/1999/xhtml">Tizen</span></strong><span class="koboSpan" id="kobo.133.1" xmlns="http://www.w3.org/1999/xhtml">) in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.134.1" xmlns="http://www.w3.org/1999/xhtml">Platforms</span></strong><span class="koboSpan" id="kobo.135.1" xmlns="http://www.w3.org/1999/xhtml"> folder. </span><span class="koboSpan" id="kobo.135.2" xmlns="http://www.w3.org/1999/xhtml">Since we won’t</span><a id="_idIndexMarker096"/><span class="koboSpan" id="kobo.136.1" xmlns="http://www.w3.org/1999/xhtml"> support Tizen, we can remove it</span><a id="_idIndexMarker097"/><span class="koboSpan" id="kobo.137.1" xmlns="http://www.w3.org/1999/xhtml"> from </span><span class="No-Break"><span class="koboSpan" id="kobo.138.1" xmlns="http://www.w3.org/1999/xhtml">our project.</span></span></li><li><em class="italic"><span class="koboSpan" id="kobo.139.1" xmlns="http://www.w3.org/1999/xhtml">Resources</span></em><span class="koboSpan" id="kobo.140.1" xmlns="http://www.w3.org/1999/xhtml"> – A variety of resources ranging from images, fonts, splash screens, styles, and raw assets are in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.141.1" xmlns="http://www.w3.org/1999/xhtml">Resources</span></strong><span class="koboSpan" id="kobo.142.1" xmlns="http://www.w3.org/1999/xhtml"> folder. </span><span class="koboSpan" id="kobo.142.2" xmlns="http://www.w3.org/1999/xhtml">These resources can be used in all </span><span class="No-Break"><span class="koboSpan" id="kobo.143.1" xmlns="http://www.w3.org/1999/xhtml">supported platforms.</span></span></li></ul></li>
+</ol>
+<div>
+<div class="IMG---Figure" id="_idContainer017">
+<span class="koboSpan" id="kobo.144.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.4: .NET MAUI project structure" src="image/Figure_2.04_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.145.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.4: .NET MAUI project structure</span></p>
+<p><span class="koboSpan" id="kobo.146.1" xmlns="http://www.w3.org/1999/xhtml">In the .NET MAUI project, there</span><a id="_idIndexMarker098"/><span class="koboSpan" id="kobo.147.1" xmlns="http://www.w3.org/1999/xhtml"> is only one project</span><a id="_idIndexMarker099"/><span class="koboSpan" id="kobo.148.1" xmlns="http://www.w3.org/1999/xhtml"> structure. </span><span class="koboSpan" id="kobo.148.2" xmlns="http://www.w3.org/1999/xhtml">Later, we will see that the development of Xamarin.Forms involves </span><span class="No-Break"><span class="koboSpan" id="kobo.149.1" xmlns="http://www.w3.org/1999/xhtml">multiple projects.</span></span></p>
+<h2 id="_idParaDest-48"><a id="_idTextAnchor047"/><span class="koboSpan" id="kobo.150.1" xmlns="http://www.w3.org/1999/xhtml">Creating a new project using the dotnet command</span></h2>
+<p><span class="koboSpan" id="kobo.151.1" xmlns="http://www.w3.org/1999/xhtml">Even though we installed .NET MAUI as part of the Visual Studio installation, .NET MAUI can be installed separately using the</span><a id="_idIndexMarker100"/><span class="koboSpan" id="kobo.152.1" xmlns="http://www.w3.org/1999/xhtml"> command line as well. </span><span class="koboSpan" id="kobo.152.2" xmlns="http://www.w3.org/1999/xhtml">In this way, we can choose other development tools than Visual Studio. </span><span class="koboSpan" id="kobo.152.3" xmlns="http://www.w3.org/1999/xhtml">We can create </span><a id="_idIndexMarker101"/><span class="koboSpan" id="kobo.153.1" xmlns="http://www.w3.org/1999/xhtml">and build a .NET MAUI app using the </span><strong class="source-inline"><span class="koboSpan" id="kobo.154.1" xmlns="http://www.w3.org/1999/xhtml">dotnet</span></strong><span class="koboSpan" id="kobo.155.1" xmlns="http://www.w3.org/1999/xhtml"> command line. </span><span class="koboSpan" id="kobo.155.2" xmlns="http://www.w3.org/1999/xhtml">To find out about the installed project templates, we can use the </span><span class="No-Break"><span class="koboSpan" id="kobo.156.1" xmlns="http://www.w3.org/1999/xhtml">following command:</span></span></p>
+<pre class="console"><span class="koboSpan" id="kobo.157.1" xmlns="http://www.w3.org/1999/xhtml">
+C:\ &gt; dotnet new --list</span></pre>
+<p><span class="koboSpan" id="kobo.158.1" xmlns="http://www.w3.org/1999/xhtml">To create a new project using the command line, we can execute the </span><span class="No-Break"><span class="koboSpan" id="kobo.159.1" xmlns="http://www.w3.org/1999/xhtml">following command:</span></span></p>
+<pre class="console"><span class="koboSpan" id="kobo.160.1" xmlns="http://www.w3.org/1999/xhtml">
+C:\ &gt; dotnet new maui -n "PassXYZ.Vault"</span></pre>
+<p><span class="koboSpan" id="kobo.161.1" xmlns="http://www.w3.org/1999/xhtml">The new .NET MAUI project has been created, and we can build and test it now. </span><span class="koboSpan" id="kobo.161.2" xmlns="http://www.w3.org/1999/xhtml">Before we move to that, let’s spend some time having a look at the .NET MAUI app startup code </span><span class="No-Break"><span class="koboSpan" id="kobo.162.1" xmlns="http://www.w3.org/1999/xhtml">and lifecycle.</span></span></p>
+<h1 id="_idParaDest-49"><a id="_idTextAnchor048"/><span class="koboSpan" id="kobo.163.1" xmlns="http://www.w3.org/1999/xhtml">App startup and lifecycle</span></h1>
+<p><span class="koboSpan" id="kobo.164.1" xmlns="http://www.w3.org/1999/xhtml">In the .NET MAUI project, the</span><a id="_idIndexMarker102"/><span class="koboSpan" id="kobo.165.1" xmlns="http://www.w3.org/1999/xhtml"> app startup and lifecycle management are handled in the following </span><span class="No-Break"><span class="koboSpan" id="kobo.166.1" xmlns="http://www.w3.org/1999/xhtml">two files:</span></span></p>
+<ul>
+<li><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.167.1" xmlns="http://www.w3.org/1999/xhtml">MauiProgram.cs</span></strong></span></li>
+<li><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.168.1" xmlns="http://www.w3.org/1999/xhtml">App.xaml</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.169.1" xmlns="http://www.w3.org/1999/xhtml">/</span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.170.1" xmlns="http://www.w3.org/1999/xhtml">App.xaml.cs</span></strong></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.171.1" xmlns="http://www.w3.org/1999/xhtml">For the app startup and configuration, .NET Generic Host is used. </span><span class="koboSpan" id="kobo.171.2" xmlns="http://www.w3.org/1999/xhtml">When the application starts, a .NET Generic Host object is created to encapsulate an app’s resources and lifetime functionality, such as </span><span class="No-Break"><span class="koboSpan" id="kobo.172.1" xmlns="http://www.w3.org/1999/xhtml">the following:</span></span></p>
+<ul>
+<li><strong class="bold"><span class="koboSpan" id="kobo.173.1" xmlns="http://www.w3.org/1999/xhtml">Dependency </span></strong><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.174.1" xmlns="http://www.w3.org/1999/xhtml">injection</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.175.1" xmlns="http://www.w3.org/1999/xhtml"> (</span></span><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.176.1" xmlns="http://www.w3.org/1999/xhtml">DI</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.177.1" xmlns="http://www.w3.org/1999/xhtml">)</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.178.1" xmlns="http://www.w3.org/1999/xhtml">Logging</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.179.1" xmlns="http://www.w3.org/1999/xhtml">Configuration</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.180.1" xmlns="http://www.w3.org/1999/xhtml">App shutdown</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.181.1" xmlns="http://www.w3.org/1999/xhtml">This enables apps to be initialized in a single location and provides the ability to configure fonts, services, and </span><span class="No-Break"><span class="koboSpan" id="kobo.182.1" xmlns="http://www.w3.org/1999/xhtml">third-party libraries.</span></span></p>
+<p class="callout-heading"><span class="koboSpan" id="kobo.183.1" xmlns="http://www.w3.org/1999/xhtml">.NET Generic Host</span></p>
+<p class="callout"><span class="koboSpan" id="kobo.184.1" xmlns="http://www.w3.org/1999/xhtml">If you are a Xamarin developer, you may not be familiar with .NET Generic Host. </span><span class="koboSpan" id="kobo.184.2" xmlns="http://www.w3.org/1999/xhtml">In ASP.NET Core, .NET Generic Host is </span><a id="_idIndexMarker103"/><span class="koboSpan" id="kobo.185.1" xmlns="http://www.w3.org/1999/xhtml">used to encapsulate the resources in an app. </span><span class="koboSpan" id="kobo.185.2" xmlns="http://www.w3.org/1999/xhtml">In .NET MAUI, the same pattern is borrowed and used for startup and </span><span class="No-Break"><span class="koboSpan" id="kobo.186.1" xmlns="http://www.w3.org/1999/xhtml">configuration management.</span></span></p>
+<p><span class="koboSpan" id="kobo.187.1" xmlns="http://www.w3.org/1999/xhtml">Let’s examine</span><a id="_idIndexMarker104"/><span class="koboSpan" id="kobo.188.1" xmlns="http://www.w3.org/1999/xhtml"> the app startup code in </span><em class="italic"><span class="koboSpan" id="kobo.189.1" xmlns="http://www.w3.org/1999/xhtml">Listing </span></em><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.190.1" xmlns="http://www.w3.org/1999/xhtml">2.1</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.191.1" xmlns="http://www.w3.org/1999/xhtml"> (</span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.192.1" xmlns="http://www.w3.org/1999/xhtml">MauiProgram.cs</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.193.1" xmlns="http://www.w3.org/1999/xhtml">):</span></span></p>
+<p class="SC---Heading" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.194.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.1: MauiProgram.cs (https://epa.ms/MauiProgram2-1)</span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.195.1" xmlns="http://www.w3.org/1999/xhtml">
+namespace PassXYZ.Vault;
+public static class </span><strong class="bold"><span class="koboSpan" id="kobo.196.1" xmlns="http://www.w3.org/1999/xhtml">Maui</span><a id="_idTextAnchor049"/><span class="koboSpan" id="kobo.197.1" xmlns="http://www.w3.org/1999/xhtml">Program</span></strong><span class="koboSpan" id="kobo.198.1" xmlns="http://www.w3.org/1999/xhtml">
+{
+  public static MauiApp </span><strong class="bold"><span class="koboSpan" id="kobo.199.1" xmlns="http://www.w3.org/1999/xhtml">CreateMauiApp</span></strong><span class="koboSpan" id="kobo.200.1" xmlns="http://www.w3.org/1999/xhtml">()                    ➊
+  {
+      var builder = MauiApp.CreateBuilder();               ➋
+      builder
+        .UseMauiApp&lt;App&gt;()                                 ❹
+        .ConfigureFonts(fonts =&gt;
+        {
+          fonts.AddFont("OpenSans-Regular.ttf",             "OpenSansRegular");
+        });
+      return builder.Build();                              ➌
+  }
+}</span></pre>
+<p><span class="koboSpan" id="kobo.201.1" xmlns="http://www.w3.org/1999/xhtml">We can see the following in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.202.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.1</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.203.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<p><span class="koboSpan" id="kobo.204.1" xmlns="http://www.w3.org/1999/xhtml">➊ In each platform, the entry point is in platform-specific code. </span><span class="koboSpan" id="kobo.204.2" xmlns="http://www.w3.org/1999/xhtml">The entry point calls the </span><strong class="source-inline"><span class="koboSpan" id="kobo.205.1" xmlns="http://www.w3.org/1999/xhtml">CreateMauiApp</span></strong><span class="koboSpan" id="kobo.206.1" xmlns="http://www.w3.org/1999/xhtml"> function, which is a method of the </span><strong class="source-inline"><span class="koboSpan" id="kobo.207.1" xmlns="http://www.w3.org/1999/xhtml">MauiProgram</span></strong> <span class="No-Break"><span class="koboSpan" id="kobo.208.1" xmlns="http://www.w3.org/1999/xhtml">static class.</span></span></p>
+<p><span class="koboSpan" id="kobo.209.1" xmlns="http://www.w3.org/1999/xhtml">➋ Inside </span><strong class="source-inline"><span class="koboSpan" id="kobo.210.1" xmlns="http://www.w3.org/1999/xhtml">CreateMauiApp</span></strong><span class="koboSpan" id="kobo.211.1" xmlns="http://www.w3.org/1999/xhtml">, it calls the </span><strong class="source-inline"><span class="koboSpan" id="kobo.212.1" xmlns="http://www.w3.org/1999/xhtml">CreateBuilder</span></strong><span class="koboSpan" id="kobo.213.1" xmlns="http://www.w3.org/1999/xhtml"> function, which is a method of the </span><strong class="source-inline"><span class="koboSpan" id="kobo.214.1" xmlns="http://www.w3.org/1999/xhtml">MauiApp</span></strong><span class="koboSpan" id="kobo.215.1" xmlns="http://www.w3.org/1999/xhtml"> static</span><a id="_idIndexMarker105"/><span class="koboSpan" id="kobo.216.1" xmlns="http://www.w3.org/1999/xhtml"> class, and returns a </span><strong class="source-inline"><span class="koboSpan" id="kobo.217.1" xmlns="http://www.w3.org/1999/xhtml">MauiAppBuilder</span></strong><span class="koboSpan" id="kobo.218.1" xmlns="http://www.w3.org/1999/xhtml"> instance, which provides a .NET Generic </span><span class="No-Break"><span class="koboSpan" id="kobo.219.1" xmlns="http://www.w3.org/1999/xhtml">Host interface.</span></span></p>
+<p><span class="koboSpan" id="kobo.220.1" xmlns="http://www.w3.org/1999/xhtml">➌ The return value of </span><strong class="source-inline"><span class="koboSpan" id="kobo.221.1" xmlns="http://www.w3.org/1999/xhtml">CreateMauiApp</span></strong><span class="koboSpan" id="kobo.222.1" xmlns="http://www.w3.org/1999/xhtml"> is a </span><strong class="source-inline"><span class="koboSpan" id="kobo.223.1" xmlns="http://www.w3.org/1999/xhtml">MauiApp</span></strong><span class="koboSpan" id="kobo.224.1" xmlns="http://www.w3.org/1999/xhtml"> instance, which is the entry point of </span><span class="No-Break"><span class="koboSpan" id="kobo.225.1" xmlns="http://www.w3.org/1999/xhtml">your app.</span></span></p>
+<p><span class="koboSpan" id="kobo.226.1" xmlns="http://www.w3.org/1999/xhtml">❹ The </span><strong class="source-inline"><span class="koboSpan" id="kobo.227.1" xmlns="http://www.w3.org/1999/xhtml">App</span></strong><span class="koboSpan" id="kobo.228.1" xmlns="http://www.w3.org/1999/xhtml"> class referenced in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.229.1" xmlns="http://www.w3.org/1999/xhtml">UseMauiApp</span></strong><span class="koboSpan" id="kobo.230.1" xmlns="http://www.w3.org/1999/xhtml"> method is the root object of our application. </span><span class="koboSpan" id="kobo.230.2" xmlns="http://www.w3.org/1999/xhtml">Let’s review the definition of the </span><strong class="source-inline"><span class="koboSpan" id="kobo.231.1" xmlns="http://www.w3.org/1999/xhtml">App</span></strong><span class="koboSpan" id="kobo.232.1" xmlns="http://www.w3.org/1999/xhtml"> class in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.233.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.2</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.234.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<p class="SC---Heading" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.235.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.2: App.xaml.cs  (https://epa.ms/App2-2)</span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.236.1" xmlns="http://www.w3.org/1999/xhtml">
+namespace PassXYZ.Vault;
+public partial class </span><strong class="bold"><span class="koboSpan" id="kobo.237.1" xmlns="http://www.w3.org/1999/xhtml">App</span></strong><span class="koboSpan" id="kobo.238.1" xmlns="http://www.w3.org/1999/xhtml"> : </span><strong class="bold"><span class="koboSpan" id="kobo.239.1" xmlns="http://www.w3.org/1999/xhtml">Application</span></strong><span class="koboSpan" id="kobo.240.1" xmlns="http://www.w3.org/1999/xhtml">                     ①
+{
+	public App()
+	{
+		InitializeComponent();
+		MainPage = new </span><strong class="bold"><span class="koboSpan" id="kobo.241.1" xmlns="http://www.w3.org/1999/xhtml">AppShell</span></strong><span class="koboSpan" id="kobo.242.1" xmlns="http://www.w3.org/1999/xhtml">();                      ②
+	}
+}</span></pre>
+<p><span class="koboSpan" id="kobo.243.1" xmlns="http://www.w3.org/1999/xhtml">In </span><em class="italic"><span class="koboSpan" id="kobo.244.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.2</span></em><span class="koboSpan" id="kobo.245.1" xmlns="http://www.w3.org/1999/xhtml">, ① the </span><strong class="source-inline"><span class="koboSpan" id="kobo.246.1" xmlns="http://www.w3.org/1999/xhtml">App</span></strong><span class="koboSpan" id="kobo.247.1" xmlns="http://www.w3.org/1999/xhtml"> class is derived from the </span><strong class="source-inline"><span class="koboSpan" id="kobo.248.1" xmlns="http://www.w3.org/1999/xhtml">Application</span></strong><span class="koboSpan" id="kobo.249.1" xmlns="http://www.w3.org/1999/xhtml"> class, and the </span><strong class="source-inline"><span class="koboSpan" id="kobo.250.1" xmlns="http://www.w3.org/1999/xhtml">Application</span></strong><span class="koboSpan" id="kobo.251.1" xmlns="http://www.w3.org/1999/xhtml"> class is defined in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.252.1" xmlns="http://www.w3.org/1999/xhtml">Microsoft.Maui.Controls</span></strong><span class="koboSpan" id="kobo.253.1" xmlns="http://www.w3.org/1999/xhtml"> namespace. </span></p>
+<p><span class="koboSpan" id="kobo.254.1" xmlns="http://www.w3.org/1999/xhtml">② </span><strong class="source-inline"><span class="koboSpan" id="kobo.255.1" xmlns="http://www.w3.org/1999/xhtml">AppShell</span></strong><span class="koboSpan" id="kobo.256.1" xmlns="http://www.w3.org/1999/xhtml"> is an instance of </span><strong class="source-inline"><span class="koboSpan" id="kobo.257.1" xmlns="http://www.w3.org/1999/xhtml">Shell</span></strong><span class="koboSpan" id="kobo.258.1" xmlns="http://www.w3.org/1999/xhtml">, and it defines the UI of the initial page of the app. </span><strong class="source-inline"><span class="koboSpan" id="kobo.259.1" xmlns="http://www.w3.org/1999/xhtml">Application</span></strong><span class="koboSpan" id="kobo.260.1" xmlns="http://www.w3.org/1999/xhtml"> creates an instance of the </span><strong class="source-inline"><span class="koboSpan" id="kobo.261.1" xmlns="http://www.w3.org/1999/xhtml">Window</span></strong><span class="koboSpan" id="kobo.262.1" xmlns="http://www.w3.org/1999/xhtml"> class within which the application will run and </span><a id="_idIndexMarker106"/><span class="koboSpan" id="kobo.263.1" xmlns="http://www.w3.org/1999/xhtml">views will be displayed. </span><span class="koboSpan" id="kobo.263.2" xmlns="http://www.w3.org/1999/xhtml">In the </span><strong class="source-inline"><span class="koboSpan" id="kobo.264.1" xmlns="http://www.w3.org/1999/xhtml">App</span></strong><span class="koboSpan" id="kobo.265.1" xmlns="http://www.w3.org/1999/xhtml"> class, we can overwrite the </span><strong class="source-inline"><span class="koboSpan" id="kobo.266.1" xmlns="http://www.w3.org/1999/xhtml">CreateWindow</span></strong><span class="koboSpan" id="kobo.267.1" xmlns="http://www.w3.org/1999/xhtml"> method to manage the lifecycle, which we will </span><span class="No-Break"><span class="koboSpan" id="kobo.268.1" xmlns="http://www.w3.org/1999/xhtml">see soon.</span></span></p>
+<h2 id="_idParaDest-50"><a id="_idTextAnchor050"/><span class="koboSpan" id="kobo.269.1" xmlns="http://www.w3.org/1999/xhtml">Lifecycle management</span></h2>
+<p><span class="koboSpan" id="kobo.270.1" xmlns="http://www.w3.org/1999/xhtml">In the .NET MAUI app, there</span><a id="_idIndexMarker107"/><span class="koboSpan" id="kobo.271.1" xmlns="http://www.w3.org/1999/xhtml"> are the following four </span><span class="No-Break"><span class="koboSpan" id="kobo.272.1" xmlns="http://www.w3.org/1999/xhtml">lifecycle states:</span></span></p>
+<ul>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.273.1" xmlns="http://www.w3.org/1999/xhtml">Running</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.274.1" xmlns="http://www.w3.org/1999/xhtml">Not running</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.275.1" xmlns="http://www.w3.org/1999/xhtml">Deactivated</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.276.1" xmlns="http://www.w3.org/1999/xhtml">Stopped</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.277.1" xmlns="http://www.w3.org/1999/xhtml">During the state transitions, the predefined lifecycle events will be triggered. </span><span class="koboSpan" id="kobo.277.2" xmlns="http://www.w3.org/1999/xhtml">There are six cross-platform lifecycle events defined, as we can see in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.278.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.1</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.279.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table001-2">
+<colgroup>
+<col/>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.280.1" xmlns="http://www.w3.org/1999/xhtml">Event</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.281.1" xmlns="http://www.w3.org/1999/xhtml">Description</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.282.1" xmlns="http://www.w3.org/1999/xhtml">State transition</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.283.1" xmlns="http://www.w3.org/1999/xhtml">Override method</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.284.1" xmlns="http://www.w3.org/1999/xhtml">Created</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.285.1" xmlns="http://www.w3.org/1999/xhtml">This event is raised after the native window has </span><span class="No-Break"><span class="koboSpan" id="kobo.286.1" xmlns="http://www.w3.org/1999/xhtml">been created.</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.287.1" xmlns="http://www.w3.org/1999/xhtml">Not running -&gt; </span><span class="No-Break"><span class="koboSpan" id="kobo.288.1" xmlns="http://www.w3.org/1999/xhtml">Running</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.289.1" xmlns="http://www.w3.org/1999/xhtml">OnCreated</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.290.1" xmlns="http://www.w3.org/1999/xhtml">Activated</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.291.1" xmlns="http://www.w3.org/1999/xhtml">This event is raised when the window has been activated and is, or will become, the </span><span class="No-Break"><span class="koboSpan" id="kobo.292.1" xmlns="http://www.w3.org/1999/xhtml">focused window.</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.293.1" xmlns="http://www.w3.org/1999/xhtml">Not running -&gt; </span><span class="No-Break"><span class="koboSpan" id="kobo.294.1" xmlns="http://www.w3.org/1999/xhtml">Running</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.295.1" xmlns="http://www.w3.org/1999/xhtml">OnActivated</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.296.1" xmlns="http://www.w3.org/1999/xhtml">Deactivated</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.297.1" xmlns="http://www.w3.org/1999/xhtml">This event is raised when the window is no longer the focused window. </span><span class="koboSpan" id="kobo.297.2" xmlns="http://www.w3.org/1999/xhtml">However, the window might still </span><span class="No-Break"><span class="koboSpan" id="kobo.298.1" xmlns="http://www.w3.org/1999/xhtml">be visible.</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.299.1" xmlns="http://www.w3.org/1999/xhtml">Running -&gt; </span><span class="No-Break"><span class="koboSpan" id="kobo.300.1" xmlns="http://www.w3.org/1999/xhtml">Deactivated</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.301.1" xmlns="http://www.w3.org/1999/xhtml">OnDeactivated</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.302.1" xmlns="http://www.w3.org/1999/xhtml">Stopped</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.303.1" xmlns="http://www.w3.org/1999/xhtml">This event is raised when the window is no </span><span class="No-Break"><span class="koboSpan" id="kobo.304.1" xmlns="http://www.w3.org/1999/xhtml">longer visible.</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.305.1" xmlns="http://www.w3.org/1999/xhtml">Deactivated -&gt; </span><span class="No-Break"><span class="koboSpan" id="kobo.306.1" xmlns="http://www.w3.org/1999/xhtml">Stopped</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.307.1" xmlns="http://www.w3.org/1999/xhtml">OnStopped</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.308.1" xmlns="http://www.w3.org/1999/xhtml">Resumed</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.309.1" xmlns="http://www.w3.org/1999/xhtml">This event is raised when an app resumes after </span><span class="No-Break"><span class="koboSpan" id="kobo.310.1" xmlns="http://www.w3.org/1999/xhtml">being stopped.</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.311.1" xmlns="http://www.w3.org/1999/xhtml">Stopped -&gt; </span><span class="No-Break"><span class="koboSpan" id="kobo.312.1" xmlns="http://www.w3.org/1999/xhtml">Running</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.313.1" xmlns="http://www.w3.org/1999/xhtml">OnResumed</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.314.1" xmlns="http://www.w3.org/1999/xhtml">Destroying</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.315.1" xmlns="http://www.w3.org/1999/xhtml">This event is raised when the native window is being destroyed </span><span class="No-Break"><span class="koboSpan" id="kobo.316.1" xmlns="http://www.w3.org/1999/xhtml">and deallocated.</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.317.1" xmlns="http://www.w3.org/1999/xhtml">Stopped -&gt; </span><span class="No-Break"><span class="koboSpan" id="kobo.318.1" xmlns="http://www.w3.org/1999/xhtml">Not running</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.319.1" xmlns="http://www.w3.org/1999/xhtml">OnDestroying</span></strong></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.320.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.1: Lifecycle events and override methods</span></p>
+<p><span class="koboSpan" id="kobo.321.1" xmlns="http://www.w3.org/1999/xhtml">These lifecycle events are associated with the instance of the </span><strong class="source-inline"><span class="koboSpan" id="kobo.322.1" xmlns="http://www.w3.org/1999/xhtml">Window</span></strong><span class="koboSpan" id="kobo.323.1" xmlns="http://www.w3.org/1999/xhtml"> class created by </span><strong class="source-inline"><span class="koboSpan" id="kobo.324.1" xmlns="http://www.w3.org/1999/xhtml">Application</span></strong><span class="koboSpan" id="kobo.325.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.325.2" xmlns="http://www.w3.org/1999/xhtml">For each </span><a id="_idIndexMarker108"/><span class="koboSpan" id="kobo.326.1" xmlns="http://www.w3.org/1999/xhtml">event, there is a corresponding override method defined. </span><span class="koboSpan" id="kobo.326.2" xmlns="http://www.w3.org/1999/xhtml">We can either subscribe to the lifecycle events or create override functions to handle </span><span class="No-Break"><span class="koboSpan" id="kobo.327.1" xmlns="http://www.w3.org/1999/xhtml">lifecycle management.</span></span></p>
+<h3><span class="koboSpan" id="kobo.328.1" xmlns="http://www.w3.org/1999/xhtml">Subscribing to the Window lifecycle events</span></h3>
+<p><span class="koboSpan" id="kobo.329.1" xmlns="http://www.w3.org/1999/xhtml">To subscribe to the lifecycle</span><a id="_idIndexMarker109"/><span class="koboSpan" id="kobo.330.1" xmlns="http://www.w3.org/1999/xhtml"> events, as we can see in </span><em class="italic"><span class="koboSpan" id="kobo.331.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.3</span></em><span class="koboSpan" id="kobo.332.1" xmlns="http://www.w3.org/1999/xhtml">, at ➊ we can override the </span><strong class="source-inline"><span class="koboSpan" id="kobo.333.1" xmlns="http://www.w3.org/1999/xhtml">CreateWindow</span></strong><span class="koboSpan" id="kobo.334.1" xmlns="http://www.w3.org/1999/xhtml"> method in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.335.1" xmlns="http://www.w3.org/1999/xhtml">App</span></strong><span class="koboSpan" id="kobo.336.1" xmlns="http://www.w3.org/1999/xhtml"> class to create a </span><strong class="source-inline"><span class="koboSpan" id="kobo.337.1" xmlns="http://www.w3.org/1999/xhtml">Window</span></strong><span class="koboSpan" id="kobo.338.1" xmlns="http://www.w3.org/1999/xhtml"> instance on which we can subscribe </span><span class="No-Break"><span class="koboSpan" id="kobo.339.1" xmlns="http://www.w3.org/1999/xhtml">to events:</span></span></p>
+<p class="SC---Heading" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.340.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.3: App.xaml.cs with lifecycle events (https://epa.ms/App2-3)</span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.341.1" xmlns="http://www.w3.org/1999/xhtml">
+using System.Diagnostics;
+namespace PassXYZ.Vault;
+public partial class App : Application {
+  public App() {
+    InitializeComponent();
+    MainPage = new MainPage();
+  }
+  protected override Window CreateWindow(IActivationState
+    activationState)                                       ➊
+  {
+    Window window = base.CreateWindow(activationState);
+    window.Created += (s, e) =&gt; {
+      Debug.WriteLine("PassXYZ.Vault.App: 1. </span><span class="koboSpan" id="kobo.341.2" xmlns="http://www.w3.org/1999/xhtml">Created event");
+    };
+    window.Activated += (s, e) =&gt; {
+      Debug.WriteLine("PassXYZ.Vault.App: 2. </span><span class="koboSpan" id="kobo.341.3" xmlns="http://www.w3.org/1999/xhtml">Activated event");
+    };
+    window.Deactivated += (s, e) =&gt; {
+      Debug.WriteLine("PassXYZ.Vault.App: 3. </span><span class="koboSpan" id="kobo.341.4" xmlns="http://www.w3.org/1999/xhtml">Deactivated         event");
+    };
+    window.Stopped += (s, e) =&gt; {
+      Debug.WriteLine("PassXYZ.Vault.App: 4. </span><span class="koboSpan" id="kobo.341.5" xmlns="http://www.w3.org/1999/xhtml">Stopped event");
+    };
+    window.Resumed += (s, e) =&gt; {
+      Debug.WriteLine("PassXYZ.Vault.App: 5. </span><span class="koboSpan" id="kobo.341.6" xmlns="http://www.w3.org/1999/xhtml">Resumed event");
+    };
+    window.Destroying += (s, e) =&gt; {
+      Debug.WriteLine("PassXYZ.Vault.App: 6. </span><span class="koboSpan" id="kobo.341.7" xmlns="http://www.w3.org/1999/xhtml">Destroying         event");
+    };
+    return window;
+  }
+}</span></pre>
+<p><span class="koboSpan" id="kobo.342.1" xmlns="http://www.w3.org/1999/xhtml">In </span><em class="italic"><span class="koboSpan" id="kobo.343.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.3</span></em><span class="koboSpan" id="kobo.344.1" xmlns="http://www.w3.org/1999/xhtml">, we revised the code of </span><strong class="source-inline"><span class="koboSpan" id="kobo.345.1" xmlns="http://www.w3.org/1999/xhtml">App.xaml.cs</span></strong><span class="koboSpan" id="kobo.346.1" xmlns="http://www.w3.org/1999/xhtml"> and we subscribed to all six events so that we can run a test and observe the state from the Visual Studio Output window, as shown next. </span><span class="koboSpan" id="kobo.346.2" xmlns="http://www.w3.org/1999/xhtml">After </span><a id="_idIndexMarker110"/><span class="koboSpan" id="kobo.347.1" xmlns="http://www.w3.org/1999/xhtml">we launch our app, we can see that </span><strong class="source-inline"><span class="koboSpan" id="kobo.348.1" xmlns="http://www.w3.org/1999/xhtml">Created</span></strong><span class="koboSpan" id="kobo.349.1" xmlns="http://www.w3.org/1999/xhtml"> and </span><strong class="source-inline"><span class="koboSpan" id="kobo.350.1" xmlns="http://www.w3.org/1999/xhtml">Activated</span></strong><span class="koboSpan" id="kobo.351.1" xmlns="http://www.w3.org/1999/xhtml"> events are fired. </span><span class="koboSpan" id="kobo.351.2" xmlns="http://www.w3.org/1999/xhtml">Then, we minimize our app. </span><span class="koboSpan" id="kobo.351.3" xmlns="http://www.w3.org/1999/xhtml">We can see that </span><strong class="source-inline"><span class="koboSpan" id="kobo.352.1" xmlns="http://www.w3.org/1999/xhtml">Deactivated</span></strong><span class="koboSpan" id="kobo.353.1" xmlns="http://www.w3.org/1999/xhtml"> and </span><strong class="source-inline"><span class="koboSpan" id="kobo.354.1" xmlns="http://www.w3.org/1999/xhtml">Stopped</span></strong><span class="koboSpan" id="kobo.355.1" xmlns="http://www.w3.org/1999/xhtml"> events are fired. </span><span class="koboSpan" id="kobo.355.2" xmlns="http://www.w3.org/1999/xhtml">When we resume our app, </span><strong class="source-inline"><span class="koboSpan" id="kobo.356.1" xmlns="http://www.w3.org/1999/xhtml">Resumed</span></strong><span class="koboSpan" id="kobo.357.1" xmlns="http://www.w3.org/1999/xhtml"> and </span><strong class="source-inline"><span class="koboSpan" id="kobo.358.1" xmlns="http://www.w3.org/1999/xhtml">Activated</span></strong><span class="koboSpan" id="kobo.359.1" xmlns="http://www.w3.org/1999/xhtml"> events are fired. </span><span class="koboSpan" id="kobo.359.2" xmlns="http://www.w3.org/1999/xhtml">Finally, we close our app, and a </span><strong class="source-inline"><span class="koboSpan" id="kobo.360.1" xmlns="http://www.w3.org/1999/xhtml">Destroying</span></strong><span class="koboSpan" id="kobo.361.1" xmlns="http://www.w3.org/1999/xhtml"> event </span><span class="No-Break"><span class="koboSpan" id="kobo.362.1" xmlns="http://www.w3.org/1999/xhtml">is fired:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.363.1" xmlns="http://www.w3.org/1999/xhtml">
+PassXYZ.Vault.App: 1. </span><span class="koboSpan" id="kobo.363.2" xmlns="http://www.w3.org/1999/xhtml">Created event
+PassXYZ.Vault.App: 2. </span><span class="koboSpan" id="kobo.363.3" xmlns="http://www.w3.org/1999/xhtml">Activated event
+PassXYZ.Vault.App: 4. </span><span class="koboSpan" id="kobo.363.4" xmlns="http://www.w3.org/1999/xhtml">Stopped event
+PassXYZ.Vault.App: 3. </span><span class="koboSpan" id="kobo.363.5" xmlns="http://www.w3.org/1999/xhtml">Deactivated event
+PassXYZ.Vault.App: 5. </span><span class="koboSpan" id="kobo.363.6" xmlns="http://www.w3.org/1999/xhtml">Resumed event
+PassXYZ.Vault.App: 2. </span><span class="koboSpan" id="kobo.363.7" xmlns="http://www.w3.org/1999/xhtml">Activated event
+PassXYZ.Vault.App: 5. </span><span class="koboSpan" id="kobo.363.8" xmlns="http://www.w3.org/1999/xhtml">Resumed event
+PassXYZ.Vault.App: 2. </span><span class="koboSpan" id="kobo.363.9" xmlns="http://www.w3.org/1999/xhtml">Activated event
+The thread 0x6f94 has exited with code 0 (0x0).
+</span><span class="koboSpan" id="kobo.363.10" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault.App: 6. </span><span class="koboSpan" id="kobo.363.11" xmlns="http://www.w3.org/1999/xhtml">Destroying event
+The program '[30628] PassXYZ.Vault.exe' has exited with code 0 (0x0).</span></pre>
+<h3><span class="koboSpan" id="kobo.364.1" xmlns="http://www.w3.org/1999/xhtml">Consuming the lifecycle override methods</span></h3>
+<p><span class="koboSpan" id="kobo.365.1" xmlns="http://www.w3.org/1999/xhtml">Alternatively, we </span><a id="_idIndexMarker111"/><span class="koboSpan" id="kobo.366.1" xmlns="http://www.w3.org/1999/xhtml">can consume the lifecycle override methods. </span><span class="koboSpan" id="kobo.366.2" xmlns="http://www.w3.org/1999/xhtml">We can create our own derived class from the </span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.367.1" xmlns="http://www.w3.org/1999/xhtml">Window</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.368.1" xmlns="http://www.w3.org/1999/xhtml"> class:</span></span></p>
+<ol>
+<li value="1"><span class="koboSpan" id="kobo.369.1" xmlns="http://www.w3.org/1999/xhtml">In Visual Studio, right-click on the project node and select </span><strong class="bold"><span class="koboSpan" id="kobo.370.1" xmlns="http://www.w3.org/1999/xhtml">Add</span></strong><span class="koboSpan" id="kobo.371.1" xmlns="http://www.w3.org/1999/xhtml"> and then </span><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.372.1" xmlns="http://www.w3.org/1999/xhtml">New Item…</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.373.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></li>
+<li><span class="koboSpan" id="kobo.374.1" xmlns="http://www.w3.org/1999/xhtml">In the </span><strong class="bold"><span class="koboSpan" id="kobo.375.1" xmlns="http://www.w3.org/1999/xhtml">Add New Item</span></strong><span class="koboSpan" id="kobo.376.1" xmlns="http://www.w3.org/1999/xhtml"> window, select </span><strong class="bold"><span class="koboSpan" id="kobo.377.1" xmlns="http://www.w3.org/1999/xhtml">C# Class</span></strong><span class="koboSpan" id="kobo.378.1" xmlns="http://www.w3.org/1999/xhtml"> from the template and name it </span><strong class="source-inline"><span class="koboSpan" id="kobo.379.1" xmlns="http://www.w3.org/1999/xhtml">PxWindow</span></strong><span class="koboSpan" id="kobo.380.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.380.2" xmlns="http://www.w3.org/1999/xhtml">We created a new class, as shown next in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.381.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.4</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.382.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></li>
+</ol>
+<p class="SC---Heading" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.383.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.4: PxWindow.cs (https://epa.ms/PxWindow2-4)</span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.384.1" xmlns="http://www.w3.org/1999/xhtml">
+using System.Diagnostics;
+namespace PassXYZ.Vault;
+public class PxWindow : Window
+{
+    public PxWindow() : base() {}
+    public PxWindow(Page page) : base(page) {}
+    protected override void OnCreated() {
+        Debug.WriteLine("PassXYZ.Vault.App: 1. </span><span class="koboSpan" id="kobo.384.2" xmlns="http://www.w3.org/1999/xhtml">OnCreated");
+    }
+    protected override void OnActivated() {
+        Debug.WriteLine("PassXYZ.Vault.App: 2. </span><span class="koboSpan" id="kobo.384.3" xmlns="http://www.w3.org/1999/xhtml">OnActivated");
+    }
+    protected override void OnDeactivated() {
+        Debug.WriteLine("PassXYZ.Vault.App: 3. </span><span class="koboSpan" id="kobo.384.4" xmlns="http://www.w3.org/1999/xhtml">OnDeactivated");
+    }
+    protected override void OnStopped() {
+        Debug.WriteLine("PassXYZ.Vault.App: 4. </span><span class="koboSpan" id="kobo.384.5" xmlns="http://www.w3.org/1999/xhtml">OnStopped");
+    }
+    protected override void OnResumed() {
+        Debug.WriteLine("PassXYZ.Vault.App: 5. </span><span class="koboSpan" id="kobo.384.6" xmlns="http://www.w3.org/1999/xhtml">OnResumed");
+    }
+    protected override void OnDestroying() {
+        Debug.WriteLine("PassXYZ.Vault.App: 6. </span><span class="koboSpan" id="kobo.384.7" xmlns="http://www.w3.org/1999/xhtml">OnDestroying");
+    }
+}</span></pre>
+<p><span class="koboSpan" id="kobo.385.1" xmlns="http://www.w3.org/1999/xhtml">In </span><em class="italic"><span class="koboSpan" id="kobo.386.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.4</span></em><span class="koboSpan" id="kobo.387.1" xmlns="http://www.w3.org/1999/xhtml">, we created a new class, </span><strong class="source-inline"><span class="koboSpan" id="kobo.388.1" xmlns="http://www.w3.org/1999/xhtml">PxWindow</span></strong><span class="koboSpan" id="kobo.389.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.389.2" xmlns="http://www.w3.org/1999/xhtml">In this class, we define our lifecycle override methods. </span><span class="koboSpan" id="kobo.389.3" xmlns="http://www.w3.org/1999/xhtml">We </span><a id="_idIndexMarker112"/><span class="koboSpan" id="kobo.390.1" xmlns="http://www.w3.org/1999/xhtml">can use this new class </span><span class="No-Break"><span class="koboSpan" id="kobo.391.1" xmlns="http://www.w3.org/1999/xhtml">in </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.392.1" xmlns="http://www.w3.org/1999/xhtml">App.xaml.cs</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.393.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></p>
+<p><span class="koboSpan" id="kobo.394.1" xmlns="http://www.w3.org/1999/xhtml">Next, let’s look at the modified version of </span><strong class="source-inline"><span class="koboSpan" id="kobo.395.1" xmlns="http://www.w3.org/1999/xhtml">App.xaml.cs</span></strong><span class="koboSpan" id="kobo.396.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.397.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.5</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.398.1" xmlns="http://www.w3.org/1999/xhtml">):</span></span></p>
+<p class="SC---Heading" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.399.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.5 Modified App.xaml.cs with PxWindow (https://epa.ms/App2-5)</span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.400.1" xmlns="http://www.w3.org/1999/xhtml">
+namespace PassXYZ.Vault;
+public partial class App : Application
+{
+	public App()
+	{
+		InitializeComponent();
+	}
+protected override Window CreateWindow(IActivationState
+    activationState)                                       ➊
+    {
+        return new PxWindow(new MainPage());
+    }
+}</span></pre>
+<p><span class="koboSpan" id="kobo.401.1" xmlns="http://www.w3.org/1999/xhtml">When we repeat the test steps, we can see the following output from Visual Studio Output windows. </span><span class="koboSpan" id="kobo.401.2" xmlns="http://www.w3.org/1999/xhtml">The </span><a id="_idIndexMarker113"/><span class="koboSpan" id="kobo.402.1" xmlns="http://www.w3.org/1999/xhtml">output looks very similar to the previous one. </span><span class="koboSpan" id="kobo.402.2" xmlns="http://www.w3.org/1999/xhtml">Basically, both approaches have the same effect on </span><span class="No-Break"><span class="koboSpan" id="kobo.403.1" xmlns="http://www.w3.org/1999/xhtml">lifecycle management:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.404.1" xmlns="http://www.w3.org/1999/xhtml">
+PassXYZ.Vault.App: 1. </span><span class="koboSpan" id="kobo.404.2" xmlns="http://www.w3.org/1999/xhtml">OnCreated
+PassXYZ.Vault.App: 2. </span><span class="koboSpan" id="kobo.404.3" xmlns="http://www.w3.org/1999/xhtml">OnActivated
+PassXYZ.Vault.App: 4. </span><span class="koboSpan" id="kobo.404.4" xmlns="http://www.w3.org/1999/xhtml">OnStopped
+PassXYZ.Vault.App: 3. </span><span class="koboSpan" id="kobo.404.5" xmlns="http://www.w3.org/1999/xhtml">OnDeactivated
+PassXYZ.Vault.App: 5. </span><span class="koboSpan" id="kobo.404.6" xmlns="http://www.w3.org/1999/xhtml">OnResumed
+PassXYZ.Vault.App: 2. </span><span class="koboSpan" id="kobo.404.7" xmlns="http://www.w3.org/1999/xhtml">OnActivated
+PassXYZ.Vault.App: 5. </span><span class="koboSpan" id="kobo.404.8" xmlns="http://www.w3.org/1999/xhtml">OnResumed
+PassXYZ.Vault.App: 2. </span><span class="koboSpan" id="kobo.404.9" xmlns="http://www.w3.org/1999/xhtml">OnActivated
+PassXYZ.Vault.App: 6. </span><span class="koboSpan" id="kobo.404.10" xmlns="http://www.w3.org/1999/xhtml">OnDestroying
+The program '[25996] PassXYZ.Vault.exe' has exited with code 0 (0x0).</span></pre>
+<p><span class="koboSpan" id="kobo.405.1" xmlns="http://www.w3.org/1999/xhtml">We have learned about app lifecycle management in .NET MAUI through the </span><strong class="source-inline"><span class="koboSpan" id="kobo.406.1" xmlns="http://www.w3.org/1999/xhtml">Window</span></strong><span class="koboSpan" id="kobo.407.1" xmlns="http://www.w3.org/1999/xhtml"> class. </span><span class="koboSpan" id="kobo.407.2" xmlns="http://www.w3.org/1999/xhtml">We can either subscribe to lifecycle events or override the overridable methods to manage the app lifecycle. </span><em class="italic"><span class="koboSpan" id="kobo.408.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.1</span></em><span class="koboSpan" id="kobo.409.1" xmlns="http://www.w3.org/1999/xhtml"> shows the comparison of these </span><span class="No-Break"><span class="koboSpan" id="kobo.410.1" xmlns="http://www.w3.org/1999/xhtml">two approaches.</span></span></p>
+<p><span class="koboSpan" id="kobo.411.1" xmlns="http://www.w3.org/1999/xhtml">If you were a Xamarin.Forms </span><a id="_idIndexMarker114"/><span class="koboSpan" id="kobo.412.1" xmlns="http://www.w3.org/1999/xhtml">developer, you might know that there were lifecycle methods defined in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.413.1" xmlns="http://www.w3.org/1999/xhtml">Application</span></strong><span class="koboSpan" id="kobo.414.1" xmlns="http://www.w3.org/1999/xhtml"> class as well. </span><span class="koboSpan" id="kobo.414.2" xmlns="http://www.w3.org/1999/xhtml">In .NET MAUI, the following virtual methods are </span><span class="No-Break"><span class="koboSpan" id="kobo.415.1" xmlns="http://www.w3.org/1999/xhtml">still available:</span></span></p>
+<ul>
+<li><strong class="source-inline"><span class="koboSpan" id="kobo.416.1" xmlns="http://www.w3.org/1999/xhtml">OnStart</span></strong><span class="koboSpan" id="kobo.417.1" xmlns="http://www.w3.org/1999/xhtml"> – Called when the </span><span class="No-Break"><span class="koboSpan" id="kobo.418.1" xmlns="http://www.w3.org/1999/xhtml">application starts</span></span></li>
+<li><strong class="source-inline"><span class="koboSpan" id="kobo.419.1" xmlns="http://www.w3.org/1999/xhtml">OnSleep</span></strong><span class="koboSpan" id="kobo.420.1" xmlns="http://www.w3.org/1999/xhtml"> – Called each time the application goes to </span><span class="No-Break"><span class="koboSpan" id="kobo.421.1" xmlns="http://www.w3.org/1999/xhtml">the background</span></span></li>
+<li><strong class="source-inline"><span class="koboSpan" id="kobo.422.1" xmlns="http://www.w3.org/1999/xhtml">OnResume</span></strong><span class="koboSpan" id="kobo.423.1" xmlns="http://www.w3.org/1999/xhtml"> – Called when the application is resumed, after being sent to </span><span class="No-Break"><span class="koboSpan" id="kobo.424.1" xmlns="http://www.w3.org/1999/xhtml">the background</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.425.1" xmlns="http://www.w3.org/1999/xhtml">To observe the behavior of these methods, we can override the following methods in our </span><strong class="source-inline"><span class="koboSpan" id="kobo.426.1" xmlns="http://www.w3.org/1999/xhtml">App</span></strong><span class="koboSpan" id="kobo.427.1" xmlns="http://www.w3.org/1999/xhtml"> class, as shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.428.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.6</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.429.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<p class="SC---Heading" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.430.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.6: App.xaml.cs (https://epa.ms/App2-6)</span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.431.1" xmlns="http://www.w3.org/1999/xhtml">
+using System.Diagnostics;
+namespace PassXYZ.Vault;
+public partial class App : Application
+{
+	public App()
+	{
+		InitializeComponent();
+		MainPage = new MainPage();
+	}
+	protected override void </span><strong class="bold"><span class="koboSpan" id="kobo.432.1" xmlns="http://www.w3.org/1999/xhtml">OnStart</span></strong><span class="koboSpan" id="kobo.433.1" xmlns="http://www.w3.org/1999/xhtml">() {                    ➊
+		Debug.WriteLine("PassXYZ.Vault.App: OnStart");
+	}
+	protected override void </span><strong class="bold"><span class="koboSpan" id="kobo.434.1" xmlns="http://www.w3.org/1999/xhtml">OnSleep</span></strong><span class="koboSpan" id="kobo.435.1" xmlns="http://www.w3.org/1999/xhtml">() {                    ➋
+		Debug.WriteLine("PassXYZ.Vault.App: OnSleep");
+	}
+	protected override void </span><strong class="bold"><span class="koboSpan" id="kobo.436.1" xmlns="http://www.w3.org/1999/xhtml">OnResume</span></strong><span class="koboSpan" id="kobo.437.1" xmlns="http://www.w3.org/1999/xhtml">() {                   ➌
+		Debug.WriteLine("PassXYZ.Vault.App: OnResume");
+	}
+}</span></pre>
+<p><span class="koboSpan" id="kobo.438.1" xmlns="http://www.w3.org/1999/xhtml">When we test the preceding </span><a id="_idIndexMarker115"/><span class="koboSpan" id="kobo.439.1" xmlns="http://www.w3.org/1999/xhtml">code on Windows, we can see the following debug message in the Visual Studio </span><span class="No-Break"><span class="koboSpan" id="kobo.440.1" xmlns="http://www.w3.org/1999/xhtml">Output window:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.441.1" xmlns="http://www.w3.org/1999/xhtml">
+PassXYZ.Vault.App: OnStart
+PassXYZ.Vault.App: OnSleep
+The thread 0x6844 has exited with code 0 (0x0).
+</span><span class="koboSpan" id="kobo.441.2" xmlns="http://www.w3.org/1999/xhtml">The thread 0x6828 has exited with code 0 (0x0).
+</span><span class="koboSpan" id="kobo.441.3" xmlns="http://www.w3.org/1999/xhtml">The thread 0x683c has exited with code 0 (0x0).
+</span><span class="koboSpan" id="kobo.441.4" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault.App: OnResume</span></pre>
+<p><span class="koboSpan" id="kobo.442.1" xmlns="http://www.w3.org/1999/xhtml">As seen in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.443.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.6</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.444.1" xmlns="http://www.w3.org/1999/xhtml">,</span></span></p>
+<p><span class="koboSpan" id="kobo.445.1" xmlns="http://www.w3.org/1999/xhtml">➊ When the app starts, we can see the </span><strong class="source-inline"><span class="koboSpan" id="kobo.446.1" xmlns="http://www.w3.org/1999/xhtml">OnStart</span></strong><span class="koboSpan" id="kobo.447.1" xmlns="http://www.w3.org/1999/xhtml"> method </span><span class="No-Break"><span class="koboSpan" id="kobo.448.1" xmlns="http://www.w3.org/1999/xhtml">is invoked.</span></span></p>
+<p><span class="koboSpan" id="kobo.449.1" xmlns="http://www.w3.org/1999/xhtml">➋ When we minimize our app, we can see the </span><strong class="source-inline"><span class="koboSpan" id="kobo.450.1" xmlns="http://www.w3.org/1999/xhtml">OnSleep</span></strong><span class="koboSpan" id="kobo.451.1" xmlns="http://www.w3.org/1999/xhtml"> method </span><span class="No-Break"><span class="koboSpan" id="kobo.452.1" xmlns="http://www.w3.org/1999/xhtml">is invoked.</span></span></p>
+<p><span class="koboSpan" id="kobo.453.1" xmlns="http://www.w3.org/1999/xhtml">➌ When we resume the app from the taskbar, the </span><strong class="source-inline"><span class="koboSpan" id="kobo.454.1" xmlns="http://www.w3.org/1999/xhtml">OnResume</span></strong><span class="koboSpan" id="kobo.455.1" xmlns="http://www.w3.org/1999/xhtml"> method </span><span class="No-Break"><span class="koboSpan" id="kobo.456.1" xmlns="http://www.w3.org/1999/xhtml">is invoked.</span></span></p>
+<p><span class="koboSpan" id="kobo.457.1" xmlns="http://www.w3.org/1999/xhtml">We have learned about the lifecycle states of the .NET MAUI app. </span><span class="koboSpan" id="kobo.457.2" xmlns="http://www.w3.org/1999/xhtml">We also learned that we could subscribe to the</span><a id="_idIndexMarker116"/><span class="koboSpan" id="kobo.458.1" xmlns="http://www.w3.org/1999/xhtml"> lifecycle events or use override methods to manage the lifecycle. </span><span class="koboSpan" id="kobo.458.2" xmlns="http://www.w3.org/1999/xhtml">Next, let’s explore the configuration of resources during the </span><span class="No-Break"><span class="koboSpan" id="kobo.459.1" xmlns="http://www.w3.org/1999/xhtml">app startup.</span></span></p>
+<h1 id="_idParaDest-51"><a id="_idTextAnchor051"/><span class="koboSpan" id="kobo.460.1" xmlns="http://www.w3.org/1999/xhtml">Configuring the resources</span></h1>
+<p><span class="koboSpan" id="kobo.461.1" xmlns="http://www.w3.org/1999/xhtml">Resource management is</span><a id="_idIndexMarker117"/><span class="koboSpan" id="kobo.462.1" xmlns="http://www.w3.org/1999/xhtml"> one of the major differences between .NET MAUI </span><span class="No-Break"><span class="koboSpan" id="kobo.463.1" xmlns="http://www.w3.org/1999/xhtml">and Xamarin.</span></span></p>
+<p><span class="koboSpan" id="kobo.464.1" xmlns="http://www.w3.org/1999/xhtml">When it comes to cross-platform development, each platform has its own way of managing resources, and it’s a daunting task for the development team to know and manage all those things. </span><span class="koboSpan" id="kobo.464.2" xmlns="http://www.w3.org/1999/xhtml">For example, we must include images in multiple sizes to support </span><span class="No-Break"><span class="koboSpan" id="kobo.465.1" xmlns="http://www.w3.org/1999/xhtml">different resolutions.</span></span></p>
+<p><span class="koboSpan" id="kobo.466.1" xmlns="http://www.w3.org/1999/xhtml">In Xamarin, most of the resources are managed separately in platform-specific projects. </span><span class="koboSpan" id="kobo.466.2" xmlns="http://www.w3.org/1999/xhtml">If we want to add an image, we must add the image files with different sizes to all platform </span><span class="No-Break"><span class="koboSpan" id="kobo.467.1" xmlns="http://www.w3.org/1999/xhtml">projects separately.</span></span></p>
+<p><span class="koboSpan" id="kobo.468.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI provides an elegant solution to manage resources effectively. </span><span class="koboSpan" id="kobo.468.2" xmlns="http://www.w3.org/1999/xhtml">The design goal of one single project for all supported platforms helps to manage resources in </span><span class="No-Break"><span class="koboSpan" id="kobo.469.1" xmlns="http://www.w3.org/1999/xhtml">one place.</span></span></p>
+<p><span class="koboSpan" id="kobo.470.1" xmlns="http://www.w3.org/1999/xhtml">In .NET MAUI, resource files can be tagged into different categories using a build action based on the role they play in the project, as we can see in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.471.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.2</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.472.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table002-1">
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.473.1" xmlns="http://www.w3.org/1999/xhtml">Resource Type</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.474.1" xmlns="http://www.w3.org/1999/xhtml">Build Action</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.475.1" xmlns="http://www.w3.org/1999/xhtml">Example</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.476.1" xmlns="http://www.w3.org/1999/xhtml">Images</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.477.1" xmlns="http://www.w3.org/1999/xhtml">MauiImage</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.478.1" xmlns="http://www.w3.org/1999/xhtml">dotnet_bot.svg</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.479.1" xmlns="http://www.w3.org/1999/xhtml">Icons</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.480.1" xmlns="http://www.w3.org/1999/xhtml">MauiIcon</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.481.1" xmlns="http://www.w3.org/1999/xhtml">appicon.svg</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.482.1" xmlns="http://www.w3.org/1999/xhtml">Splash </span><span class="No-Break"><span class="koboSpan" id="kobo.483.1" xmlns="http://www.w3.org/1999/xhtml">screen image</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.484.1" xmlns="http://www.w3.org/1999/xhtml">MauiSplashScreen</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.485.1" xmlns="http://www.w3.org/1999/xhtml">appiconfg.svg</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.486.1" xmlns="http://www.w3.org/1999/xhtml">Fonts</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.487.1" xmlns="http://www.w3.org/1999/xhtml">MauiFont</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.488.1" xmlns="http://www.w3.org/1999/xhtml">OpenSans-Regular.ttf</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.489.1" xmlns="http://www.w3.org/1999/xhtml">Style definition using </span><span class="No-Break"><span class="koboSpan" id="kobo.490.1" xmlns="http://www.w3.org/1999/xhtml">external CSS</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.491.1" xmlns="http://www.w3.org/1999/xhtml">MauiCss</span></strong></span></p>
+</td>
+<td class="No-Table-Style"/>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.492.1" xmlns="http://www.w3.org/1999/xhtml">Raw assets</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.493.1" xmlns="http://www.w3.org/1999/xhtml">MauiAsset</span></strong></span></p>
+</td>
+<td class="No-Table-Style"/>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.494.1" xmlns="http://www.w3.org/1999/xhtml">XAML </span><span class="No-Break"><span class="koboSpan" id="kobo.495.1" xmlns="http://www.w3.org/1999/xhtml">UI definition</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.496.1" xmlns="http://www.w3.org/1999/xhtml">MauiXaml</span></strong></span></p>
+</td>
+<td class="No-Table-Style"/>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.497.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.2: .NET MAUI resource types</span></p>
+<p><span class="koboSpan" id="kobo.498.1" xmlns="http://www.w3.org/1999/xhtml">After adding a</span><a id="_idIndexMarker118"/><span class="koboSpan" id="kobo.499.1" xmlns="http://www.w3.org/1999/xhtml"> resource file, the build action can be set in the </span><strong class="bold"><span class="koboSpan" id="kobo.500.1" xmlns="http://www.w3.org/1999/xhtml">Properties</span></strong><span class="koboSpan" id="kobo.501.1" xmlns="http://www.w3.org/1999/xhtml"> window in Visual Studio. </span><span class="koboSpan" id="kobo.501.2" xmlns="http://www.w3.org/1999/xhtml">If we look at the project file, we can see the following </span><strong class="source-inline"><span class="koboSpan" id="kobo.502.1" xmlns="http://www.w3.org/1999/xhtml">ItemGroup</span></strong><span class="koboSpan" id="kobo.503.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.503.2" xmlns="http://www.w3.org/1999/xhtml">If we put resources according to the convention of default folder setup, the resources will be treated as the respective category and the build action will be </span><span class="No-Break"><span class="koboSpan" id="kobo.504.1" xmlns="http://www.w3.org/1999/xhtml">set automatically:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.505.1" xmlns="http://www.w3.org/1999/xhtml">
+&lt;ItemGroup&gt;
+  &lt;!-- App Icon --&gt;
+  &lt;MauiIcon Include="Resources\AppIcon\appicon.svg"
+    ForegroundFile="Resources\AppIcon\appiconfg.svg"
+Color="#512BD4" /&gt;
+  &lt;!—Splash Screen 
+  &lt;MauiSplashScreen Include= "Resources\Splash\splash.svg"
+    Color="#512BD4" BaseSize="128,128" /&gt;
+  &lt;!-- Images --&gt;
+  &lt;MauiImage Include="Resources\Images\*" /&gt;
+  &lt;!-- Custom Fonts --&gt;
+  &lt;MauiFont Include="Resources\Fonts\*" /&gt;
+&lt;/ItemGroup&gt;</span></pre>
+<h2 id="_idParaDest-52"><a id="_idTextAnchor052"/><span class="koboSpan" id="kobo.506.1" xmlns="http://www.w3.org/1999/xhtml">App icon</span></h2>
+<p><span class="koboSpan" id="kobo.507.1" xmlns="http://www.w3.org/1999/xhtml">In our app setup, we have an SVG image file, </span><strong class="source-inline"><span class="koboSpan" id="kobo.508.1" xmlns="http://www.w3.org/1999/xhtml">appicon.svg</span></strong><span class="koboSpan" id="kobo.509.1" xmlns="http://www.w3.org/1999/xhtml">, under the </span><strong class="source-inline"><span class="koboSpan" id="kobo.510.1" xmlns="http://www.w3.org/1999/xhtml">Resources\AppIcon</span></strong><span class="koboSpan" id="kobo.511.1" xmlns="http://www.w3.org/1999/xhtml"> folder, with the build action set to </span><strong class="source-inline"><span class="koboSpan" id="kobo.512.1" xmlns="http://www.w3.org/1999/xhtml">MauiIcon</span></strong><span class="koboSpan" id="kobo.513.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.513.2" xmlns="http://www.w3.org/1999/xhtml">At build time, this file is used to generate the icon images on the target platform for various purposes, such as on the device, or in the </span><span class="No-Break"><span class="koboSpan" id="kobo.514.1" xmlns="http://www.w3.org/1999/xhtml">app store.</span></span></p>
+<p><span class="koboSpan" id="kobo.515.1" xmlns="http://www.w3.org/1999/xhtml">It is possible to move this </span><a id="_idIndexMarker119"/><span class="koboSpan" id="kobo.516.1" xmlns="http://www.w3.org/1999/xhtml">SVG file together with other images to the </span><strong class="source-inline"><span class="koboSpan" id="kobo.517.1" xmlns="http://www.w3.org/1999/xhtml">Resources\Images</span></strong><span class="koboSpan" id="kobo.518.1" xmlns="http://www.w3.org/1999/xhtml"> folder. </span><span class="koboSpan" id="kobo.518.2" xmlns="http://www.w3.org/1999/xhtml">In that case, we should use the following entry in the </span><span class="No-Break"><span class="koboSpan" id="kobo.519.1" xmlns="http://www.w3.org/1999/xhtml">project file:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.520.1" xmlns="http://www.w3.org/1999/xhtml">
+&lt;MauiIcon Include="Resources\Images\appicon.png" ForegroundFile="Resources\Images\appiconfg.svg" Color="#512BD4" /&gt;</span></pre>
+<p><span class="koboSpan" id="kobo.521.1" xmlns="http://www.w3.org/1999/xhtml">However, in this case, the build action is inconsistent for the files under the same folder, so </span><strong class="source-inline"><span class="koboSpan" id="kobo.522.1" xmlns="http://www.w3.org/1999/xhtml">appicon.svg</span></strong><span class="koboSpan" id="kobo.523.1" xmlns="http://www.w3.org/1999/xhtml"> resides in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.524.1" xmlns="http://www.w3.org/1999/xhtml">Resources\AppIcon</span></strong><span class="koboSpan" id="kobo.525.1" xmlns="http://www.w3.org/1999/xhtml"> folder instead of </span><strong class="source-inline"><span class="koboSpan" id="kobo.526.1" xmlns="http://www.w3.org/1999/xhtml">Resources\Images</span></strong><span class="koboSpan" id="kobo.527.1" xmlns="http://www.w3.org/1999/xhtml"> in </span><span class="No-Break"><span class="koboSpan" id="kobo.528.1" xmlns="http://www.w3.org/1999/xhtml">our project.</span></span></p>
+<h2 id="_idParaDest-53"><a id="_idTextAnchor053"/><span class="koboSpan" id="kobo.529.1" xmlns="http://www.w3.org/1999/xhtml">Splash screen</span></h2>
+<p><span class="koboSpan" id="kobo.530.1" xmlns="http://www.w3.org/1999/xhtml">This is like an app icon. </span><span class="koboSpan" id="kobo.530.2" xmlns="http://www.w3.org/1999/xhtml">We have an SVG image file, </span><strong class="source-inline"><span class="koboSpan" id="kobo.531.1" xmlns="http://www.w3.org/1999/xhtml">splash.svg</span></strong><span class="koboSpan" id="kobo.532.1" xmlns="http://www.w3.org/1999/xhtml">, in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.533.1" xmlns="http://www.w3.org/1999/xhtml">Resources/Splash</span></strong><span class="koboSpan" id="kobo.534.1" xmlns="http://www.w3.org/1999/xhtml"> folder, with the </span><a id="_idIndexMarker120"/><span class="koboSpan" id="kobo.535.1" xmlns="http://www.w3.org/1999/xhtml">build action set </span><span class="No-Break"><span class="koboSpan" id="kobo.536.1" xmlns="http://www.w3.org/1999/xhtml">to </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.537.1" xmlns="http://www.w3.org/1999/xhtml">MauiSplashScreen</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.538.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.539.1" xmlns="http://www.w3.org/1999/xhtml">
+  &lt;MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" /&gt;</span></pre>
+<p><span class="koboSpan" id="kobo.540.1" xmlns="http://www.w3.org/1999/xhtml">App icons, splash screens, and other images are simple resources, and we configure them in the project </span><span class="No-Break"><span class="koboSpan" id="kobo.541.1" xmlns="http://www.w3.org/1999/xhtml">file directly.</span></span></p>
+<p><span class="koboSpan" id="kobo.542.1" xmlns="http://www.w3.org/1999/xhtml">Some frequently used resources, such as custom font and DI, may have to be configured in code, or both code and project files. </span><span class="koboSpan" id="kobo.542.2" xmlns="http://www.w3.org/1999/xhtml">We will discuss custom fonts here, and leave DI in </span><em class="italic"><span class="koboSpan" id="kobo.543.1" xmlns="http://www.w3.org/1999/xhtml">w</span></em><span class="koboSpan" id="kobo.544.1" xmlns="http://www.w3.org/1999/xhtml">, </span><em class="italic"><span class="koboSpan" id="kobo.545.1" xmlns="http://www.w3.org/1999/xhtml">Dependency Injection and </span></em><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.546.1" xmlns="http://www.w3.org/1999/xhtml">Refining Design</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.547.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></p>
+<h2 id="_idParaDest-54"><a id="_idTextAnchor054"/><span class="koboSpan" id="kobo.548.1" xmlns="http://www.w3.org/1999/xhtml">Setting custom font icons</span></h2>
+<p><span class="koboSpan" id="kobo.549.1" xmlns="http://www.w3.org/1999/xhtml">Custom fonts can be managed as part of resources. </span><span class="koboSpan" id="kobo.549.2" xmlns="http://www.w3.org/1999/xhtml">In a mobile app, the visual representation is </span><a id="_idIndexMarker121"/><span class="koboSpan" id="kobo.550.1" xmlns="http://www.w3.org/1999/xhtml">generally delivered through images. </span><span class="koboSpan" id="kobo.550.2" xmlns="http://www.w3.org/1999/xhtml">We</span><a id="_idIndexMarker122"/><span class="koboSpan" id="kobo.551.1" xmlns="http://www.w3.org/1999/xhtml"> use images in all kinds of navigation activities. </span><span class="koboSpan" id="kobo.551.2" xmlns="http://www.w3.org/1999/xhtml">In Android and iOS development, we need to manage image resources for different screen resolutions. </span><span class="koboSpan" id="kobo.551.3" xmlns="http://www.w3.org/1999/xhtml">In both Xamarin.Forms and .NET MAUI, we can use a custom font (icon font) instead of images for </span><span class="No-Break"><span class="koboSpan" id="kobo.552.1" xmlns="http://www.w3.org/1999/xhtml">application icons.</span></span></p>
+<p><span class="koboSpan" id="kobo.553.1" xmlns="http://www.w3.org/1999/xhtml">In .NET MAUI, if controls can display text, these controls usually define properties that we can use to configure font settings for the text. </span><span class="koboSpan" id="kobo.553.2" xmlns="http://www.w3.org/1999/xhtml">The following properties </span><span class="No-Break"><span class="koboSpan" id="kobo.554.1" xmlns="http://www.w3.org/1999/xhtml">are configurable:</span></span></p>
+<ul>
+<li><strong class="source-inline"><span class="koboSpan" id="kobo.555.1" xmlns="http://www.w3.org/1999/xhtml">FontAttributes</span></strong><span class="koboSpan" id="kobo.556.1" xmlns="http://www.w3.org/1999/xhtml">, which is an enumeration with three members: </span><strong class="source-inline"><span class="koboSpan" id="kobo.557.1" xmlns="http://www.w3.org/1999/xhtml">None</span></strong><span class="koboSpan" id="kobo.558.1" xmlns="http://www.w3.org/1999/xhtml">, </span><strong class="source-inline"><span class="koboSpan" id="kobo.559.1" xmlns="http://www.w3.org/1999/xhtml">Bold</span></strong><span class="koboSpan" id="kobo.560.1" xmlns="http://www.w3.org/1999/xhtml">, and </span><strong class="source-inline"><span class="koboSpan" id="kobo.561.1" xmlns="http://www.w3.org/1999/xhtml">Italic</span></strong><span class="koboSpan" id="kobo.562.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.562.2" xmlns="http://www.w3.org/1999/xhtml">The default value of this property </span><span class="No-Break"><span class="koboSpan" id="kobo.563.1" xmlns="http://www.w3.org/1999/xhtml">is </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.564.1" xmlns="http://www.w3.org/1999/xhtml">None</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.565.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></li>
+<li><strong class="source-inline"><span class="koboSpan" id="kobo.566.1" xmlns="http://www.w3.org/1999/xhtml">FontSize</span></strong><span class="koboSpan" id="kobo.567.1" xmlns="http://www.w3.org/1999/xhtml">, which is the property of the font size, and the type </span><span class="No-Break"><span class="koboSpan" id="kobo.568.1" xmlns="http://www.w3.org/1999/xhtml">is </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.569.1" xmlns="http://www.w3.org/1999/xhtml">double</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.570.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></li>
+<li><strong class="source-inline"><span class="koboSpan" id="kobo.571.1" xmlns="http://www.w3.org/1999/xhtml">FontFamily</span></strong><span class="koboSpan" id="kobo.572.1" xmlns="http://www.w3.org/1999/xhtml">, which is the property of the font family, and the type </span><span class="No-Break"><span class="koboSpan" id="kobo.573.1" xmlns="http://www.w3.org/1999/xhtml">is </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.574.1" xmlns="http://www.w3.org/1999/xhtml">string</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.575.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></li>
+</ul>
+<h3><span class="koboSpan" id="kobo.576.1" xmlns="http://www.w3.org/1999/xhtml">What is the advantage of using custom fonts for icons?</span></h3>
+<p><span class="koboSpan" id="kobo.577.1" xmlns="http://www.w3.org/1999/xhtml">There are many advantages to using custom fonts as icons instead </span><span class="No-Break"><span class="koboSpan" id="kobo.578.1" xmlns="http://www.w3.org/1999/xhtml">of images.</span></span></p>
+<p><span class="koboSpan" id="kobo.579.1" xmlns="http://www.w3.org/1999/xhtml">Font icons are vector icons</span><a id="_idIndexMarker123"/><span class="koboSpan" id="kobo.580.1" xmlns="http://www.w3.org/1999/xhtml"> instead of bitmap icons. </span><span class="koboSpan" id="kobo.580.2" xmlns="http://www.w3.org/1999/xhtml">Vector icons are scalable, meaning you don’t need different images with different sizes and different resolutions based on the device. </span><span class="koboSpan" id="kobo.580.3" xmlns="http://www.w3.org/1999/xhtml">Icon font scaling can be handled through the </span><strong class="source-inline"><span class="koboSpan" id="kobo.581.1" xmlns="http://www.w3.org/1999/xhtml">FontSize</span></strong><span class="koboSpan" id="kobo.582.1" xmlns="http://www.w3.org/1999/xhtml"> property. </span><span class="koboSpan" id="kobo.582.2" xmlns="http://www.w3.org/1999/xhtml">The font file size is also much smaller than the images. </span><span class="koboSpan" id="kobo.582.3" xmlns="http://www.w3.org/1999/xhtml">A font file with hundreds of icons in it can be only a few KB </span><span class="No-Break"><span class="koboSpan" id="kobo.583.1" xmlns="http://www.w3.org/1999/xhtml">in size.</span></span></p>
+<p><span class="koboSpan" id="kobo.584.1" xmlns="http://www.w3.org/1999/xhtml">Besides font size, the icon color can be changed with the </span><strong class="source-inline"><span class="koboSpan" id="kobo.585.1" xmlns="http://www.w3.org/1999/xhtml">TextColor</span></strong><span class="koboSpan" id="kobo.586.1" xmlns="http://www.w3.org/1999/xhtml"> property. </span><span class="koboSpan" id="kobo.586.2" xmlns="http://www.w3.org/1999/xhtml">With static images, we are not able to change the </span><span class="No-Break"><span class="koboSpan" id="kobo.587.1" xmlns="http://www.w3.org/1999/xhtml">icon color.</span></span></p>
+<p><span class="koboSpan" id="kobo.588.1" xmlns="http://www.w3.org/1999/xhtml">Finally, font files can be managed in the shared project, so we don’t have to manage fonts separately on </span><span class="No-Break"><span class="koboSpan" id="kobo.589.1" xmlns="http://www.w3.org/1999/xhtml">different platforms.</span></span></p>
+<h3><span class="koboSpan" id="kobo.590.1" xmlns="http://www.w3.org/1999/xhtml">Custom font setup</span></h3>
+<p><span class="koboSpan" id="kobo.591.1" xmlns="http://www.w3.org/1999/xhtml">Custom font setup</span><a id="_idIndexMarker124"/><span class="koboSpan" id="kobo.592.1" xmlns="http://www.w3.org/1999/xhtml"> includes two parts – font files </span><span class="No-Break"><span class="koboSpan" id="kobo.593.1" xmlns="http://www.w3.org/1999/xhtml">and configuration.</span></span></p>
+<p><span class="koboSpan" id="kobo.594.1" xmlns="http://www.w3.org/1999/xhtml">Custom font files can be added to the .NET MAUI or Xamarin.Forms shared project. </span><span class="koboSpan" id="kobo.594.2" xmlns="http://www.w3.org/1999/xhtml">The configuration of custom fonts in .NET MAUI is different than Xamarin.Forms. </span><span class="koboSpan" id="kobo.594.3" xmlns="http://www.w3.org/1999/xhtml">In Xamarin.Forms, we must configure it in </span><strong class="source-inline"><span class="koboSpan" id="kobo.595.1" xmlns="http://www.w3.org/1999/xhtml">AssemblyInfo.cs</span></strong><span class="koboSpan" id="kobo.596.1" xmlns="http://www.w3.org/1999/xhtml">, while we can manage the configuration through .NET Generic Host in .</span><span class="No-Break"><span class="koboSpan" id="kobo.597.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI.</span></span></p>
+<p><span class="koboSpan" id="kobo.598.1" xmlns="http://www.w3.org/1999/xhtml">In Xamarin.Forms, the process for accomplishing this is </span><span class="No-Break"><span class="koboSpan" id="kobo.599.1" xmlns="http://www.w3.org/1999/xhtml">as follows:</span></span></p>
+<ol>
+<li value="1"><span class="koboSpan" id="kobo.600.1" xmlns="http://www.w3.org/1999/xhtml">Add the font file to the Xamarin.Forms shared project as an embedded resource (build </span><span class="No-Break"><span class="koboSpan" id="kobo.601.1" xmlns="http://www.w3.org/1999/xhtml">action: </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.602.1" xmlns="http://www.w3.org/1999/xhtml">EmbeddedResource</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.603.1" xmlns="http://www.w3.org/1999/xhtml">).</span></span></li>
+<li><span class="koboSpan" id="kobo.604.1" xmlns="http://www.w3.org/1999/xhtml">Register the font file with the assembly in a file such as </span><strong class="source-inline"><span class="koboSpan" id="kobo.605.1" xmlns="http://www.w3.org/1999/xhtml">AssemblyInfo.cs</span></strong><span class="koboSpan" id="kobo.606.1" xmlns="http://www.w3.org/1999/xhtml">, using the </span><strong class="source-inline"><span class="koboSpan" id="kobo.607.1" xmlns="http://www.w3.org/1999/xhtml">ExportFont</span></strong><span class="koboSpan" id="kobo.608.1" xmlns="http://www.w3.org/1999/xhtml"> attribute. </span><span class="koboSpan" id="kobo.608.2" xmlns="http://www.w3.org/1999/xhtml">An optional alias can also </span><span class="No-Break"><span class="koboSpan" id="kobo.609.1" xmlns="http://www.w3.org/1999/xhtml">be specified.</span></span></li>
+</ol>
+<p><span class="koboSpan" id="kobo.610.1" xmlns="http://www.w3.org/1999/xhtml">In .NET MAUI, the process is changed and simplified </span><span class="No-Break"><span class="koboSpan" id="kobo.611.1" xmlns="http://www.w3.org/1999/xhtml">as follows:</span></span></p>
+<ol>
+<li value="1"><span class="koboSpan" id="kobo.612.1" xmlns="http://www.w3.org/1999/xhtml">Add the font files in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.613.1" xmlns="http://www.w3.org/1999/xhtml">Resources</span></strong><span class="koboSpan" id="kobo.614.1" xmlns="http://www.w3.org/1999/xhtml">-&gt;</span><strong class="source-inline"><span class="koboSpan" id="kobo.615.1" xmlns="http://www.w3.org/1999/xhtml">Fonts</span></strong><span class="koboSpan" id="kobo.616.1" xmlns="http://www.w3.org/1999/xhtml"> folder. </span><span class="koboSpan" id="kobo.616.2" xmlns="http://www.w3.org/1999/xhtml">The build action is set to </span><strong class="source-inline"><span class="koboSpan" id="kobo.617.1" xmlns="http://www.w3.org/1999/xhtml">MauiFont</span></strong><span class="koboSpan" id="kobo.618.1" xmlns="http://www.w3.org/1999/xhtml">, as we can see in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.619.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.620.1" xmlns="http://www.w3.org/1999/xhtml">.5</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.621.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></li>
+</ol>
+<p class="IMG---Figure"> </p>
+<div>
+<div class="IMG---Figure" id="_idContainer018">
+<span class="koboSpan" id="kobo.622.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.5: .NET MAUI Resources" src="image/Figure_2.05_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.623.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.5: .NET MAUI Resources</span></p>
+<ol>
+<li value="2"><span class="koboSpan" id="kobo.624.1" xmlns="http://www.w3.org/1999/xhtml">Instead of </span><a id="_idIndexMarker125"/><span class="koboSpan" id="kobo.625.1" xmlns="http://www.w3.org/1999/xhtml">registering the font file with the assembly, .NET MAUI initializes most of the resources through .NET Generic Host in the startup code, as shown in the following </span><em class="italic"><span class="koboSpan" id="kobo.626.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.7 </span></em><span class="koboSpan" id="kobo.627.1" xmlns="http://www.w3.org/1999/xhtml">at ➊. </span><span class="koboSpan" id="kobo.627.2" xmlns="http://www.w3.org/1999/xhtml">Font files are added using the </span><strong class="source-inline"><span class="koboSpan" id="kobo.628.1" xmlns="http://www.w3.org/1999/xhtml">ConfigureFonts()</span></strong><span class="koboSpan" id="kobo.629.1" xmlns="http://www.w3.org/1999/xhtml"> method, which is an extension method of the </span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.630.1" xmlns="http://www.w3.org/1999/xhtml">MauiAppBuilder</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.631.1" xmlns="http://www.w3.org/1999/xhtml"> class.</span></span></li>
+</ol>
+<p><span class="koboSpan" id="kobo.632.1" xmlns="http://www.w3.org/1999/xhtml">In our project, we use the Font Awesome icon library from the following open </span><span class="No-Break"><span class="koboSpan" id="kobo.633.1" xmlns="http://www.w3.org/1999/xhtml">source project:</span></span></p>
+<p><a href="https://github.com/FortAwesome/Font-Awesome"><span class="No-Break"><span class="koboSpan" id="kobo.634.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/FortAwesome/Font-Awesome</span></span></a></p>
+<p><span class="koboSpan" id="kobo.635.1" xmlns="http://www.w3.org/1999/xhtml">The </span><strong class="source-inline"><span class="koboSpan" id="kobo.636.1" xmlns="http://www.w3.org/1999/xhtml">fa-brands-400.ttf</span></strong><span class="koboSpan" id="kobo.637.1" xmlns="http://www.w3.org/1999/xhtml">, </span><strong class="source-inline"><span class="koboSpan" id="kobo.638.1" xmlns="http://www.w3.org/1999/xhtml">fa-regular-400.ttf</span></strong><span class="koboSpan" id="kobo.639.1" xmlns="http://www.w3.org/1999/xhtml">, and </span><strong class="source-inline"><span class="koboSpan" id="kobo.640.1" xmlns="http://www.w3.org/1999/xhtml">fa-solid-900.ttf</span></strong><span class="koboSpan" id="kobo.641.1" xmlns="http://www.w3.org/1999/xhtml"> font files can be</span><a id="_idIndexMarker126"/><span class="koboSpan" id="kobo.642.1" xmlns="http://www.w3.org/1999/xhtml"> downloaded from the </span><span class="No-Break"><span class="koboSpan" id="kobo.643.1" xmlns="http://www.w3.org/1999/xhtml">preceding website.</span></span></p>
+<p><span class="koboSpan" id="kobo.644.1" xmlns="http://www.w3.org/1999/xhtml">Let’s review the source code Listing 2.7 and see how to add these fonts to the </span><span class="No-Break"><span class="koboSpan" id="kobo.645.1" xmlns="http://www.w3.org/1999/xhtml">app configuration.</span></span></p>
+<p class="SC---Heading" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.646.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.7: MauiProgram.cs (https://epa.ms/MauiProgram2-7)</span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.647.1" xmlns="http://www.w3.org/1999/xhtml">
+namespace PassXYZ.Vault;
+public static class MauiProgram
+{
+  public static MauiApp CreateMauiApp()
+  {
+    var builder = MauiApp.CreateBuilder();
+    builder
+      .UseMauiApp&lt;App&gt;()
+      .ConfigureFonts(fonts =&gt;                             ➊
+      {
+        fonts.AddFont("fa-regular-400.ttf",           "FontAwesomeRegular");
+        fonts.AddFont("fa-solid-900.ttf", "FontAwesomeSolid");
+        fonts.AddFont("fa-brands-400.ttf",           "FontAwesomeBrands");
+        fonts.AddFont("OpenSans-Regular.ttf",           "OpenSansRegular");
+      });
+    return builder.Build();
+  }
+}</span></pre>
+<p><span class="koboSpan" id="kobo.648.1" xmlns="http://www.w3.org/1999/xhtml">In the above code, we can add fonts by invoking the </span><strong class="source-inline"><span class="koboSpan" id="kobo.649.1" xmlns="http://www.w3.org/1999/xhtml">ConfigureFonts</span></strong><span class="koboSpan" id="kobo.650.1" xmlns="http://www.w3.org/1999/xhtml"> ➊ method on the </span><strong class="source-inline"><span class="koboSpan" id="kobo.651.1" xmlns="http://www.w3.org/1999/xhtml">MauiAppBuilder</span></strong><span class="koboSpan" id="kobo.652.1" xmlns="http://www.w3.org/1999/xhtml"> object. </span><span class="koboSpan" id="kobo.652.2" xmlns="http://www.w3.org/1999/xhtml">To pass arguments to </span><strong class="source-inline"><span class="koboSpan" id="kobo.653.1" xmlns="http://www.w3.org/1999/xhtml">ConfigureFonts</span></strong><span class="koboSpan" id="kobo.654.1" xmlns="http://www.w3.org/1999/xhtml">, we call </span><strong class="source-inline"><span class="koboSpan" id="kobo.655.1" xmlns="http://www.w3.org/1999/xhtml">AddFont</span></strong><span class="koboSpan" id="kobo.656.1" xmlns="http://www.w3.org/1999/xhtml"> method to add font to </span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.657.1" xmlns="http://www.w3.org/1999/xhtml">IFontCollection</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.658.1" xmlns="http://www.w3.org/1999/xhtml"> object.</span></span></p>
+<h3><span class="koboSpan" id="kobo.659.1" xmlns="http://www.w3.org/1999/xhtml">Displaying font icons</span></h3>
+<p><span class="koboSpan" id="kobo.660.1" xmlns="http://www.w3.org/1999/xhtml">To display font icons in .NET MAUI </span><a id="_idIndexMarker127"/><span class="koboSpan" id="kobo.661.1" xmlns="http://www.w3.org/1999/xhtml">applications, we can specify the font icon data in a </span><strong class="source-inline"><span class="koboSpan" id="kobo.662.1" xmlns="http://www.w3.org/1999/xhtml">FontImageSource</span></strong><span class="koboSpan" id="kobo.663.1" xmlns="http://www.w3.org/1999/xhtml"> object. </span><span class="koboSpan" id="kobo.663.2" xmlns="http://www.w3.org/1999/xhtml">This class, which derives from the </span><strong class="source-inline"><span class="koboSpan" id="kobo.664.1" xmlns="http://www.w3.org/1999/xhtml">ImageSource</span></strong><span class="koboSpan" id="kobo.665.1" xmlns="http://www.w3.org/1999/xhtml"> class, has the following properties, as shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.666.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.3</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.667.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table003-1">
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.668.1" xmlns="http://www.w3.org/1999/xhtml">Property name</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.669.1" xmlns="http://www.w3.org/1999/xhtml">Type</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.670.1" xmlns="http://www.w3.org/1999/xhtml">Description</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.671.1" xmlns="http://www.w3.org/1999/xhtml">Glyph</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.672.1" xmlns="http://www.w3.org/1999/xhtml">string</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.673.1" xmlns="http://www.w3.org/1999/xhtml">Unicode character value, such </span><span class="No-Break"><span class="koboSpan" id="kobo.674.1" xmlns="http://www.w3.org/1999/xhtml">as </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.675.1" xmlns="http://www.w3.org/1999/xhtml">"&amp;#xf007;"</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.676.1" xmlns="http://www.w3.org/1999/xhtml">Size</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.677.1" xmlns="http://www.w3.org/1999/xhtml">double</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.678.1" xmlns="http://www.w3.org/1999/xhtml">The size of the font in </span><span class="No-Break"><span class="koboSpan" id="kobo.679.1" xmlns="http://www.w3.org/1999/xhtml">device-independent units</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.680.1" xmlns="http://www.w3.org/1999/xhtml">FontFamily</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.681.1" xmlns="http://www.w3.org/1999/xhtml">string</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.682.1" xmlns="http://www.w3.org/1999/xhtml">A string representing the font family, such </span><span class="No-Break"><span class="koboSpan" id="kobo.683.1" xmlns="http://www.w3.org/1999/xhtml">as </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.684.1" xmlns="http://www.w3.org/1999/xhtml">FontAwesomeRegular</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.685.1" xmlns="http://www.w3.org/1999/xhtml">Color</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.686.1" xmlns="http://www.w3.org/1999/xhtml">Color</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.687.1" xmlns="http://www.w3.org/1999/xhtml">Font icon color </span><span class="No-Break"><span class="koboSpan" id="kobo.688.1" xmlns="http://www.w3.org/1999/xhtml">in </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.689.1" xmlns="http://www.w3.org/1999/xhtml">Microsoft.Maui.Graphics.Color</span></strong></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.690.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.3: Properties of FontImageSource</span></p>
+<p><span class="koboSpan" id="kobo.691.1" xmlns="http://www.w3.org/1999/xhtml">The following XAML example has a single font icon being displayed by an </span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.692.1" xmlns="http://www.w3.org/1999/xhtml">Image</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.693.1" xmlns="http://www.w3.org/1999/xhtml"> view:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.694.1" xmlns="http://www.w3.org/1999/xhtml">
+&lt;Image BackgroundColor="#D1D1D1"&gt;
+    &lt;Image.Source&gt;
+        &lt;</span><strong class="bold"><span class="koboSpan" id="kobo.695.1" xmlns="http://www.w3.org/1999/xhtml">FontImageSource</span></strong><span class="koboSpan" id="kobo.696.1" xmlns="http://www.w3.org/1999/xhtml"> Glyph="&amp;#xf007;"
+                         FontFamily="FontAwesomeRegular"
+                         Size="32" /&gt;
+    &lt;/Image.Source&gt;
+&lt;/Image&gt;</span></pre>
+<p><span class="koboSpan" id="kobo.697.1" xmlns="http://www.w3.org/1999/xhtml">If you are not familiar with the XAML syntax in the preceding example, don’t worry. </span><span class="koboSpan" id="kobo.697.2" xmlns="http://www.w3.org/1999/xhtml">We will learn about it in</span><a id="_idIndexMarker128"/><span class="koboSpan" id="kobo.698.1" xmlns="http://www.w3.org/1999/xhtml"> the next chapter. </span><span class="koboSpan" id="kobo.698.2" xmlns="http://www.w3.org/1999/xhtml">In the preceding code, a </span><strong class="source-inline"><span class="koboSpan" id="kobo.699.1" xmlns="http://www.w3.org/1999/xhtml">User</span></strong><span class="koboSpan" id="kobo.700.1" xmlns="http://www.w3.org/1999/xhtml"> icon is displayed in an </span><strong class="source-inline"><span class="koboSpan" id="kobo.701.1" xmlns="http://www.w3.org/1999/xhtml">Image</span></strong><span class="koboSpan" id="kobo.702.1" xmlns="http://www.w3.org/1999/xhtml"> control, which is from the </span><strong class="source-inline"><span class="koboSpan" id="kobo.703.1" xmlns="http://www.w3.org/1999/xhtml">FontAwesomeRegular</span></strong><span class="koboSpan" id="kobo.704.1" xmlns="http://www.w3.org/1999/xhtml"> font family that we just added in the configuration. </span><span class="koboSpan" id="kobo.704.2" xmlns="http://www.w3.org/1999/xhtml">The </span><strong class="source-inline"><span class="koboSpan" id="kobo.705.1" xmlns="http://www.w3.org/1999/xhtml">Glyph</span></strong><span class="koboSpan" id="kobo.706.1" xmlns="http://www.w3.org/1999/xhtml"> of the </span><strong class="source-inline"><span class="koboSpan" id="kobo.707.1" xmlns="http://www.w3.org/1999/xhtml">User</span></strong><span class="koboSpan" id="kobo.708.1" xmlns="http://www.w3.org/1999/xhtml"> icon is </span><strong class="source-inline"><span class="koboSpan" id="kobo.709.1" xmlns="http://www.w3.org/1999/xhtml">\uf007</span></strong><span class="koboSpan" id="kobo.710.1" xmlns="http://www.w3.org/1999/xhtml"> in hex format and this is the C# escaped format. </span><span class="koboSpan" id="kobo.710.2" xmlns="http://www.w3.org/1999/xhtml">To use it in XML, we have to use the escaped format of XML, which </span><span class="No-Break"><span class="koboSpan" id="kobo.711.1" xmlns="http://www.w3.org/1999/xhtml">is </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.712.1" xmlns="http://www.w3.org/1999/xhtml">&amp;#xf007;</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.713.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></p>
+<p><span class="koboSpan" id="kobo.714.1" xmlns="http://www.w3.org/1999/xhtml">The equivalent C# code is </span><span class="No-Break"><span class="koboSpan" id="kobo.715.1" xmlns="http://www.w3.org/1999/xhtml">as follows:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.716.1" xmlns="http://www.w3.org/1999/xhtml">
+Image image = new Image {
+    BackgroundColor = Color.FromHex("#D1D1D1")
+};
+image.Source = new </span><strong class="bold"><span class="koboSpan" id="kobo.717.1" xmlns="http://www.w3.org/1999/xhtml">FontImageSource</span></strong><span class="koboSpan" id="kobo.718.1" xmlns="http://www.w3.org/1999/xhtml"> {
+    Glyph = "\uf007",
+    FontFamily = "FontAwesomeRegular",
+    Size = 32
+};</span></pre>
+<p><span class="koboSpan" id="kobo.719.1" xmlns="http://www.w3.org/1999/xhtml">In the preceding example, we refer to a font icon using </span><strong class="source-inline"><span class="koboSpan" id="kobo.720.1" xmlns="http://www.w3.org/1999/xhtml">Glyph</span></strong><span class="koboSpan" id="kobo.721.1" xmlns="http://www.w3.org/1999/xhtml"> in a hex number as a string. </span><span class="koboSpan" id="kobo.721.2" xmlns="http://www.w3.org/1999/xhtml">This is not convenient to use practically. </span><span class="koboSpan" id="kobo.721.3" xmlns="http://www.w3.org/1999/xhtml">We can define font glyphs as C# string constants so that we can refer to something more meaningful. </span><span class="koboSpan" id="kobo.721.4" xmlns="http://www.w3.org/1999/xhtml">There are many ways to do this. </span><span class="koboSpan" id="kobo.721.5" xmlns="http://www.w3.org/1999/xhtml">Here, we use the open source tool </span><strong class="bold"><span class="koboSpan" id="kobo.722.1" xmlns="http://www.w3.org/1999/xhtml">IconFont2Code</span></strong><span class="koboSpan" id="kobo.723.1" xmlns="http://www.w3.org/1999/xhtml"> to generate string constants. </span><strong class="bold"><span class="koboSpan" id="kobo.724.1" xmlns="http://www.w3.org/1999/xhtml">IconFont2Code</span></strong><span class="koboSpan" id="kobo.725.1" xmlns="http://www.w3.org/1999/xhtml"> can be found at the following URL </span><span class="No-Break"><span class="koboSpan" id="kobo.726.1" xmlns="http://www.w3.org/1999/xhtml">in GitHub:</span></span></p>
+<p><a href="https://github.com/andreinitescu/IconFont2Code"><span class="No-Break"><span class="koboSpan" id="kobo.727.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/andreinitescu/IconFont2Code</span></span></a></p>
+<p><span class="koboSpan" id="kobo.728.1" xmlns="http://www.w3.org/1999/xhtml">We use Font Awesome in our project. </span><span class="koboSpan" id="kobo.728.2" xmlns="http://www.w3.org/1999/xhtml">On the website of IconFont2Code, we can upload our font library from the </span><strong class="source-inline"><span class="koboSpan" id="kobo.729.1" xmlns="http://www.w3.org/1999/xhtml">Resources\Fonts</span></strong><span class="koboSpan" id="kobo.730.1" xmlns="http://www.w3.org/1999/xhtml"> folder, and IconFont2Code will generate the code for us, as in the </span><span class="No-Break"><span class="koboSpan" id="kobo.731.1" xmlns="http://www.w3.org/1999/xhtml">following example:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.732.1" xmlns="http://www.w3.org/1999/xhtml">
+namespace PassXYZ.Vault.Resources.Styles;
+static class FontAwesomeRegular
+{
+     public const string Heart = "\uf004";
+     public const string Star = "\uf005";
+     public const string Scan = "\uf006";
+     public const string User = "\uf007";
+     public const string Qrcode = "\uf008";
+     public const string Fingerprint = "\uf009";
+     public const string Clock = "\uf017";
+     public const string ListAlt = "\uf022";
+     public const string Flag = "\uf024";
+     public const string Bookmark = "\uf02e";
+     ...
+	</span><span class="koboSpan" id="kobo.732.2" xmlns="http://www.w3.org/1999/xhtml">public const string SmileBeam = "\uf5b8";
+	public const string Surprise = "\uf5c2";
+	public const string Tired = "\uf5c8";
+}</span></pre>
+<p><span class="koboSpan" id="kobo.733.1" xmlns="http://www.w3.org/1999/xhtml">We can save the </span><a id="_idIndexMarker129"/><span class="koboSpan" id="kobo.734.1" xmlns="http://www.w3.org/1999/xhtml">generated C# files in the </span><strong class="source-inline"><span class="koboSpan" id="kobo.735.1" xmlns="http://www.w3.org/1999/xhtml">Resources\Styles</span></strong><span class="koboSpan" id="kobo.736.1" xmlns="http://www.w3.org/1999/xhtml"> folder. </span><span class="koboSpan" id="kobo.736.2" xmlns="http://www.w3.org/1999/xhtml">The preceding file can be </span><span class="No-Break"><span class="koboSpan" id="kobo.737.1" xmlns="http://www.w3.org/1999/xhtml">found here:</span></span></p>
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.738.1" xmlns="http://www.w3.org/1999/xhtml">Resources\Styles\FontAwesomeRegular.cs</span></strong></span></p>
+<p><span class="koboSpan" id="kobo.739.1" xmlns="http://www.w3.org/1999/xhtml">With the preceding </span><strong class="source-inline"><span class="koboSpan" id="kobo.740.1" xmlns="http://www.w3.org/1999/xhtml">FontAwesomeRegular</span></strong><span class="koboSpan" id="kobo.741.1" xmlns="http://www.w3.org/1999/xhtml"> static class, a font icon can be used just like the normal text in a </span><span class="No-Break"><span class="koboSpan" id="kobo.742.1" xmlns="http://www.w3.org/1999/xhtml">XAML file:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.743.1" xmlns="http://www.w3.org/1999/xhtml">
+&lt;Button
+     Text="Click me"
+     FontAttributes="Bold"
+     Grid.Row="3"
+     SemanticProperties.Hint="Counts the number of times you        click"
+     Clicked="OnCounterClicked"
+     HorizontalOptions="Center"&gt;
+     &lt;Button.ImageSource&gt;
+          &lt;FontImageSource </span><strong class="bold"><span class="koboSpan" id="kobo.744.1" xmlns="http://www.w3.org/1999/xhtml">FontFamily</span></strong><span class="koboSpan" id="kobo.745.1" xmlns="http://www.w3.org/1999/xhtml">="FontAwesomeSolid"
+               </span><strong class="bold"><span class="koboSpan" id="kobo.746.1" xmlns="http://www.w3.org/1999/xhtml">Glyph</span></strong><span class="koboSpan" id="kobo.747.1" xmlns="http://www.w3.org/1999/xhtml">="{x:Static app:FontAwesomeSolid.                 </span><span class="koboSpan" id="kobo.747.2" xmlns="http://www.w3.org/1999/xhtml">PlusCircle}"
+               </span><strong class="bold"><span class="koboSpan" id="kobo.748.1" xmlns="http://www.w3.org/1999/xhtml">Color</span></strong><span class="koboSpan" id="kobo.749.1" xmlns="http://www.w3.org/1999/xhtml">="{DynamicResource SecondaryColor}"
+               </span><strong class="bold"><span class="koboSpan" id="kobo.750.1" xmlns="http://www.w3.org/1999/xhtml">Size</span></strong><span class="koboSpan" id="kobo.751.1" xmlns="http://www.w3.org/1999/xhtml">="16" /&gt;
+     &lt;/Button.ImageSource&gt;
+&lt;/Button&gt;</span></pre>
+<p><span class="koboSpan" id="kobo.752.1" xmlns="http://www.w3.org/1999/xhtml">In the preceding code, we add a circle plus icon to the </span><strong class="source-inline"><span class="koboSpan" id="kobo.753.1" xmlns="http://www.w3.org/1999/xhtml">Button</span></strong><span class="koboSpan" id="kobo.754.1" xmlns="http://www.w3.org/1999/xhtml"> control in front of the text </span><strong class="source-inline"><span class="koboSpan" id="kobo.755.1" xmlns="http://www.w3.org/1999/xhtml">"Click me"</span></strong><span class="koboSpan" id="kobo.756.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.756.2" xmlns="http://www.w3.org/1999/xhtml">To refer to </span><a id="_idIndexMarker130"/><span class="koboSpan" id="kobo.757.1" xmlns="http://www.w3.org/1999/xhtml">the icon name in the generated C# class, we added an </span><strong class="source-inline"><span class="koboSpan" id="kobo.758.1" xmlns="http://www.w3.org/1999/xhtml">app</span></strong><span class="koboSpan" id="kobo.759.1" xmlns="http://www.w3.org/1999/xhtml"> namespace, as </span><span class="No-Break"><span class="koboSpan" id="kobo.760.1" xmlns="http://www.w3.org/1999/xhtml">defined here:</span></span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.761.1" xmlns="http://www.w3.org/1999/xhtml">
+xmlns:app="clr-namespace:PassXYZ.Vault.Resources.Styles"</span></pre>
+<p><span class="koboSpan" id="kobo.762.1" xmlns="http://www.w3.org/1999/xhtml">So far, we have created our project and configured the necessary resources that we need. </span><span class="koboSpan" id="kobo.762.2" xmlns="http://www.w3.org/1999/xhtml">It’s time to build and test </span><span class="No-Break"><span class="koboSpan" id="kobo.763.1" xmlns="http://www.w3.org/1999/xhtml">our app.</span></span></p>
+<h1 id="_idParaDest-55"><a id="_idTextAnchor055"/><span class="koboSpan" id="kobo.764.1" xmlns="http://www.w3.org/1999/xhtml">Building and debugging</span></h1>
+<p><span class="koboSpan" id="kobo.765.1" xmlns="http://www.w3.org/1999/xhtml">As we recall in </span><a href="B16588_01.xhtml#_idTextAnchor015"><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.766.1" xmlns="http://www.w3.org/1999/xhtml">Chapter 1</span></em></span></a><span class="koboSpan" id="kobo.767.1" xmlns="http://www.w3.org/1999/xhtml">, </span><em class="italic"><span class="koboSpan" id="kobo.768.1" xmlns="http://www.w3.org/1999/xhtml">Getting Started with .NET MAUI</span></em><span class="koboSpan" id="kobo.769.1" xmlns="http://www.w3.org/1999/xhtml">, regarding the development environment setup, we cannot build and test all targets using one platform. </span><span class="koboSpan" id="kobo.769.2" xmlns="http://www.w3.org/1999/xhtml">Please refer to </span><em class="italic"><span class="koboSpan" id="kobo.770.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.8</span></em><span class="koboSpan" id="kobo.771.1" xmlns="http://www.w3.org/1999/xhtml"> about the available build targets on Windows and macOS platforms. </span><span class="koboSpan" id="kobo.771.2" xmlns="http://www.w3.org/1999/xhtml">To make it simple, we will build and test Windows and Android on the Windows platform. </span><span class="koboSpan" id="kobo.771.3" xmlns="http://www.w3.org/1999/xhtml">For iOS and macOS builds, we will do it on the </span><span class="No-Break"><span class="koboSpan" id="kobo.772.1" xmlns="http://www.w3.org/1999/xhtml">macOS platform.</span></span></p>
+<p><span class="koboSpan" id="kobo.773.1" xmlns="http://www.w3.org/1999/xhtml">Once we are ready, we can build and debug </span><span class="No-Break"><span class="koboSpan" id="kobo.774.1" xmlns="http://www.w3.org/1999/xhtml">our app.</span></span></p>
+<p><span class="koboSpan" id="kobo.775.1" xmlns="http://www.w3.org/1999/xhtml">Let’s build and test on the Windows platform first. </span><span class="koboSpan" id="kobo.775.2" xmlns="http://www.w3.org/1999/xhtml">We can choose a framework that we want to run or debug, as shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.776.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.777.1" xmlns="http://www.w3.org/1999/xhtml">.6</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.778.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer019">
+<span class="koboSpan" id="kobo.779.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.6: Building and debugging" src="image/Figure_2.06_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.780.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.6: Building and debugging</span></p>
+<h2 id="_idParaDest-56"><a id="_idTextAnchor056"/><span class="koboSpan" id="kobo.781.1" xmlns="http://www.w3.org/1999/xhtml">Windows</span></h2>
+<p><span class="koboSpan" id="kobo.782.1" xmlns="http://www.w3.org/1999/xhtml">We can run or debug a Windows build </span><a id="_idIndexMarker131"/><span class="koboSpan" id="kobo.783.1" xmlns="http://www.w3.org/1999/xhtml">on a local machine by selecting </span><strong class="source-inline"><span class="koboSpan" id="kobo.784.1" xmlns="http://www.w3.org/1999/xhtml">net6.0-windows10.0.19041</span></strong><span class="koboSpan" id="kobo.785.1" xmlns="http://www.w3.org/1999/xhtml"> as the framework. </span><span class="koboSpan" id="kobo.785.2" xmlns="http://www.w3.org/1999/xhtml">To do this, we must enable Developer Mode on Windows, if it is not enabled yet. </span><span class="koboSpan" id="kobo.785.3" xmlns="http://www.w3.org/1999/xhtml">Please refer to </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.786.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><em class="italic"><span class="koboSpan" id="kobo.787.1" xmlns="http://www.w3.org/1999/xhtml">.7</span></em><span class="koboSpan" id="kobo.788.1" xmlns="http://www.w3.org/1999/xhtml"> to enable Developer Mode on Windows 10 </span><span class="No-Break"><span class="koboSpan" id="kobo.789.1" xmlns="http://www.w3.org/1999/xhtml">or 11:</span></span></p>
+<ol>
+<li value="1"><span class="koboSpan" id="kobo.790.1" xmlns="http://www.w3.org/1999/xhtml">Open the </span><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.791.1" xmlns="http://www.w3.org/1999/xhtml">Start </span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.792.1" xmlns="http://www.w3.org/1999/xhtml">menu.</span></span></li>
+<li><span class="koboSpan" id="kobo.793.1" xmlns="http://www.w3.org/1999/xhtml">Search for </span><strong class="bold"><span class="koboSpan" id="kobo.794.1" xmlns="http://www.w3.org/1999/xhtml">Developer settings</span></strong><span class="koboSpan" id="kobo.795.1" xmlns="http://www.w3.org/1999/xhtml"> and </span><span class="No-Break"><span class="koboSpan" id="kobo.796.1" xmlns="http://www.w3.org/1999/xhtml">select it.</span></span></li>
+<li><span class="koboSpan" id="kobo.797.1" xmlns="http://www.w3.org/1999/xhtml">Turn on </span><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.798.1" xmlns="http://www.w3.org/1999/xhtml">Developer Mode</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.799.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></li>
+<li><span class="koboSpan" id="kobo.800.1" xmlns="http://www.w3.org/1999/xhtml">If you receive a warning message about Developer Mode, read it, and </span><span class="No-Break"><span class="koboSpan" id="kobo.801.1" xmlns="http://www.w3.org/1999/xhtml">select </span></span><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.802.1" xmlns="http://www.w3.org/1999/xhtml">Yes</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.803.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></li>
+</ol>
+<div>
+<div class="IMG---Figure" id="_idContainer020">
+<span class="koboSpan" id="kobo.804.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.7: Developer Mode" src="image/Figure_2.07_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.805.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.7: Developer Mode</span></p>
+<h2 id="_idParaDest-57"><a id="_idTextAnchor057"/><span class="koboSpan" id="kobo.806.1" xmlns="http://www.w3.org/1999/xhtml">Android</span></h2>
+<p><span class="koboSpan" id="kobo.807.1" xmlns="http://www.w3.org/1999/xhtml">For the Android build, we can</span><a id="_idIndexMarker132"/><span class="koboSpan" id="kobo.808.1" xmlns="http://www.w3.org/1999/xhtml"> test it using an Android emulator or device. </span><span class="koboSpan" id="kobo.808.2" xmlns="http://www.w3.org/1999/xhtml">Before building or debugging, we need to connect a device or set up an instance of an emulator. </span><span class="koboSpan" id="kobo.808.3" xmlns="http://www.w3.org/1999/xhtml">Please refer to the following Microsoft documentation about how to set up a device or an </span><span class="No-Break"><span class="koboSpan" id="kobo.809.1" xmlns="http://www.w3.org/1999/xhtml">emulator instance:</span></span></p>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/maui/"><span class="No-Break"><span class="koboSpan" id="kobo.810.1" xmlns="http://www.w3.org/1999/xhtml">https://learn.microsoft.com/en-us/dotnet/maui/</span></span></a></p>
+<p><span class="koboSpan" id="kobo.811.1" xmlns="http://www.w3.org/1999/xhtml">We can run or debug from Visual Studio (</span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.812.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><em class="italic"><span class="koboSpan" id="kobo.813.1" xmlns="http://www.w3.org/1999/xhtml">.6</span></em><span class="koboSpan" id="kobo.814.1" xmlns="http://www.w3.org/1999/xhtml">) by selecting </span><strong class="source-inline"><span class="koboSpan" id="kobo.815.1" xmlns="http://www.w3.org/1999/xhtml">net6.0-android</span></strong><span class="koboSpan" id="kobo.816.1" xmlns="http://www.w3.org/1999/xhtml"> as </span><span class="No-Break"><span class="koboSpan" id="kobo.817.1" xmlns="http://www.w3.org/1999/xhtml">the framework.</span></span></p>
+<p><span class="koboSpan" id="kobo.818.1" xmlns="http://www.w3.org/1999/xhtml">Alternatively, we can also build and run from the command line using the </span><span class="No-Break"><span class="koboSpan" id="kobo.819.1" xmlns="http://www.w3.org/1999/xhtml">following command:</span></span></p>
+<pre class="console"><span class="koboSpan" id="kobo.820.1" xmlns="http://www.w3.org/1999/xhtml">
+dotnet build -t:Run -f net6.0-android</span></pre>
+<div>
+<div class="IMG---Figure" id="_idContainer021">
+<span class="koboSpan" id="kobo.821.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.8: Running on Android and ﻿Windows" src="image/Figure_2.08_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.822.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.8: Running on Android and Windows</span></p>
+<p><span class="koboSpan" id="kobo.823.1" xmlns="http://www.w3.org/1999/xhtml">After we run the app on </span><a id="_idIndexMarker133"/><span class="koboSpan" id="kobo.824.1" xmlns="http://www.w3.org/1999/xhtml">Android and Windows targets, we can see the preceding screen (</span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.825.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.826.1" xmlns="http://www.w3.org/1999/xhtml">.8</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.827.1" xmlns="http://www.w3.org/1999/xhtml">).</span></span></p>
+<h2 id="_idParaDest-58"><a id="_idTextAnchor058"/><span class="koboSpan" id="kobo.828.1" xmlns="http://www.w3.org/1999/xhtml">iOS and macOS</span></h2>
+<p><span class="koboSpan" id="kobo.829.1" xmlns="http://www.w3.org/1999/xhtml">We can build and test iOS and macOS targets </span><a id="_idIndexMarker134"/><span class="koboSpan" id="kobo.830.1" xmlns="http://www.w3.org/1999/xhtml">on a Mac computer. </span><span class="koboSpan" id="kobo.830.2" xmlns="http://www.w3.org/1999/xhtml">The steps to build and test using Microsoft</span><a id="_idIndexMarker135"/><span class="koboSpan" id="kobo.831.1" xmlns="http://www.w3.org/1999/xhtml"> Visual 2022 for Mac are similar to what we have done in Windows and Android. </span><span class="koboSpan" id="kobo.831.2" xmlns="http://www.w3.org/1999/xhtml">Let’s look at how to do it using a </span><span class="No-Break"><span class="koboSpan" id="kobo.832.1" xmlns="http://www.w3.org/1999/xhtml">command line.</span></span></p>
+<p><span class="koboSpan" id="kobo.833.1" xmlns="http://www.w3.org/1999/xhtml">To build and test the iOS target, we can use the following command in the </span><span class="No-Break"><span class="koboSpan" id="kobo.834.1" xmlns="http://www.w3.org/1999/xhtml">project folder:</span></span></p>
+<pre class="console"><span class="koboSpan" id="kobo.835.1" xmlns="http://www.w3.org/1999/xhtml">
+dotnet build -t:Run -f net6.0-ios -p:_DeviceName=:v2:udid=02C556DA-64B8-440B-8F06-F8C56BB7CC22</span></pre>
+<p><span class="koboSpan" id="kobo.836.1" xmlns="http://www.w3.org/1999/xhtml">To select a target iOS emulator, we need to provide the device ID using the </span><span class="No-Break"><span class="koboSpan" id="kobo.837.1" xmlns="http://www.w3.org/1999/xhtml">following parameter:</span></span></p>
+<p> <strong class="source-inline"><span class="koboSpan" id="kobo.838.1" xmlns="http://www.w3.org/1999/xhtml">-</span></strong><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.839.1" xmlns="http://www.w3.org/1999/xhtml">p:_DeviceName=:v2:udid=</span></strong></span></p>
+<p><span class="koboSpan" id="kobo.840.1" xmlns="http://www.w3.org/1999/xhtml">To find the device ID, we </span><a id="_idIndexMarker136"/><span class="koboSpan" id="kobo.841.1" xmlns="http://www.w3.org/1999/xhtml">can launch Xcode on a Mac computer</span><a id="_idIndexMarker137"/><span class="koboSpan" id="kobo.842.1" xmlns="http://www.w3.org/1999/xhtml"> and go to </span><strong class="bold"><span class="koboSpan" id="kobo.843.1" xmlns="http://www.w3.org/1999/xhtml">Windows</span></strong><span class="koboSpan" id="kobo.844.1" xmlns="http://www.w3.org/1999/xhtml"> -&gt; </span><strong class="bold"><span class="koboSpan" id="kobo.845.1" xmlns="http://www.w3.org/1999/xhtml">Devices and Simulators</span></strong><span class="koboSpan" id="kobo.846.1" xmlns="http://www.w3.org/1999/xhtml">, as shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.847.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.848.1" xmlns="http://www.w3.org/1999/xhtml">.9</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.849.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer022">
+<span class="koboSpan" id="kobo.850.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.9: Devices and simulators in Xcode" src="image/Figure_2.09_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.851.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.9: Devices and simulators in Xcode</span></p>
+<p><span class="koboSpan" id="kobo.852.1" xmlns="http://www.w3.org/1999/xhtml">For the macOS target, we can use the following command to build </span><span class="No-Break"><span class="koboSpan" id="kobo.853.1" xmlns="http://www.w3.org/1999/xhtml">and test:</span></span></p>
+<pre class="console"><span class="koboSpan" id="kobo.854.1" xmlns="http://www.w3.org/1999/xhtml">
+dotnet build -t:Run -f net6.0-maccatalyst</span></pre>
+<p><span class="koboSpan" id="kobo.855.1" xmlns="http://www.w3.org/1999/xhtml">The screenshot for iOS and</span><a id="_idIndexMarker138"/><span class="koboSpan" id="kobo.856.1" xmlns="http://www.w3.org/1999/xhtml"> macOS is shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.857.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><em class="italic"><span class="koboSpan" id="kobo.858.1" xmlns="http://www.w3.org/1999/xhtml">.10</span></em><span class="koboSpan" id="kobo.859.1" xmlns="http://www.w3.org/1999/xhtml"> and we can see that the look and feel are similar to </span><a id="_idIndexMarker139"/><span class="koboSpan" id="kobo.860.1" xmlns="http://www.w3.org/1999/xhtml">Android </span><span class="No-Break"><span class="koboSpan" id="kobo.861.1" xmlns="http://www.w3.org/1999/xhtml">and Windows.</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer023">
+<span class="koboSpan" id="kobo.862.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.10: Running on iOS and macOS" src="image/Figure_2.10_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.863.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.10: Running on iOS and macOS</span></p>
+<p><span class="koboSpan" id="kobo.864.1" xmlns="http://www.w3.org/1999/xhtml">The environment setup for Android, iOS, and macOS involves platform-specific details. </span><span class="koboSpan" id="kobo.864.2" xmlns="http://www.w3.org/1999/xhtml">Please refer to the Microsoft documentation for </span><span class="No-Break"><span class="koboSpan" id="kobo.865.1" xmlns="http://www.w3.org/1999/xhtml">detailed instructions.</span></span></p>
+<p><span class="koboSpan" id="kobo.866.1" xmlns="http://www.w3.org/1999/xhtml">Even though this app works well, you can see that the app we just built is a simple one with only one window. </span><span class="koboSpan" id="kobo.866.2" xmlns="http://www.w3.org/1999/xhtml">To lay a better foundation for our subsequent development, we will use Shell as a navigation framework. </span><span class="koboSpan" id="kobo.866.3" xmlns="http://www.w3.org/1999/xhtml">There is a good Shell-based template in Xamarin.Forms, and we can use that to create the initial code for </span><span class="No-Break"><span class="koboSpan" id="kobo.867.1" xmlns="http://www.w3.org/1999/xhtml">our app.</span></span></p>
+<h1 id="_idParaDest-59"><a id="_idTextAnchor059"/><span class="koboSpan" id="kobo.868.1" xmlns="http://www.w3.org/1999/xhtml">Scaffolding a Model-View-ViewModel project</span></h1>
+<p><span class="koboSpan" id="kobo.869.1" xmlns="http://www.w3.org/1999/xhtml">We can run the app that we just created successfully now. </span><span class="koboSpan" id="kobo.869.2" xmlns="http://www.w3.org/1999/xhtml">We are going to develop a password manager app named </span><em class="italic"><span class="koboSpan" id="kobo.870.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault</span></em><span class="koboSpan" id="kobo.871.1" xmlns="http://www.w3.org/1999/xhtml"> in the rest of this book. </span><span class="koboSpan" id="kobo.871.2" xmlns="http://www.w3.org/1999/xhtml">Version </span><em class="italic"><span class="koboSpan" id="kobo.872.1" xmlns="http://www.w3.org/1999/xhtml">1.x.x</span></em><span class="koboSpan" id="kobo.873.1" xmlns="http://www.w3.org/1999/xhtml"> of this app is</span><a id="_idIndexMarker140"/><span class="koboSpan" id="kobo.874.1" xmlns="http://www.w3.org/1999/xhtml"> implemented in Xamarin.Forms, and you can find it in </span><span class="No-Break"><span class="koboSpan" id="kobo.875.1" xmlns="http://www.w3.org/1999/xhtml">GitHub here:</span></span></p>
+<p><a href="https://github.com/passxyz/Vault"><span class="No-Break"><span class="koboSpan" id="kobo.876.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/passxyz/Vault</span></span></a></p>
+<p><span class="koboSpan" id="kobo.877.1" xmlns="http://www.w3.org/1999/xhtml">Version </span><em class="italic"><span class="koboSpan" id="kobo.878.1" xmlns="http://www.w3.org/1999/xhtml">1.x.x</span></em><span class="koboSpan" id="kobo.879.1" xmlns="http://www.w3.org/1999/xhtml"> is built using Xamarin.Forms </span><em class="italic"><span class="koboSpan" id="kobo.880.1" xmlns="http://www.w3.org/1999/xhtml">5.0.0</span></em><span class="koboSpan" id="kobo.881.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.881.2" xmlns="http://www.w3.org/1999/xhtml">We will recreate it using .NET MAUI and share the experience in this book. </span><span class="koboSpan" id="kobo.881.3" xmlns="http://www.w3.org/1999/xhtml">The new release will be version </span><em class="italic"><span class="koboSpan" id="kobo.882.1" xmlns="http://www.w3.org/1999/xhtml">2.x.x</span></em><span class="koboSpan" id="kobo.883.1" xmlns="http://www.w3.org/1999/xhtml">, and the source code is </span><span class="No-Break"><span class="koboSpan" id="kobo.884.1" xmlns="http://www.w3.org/1999/xhtml">located here:</span></span></p>
+<p><a href="https://github.com/passxyz/Vault2"><span class="No-Break"><span class="koboSpan" id="kobo.885.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/passxyz/Vault2</span></span></a></p>
+<p><span class="koboSpan" id="kobo.886.1" xmlns="http://www.w3.org/1999/xhtml">Shell is supported by </span><strong class="source-inline"><span class="koboSpan" id="kobo.887.1" xmlns="http://www.w3.org/1999/xhtml">Microsoft.Maui.Controls.Shell</span></strong><span class="koboSpan" id="kobo.888.1" xmlns="http://www.w3.org/1999/xhtml"> and </span><strong class="source-inline"><span class="koboSpan" id="kobo.889.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms.Shell</span></strong><span class="koboSpan" id="kobo.890.1" xmlns="http://www.w3.org/1999/xhtml"> in .NET MAUI and Xamarin.Forms. </span><span class="koboSpan" id="kobo.890.2" xmlns="http://www.w3.org/1999/xhtml">It provides a common navigation user experience that can be used on all platforms. </span><span class="koboSpan" id="kobo.890.3" xmlns="http://www.w3.org/1999/xhtml">We will explain more about Shell in </span><a href="B16588_05.xhtml#_idTextAnchor107"><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.891.1" xmlns="http://www.w3.org/1999/xhtml">Chapter 5</span></em></span></a><span class="koboSpan" id="kobo.892.1" xmlns="http://www.w3.org/1999/xhtml">, </span><em class="italic"><span class="koboSpan" id="kobo.893.1" xmlns="http://www.w3.org/1999/xhtml">Introducing Shell and Navigation</span></em><span class="koboSpan" id="kobo.894.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.894.2" xmlns="http://www.w3.org/1999/xhtml">We will use .NET MAUI Shell as the UI framework and navigation method in </span><span class="No-Break"><span class="koboSpan" id="kobo.895.1" xmlns="http://www.w3.org/1999/xhtml">this book.</span></span></p>
+<p><span class="koboSpan" id="kobo.896.1" xmlns="http://www.w3.org/1999/xhtml">The projects created from the Visual Studio template of both .NET MAUI and Xamarin.Forms use Shell. </span><span class="koboSpan" id="kobo.896.2" xmlns="http://www.w3.org/1999/xhtml">However, the default .NET MAUI project template contains only the simplest form of Shell, as we can see in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.897.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.8</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.898.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<p class="SC---Heading" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.899.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.8: AppShell.xaml (https://epa.ms/AppShell2-8)</span></p>
+<pre class="source-code"><span class="koboSpan" id="kobo.900.1" xmlns="http://www.w3.org/1999/xhtml">
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;Shell
+    x:Class="PassXYZ.Vault.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PassXYZ.Vault"
+    Shell.FlyoutBehavior="Disabled"&gt;
+    &lt;ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" /&gt;
+&lt;/Shell&gt;</span></pre>
+<p><span class="koboSpan" id="kobo.901.1" xmlns="http://www.w3.org/1999/xhtml">In </span><em class="italic"><span class="koboSpan" id="kobo.902.1" xmlns="http://www.w3.org/1999/xhtml">Listing 2.8</span></em><span class="koboSpan" id="kobo.903.1" xmlns="http://www.w3.org/1999/xhtml">, if you are not familiar with XAML, don’t worry. </span><span class="koboSpan" id="kobo.903.2" xmlns="http://www.w3.org/1999/xhtml">We will introduce XAML syntax in </span><a href="B16588_03.xhtml#_idTextAnchor063"><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.904.1" xmlns="http://www.w3.org/1999/xhtml">Chapter 3</span></em></span></a><span class="koboSpan" id="kobo.905.1" xmlns="http://www.w3.org/1999/xhtml">, </span><em class="italic"><span class="koboSpan" id="kobo.906.1" xmlns="http://www.w3.org/1999/xhtml">User Interface Design with XAML</span></em><span class="koboSpan" id="kobo.907.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.907.2" xmlns="http://www.w3.org/1999/xhtml">We can see that </span><strong class="source-inline"><span class="koboSpan" id="kobo.908.1" xmlns="http://www.w3.org/1999/xhtml">MainPage</span></strong><span class="koboSpan" id="kobo.909.1" xmlns="http://www.w3.org/1999/xhtml"> is displayed in </span><strong class="source-inline"><span class="koboSpan" id="kobo.910.1" xmlns="http://www.w3.org/1999/xhtml">ShellContent</span></strong><span class="koboSpan" id="kobo.911.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.911.2" xmlns="http://www.w3.org/1999/xhtml">It is the simplest UI without too much content in it. </span><span class="koboSpan" id="kobo.911.3" xmlns="http://www.w3.org/1999/xhtml">In our app, we will use the </span><strong class="bold"><span class="koboSpan" id="kobo.912.1" xmlns="http://www.w3.org/1999/xhtml">Model-View-ViewModel</span></strong><span class="koboSpan" id="kobo.913.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.914.1" xmlns="http://www.w3.org/1999/xhtml">MVVM</span></strong><span class="koboSpan" id="kobo.915.1" xmlns="http://www.w3.org/1999/xhtml">) pattern and UI based on Shell. </span><span class="koboSpan" id="kobo.915.2" xmlns="http://www.w3.org/1999/xhtml">The MVVM pattern is a</span><a id="_idIndexMarker141"/><span class="koboSpan" id="kobo.916.1" xmlns="http://www.w3.org/1999/xhtml"> commonly used UI design pattern in .NET MAUI app development. </span><span class="koboSpan" id="kobo.916.2" xmlns="http://www.w3.org/1999/xhtml">We need to create the boilerplate code to include both the MVVM pattern and the Shell navigation structure. </span><span class="koboSpan" id="kobo.916.3" xmlns="http://www.w3.org/1999/xhtml">We could do it from scratch. </span><span class="koboSpan" id="kobo.916.4" xmlns="http://www.w3.org/1999/xhtml">However, the Xamarin.Forms template includes such boilerplate codes that I used in version </span><em class="italic"><span class="koboSpan" id="kobo.917.1" xmlns="http://www.w3.org/1999/xhtml">1.x.x</span></em><span class="koboSpan" id="kobo.918.1" xmlns="http://www.w3.org/1999/xhtml"> of </span><em class="italic"><span class="koboSpan" id="kobo.919.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault</span></em><span class="koboSpan" id="kobo.920.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.920.2" xmlns="http://www.w3.org/1999/xhtml">We can</span><a id="_idIndexMarker142"/><span class="koboSpan" id="kobo.921.1" xmlns="http://www.w3.org/1999/xhtml"> create the same project template for .NET MAUI. </span><span class="koboSpan" id="kobo.921.2" xmlns="http://www.w3.org/1999/xhtml">By doing this, we can also have an overview of how to migrate or reuse existing code </span><span class="No-Break"><span class="koboSpan" id="kobo.922.1" xmlns="http://www.w3.org/1999/xhtml">from Xamarin.Forms.</span></span></p>
+<h2 id="_idParaDest-60"><a id="_idTextAnchor060"/><span class="koboSpan" id="kobo.923.1" xmlns="http://www.w3.org/1999/xhtml">Migrating and reusing a Shell template from Xamarin.Forms</span></h2>
+<p><span class="koboSpan" id="kobo.924.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms include a </span><a id="_idIndexMarker143"/><span class="koboSpan" id="kobo.925.1" xmlns="http://www.w3.org/1999/xhtml">more complex Shell template that can be configured to generate boilerplate code for flyout or tabbed</span><a id="_idIndexMarker144"/><span class="koboSpan" id="kobo.926.1" xmlns="http://www.w3.org/1999/xhtml"> Shell navigation. </span><span class="koboSpan" id="kobo.926.2" xmlns="http://www.w3.org/1999/xhtml">We can create a new Xamarin.Forms project using this template. </span><span class="koboSpan" id="kobo.926.3" xmlns="http://www.w3.org/1999/xhtml">After that, we can use this boilerplate code in the .NET MAUI app that we </span><span class="No-Break"><span class="koboSpan" id="kobo.927.1" xmlns="http://www.w3.org/1999/xhtml">just created.</span></span></p>
+<p><span class="koboSpan" id="kobo.928.1" xmlns="http://www.w3.org/1999/xhtml">To create a new Xamarin.Forms project, follow </span><span class="No-Break"><span class="koboSpan" id="kobo.929.1" xmlns="http://www.w3.org/1999/xhtml">these steps:</span></span></p>
+<ol>
+<li value="1"><span class="koboSpan" id="kobo.930.1" xmlns="http://www.w3.org/1999/xhtml">Launch Visual Studio 2022 and select </span><strong class="bold"><span class="koboSpan" id="kobo.931.1" xmlns="http://www.w3.org/1999/xhtml">Create a new project</span></strong><span class="koboSpan" id="kobo.932.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.932.2" xmlns="http://www.w3.org/1999/xhtml">This opens the </span><strong class="bold"><span class="koboSpan" id="kobo.933.1" xmlns="http://www.w3.org/1999/xhtml">Create a new project</span></strong><span class="koboSpan" id="kobo.934.1" xmlns="http://www.w3.org/1999/xhtml"> wizard. </span><span class="koboSpan" id="kobo.934.2" xmlns="http://www.w3.org/1999/xhtml">In the search box, we can type </span><strong class="source-inline"><span class="koboSpan" id="kobo.935.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin</span></strong><span class="koboSpan" id="kobo.936.1" xmlns="http://www.w3.org/1999/xhtml">, and all Xamarin-related project templates will be shown (see </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.937.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.938.1" xmlns="http://www.w3.org/1999/xhtml">.11</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.939.1" xmlns="http://www.w3.org/1999/xhtml">):</span></span></li>
+</ol>
+<div>
+<div class="IMG---Figure" id="_idContainer024">
+<span class="koboSpan" id="kobo.940.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.11: New Xamarin project" src="image/Figure_2.11_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.941.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.11: New Xamarin project</span></p>
+<ol>
+<li value="2"><span class="koboSpan" id="kobo.942.1" xmlns="http://www.w3.org/1999/xhtml">Select </span><strong class="bold"><span class="koboSpan" id="kobo.943.1" xmlns="http://www.w3.org/1999/xhtml">Mobile App (Xamarin.Forms)</span></strong><span class="koboSpan" id="kobo.944.1" xmlns="http://www.w3.org/1999/xhtml"> from the list and click </span><strong class="bold"><span class="koboSpan" id="kobo.945.1" xmlns="http://www.w3.org/1999/xhtml">Next</span></strong><span class="koboSpan" id="kobo.946.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.946.2" xmlns="http://www.w3.org/1999/xhtml">On the next screen, as</span><a id="_idIndexMarker145"/><span class="koboSpan" id="kobo.947.1" xmlns="http://www.w3.org/1999/xhtml"> shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.948.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><em class="italic"><span class="koboSpan" id="kobo.949.1" xmlns="http://www.w3.org/1999/xhtml">.12</span></em><span class="koboSpan" id="kobo.950.1" xmlns="http://www.w3.org/1999/xhtml">, we should choose a different location, but use the same </span><a id="_idIndexMarker146"/><span class="koboSpan" id="kobo.951.1" xmlns="http://www.w3.org/1999/xhtml">project name, </span><strong class="source-inline"><span class="koboSpan" id="kobo.952.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault</span></strong><span class="koboSpan" id="kobo.953.1" xmlns="http://www.w3.org/1999/xhtml">, and click the </span><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.954.1" xmlns="http://www.w3.org/1999/xhtml">Create</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.955.1" xmlns="http://www.w3.org/1999/xhtml"> button:</span></span></li>
+</ol>
+<div>
+<div class="IMG---Figure" id="_idContainer025">
+<span class="koboSpan" id="kobo.956.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.12: Configure the Xamarin project" src="image/Figure_2.12_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.957.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.12: Configure the Xamarin project</span></p>
+<ol>
+<li value="3"><span class="koboSpan" id="kobo.958.1" xmlns="http://www.w3.org/1999/xhtml">We have one</span><a id="_idIndexMarker147"/><span class="koboSpan" id="kobo.959.1" xmlns="http://www.w3.org/1999/xhtml"> more step, as </span><a id="_idIndexMarker148"/><span class="koboSpan" id="kobo.960.1" xmlns="http://www.w3.org/1999/xhtml">shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.961.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><em class="italic"><span class="koboSpan" id="kobo.962.1" xmlns="http://www.w3.org/1999/xhtml">.13</span></em><span class="koboSpan" id="kobo.963.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.963.2" xmlns="http://www.w3.org/1999/xhtml">Let’s select the </span><strong class="bold"><span class="koboSpan" id="kobo.964.1" xmlns="http://www.w3.org/1999/xhtml">Flyout</span></strong><span class="koboSpan" id="kobo.965.1" xmlns="http://www.w3.org/1999/xhtml"> template and </span><span class="No-Break"><span class="koboSpan" id="kobo.966.1" xmlns="http://www.w3.org/1999/xhtml">click </span></span><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.967.1" xmlns="http://www.w3.org/1999/xhtml">Create</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.968.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></li>
+</ol>
+<div>
+<div class="IMG---Figure" id="_idContainer026">
+<span class="koboSpan" id="kobo.969.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.13: Configure the Xamarin project – Flyout" src="image/Figure_2.13_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.970.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.13: Configure the Xamarin project – Flyout</span></p>
+<p><span class="koboSpan" id="kobo.971.1" xmlns="http://www.w3.org/1999/xhtml">After the new solution is created, we </span><a id="_idIndexMarker149"/><span class="koboSpan" id="kobo.972.1" xmlns="http://www.w3.org/1999/xhtml">can see that there are four projects in the solution, as shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.973.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.974.1" xmlns="http://www.w3.org/1999/xhtml">.14</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.975.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<ul>
+<li><strong class="bold"><span class="koboSpan" id="kobo.976.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault</span></strong><span class="koboSpan" id="kobo.977.1" xmlns="http://www.w3.org/1999/xhtml"> – This is a .NET</span><a id="_idIndexMarker150"/><span class="koboSpan" id="kobo.978.1" xmlns="http://www.w3.org/1999/xhtml"> Standard project that is shared by other projects, and all platform-independent code should </span><span class="No-Break"><span class="koboSpan" id="kobo.979.1" xmlns="http://www.w3.org/1999/xhtml">be here</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.980.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault.Android</span></strong><span class="koboSpan" id="kobo.981.1" xmlns="http://www.w3.org/1999/xhtml"> – This is the Android </span><span class="No-Break"><span class="koboSpan" id="kobo.982.1" xmlns="http://www.w3.org/1999/xhtml">platform-specific project</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.983.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault.iOS</span></strong><span class="koboSpan" id="kobo.984.1" xmlns="http://www.w3.org/1999/xhtml"> – This is the iOS </span><span class="No-Break"><span class="koboSpan" id="kobo.985.1" xmlns="http://www.w3.org/1999/xhtml">platform-specific project</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.986.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault.UWP</span></strong><span class="koboSpan" id="kobo.987.1" xmlns="http://www.w3.org/1999/xhtml"> – This is the </span><span class="No-Break"><span class="koboSpan" id="kobo.988.1" xmlns="http://www.w3.org/1999/xhtml">UWP-specific project</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.989.1" xmlns="http://www.w3.org/1999/xhtml">We can see that the project structure of Xamarin.Forms is quite different from .NET MAUI. </span><span class="koboSpan" id="kobo.989.2" xmlns="http://www.w3.org/1999/xhtml">There are multiple projects in the solution. </span><span class="koboSpan" id="kobo.989.3" xmlns="http://www.w3.org/1999/xhtml">All resources are managed separately in platform-specific projects. </span><span class="koboSpan" id="kobo.989.4" xmlns="http://www.w3.org/1999/xhtml">Most of the development work should be done in the .NET Standard </span><a id="_idIndexMarker151"/><span class="koboSpan" id="kobo.990.1" xmlns="http://www.w3.org/1999/xhtml">project, </span><em class="italic"><span class="koboSpan" id="kobo.991.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault</span></em><span class="koboSpan" id="kobo.992.1" xmlns="http://www.w3.org/1999/xhtml">, and we will</span><a id="_idIndexMarker152"/><span class="koboSpan" id="kobo.993.1" xmlns="http://www.w3.org/1999/xhtml"> migrate and reuse the code in </span><span class="No-Break"><span class="koboSpan" id="kobo.994.1" xmlns="http://www.w3.org/1999/xhtml">this project.</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer027">
+<span class="koboSpan" id="kobo.995.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.14: Xamarin.Forms project structure" src="image/Figure_2.14_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.996.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.14: Xamarin.Forms project structure</span></p>
+<p><span class="koboSpan" id="kobo.997.1" xmlns="http://www.w3.org/1999/xhtml">The source code of this Xamarin.Forms project can be </span><span class="No-Break"><span class="koboSpan" id="kobo.998.1" xmlns="http://www.w3.org/1999/xhtml">found here:</span></span></p>
+<p><a href="https://github.com/shugaoye/PassXYZ.Vault2/tree/xamarin"><span class="No-Break"><span class="koboSpan" id="kobo.999.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/shugaoye/PassXYZ.Vault2/tree/xamarin</span></span></a></p>
+<p><span class="koboSpan" id="kobo.1000.1" xmlns="http://www.w3.org/1999/xhtml">If platform-specific code is not involved, the migration process is relatively simple. </span><span class="koboSpan" id="kobo.1000.2" xmlns="http://www.w3.org/1999/xhtml">We are handling the simplest case here. </span><span class="koboSpan" id="kobo.1000.3" xmlns="http://www.w3.org/1999/xhtml">The production code is usually much more complicated than this </span><a id="_idIndexMarker153"/><span class="koboSpan" id="kobo.1001.1" xmlns="http://www.w3.org/1999/xhtml">so any migration should be planned after a </span><span class="No-Break"><span class="koboSpan" id="kobo.1002.1" xmlns="http://www.w3.org/1999/xhtml">detailed analysis.</span></span></p>
+<p><span class="koboSpan" id="kobo.1003.1" xmlns="http://www.w3.org/1999/xhtml">Let’s focus on the .NET Standard project. </span><span class="koboSpan" id="kobo.1003.2" xmlns="http://www.w3.org/1999/xhtml">The content in the .NET Standard project includes the boilerplate </span><a id="_idIndexMarker154"/><span class="koboSpan" id="kobo.1004.1" xmlns="http://www.w3.org/1999/xhtml">code of the MVVM pattern and Shell UI, which is what we need. </span><span class="koboSpan" id="kobo.1004.2" xmlns="http://www.w3.org/1999/xhtml">We can copy files in the previous list to the .NET MAUI project and change namespaces in the </span><span class="No-Break"><span class="koboSpan" id="kobo.1005.1" xmlns="http://www.w3.org/1999/xhtml">source code.</span></span></p>
+<p><span class="koboSpan" id="kobo.1006.1" xmlns="http://www.w3.org/1999/xhtml">The following are the steps to be taken in the </span><span class="No-Break"><span class="koboSpan" id="kobo.1007.1" xmlns="http://www.w3.org/1999/xhtml">migration process:</span></span></p>
+<ol>
+<li value="1"><span class="koboSpan" id="kobo.1008.1" xmlns="http://www.w3.org/1999/xhtml">Please refer to </span><em class="italic"><span class="koboSpan" id="kobo.1009.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.4</span></em><span class="koboSpan" id="kobo.1010.1" xmlns="http://www.w3.org/1999/xhtml">, which shows a list of actions corresponding to the list of files and folders in the .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.1011.1" xmlns="http://www.w3.org/1999/xhtml">Standard project:</span></span></li>
+</ol>
+<table class="No-Table-Style _idGenTablePara-1" id="table004-1">
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.1012.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.1013.1" xmlns="http://www.w3.org/1999/xhtml">Actions</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><strong class="bold"><span class="koboSpan" id="kobo.1014.1" xmlns="http://www.w3.org/1999/xhtml">.</span></strong><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.1015.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1016.1" xmlns="http://www.w3.org/1999/xhtml">App.xaml</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.1017.1" xmlns="http://www.w3.org/1999/xhtml">No</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.1018.1" xmlns="http://www.w3.org/1999/xhtml">Keep the .NET MAUI version. </span><span class="koboSpan" id="kobo.1018.2" xmlns="http://www.w3.org/1999/xhtml">It defines the instance of the </span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1019.1" xmlns="http://www.w3.org/1999/xhtml">Application</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.1020.1" xmlns="http://www.w3.org/1999/xhtml"> class.</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1021.1" xmlns="http://www.w3.org/1999/xhtml">AppShell.xaml</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.1022.1" xmlns="http://www.w3.org/1999/xhtml">Replace</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.1023.1" xmlns="http://www.w3.org/1999/xhtml">Overwrite the .NET MAUI version and change namespaces to .NET MAUI. </span><span class="koboSpan" id="kobo.1023.2" xmlns="http://www.w3.org/1999/xhtml">This file defines the Shell </span><span class="No-Break"><span class="koboSpan" id="kobo.1024.1" xmlns="http://www.w3.org/1999/xhtml">navigation hierarchy.</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1025.1" xmlns="http://www.w3.org/1999/xhtml">Views/</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.1026.1" xmlns="http://www.w3.org/1999/xhtml">Copy</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.1027.1" xmlns="http://www.w3.org/1999/xhtml">New folder in .NET MAUI project. </span><span class="koboSpan" id="kobo.1027.2" xmlns="http://www.w3.org/1999/xhtml">Need to </span><span class="No-Break"><span class="koboSpan" id="kobo.1028.1" xmlns="http://www.w3.org/1999/xhtml">change namespaces.</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1029.1" xmlns="http://www.w3.org/1999/xhtml">ViewModels/</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.1030.1" xmlns="http://www.w3.org/1999/xhtml">Copy</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.1031.1" xmlns="http://www.w3.org/1999/xhtml">New folder in .NET MAUI project. </span><span class="koboSpan" id="kobo.1031.2" xmlns="http://www.w3.org/1999/xhtml">Need to </span><span class="No-Break"><span class="koboSpan" id="kobo.1032.1" xmlns="http://www.w3.org/1999/xhtml">change namespaces.</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1033.1" xmlns="http://www.w3.org/1999/xhtml">Services/</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.1034.1" xmlns="http://www.w3.org/1999/xhtml">Copy</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.1035.1" xmlns="http://www.w3.org/1999/xhtml">Interface to export models. </span><span class="koboSpan" id="kobo.1035.2" xmlns="http://www.w3.org/1999/xhtml">New folder in .NET MAUI project. </span><span class="koboSpan" id="kobo.1035.3" xmlns="http://www.w3.org/1999/xhtml">Need to </span><span class="No-Break"><span class="koboSpan" id="kobo.1036.1" xmlns="http://www.w3.org/1999/xhtml">change namespaces.</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1037.1" xmlns="http://www.w3.org/1999/xhtml">Models/</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.1038.1" xmlns="http://www.w3.org/1999/xhtml">Copy</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.1039.1" xmlns="http://www.w3.org/1999/xhtml">New folder in .NET MAUI project. </span><span class="koboSpan" id="kobo.1039.2" xmlns="http://www.w3.org/1999/xhtml">Need to </span><span class="No-Break"><span class="koboSpan" id="kobo.1040.1" xmlns="http://www.w3.org/1999/xhtml">change namespaces.</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.1041.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.4: Actions in the .NET standard project</span></p>
+<ol>
+<li value="2"><span class="koboSpan" id="kobo.1042.1" xmlns="http://www.w3.org/1999/xhtml">In the .NET MAUI </span><a id="_idIndexMarker155"/><span class="koboSpan" id="kobo.1043.1" xmlns="http://www.w3.org/1999/xhtml">project, please</span><a id="_idIndexMarker156"/><span class="koboSpan" id="kobo.1044.1" xmlns="http://www.w3.org/1999/xhtml"> refer to </span><em class="italic"><span class="koboSpan" id="kobo.1045.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.4</span></em><span class="koboSpan" id="kobo.1046.1" xmlns="http://www.w3.org/1999/xhtml"> to replace the </span><span class="No-Break"><span class="koboSpan" id="kobo.1047.1" xmlns="http://www.w3.org/1999/xhtml">following namespaces:</span></span></li>
+</ol>
+<table class="No-Table-Style _idGenTablePara-1" id="table005-1">
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.1048.1" xmlns="http://www.w3.org/1999/xhtml">Old namespace</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.1049.1" xmlns="http://www.w3.org/1999/xhtml">New namespace</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1050.1" xmlns="http://www.w3.org/1999/xhtml">xmlns="http://xamarin.com/schemas/2014/forms"</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1051.1" xmlns="http://www.w3.org/1999/xhtml">xmlns="http://schemas.microsoft.com/dotnet/2021/maui"</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1052.1" xmlns="http://www.w3.org/1999/xhtml">using Xamarin.Forms</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><strong class="source-inline"><span class="koboSpan" id="kobo.1053.1" xmlns="http://www.w3.org/1999/xhtml">using Microsoft.Maui AND </span></strong><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1054.1" xmlns="http://www.w3.org/1999/xhtml">using Microsoft.Maui.Controls</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1055.1" xmlns="http://www.w3.org/1999/xhtml">using Xamarin.Forms.Xaml</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.1056.1" xmlns="http://www.w3.org/1999/xhtml">using Microsoft.Maui.Controls.Xaml</span></strong></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.1057.1" xmlns="http://www.w3.org/1999/xhtml">Table 2.5: Namespaces in .NET MAUI and Xamarin.Forms</span></p>
+<ol>
+<li value="3"><span class="koboSpan" id="kobo.1058.1" xmlns="http://www.w3.org/1999/xhtml">Test and fix </span><span class="No-Break"><span class="koboSpan" id="kobo.1059.1" xmlns="http://www.w3.org/1999/xhtml">any errors.</span></span></li>
+</ol>
+<p><span class="koboSpan" id="kobo.1060.1" xmlns="http://www.w3.org/1999/xhtml">In </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.1061.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><em class="italic"><span class="koboSpan" id="kobo.1062.1" xmlns="http://www.w3.org/1999/xhtml">.15</span></em><span class="koboSpan" id="kobo.1063.1" xmlns="http://www.w3.org/1999/xhtml">, we can see that </span><a id="_idIndexMarker157"/><span class="koboSpan" id="kobo.1064.1" xmlns="http://www.w3.org/1999/xhtml">the list of files changed is views and </span><span class="No-Break"><span class="koboSpan" id="kobo.1065.1" xmlns="http://www.w3.org/1999/xhtml">view models:</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer028">
+<span class="koboSpan" id="kobo.1066.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.15: Changed files in migration (https://bit.ly/3NlfqvO)" src="image/Figure_2.15_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.1067.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.15: Changed files in migration (</span><a href="https://bit.ly/3NlfqvO"><span class="koboSpan" id="kobo.1068.1" xmlns="http://www.w3.org/1999/xhtml">https://bit.ly/3NlfqvO</span></a><span class="koboSpan" id="kobo.1069.1" xmlns="http://www.w3.org/1999/xhtml">)</span></p>
+<p><span class="koboSpan" id="kobo.1070.1" xmlns="http://www.w3.org/1999/xhtml">For this simple case, all changes are related to the namespace. </span><span class="koboSpan" id="kobo.1070.2" xmlns="http://www.w3.org/1999/xhtml">This is not true in real-world situations. </span><span class="koboSpan" id="kobo.1070.3" xmlns="http://www.w3.org/1999/xhtml">Even though the process looks simple, it is still relatively complicated for people who are new to .NET MAUI. </span><span class="koboSpan" id="kobo.1070.4" xmlns="http://www.w3.org/1999/xhtml">I don’t recommend you to repeat this. </span><span class="koboSpan" id="kobo.1070.5" xmlns="http://www.w3.org/1999/xhtml">Instead, I created a new Visual Studio project template to include the </span><span class="No-Break"><span class="koboSpan" id="kobo.1071.1" xmlns="http://www.w3.org/1999/xhtml">desired outcome.</span></span></p>
+<p><span class="koboSpan" id="kobo.1072.1" xmlns="http://www.w3.org/1999/xhtml">Let’s build and test this </span><span class="No-Break"><span class="koboSpan" id="kobo.1073.1" xmlns="http://www.w3.org/1999/xhtml">updated app.</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer029">
+<span class="koboSpan" id="kobo.1074.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.16: PassXYZ.Vault with .NET MAUI Shell" src="image/Figure_2.16_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.1075.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.16: PassXYZ.Vault with .NET MAUI Shell</span></p>
+<p><span class="koboSpan" id="kobo.1076.1" xmlns="http://www.w3.org/1999/xhtml">In </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.1077.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><em class="italic"><span class="koboSpan" id="kobo.1078.1" xmlns="http://www.w3.org/1999/xhtml">.16</span></em><span class="koboSpan" id="kobo.1079.1" xmlns="http://www.w3.org/1999/xhtml">, we can see that </span><a id="_idIndexMarker158"/><span class="koboSpan" id="kobo.1080.1" xmlns="http://www.w3.org/1999/xhtml">there are three pages included in the default </span><span class="No-Break"><span class="koboSpan" id="kobo.1081.1" xmlns="http://www.w3.org/1999/xhtml">Shell menu:</span></span></p>
+<ul>
+<li><strong class="bold"><span class="koboSpan" id="kobo.1082.1" xmlns="http://www.w3.org/1999/xhtml">About</span></strong><span class="koboSpan" id="kobo.1083.1" xmlns="http://www.w3.org/1999/xhtml"> – This is an </span><span class="No-Break"><span class="koboSpan" id="kobo.1084.1" xmlns="http://www.w3.org/1999/xhtml">about page</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.1085.1" xmlns="http://www.w3.org/1999/xhtml">Browse</span></strong><span class="koboSpan" id="kobo.1086.1" xmlns="http://www.w3.org/1999/xhtml"> – This is the entry point of a list </span><span class="No-Break"><span class="koboSpan" id="kobo.1087.1" xmlns="http://www.w3.org/1999/xhtml">of items</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.1088.1" xmlns="http://www.w3.org/1999/xhtml">Logout</span></strong><span class="koboSpan" id="kobo.1089.1" xmlns="http://www.w3.org/1999/xhtml"> – This is the link to the login page where you can log in or </span><span class="No-Break"><span class="koboSpan" id="kobo.1090.1" xmlns="http://www.w3.org/1999/xhtml">log out</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.1091.1" xmlns="http://www.w3.org/1999/xhtml">We will use this as the boilerplate</span><a id="_idIndexMarker159"/><span class="koboSpan" id="kobo.1092.1" xmlns="http://www.w3.org/1999/xhtml"> code for further development in this book. </span><span class="koboSpan" id="kobo.1092.2" xmlns="http://www.w3.org/1999/xhtml">To summarize the work that we have done in this section, I created a Visual Studio project template for it. </span><span class="koboSpan" id="kobo.1092.3" xmlns="http://www.w3.org/1999/xhtml">By using this project template, we can generate the project structure </span><span class="No-Break"><span class="koboSpan" id="kobo.1093.1" xmlns="http://www.w3.org/1999/xhtml">we want.</span></span></p>
+<h2 id="_idParaDest-61"><a id="_idTextAnchor061"/><span class="koboSpan" id="kobo.1094.1" xmlns="http://www.w3.org/1999/xhtml">Visual Studio project template</span></h2>
+<p><span class="koboSpan" id="kobo.1095.1" xmlns="http://www.w3.org/1999/xhtml">The project template can be </span><a id="_idIndexMarker160"/><span class="koboSpan" id="kobo.1096.1" xmlns="http://www.w3.org/1999/xhtml">downloaded as a Visual Studio extension package from the Visual Studio Marketplace, as shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.1097.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.1098.1" xmlns="http://www.w3.org/1999/xhtml">.17</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.1099.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer030">
+<span class="koboSpan" id="kobo.1100.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.17: Project template in Visual Studio Marketplace" src="image/Figure_2.17_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.1101.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.17: Project template in Visual Studio Marketplace</span></p>
+<p><span class="koboSpan" id="kobo.1102.1" xmlns="http://www.w3.org/1999/xhtml">After the installation of this project template, we can create a new .NET MAUI project, as shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.1103.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.1104.1" xmlns="http://www.w3.org/1999/xhtml">.18</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.1105.1" xmlns="http://www.w3.org/1999/xhtml">:</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer031">
+<span class="koboSpan" id="kobo.1106.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 2.18: Creating a new .NET MAUI project using the project template" src="image/Figure_2.18_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.1107.1" xmlns="http://www.w3.org/1999/xhtml">Figure 2.18: Creating a new .NET MAUI project using the project template</span></p>
+<p><span class="koboSpan" id="kobo.1108.1" xmlns="http://www.w3.org/1999/xhtml">In the project created using this</span><a id="_idIndexMarker161"/><span class="koboSpan" id="kobo.1109.1" xmlns="http://www.w3.org/1999/xhtml"> template, the project structure is the same as the one in this chapter. </span><span class="koboSpan" id="kobo.1109.2" xmlns="http://www.w3.org/1999/xhtml">The source code of this project template can be </span><span class="No-Break"><span class="koboSpan" id="kobo.1110.1" xmlns="http://www.w3.org/1999/xhtml">found here:</span></span></p>
+<p><a href="https://github.com/passxyz/MauiTemplate"><span class="No-Break"><span class="koboSpan" id="kobo.1111.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/passxyz/MauiTemplate</span></span></a></p>
+<h1 id="_idParaDest-62"><a id="_idTextAnchor062"/><span class="koboSpan" id="kobo.1112.1" xmlns="http://www.w3.org/1999/xhtml">Summary</span></h1>
+<p><span class="koboSpan" id="kobo.1113.1" xmlns="http://www.w3.org/1999/xhtml">We created a new .NET MAUI project in this chapter. </span><span class="koboSpan" id="kobo.1113.2" xmlns="http://www.w3.org/1999/xhtml">We learned how to configure the .NET MAUI app using .NET Generic Host, and we can use a custom font (Font Awesome) after updating the configuration of the resources. </span><span class="koboSpan" id="kobo.1113.3" xmlns="http://www.w3.org/1999/xhtml">We also learned about the .NET MAUI application lifecycle. </span><span class="koboSpan" id="kobo.1113.4" xmlns="http://www.w3.org/1999/xhtml">We tested how to subscribe to lifecycle events by overriding the </span><strong class="source-inline"><span class="koboSpan" id="kobo.1114.1" xmlns="http://www.w3.org/1999/xhtml">CreateWindow</span></strong><span class="koboSpan" id="kobo.1115.1" xmlns="http://www.w3.org/1999/xhtml"> method and by creating a derived class of the </span><strong class="source-inline"><span class="koboSpan" id="kobo.1116.1" xmlns="http://www.w3.org/1999/xhtml">Window</span></strong><span class="koboSpan" id="kobo.1117.1" xmlns="http://www.w3.org/1999/xhtml"> class. </span><span class="koboSpan" id="kobo.1117.2" xmlns="http://www.w3.org/1999/xhtml">To create the boilerplate code with the MVVM pattern and Shell support, we created a new .NET MAUI project template. </span><span class="koboSpan" id="kobo.1117.3" xmlns="http://www.w3.org/1999/xhtml">Throughout the process, we demonstrated how to migrate Xamarin.Forms code to .</span><span class="No-Break"><span class="koboSpan" id="kobo.1118.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI.</span></span></p>
+<p><span class="koboSpan" id="kobo.1119.1" xmlns="http://www.w3.org/1999/xhtml">In the next chapter, we will learn how to create a user interface using XAML. </span><span class="koboSpan" id="kobo.1119.2" xmlns="http://www.w3.org/1999/xhtml">XAML can be used to build user interfaces for WPF, UWP, Xamarin.Forms, and .NET MAUI. </span><span class="koboSpan" id="kobo.1119.3" xmlns="http://www.w3.org/1999/xhtml">We will create and improve the user interfaces of our password manager app </span><span class="No-Break"><span class="koboSpan" id="kobo.1120.1" xmlns="http://www.w3.org/1999/xhtml">using XAML.</span></span></p>
+</div>
+<div>
+<div class="IMG---Figure" id="_idContainer033">
+</div>
+</div>
+</body>
+</html>

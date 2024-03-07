@@ -1,0 +1,828 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+<title>B16588_01</title>
+<link href="css/style-JRserifv6.css" rel="stylesheet" type="text/css"/>
+<!-- kobo-style -->
+<style id="koboSpanStyle" type="text/css" xmlns="http://www.w3.org/1999/xhtml">.koboSpan { -webkit-text-combine: inherit; }</style>
+</head>
+<body id="B16588_01" xml:lang="en-GB">
+<div id="_idContainer012">
+<h1 class="chapter-number" id="_idParaDest-16"><a id="_idTextAnchor015"/><span class="koboSpan" id="kobo.1.1" xmlns="http://www.w3.org/1999/xhtml">1</span></h1>
+<h1 id="_idParaDest-17"><a id="_idTextAnchor016"/><span class="koboSpan" id="kobo.2.1" xmlns="http://www.w3.org/1999/xhtml">Getting Started with .NET MAUI</span></h1>
+<p><span class="koboSpan" id="kobo.3.1" xmlns="http://www.w3.org/1999/xhtml">Since the release of .NET 5, Microsoft has been trying to unify different .NET implementations into one .NET release. </span><span class="koboSpan" id="kobo.3.2" xmlns="http://www.w3.org/1999/xhtml">.NET Multi-platform App UI (or .NET MAUI) is an effort to provide a unified cross-platform UI framework. </span><span class="koboSpan" id="kobo.3.3" xmlns="http://www.w3.org/1999/xhtml">We will learn how to use .NET MAUI to develop cross-platform applications in </span><span class="No-Break"><span class="koboSpan" id="kobo.4.1" xmlns="http://www.w3.org/1999/xhtml">this book.</span></span></p>
+<p><span class="koboSpan" id="kobo.5.1" xmlns="http://www.w3.org/1999/xhtml">The following is what we will learn in </span><span class="No-Break"><span class="koboSpan" id="kobo.6.1" xmlns="http://www.w3.org/1999/xhtml">this chapter:</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.7.1" xmlns="http://www.w3.org/1999/xhtml">An overview of </span><span class="No-Break"><span class="koboSpan" id="kobo.8.1" xmlns="http://www.w3.org/1999/xhtml">cross-platform technologies</span></span></li>
+<li><span class="koboSpan" id="kobo.9.1" xmlns="http://www.w3.org/1999/xhtml">A comparison of cross-platform technologies (.NET, Java, </span><span class="No-Break"><span class="koboSpan" id="kobo.10.1" xmlns="http://www.w3.org/1999/xhtml">and JavaScript)</span></span></li>
+<li><span class="koboSpan" id="kobo.11.1" xmlns="http://www.w3.org/1999/xhtml">The .NET landscape and the history </span><span class="No-Break"><span class="koboSpan" id="kobo.12.1" xmlns="http://www.w3.org/1999/xhtml">of Xamarin</span></span></li>
+<li><span class="koboSpan" id="kobo.13.1" xmlns="http://www.w3.org/1999/xhtml">.NET </span><span class="No-Break"><span class="koboSpan" id="kobo.14.1" xmlns="http://www.w3.org/1999/xhtml">MAUI features</span></span></li>
+<li><span class="koboSpan" id="kobo.15.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI </span><span class="No-Break"><span class="koboSpan" id="kobo.16.1" xmlns="http://www.w3.org/1999/xhtml">Blazor apps</span></span></li>
+<li><span class="koboSpan" id="kobo.17.1" xmlns="http://www.w3.org/1999/xhtml">A development </span><span class="No-Break"><span class="koboSpan" id="kobo.18.1" xmlns="http://www.w3.org/1999/xhtml">environment setup</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.19.1" xmlns="http://www.w3.org/1999/xhtml">If you’re new to .NET development, this chapter will help you to understand the .NET landscape. </span><span class="koboSpan" id="kobo.19.2" xmlns="http://www.w3.org/1999/xhtml">For Xamarin developers, many topics in this book may sound familiar, and this chapter will give you an overview of what we will discuss in </span><span class="No-Break"><span class="koboSpan" id="kobo.20.1" xmlns="http://www.w3.org/1999/xhtml">this book.</span></span></p>
+<h1 id="_idParaDest-18"><a id="_idTextAnchor017"/><span class="koboSpan" id="kobo.21.1" xmlns="http://www.w3.org/1999/xhtml">An overview of cross-platform technologies</span></h1>
+<p><span class="koboSpan" id="kobo.22.1" xmlns="http://www.w3.org/1999/xhtml">Before discussing cross-platform</span><a id="_idIndexMarker000"/><span class="koboSpan" id="kobo.23.1" xmlns="http://www.w3.org/1999/xhtml"> technologies, let’s review the application development landscape first to understand the different cross-platform </span><span class="No-Break"><span class="koboSpan" id="kobo.24.1" xmlns="http://www.w3.org/1999/xhtml">technologies better.</span></span></p>
+<p><span class="koboSpan" id="kobo.25.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI is a cross-platform development framework from Microsoft for building apps, targeting both mobile and desktop form factors on Android, iOS, macOS, Windows, </span><span class="No-Break"><span class="koboSpan" id="kobo.26.1" xmlns="http://www.w3.org/1999/xhtml">and Tizen.</span></span></p>
+<p><span class="koboSpan" id="kobo.27.1" xmlns="http://www.w3.org/1999/xhtml">Generally, software development can be divided into two categories – systems programming and application programming. </span><span class="koboSpan" id="kobo.27.2" xmlns="http://www.w3.org/1999/xhtml">Application programming aims to produce software that provides services to the user directly, whereas system programming aims to produce software and software platforms that provide services to other software. </span><span class="koboSpan" id="kobo.27.3" xmlns="http://www.w3.org/1999/xhtml">In the .NET domain, the development of the .NET platform itself belongs to systems programming, whereas the application development on top of the .NET platform belongs to </span><span class="No-Break"><span class="koboSpan" id="kobo.28.1" xmlns="http://www.w3.org/1999/xhtml">application programming.</span></span></p>
+<p><span class="koboSpan" id="kobo.29.1" xmlns="http://www.w3.org/1999/xhtml">The design or architecture in a modern system includes the client and server side of software, which we can refer to as the frontend </span><span class="No-Break"><span class="koboSpan" id="kobo.30.1" xmlns="http://www.w3.org/1999/xhtml">and backend.</span></span></p>
+<p><span class="koboSpan" id="kobo.31.1" xmlns="http://www.w3.org/1999/xhtml">For the software on the client side, we can further divide it into two categories – native applications and </span><span class="No-Break"><span class="koboSpan" id="kobo.32.1" xmlns="http://www.w3.org/1999/xhtml">web applications.</span></span></p>
+<h2 id="_idParaDest-19"><a id="_idTextAnchor018"/><span class="koboSpan" id="kobo.33.1" xmlns="http://www.w3.org/1999/xhtml">Native applications</span></h2>
+<p><span class="koboSpan" id="kobo.34.1" xmlns="http://www.w3.org/1999/xhtml">In native application</span><a id="_idIndexMarker001"/><span class="koboSpan" id="kobo.35.1" xmlns="http://www.w3.org/1999/xhtml"> development, we usually</span><a id="_idIndexMarker002"/><span class="koboSpan" id="kobo.36.1" xmlns="http://www.w3.org/1999/xhtml"> refer to application development for a particular operating system. </span><span class="koboSpan" id="kobo.36.2" xmlns="http://www.w3.org/1999/xhtml">With desktop applications, this could be Windows applications, macOS applications, or Linux applications. </span><span class="koboSpan" id="kobo.36.3" xmlns="http://www.w3.org/1999/xhtml">With mobile applications, this could be Android </span><span class="No-Break"><span class="koboSpan" id="kobo.37.1" xmlns="http://www.w3.org/1999/xhtml">or iOS.</span></span></p>
+<p><span class="koboSpan" id="kobo.38.1" xmlns="http://www.w3.org/1999/xhtml">When we develop a native application, we have to develop it for each platform (Windows, Linux, Android, or macOS/iOS). </span><span class="koboSpan" id="kobo.38.2" xmlns="http://www.w3.org/1999/xhtml">We need to use different programming languages, tools, and libraries to develop each of </span><span class="No-Break"><span class="koboSpan" id="kobo.39.1" xmlns="http://www.w3.org/1999/xhtml">them individually.</span></span></p>
+<h2 id="_idParaDest-20"><a id="_idTextAnchor019"/><span class="koboSpan" id="kobo.40.1" xmlns="http://www.w3.org/1999/xhtml">Web applications</span></h2>
+<p><span class="koboSpan" id="kobo.41.1" xmlns="http://www.w3.org/1999/xhtml">Web application development</span><a id="_idIndexMarker003"/><span class="koboSpan" id="kobo.42.1" xmlns="http://www.w3.org/1999/xhtml"> has gone through</span><a id="_idIndexMarker004"/><span class="koboSpan" id="kobo.43.1" xmlns="http://www.w3.org/1999/xhtml"> several generations of evolution over the past few decades, from a Netscape browser</span><a id="_idIndexMarker005"/><span class="koboSpan" id="kobo.44.1" xmlns="http://www.w3.org/1999/xhtml"> with static web pages to a modern </span><strong class="bold"><span class="koboSpan" id="kobo.45.1" xmlns="http://www.w3.org/1999/xhtml">single-page application</span></strong><span class="koboSpan" id="kobo.46.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.47.1" xmlns="http://www.w3.org/1999/xhtml">SPA</span></strong><span class="koboSpan" id="kobo.48.1" xmlns="http://www.w3.org/1999/xhtml">) using JavaScript frameworks (such as React or Angular). </span><span class="koboSpan" id="kobo.48.2" xmlns="http://www.w3.org/1999/xhtml">In web application development, JavaScript</span><a id="_idIndexMarker006"/><span class="koboSpan" id="kobo.49.1" xmlns="http://www.w3.org/1999/xhtml"> and various JavaScript-based frameworks</span><a id="_idIndexMarker007"/><span class="koboSpan" id="kobo.50.1" xmlns="http://www.w3.org/1999/xhtml"> dominate the market. </span><span class="koboSpan" id="kobo.50.2" xmlns="http://www.w3.org/1999/xhtml">In the .NET ecosystem, Blazor is trying to catch up in </span><span class="No-Break"><span class="koboSpan" id="kobo.51.1" xmlns="http://www.w3.org/1999/xhtml">this area.</span></span></p>
+<h2 id="_idParaDest-21"><a id="_idTextAnchor020"/><span class="koboSpan" id="kobo.52.1" xmlns="http://www.w3.org/1999/xhtml">Backend services</span></h2>
+<p><span class="koboSpan" id="kobo.53.1" xmlns="http://www.w3.org/1999/xhtml">Both native applications</span><a id="_idIndexMarker008"/><span class="koboSpan" id="kobo.54.1" xmlns="http://www.w3.org/1999/xhtml"> and web applications usually</span><a id="_idIndexMarker009"/><span class="koboSpan" id="kobo.55.1" xmlns="http://www.w3.org/1999/xhtml"> need some backend services to access business logic or a database. </span><span class="koboSpan" id="kobo.55.2" xmlns="http://www.w3.org/1999/xhtml">For backend development, many languages and frameworks can be used, such as Java/Spring, .NET, Node.js, Ruby on Rails, or Python/Django. </span><span class="koboSpan" id="kobo.55.3" xmlns="http://www.w3.org/1999/xhtml">Usually, native applications and web applications can share the same backend service. </span><span class="koboSpan" id="kobo.55.4" xmlns="http://www.w3.org/1999/xhtml">Java and .NET are the most popular choices for backend </span><span class="No-Break"><span class="koboSpan" id="kobo.56.1" xmlns="http://www.w3.org/1999/xhtml">service developments.</span></span></p>
+<h2 id="_idParaDest-22"><a id="_idTextAnchor021"/><span class="koboSpan" id="kobo.57.1" xmlns="http://www.w3.org/1999/xhtml">Cross-platform technologies</span></h2>
+<p><span class="koboSpan" id="kobo.58.1" xmlns="http://www.w3.org/1999/xhtml">Technologies used in web application</span><a id="_idIndexMarker010"/><span class="koboSpan" id="kobo.59.1" xmlns="http://www.w3.org/1999/xhtml"> development and backend services development are not platform-specific and can be used on different platforms as they are. </span><span class="koboSpan" id="kobo.59.2" xmlns="http://www.w3.org/1999/xhtml">When we talk about cross-platform development, we usually refer to native application development. </span><span class="koboSpan" id="kobo.59.3" xmlns="http://www.w3.org/1999/xhtml">In native application development, cross-platform development technologies can help to reduce costs and improve efficiency. </span><span class="koboSpan" id="kobo.59.4" xmlns="http://www.w3.org/1999/xhtml">The most popular cross-platform development technologies in this category include Flutter, .NET MAUI/Xamarin, and React Native. </span><em class="italic"><span class="koboSpan" id="kobo.60.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.1</span></em><span class="koboSpan" id="kobo.61.1" xmlns="http://www.w3.org/1999/xhtml"> provides an overview of available cross-platform technologies and alternative solutions from Microsoft. </span><span class="koboSpan" id="kobo.61.2" xmlns="http://www.w3.org/1999/xhtml">The technologies listed here are not exhaustive. </span><span class="koboSpan" id="kobo.61.3" xmlns="http://www.w3.org/1999/xhtml">I just want to give you a feeling of what kind of technologies exist in each category and what Microsoft solution can be used as </span><span class="No-Break"><span class="koboSpan" id="kobo.62.1" xmlns="http://www.w3.org/1999/xhtml">an alternative.</span></span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table001-1">
+<colgroup>
+<col/>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style" rowspan="2">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.63.1" xmlns="http://www.w3.org/1999/xhtml">Category</span></span></p>
+</td>
+<td class="No-Table-Style" colspan="2">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.64.1" xmlns="http://www.w3.org/1999/xhtml">Cross-platform technologies</span></span></p>
+</td>
+<td class="No-Table-Style" rowspan="2">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.65.1" xmlns="http://www.w3.org/1999/xhtml">Microsoft solution</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.66.1" xmlns="http://www.w3.org/1999/xhtml">Language</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.67.1" xmlns="http://www.w3.org/1999/xhtml">Framework</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.68.1" xmlns="http://www.w3.org/1999/xhtml">Web application</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.69.1" xmlns="http://www.w3.org/1999/xhtml">JavaScript</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.70.1" xmlns="http://www.w3.org/1999/xhtml">React, Angular, </span><span class="No-Break"><span class="koboSpan" id="kobo.71.1" xmlns="http://www.w3.org/1999/xhtml">or Vue</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.72.1" xmlns="http://www.w3.org/1999/xhtml">Blazor/Razor Pages</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style" rowspan="3">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.73.1" xmlns="http://www.w3.org/1999/xhtml">Native application</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.74.1" xmlns="http://www.w3.org/1999/xhtml">JavaScript</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.75.1" xmlns="http://www.w3.org/1999/xhtml">React Native, Cordova, Ionic, Electron, </span><span class="No-Break"><span class="koboSpan" id="kobo.76.1" xmlns="http://www.w3.org/1999/xhtml">or NW.js</span></span></p>
+</td>
+<td class="No-Table-Style" rowspan="3">
+<p><span class="koboSpan" id="kobo.77.1" xmlns="http://www.w3.org/1999/xhtml">.</span><span class="No-Break"><span class="koboSpan" id="kobo.78.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI/Blazor/Xamarin</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.79.1" xmlns="http://www.w3.org/1999/xhtml">Dart</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.80.1" xmlns="http://www.w3.org/1999/xhtml">Flutter</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.81.1" xmlns="http://www.w3.org/1999/xhtml">Java/Kotlin</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.82.1" xmlns="http://www.w3.org/1999/xhtml">Swing/Codename One</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style" rowspan="3">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.83.1" xmlns="http://www.w3.org/1999/xhtml">Backend services</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.84.1" xmlns="http://www.w3.org/1999/xhtml">Java</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.85.1" xmlns="http://www.w3.org/1999/xhtml">Spring</span></span></p>
+</td>
+<td class="No-Table-Style" rowspan="3">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.86.1" xmlns="http://www.w3.org/1999/xhtml">ASP.NET Core</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.87.1" xmlns="http://www.w3.org/1999/xhtml">JavaScript</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.88.1" xmlns="http://www.w3.org/1999/xhtml">Node.js</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.89.1" xmlns="http://www.w3.org/1999/xhtml">Python</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.90.1" xmlns="http://www.w3.org/1999/xhtml">Diango/Flask/Tornado</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.91.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.1: A comparison of languages and frameworks with Microsoft solutions</span></p>
+<p><span class="koboSpan" id="kobo.92.1" xmlns="http://www.w3.org/1999/xhtml">There is no best choice of cross-platform</span><a id="_idIndexMarker011"/><span class="koboSpan" id="kobo.93.1" xmlns="http://www.w3.org/1999/xhtml"> tool or framework. </span><span class="koboSpan" id="kobo.93.2" xmlns="http://www.w3.org/1999/xhtml">The final choice</span><a id="_idIndexMarker012"/><span class="koboSpan" id="kobo.94.1" xmlns="http://www.w3.org/1999/xhtml"> is usually decided according</span><a id="_idIndexMarker013"/><span class="koboSpan" id="kobo.95.1" xmlns="http://www.w3.org/1999/xhtml"> to business requirements. </span><span class="koboSpan" id="kobo.95.2" xmlns="http://www.w3.org/1999/xhtml">However, from the preceding</span><a id="_idIndexMarker014"/><span class="koboSpan" id="kobo.96.1" xmlns="http://www.w3.org/1999/xhtml"> table, we can see that the .NET ecosystem provides a full spectrum of tools for your requirements. </span><span class="koboSpan" id="kobo.96.2" xmlns="http://www.w3.org/1999/xhtml">The development team for a large system usually requires people with experience in different programming languages and frameworks. </span><span class="koboSpan" id="kobo.96.3" xmlns="http://www.w3.org/1999/xhtml">With .NET, the complexity of programming languages and frameworks can be </span><span class="No-Break"><span class="koboSpan" id="kobo.97.1" xmlns="http://www.w3.org/1999/xhtml">dramatically simplified.</span></span></p>
+<h2 id="_idParaDest-23"><a id="_idTextAnchor022"/><span class="koboSpan" id="kobo.98.1" xmlns="http://www.w3.org/1999/xhtml">A comparison of .NET, Java, and JavaScript</span></h2>
+<p><span class="koboSpan" id="kobo.99.1" xmlns="http://www.w3.org/1999/xhtml">We had an overview</span><a id="_idIndexMarker015"/><span class="koboSpan" id="kobo.100.1" xmlns="http://www.w3.org/1999/xhtml"> of the tools</span><a id="_idIndexMarker016"/><span class="koboSpan" id="kobo.101.1" xmlns="http://www.w3.org/1999/xhtml"> and frameworks used</span><a id="_idIndexMarker017"/><span class="koboSpan" id="kobo.102.1" xmlns="http://www.w3.org/1999/xhtml"> in web apps, native</span><a id="_idIndexMarker018"/><span class="koboSpan" id="kobo.103.1" xmlns="http://www.w3.org/1999/xhtml"> apps, and backend services</span><a id="_idIndexMarker019"/><span class="koboSpan" id="kobo.104.1" xmlns="http://www.w3.org/1999/xhtml"> development. </span><span class="koboSpan" id="kobo.104.2" xmlns="http://www.w3.org/1999/xhtml">If we look at a higher level, that is, at the .NET ecosystem level, the ecosystem of Java or JavaScript can match almost what we have in a .NET solution. </span><span class="koboSpan" id="kobo.104.3" xmlns="http://www.w3.org/1999/xhtml">Java, JavaScript, or .NET solutions can provide tools or frameworks at nearly all layers. </span><span class="koboSpan" id="kobo.104.4" xmlns="http://www.w3.org/1999/xhtml">It would be interesting to compare Java, JavaScript, and .NET at a </span><span class="No-Break"><span class="koboSpan" id="kobo.105.1" xmlns="http://www.w3.org/1999/xhtml">higher level.</span></span></p>
+<p><span class="koboSpan" id="kobo.106.1" xmlns="http://www.w3.org/1999/xhtml">Java is developed as a language with the goal to </span><em class="italic"><span class="koboSpan" id="kobo.107.1" xmlns="http://www.w3.org/1999/xhtml">write once and run anywhere</span></em><span class="koboSpan" id="kobo.108.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.108.2" xmlns="http://www.w3.org/1999/xhtml">It is built </span><a id="_idIndexMarker020"/><span class="koboSpan" id="kobo.109.1" xmlns="http://www.w3.org/1999/xhtml">around the Java programming language and the </span><strong class="bold"><span class="koboSpan" id="kobo.110.1" xmlns="http://www.w3.org/1999/xhtml">Java Virtual Machine</span></strong><span class="koboSpan" id="kobo.111.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.112.1" xmlns="http://www.w3.org/1999/xhtml">JVM</span></strong><span class="koboSpan" id="kobo.113.1" xmlns="http://www.w3.org/1999/xhtml">). </span><span class="koboSpan" id="kobo.113.2" xmlns="http://www.w3.org/1999/xhtml">The JVM is a mechanism to run on supported platforms that helps to remove platform dependency for developers. </span><span class="koboSpan" id="kobo.113.3" xmlns="http://www.w3.org/1999/xhtml">With this cross-platform capability, Java becomes a common choice for cross-platform applications and </span><span class="No-Break"><span class="koboSpan" id="kobo.114.1" xmlns="http://www.w3.org/1999/xhtml">services development.</span></span></p>
+<p><span class="koboSpan" id="kobo.115.1" xmlns="http://www.w3.org/1999/xhtml">JavaScript is a language created</span><a id="_idIndexMarker021"/><span class="koboSpan" id="kobo.116.1" xmlns="http://www.w3.org/1999/xhtml"> for web browsers, and its capability is extensive due</span><a id="_idIndexMarker022"/><span class="koboSpan" id="kobo.117.1" xmlns="http://www.w3.org/1999/xhtml"> to the demands of web development. </span><span class="koboSpan" id="kobo.117.2" xmlns="http://www.w3.org/1999/xhtml">The limitation of JavaScript</span><a id="_idIndexMarker023"/><span class="koboSpan" id="kobo.118.1" xmlns="http://www.w3.org/1999/xhtml"> is that it is a scripting language, so it lacks the language</span><a id="_idIndexMarker024"/><span class="koboSpan" id="kobo.119.1" xmlns="http://www.w3.org/1999/xhtml"> features that can be found in Java or C#. </span><span class="koboSpan" id="kobo.119.2" xmlns="http://www.w3.org/1999/xhtml">However, this limitation doesn’t limit</span><a id="_idIndexMarker025"/><span class="koboSpan" id="kobo.120.1" xmlns="http://www.w3.org/1999/xhtml"> its usage and popularity. </span><em class="italic"><span class="koboSpan" id="kobo.121.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.2</span></em><span class="koboSpan" id="kobo.122.1" xmlns="http://www.w3.org/1999/xhtml"> offers a comparison of </span><span class="No-Break"><span class="koboSpan" id="kobo.123.1" xmlns="http://www.w3.org/1999/xhtml">three technologies:</span></span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table002">
+<colgroup>
+<col/>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.124.1" xmlns="http://www.w3.org/1999/xhtml">Area </span><span class="No-Break"><span class="koboSpan" id="kobo.125.1" xmlns="http://www.w3.org/1999/xhtml">of comparison</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.126.1" xmlns="http://www.w3.org/1999/xhtml">.</span><span class="No-Break"><span class="koboSpan" id="kobo.127.1" xmlns="http://www.w3.org/1999/xhtml">NET</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.128.1" xmlns="http://www.w3.org/1999/xhtml">Java</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.129.1" xmlns="http://www.w3.org/1999/xhtml">JavaScript</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.130.1" xmlns="http://www.w3.org/1999/xhtml">Programming languages</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.131.1" xmlns="http://www.w3.org/1999/xhtml">C#, F#, VB, C++, PHP, Ruby, Python, </span><span class="No-Break"><span class="koboSpan" id="kobo.132.1" xmlns="http://www.w3.org/1999/xhtml">and more</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.133.1" xmlns="http://www.w3.org/1999/xhtml">Java, Kotlin, Clojure, Groovy, Scala, </span><span class="No-Break"><span class="koboSpan" id="kobo.134.1" xmlns="http://www.w3.org/1999/xhtml">and more</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.135.1" xmlns="http://www.w3.org/1999/xhtml">JavaScript, TypeScript, CoffeeScript, </span><span class="No-Break"><span class="koboSpan" id="kobo.136.1" xmlns="http://www.w3.org/1999/xhtml">and more</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.137.1" xmlns="http://www.w3.org/1999/xhtml">Runtime</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.138.1" xmlns="http://www.w3.org/1999/xhtml">CLR</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.139.1" xmlns="http://www.w3.org/1999/xhtml">JVM</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.140.1" xmlns="http://www.w3.org/1999/xhtml">V8/SpiderMonkey/JavaScriptCore</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.141.1" xmlns="http://www.w3.org/1999/xhtml">Supported IDE</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.142.1" xmlns="http://www.w3.org/1999/xhtml">Microsoft Visual Studio, Rider, MonoDevelop, and Visual </span><span class="No-Break"><span class="koboSpan" id="kobo.143.1" xmlns="http://www.w3.org/1999/xhtml">Studio Code</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.144.1" xmlns="http://www.w3.org/1999/xhtml">Eclipse, IntelliJ Idea, Oracle NetBeans, and </span><span class="No-Break"><span class="koboSpan" id="kobo.145.1" xmlns="http://www.w3.org/1999/xhtml">Oracle JDeveloper</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.146.1" xmlns="http://www.w3.org/1999/xhtml">Visual Studio Code, Webstorm, </span><span class="No-Break"><span class="koboSpan" id="kobo.147.1" xmlns="http://www.w3.org/1999/xhtml">and Atom</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.148.1" xmlns="http://www.w3.org/1999/xhtml">Frontend framework</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.149.1" xmlns="http://www.w3.org/1999/xhtml">ASP.NET </span><span class="No-Break"><span class="koboSpan" id="kobo.150.1" xmlns="http://www.w3.org/1999/xhtml">Core Razor/Blazor</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.151.1" xmlns="http://www.w3.org/1999/xhtml">Only supports server-side rendering such as JSP </span><span class="No-Break"><span class="koboSpan" id="kobo.152.1" xmlns="http://www.w3.org/1999/xhtml">or Thymeleaf</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.153.1" xmlns="http://www.w3.org/1999/xhtml">React, Angular, </span><span class="No-Break"><span class="koboSpan" id="kobo.154.1" xmlns="http://www.w3.org/1999/xhtml">or Vue</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.155.1" xmlns="http://www.w3.org/1999/xhtml">Desktop apps</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.156.1" xmlns="http://www.w3.org/1999/xhtml">WinForms, Win UI, WPF, UWP, </span><span class="No-Break"><span class="koboSpan" id="kobo.157.1" xmlns="http://www.w3.org/1999/xhtml">and more</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.158.1" xmlns="http://www.w3.org/1999/xhtml">Swing, JavaFX, </span><span class="No-Break"><span class="koboSpan" id="kobo.159.1" xmlns="http://www.w3.org/1999/xhtml">and more</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.160.1" xmlns="http://www.w3.org/1999/xhtml">Electron, NW.js, </span><span class="No-Break"><span class="koboSpan" id="kobo.161.1" xmlns="http://www.w3.org/1999/xhtml">and more</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.162.1" xmlns="http://www.w3.org/1999/xhtml">Mobile apps</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.163.1" xmlns="http://www.w3.org/1999/xhtml">.</span><span class="No-Break"><span class="koboSpan" id="kobo.164.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI/Xamarin</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.165.1" xmlns="http://www.w3.org/1999/xhtml">Codename One</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.166.1" xmlns="http://www.w3.org/1999/xhtml">React Native, Cordova, Iconic, </span><span class="No-Break"><span class="koboSpan" id="kobo.167.1" xmlns="http://www.w3.org/1999/xhtml">and more</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.168.1" xmlns="http://www.w3.org/1999/xhtml">Backend framework</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.169.1" xmlns="http://www.w3.org/1999/xhtml">ASP.NET Core</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.170.1" xmlns="http://www.w3.org/1999/xhtml">The </span><span class="No-Break"><span class="koboSpan" id="kobo.171.1" xmlns="http://www.w3.org/1999/xhtml">Spring Framework</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.172.1" xmlns="http://www.w3.org/1999/xhtml">Node.js</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.173.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.2: A comparison of Java, JavaScript, and .NET</span></p>
+<p><span class="koboSpan" id="kobo.174.1" xmlns="http://www.w3.org/1999/xhtml">From </span><em class="italic"><span class="koboSpan" id="kobo.175.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.2</span></em><span class="koboSpan" id="kobo.176.1" xmlns="http://www.w3.org/1999/xhtml">, we can see that both .NET and Java have a good infrastructure to support multiple languages. </span><span class="koboSpan" id="kobo.176.2" xmlns="http://www.w3.org/1999/xhtml">JavaScript has its limitation as a scripting language, so TypeScript and CoffeeScript were invented to enhance it. </span><span class="koboSpan" id="kobo.176.3" xmlns="http://www.w3.org/1999/xhtml">TypeScript was developed by Microsoft to bring modern object-oriented language features to JavaScript. </span><span class="koboSpan" id="kobo.176.4" xmlns="http://www.w3.org/1999/xhtml">TypeScript is compiled into JavaScript for execution, so it can work well with existing </span><span class="No-Break"><span class="koboSpan" id="kobo.177.1" xmlns="http://www.w3.org/1999/xhtml">JavaScript libraries.</span></span></p>
+<p><span class="koboSpan" id="kobo.178.1" xmlns="http://www.w3.org/1999/xhtml">Java is built around the JVM</span><a id="_idIndexMarker026"/><span class="koboSpan" id="kobo.179.1" xmlns="http://www.w3.org/1999/xhtml"> while .NET is built around the </span><strong class="bold"><span class="koboSpan" id="kobo.180.1" xmlns="http://www.w3.org/1999/xhtml">Common Language Runtime</span></strong><span class="koboSpan" id="kobo.181.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.182.1" xmlns="http://www.w3.org/1999/xhtml">CLR</span></strong><span class="koboSpan" id="kobo.183.1" xmlns="http://www.w3.org/1999/xhtml">) and the </span><strong class="bold"><span class="koboSpan" id="kobo.184.1" xmlns="http://www.w3.org/1999/xhtml">Common Type System</span></strong><span class="koboSpan" id="kobo.185.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.186.1" xmlns="http://www.w3.org/1999/xhtml">CTS</span></strong><span class="koboSpan" id="kobo.187.1" xmlns="http://www.w3.org/1999/xhtml">). </span><span class="koboSpan" id="kobo.187.2" xmlns="http://www.w3.org/1999/xhtml">With the CTS and CLR as the core of a .NET</span><a id="_idIndexMarker027"/><span class="koboSpan" id="kobo.188.1" xmlns="http://www.w3.org/1999/xhtml"> implementation, it supports multiple languages naturally</span><a id="_idIndexMarker028"/><span class="koboSpan" id="kobo.189.1" xmlns="http://www.w3.org/1999/xhtml"> with the capability to share a </span><strong class="bold"><span class="koboSpan" id="kobo.190.1" xmlns="http://www.w3.org/1999/xhtml">Base Class Library</span></strong><span class="koboSpan" id="kobo.191.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.192.1" xmlns="http://www.w3.org/1999/xhtml">BCL</span></strong><span class="koboSpan" id="kobo.193.1" xmlns="http://www.w3.org/1999/xhtml">) in all </span><span class="No-Break"><span class="koboSpan" id="kobo.194.1" xmlns="http://www.w3.org/1999/xhtml">supported languages.</span></span></p>
+<p><span class="koboSpan" id="kobo.195.1" xmlns="http://www.w3.org/1999/xhtml">While there are multiple languages that use the JVM as the abstraction layer for cross-platform capability, the interoperation between Java-derived languages is not at the same level as .NET languages. </span><span class="koboSpan" id="kobo.195.2" xmlns="http://www.w3.org/1999/xhtml">All .NET languages are built on one architecture and share the same BCL, while Java languages, such as Java, Kotlin, or Scala, are developed separately for very </span><span class="No-Break"><span class="koboSpan" id="kobo.196.1" xmlns="http://www.w3.org/1999/xhtml">different purposes.</span></span></p>
+<p><span class="koboSpan" id="kobo.197.1" xmlns="http://www.w3.org/1999/xhtml">This comparison</span><a id="_idIndexMarker029"/><span class="koboSpan" id="kobo.198.1" xmlns="http://www.w3.org/1999/xhtml"> helps us to choose</span><a id="_idIndexMarker030"/><span class="koboSpan" id="kobo.199.1" xmlns="http://www.w3.org/1999/xhtml"> or evaluate</span><a id="_idIndexMarker031"/><span class="koboSpan" id="kobo.200.1" xmlns="http://www.w3.org/1999/xhtml"> a tech stack</span><a id="_idIndexMarker032"/><span class="koboSpan" id="kobo.201.1" xmlns="http://www.w3.org/1999/xhtml"> for cross-platform</span><a id="_idIndexMarker033"/><span class="koboSpan" id="kobo.202.1" xmlns="http://www.w3.org/1999/xhtml"> development. </span><span class="koboSpan" id="kobo.202.2" xmlns="http://www.w3.org/1999/xhtml">As a .NET MAUI developer, this analysis can help you understand your choice better. </span><span class="koboSpan" id="kobo.202.3" xmlns="http://www.w3.org/1999/xhtml">To understand where .NET MAUI is located in the .NET ecosystem, let’s have a quick overview of the history of the .NET landscape in the </span><span class="No-Break"><span class="koboSpan" id="kobo.203.1" xmlns="http://www.w3.org/1999/xhtml">next section.</span></span></p>
+<h1 id="_idParaDest-24"><a id="_idTextAnchor023"/><span class="koboSpan" id="kobo.204.1" xmlns="http://www.w3.org/1999/xhtml">Exploring the .NET landscape</span></h1>
+<p><span class="koboSpan" id="kobo.205.1" xmlns="http://www.w3.org/1999/xhtml">Before we dive into the details</span><a id="_idIndexMarker034"/><span class="koboSpan" id="kobo.206.1" xmlns="http://www.w3.org/1999/xhtml"> of .NET MAUI, let’s have an overview of the .NET landscape. </span><span class="koboSpan" id="kobo.206.2" xmlns="http://www.w3.org/1999/xhtml">This section is relevant if you are new to .NET. </span><span class="koboSpan" id="kobo.206.3" xmlns="http://www.w3.org/1999/xhtml">If you are a .NET developer, you can skip </span><span class="No-Break"><span class="koboSpan" id="kobo.207.1" xmlns="http://www.w3.org/1999/xhtml">this section.</span></span></p>
+<p><span class="koboSpan" id="kobo.208.1" xmlns="http://www.w3.org/1999/xhtml">Since Microsoft introduced the .NET platform, it has evolved from a proprietary software framework for Windows to a cross-platform and open </span><span class="No-Break"><span class="koboSpan" id="kobo.209.1" xmlns="http://www.w3.org/1999/xhtml">source platform.</span></span></p>
+<p><span class="koboSpan" id="kobo.210.1" xmlns="http://www.w3.org/1999/xhtml">There are many ways to look at the .NET technology stack. </span><span class="koboSpan" id="kobo.210.2" xmlns="http://www.w3.org/1999/xhtml">Basically, it contains the </span><span class="No-Break"><span class="koboSpan" id="kobo.211.1" xmlns="http://www.w3.org/1999/xhtml">following components:</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.212.1" xmlns="http://www.w3.org/1999/xhtml">Common infrastructure (Compiler and </span><span class="No-Break"><span class="koboSpan" id="kobo.213.1" xmlns="http://www.w3.org/1999/xhtml">tools suite)</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.214.1" xmlns="http://www.w3.org/1999/xhtml">BCLs</span></span></li>
+<li><span class="koboSpan" id="kobo.215.1" xmlns="http://www.w3.org/1999/xhtml">Runtime (</span><strong class="bold"><span class="koboSpan" id="kobo.216.1" xmlns="http://www.w3.org/1999/xhtml">Windows Runtime</span></strong><span class="koboSpan" id="kobo.217.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.218.1" xmlns="http://www.w3.org/1999/xhtml">WinRT</span></strong><span class="koboSpan" id="kobo.219.1" xmlns="http://www.w3.org/1999/xhtml">) </span><span class="No-Break"><span class="koboSpan" id="kobo.220.1" xmlns="http://www.w3.org/1999/xhtml">or Mono)</span></span></li>
+</ul>
+<h2 id="_idParaDest-25"><a id="_idTextAnchor024"/><span class="koboSpan" id="kobo.221.1" xmlns="http://www.w3.org/1999/xhtml">.NET Framework</span></h2>
+<p><span class="koboSpan" id="kobo.222.1" xmlns="http://www.w3.org/1999/xhtml">The history of .NET history begins</span><a id="_idIndexMarker035"/><span class="koboSpan" id="kobo.223.1" xmlns="http://www.w3.org/1999/xhtml"> with .NET Framework. </span><span class="koboSpan" id="kobo.223.2" xmlns="http://www.w3.org/1999/xhtml">It is a proprietary software framework developed by Microsoft that runs primarily on Microsoft Windows. </span><span class="koboSpan" id="kobo.223.3" xmlns="http://www.w3.org/1999/xhtml">.NET Framework started as a future-oriented application framework to standardize the software</span><a id="_idIndexMarker036"/><span class="koboSpan" id="kobo.224.1" xmlns="http://www.w3.org/1999/xhtml"> stack in the Windows ecosystem. </span><span class="koboSpan" id="kobo.224.2" xmlns="http://www.w3.org/1999/xhtml">It is built around a </span><strong class="bold"><span class="koboSpan" id="kobo.225.1" xmlns="http://www.w3.org/1999/xhtml">Common Language Infrastructure</span></strong><span class="koboSpan" id="kobo.226.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.227.1" xmlns="http://www.w3.org/1999/xhtml">CLI</span></strong><span class="koboSpan" id="kobo.228.1" xmlns="http://www.w3.org/1999/xhtml">) and C#. </span><span class="koboSpan" id="kobo.228.2" xmlns="http://www.w3.org/1999/xhtml">Even though the primary programming language is C#, it is designed to be a language-agnostic framework. </span><span class="koboSpan" id="kobo.228.3" xmlns="http://www.w3.org/1999/xhtml">Supported languages can share the same CTS and CLR. </span><span class="koboSpan" id="kobo.228.4" xmlns="http://www.w3.org/1999/xhtml">Most Windows desktop applications are developed using .NET Framework, and it is shipped as a part of the Windows </span><span class="No-Break"><span class="koboSpan" id="kobo.229.1" xmlns="http://www.w3.org/1999/xhtml">operating system.</span></span></p>
+<h2 id="_idParaDest-26"><a id="_idTextAnchor025"/><span class="koboSpan" id="kobo.230.1" xmlns="http://www.w3.org/1999/xhtml">Mono</span></h2>
+<p><span class="koboSpan" id="kobo.231.1" xmlns="http://www.w3.org/1999/xhtml">The first attempt</span><a id="_idIndexMarker037"/><span class="koboSpan" id="kobo.232.1" xmlns="http://www.w3.org/1999/xhtml"> to make .NET an open source framework was made by a company called Ximian. </span><span class="koboSpan" id="kobo.232.2" xmlns="http://www.w3.org/1999/xhtml">When the CLI and C# were</span><a id="_idIndexMarker038"/><span class="koboSpan" id="kobo.233.1" xmlns="http://www.w3.org/1999/xhtml"> ratified by ECMA in 2001 and ISO in 2003, it provided a potential opportunity for </span><span class="No-Break"><span class="koboSpan" id="kobo.234.1" xmlns="http://www.w3.org/1999/xhtml">independent implementations.</span></span></p>
+<p><span class="koboSpan" id="kobo.235.1" xmlns="http://www.w3.org/1999/xhtml">In 2001, the open source project Mono was launched, aimed at implementing .NET Framework on Linux </span><span class="No-Break"><span class="koboSpan" id="kobo.236.1" xmlns="http://www.w3.org/1999/xhtml">desktop software.</span></span></p>
+<p><span class="koboSpan" id="kobo.237.1" xmlns="http://www.w3.org/1999/xhtml">Since .NET Framework was a proprietary technology at that time, .NET Framework and Mono had their own compiler, BCL, </span><span class="No-Break"><span class="koboSpan" id="kobo.238.1" xmlns="http://www.w3.org/1999/xhtml">and runtime.</span></span></p>
+<p><span class="koboSpan" id="kobo.239.1" xmlns="http://www.w3.org/1999/xhtml">Over time, Microsoft moved toward open source, and .NET source code became open source. </span><span class="koboSpan" id="kobo.239.2" xmlns="http://www.w3.org/1999/xhtml">The Mono project adopted some source code and tools from the .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.240.1" xmlns="http://www.w3.org/1999/xhtml">code base.</span></span></p>
+<p><span class="koboSpan" id="kobo.241.1" xmlns="http://www.w3.org/1999/xhtml">At the same time, Mono </span><a id="_idIndexMarker039"/><span class="koboSpan" id="kobo.242.1" xmlns="http://www.w3.org/1999/xhtml">projects went through many changes as well. </span><span class="koboSpan" id="kobo.242.2" xmlns="http://www.w3.org/1999/xhtml">At the time that Mono was owned by the Xamarin company, Xamarin developed the Xamarin platform based on Mono to support the .NET platform on Android, iOS, </span><strong class="bold"><span class="koboSpan" id="kobo.243.1" xmlns="http://www.w3.org/1999/xhtml">Universal Windows Platform</span></strong><span class="koboSpan" id="kobo.244.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.245.1" xmlns="http://www.w3.org/1999/xhtml">UWP</span></strong><span class="koboSpan" id="kobo.246.1" xmlns="http://www.w3.org/1999/xhtml">), and macOS. </span><span class="koboSpan" id="kobo.246.2" xmlns="http://www.w3.org/1999/xhtml">In 2016, Microsoft acquired Xamarin, which became the cross-platform solution in the .</span><span class="No-Break"><span class="koboSpan" id="kobo.247.1" xmlns="http://www.w3.org/1999/xhtml">NET ecosystem.</span></span></p>
+<h2 id="_idParaDest-27"><a id="_idTextAnchor026"/><span class="koboSpan" id="kobo.248.1" xmlns="http://www.w3.org/1999/xhtml">.NET Core</span></h2>
+<p><span class="koboSpan" id="kobo.249.1" xmlns="http://www.w3.org/1999/xhtml">Before the acquisition</span><a id="_idIndexMarker040"/><span class="koboSpan" id="kobo.250.1" xmlns="http://www.w3.org/1999/xhtml"> of Xamarin, Microsoft has already started work to make .NET a cross-platform framework. </span><span class="koboSpan" id="kobo.250.2" xmlns="http://www.w3.org/1999/xhtml">The first attempt was the release of .NET Core 1.0 in 2016. </span><span class="koboSpan" id="kobo.250.3" xmlns="http://www.w3.org/1999/xhtml">.NET Core is a free and open source framework, available for Windows, Linux, and macOS. </span><span class="koboSpan" id="kobo.250.4" xmlns="http://www.w3.org/1999/xhtml">It can be used to create modern web apps, microservices, libraries, and console applications. </span><span class="koboSpan" id="kobo.250.5" xmlns="http://www.w3.org/1999/xhtml">Since .NET Core applications can run on Linux, we can build microservices using containers and </span><span class="No-Break"><span class="koboSpan" id="kobo.251.1" xmlns="http://www.w3.org/1999/xhtml">cloud infrastructure.</span></span></p>
+<p><span class="koboSpan" id="kobo.252.1" xmlns="http://www.w3.org/1999/xhtml">After .NET Core 3.x was released, Microsoft worked toward integrating and unifying .NET technology on various platforms. </span><span class="koboSpan" id="kobo.252.2" xmlns="http://www.w3.org/1999/xhtml">This unified version was to supersede both .NET Core and .NET Framework. </span><span class="koboSpan" id="kobo.252.3" xmlns="http://www.w3.org/1999/xhtml">To avoid confusion with .NET Framework 4.x, this unified framework was named .NET 5. </span><span class="koboSpan" id="kobo.252.4" xmlns="http://www.w3.org/1999/xhtml">Since .NET 5, a common BCL can be used on all platforms. </span><span class="koboSpan" id="kobo.252.5" xmlns="http://www.w3.org/1999/xhtml">In .NET 5, there</span><a id="_idIndexMarker041"/><span class="koboSpan" id="kobo.253.1" xmlns="http://www.w3.org/1999/xhtml"> are still two runtimes, which are </span><strong class="bold"><span class="koboSpan" id="kobo.254.1" xmlns="http://www.w3.org/1999/xhtml">WinRT</span></strong><span class="koboSpan" id="kobo.255.1" xmlns="http://www.w3.org/1999/xhtml"> (used for Windows) and the Mono runtime (used for mobile </span><span class="No-Break"><span class="koboSpan" id="kobo.256.1" xmlns="http://www.w3.org/1999/xhtml">and macOS).</span></span></p>
+<p><span class="koboSpan" id="kobo.257.1" xmlns="http://www.w3.org/1999/xhtml">In this book, we use will the .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.258.1" xmlns="http://www.w3.org/1999/xhtml">6 release.</span></span></p>
+<h2 id="_idParaDest-28"><a id="_idTextAnchor027"/><span class="koboSpan" id="kobo.259.1" xmlns="http://www.w3.org/1999/xhtml">.NET Standard and portable class libraries</span></h2>
+<p><span class="koboSpan" id="kobo.260.1" xmlns="http://www.w3.org/1999/xhtml">Before the .NET 5 releases, with .NET</span><a id="_idIndexMarker042"/><span class="koboSpan" id="kobo.261.1" xmlns="http://www.w3.org/1999/xhtml"> Framework, Mono, and .NET Core, we had</span><a id="_idIndexMarker043"/><span class="koboSpan" id="kobo.262.1" xmlns="http://www.w3.org/1999/xhtml"> a different subset of BCLs on different platforms. </span><span class="koboSpan" id="kobo.262.2" xmlns="http://www.w3.org/1999/xhtml">In order to share code between different runtimes or platforms, a technique called </span><strong class="bold"><span class="koboSpan" id="kobo.263.1" xmlns="http://www.w3.org/1999/xhtml">Portable Class Libraries</span></strong><span class="koboSpan" id="kobo.264.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.265.1" xmlns="http://www.w3.org/1999/xhtml">PCLs</span></strong><span class="koboSpan" id="kobo.266.1" xmlns="http://www.w3.org/1999/xhtml">) was used. </span><span class="koboSpan" id="kobo.266.2" xmlns="http://www.w3.org/1999/xhtml">When you create a PCL, you have to choose a combination of platforms that you want to support. </span><span class="koboSpan" id="kobo.266.3" xmlns="http://www.w3.org/1999/xhtml">The level of compatibility choices is decided by the developers. </span><span class="koboSpan" id="kobo.266.4" xmlns="http://www.w3.org/1999/xhtml">If you want to reuse any PCL, you must carefully study the list of platforms that can </span><span class="No-Break"><span class="koboSpan" id="kobo.267.1" xmlns="http://www.w3.org/1999/xhtml">be supported.</span></span></p>
+<p><span class="koboSpan" id="kobo.268.1" xmlns="http://www.w3.org/1999/xhtml">Even though a PCL provides a way to share code, it cannot resolve compatibility issues nicely. </span><span class="koboSpan" id="kobo.268.2" xmlns="http://www.w3.org/1999/xhtml">To overcome the compatibility issues, Microsoft introduced .</span><span class="No-Break"><span class="koboSpan" id="kobo.269.1" xmlns="http://www.w3.org/1999/xhtml">NET Standard.</span></span></p>
+<p><span class="koboSpan" id="kobo.270.1" xmlns="http://www.w3.org/1999/xhtml">.NET Standard is not a separate .NET release but instead a specification of a set of .NET APIs that must be supported by most .NET implementations (.NET Framework, Mono, .NET Core, .NET 5 or 6, and </span><span class="No-Break"><span class="koboSpan" id="kobo.271.1" xmlns="http://www.w3.org/1999/xhtml">so on).</span></span></p>
+<p><span class="koboSpan" id="kobo.272.1" xmlns="http://www.w3.org/1999/xhtml">After .NET 5 and later</span><a id="_idIndexMarker044"/><span class="koboSpan" id="kobo.273.1" xmlns="http://www.w3.org/1999/xhtml"> versions, a unified BCL is available, but .NET Standard will be still part </span><a id="_idIndexMarker045"/><span class="koboSpan" id="kobo.274.1" xmlns="http://www.w3.org/1999/xhtml">of this unified BCL. </span><span class="koboSpan" id="kobo.274.2" xmlns="http://www.w3.org/1999/xhtml">If your applications only need to support .NET 5 or later, you don’t really need to care too much about .NET Standard. </span><span class="koboSpan" id="kobo.274.3" xmlns="http://www.w3.org/1999/xhtml">However, if you want to be compatible with old .NET releases, .NET Standard is still the best choice for you. </span><span class="koboSpan" id="kobo.274.4" xmlns="http://www.w3.org/1999/xhtml">We will use .NET Standard 2.0 in this book to build our data model, since this is a version that can support most existing .NET implementations and all future .</span><span class="No-Break"><span class="koboSpan" id="kobo.275.1" xmlns="http://www.w3.org/1999/xhtml">NET releases.</span></span></p>
+<p><span class="koboSpan" id="kobo.276.1" xmlns="http://www.w3.org/1999/xhtml">There will be no new versions of .NET Standard from Microsoft, but .NET 5, .NET 6, and all future versions will continue to support .NET Standard 2.1 and earlier. </span><em class="italic"><span class="koboSpan" id="kobo.277.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.3</span></em><span class="koboSpan" id="kobo.278.1" xmlns="http://www.w3.org/1999/xhtml"> shows the platforms and versions that .NET Standard 2.0 can support, and this is also the compatible list for our data model in </span><span class="No-Break"><span class="koboSpan" id="kobo.279.1" xmlns="http://www.w3.org/1999/xhtml">this book.</span></span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table003">
+<colgroup>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><strong class="bold"><span class="koboSpan" id="kobo.280.1" xmlns="http://www.w3.org/1999/xhtml">.</span></strong><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.281.1" xmlns="http://www.w3.org/1999/xhtml">NET implementation</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.282.1" xmlns="http://www.w3.org/1999/xhtml">Version support</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.283.1" xmlns="http://www.w3.org/1999/xhtml">.NET and .</span><span class="No-Break"><span class="koboSpan" id="kobo.284.1" xmlns="http://www.w3.org/1999/xhtml">NET Core</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.285.1" xmlns="http://www.w3.org/1999/xhtml">2.0, 2.1, 2.2, 3.0, 3.1, 5.0, </span><span class="No-Break"><span class="koboSpan" id="kobo.286.1" xmlns="http://www.w3.org/1999/xhtml">and 6.0</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.287.1" xmlns="http://www.w3.org/1999/xhtml">.NET </span><span class="No-Break"><span class="koboSpan" id="kobo.288.1" xmlns="http://www.w3.org/1999/xhtml">Framework 1</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.289.1" xmlns="http://www.w3.org/1999/xhtml">4.6.1 2, 4.6.2, 4.7, 4.7.1, 4.7.2, </span><span class="No-Break"><span class="koboSpan" id="kobo.290.1" xmlns="http://www.w3.org/1999/xhtml">and 4.8</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.291.1" xmlns="http://www.w3.org/1999/xhtml">Mono</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.292.1" xmlns="http://www.w3.org/1999/xhtml">5.4 </span><span class="No-Break"><span class="koboSpan" id="kobo.293.1" xmlns="http://www.w3.org/1999/xhtml">and 6.4</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.294.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.iOS</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.295.1" xmlns="http://www.w3.org/1999/xhtml">10.14 </span><span class="No-Break"><span class="koboSpan" id="kobo.296.1" xmlns="http://www.w3.org/1999/xhtml">and 12.16</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.297.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Mac</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.298.1" xmlns="http://www.w3.org/1999/xhtml">3.8 </span><span class="No-Break"><span class="koboSpan" id="kobo.299.1" xmlns="http://www.w3.org/1999/xhtml">and 5.16</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.300.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Android</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.301.1" xmlns="http://www.w3.org/1999/xhtml">8.0 </span><span class="No-Break"><span class="koboSpan" id="kobo.302.1" xmlns="http://www.w3.org/1999/xhtml">and 10.0</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.303.1" xmlns="http://www.w3.org/1999/xhtml">UWP</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.304.1" xmlns="http://www.w3.org/1999/xhtml">10.0.16299, TBD</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.305.1" xmlns="http://www.w3.org/1999/xhtml">Unity</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.306.1" xmlns="http://www.w3.org/1999/xhtml">2018.1</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.307.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.3: .NET Standard 2.0-compatible implementations</span></p>
+<p><span class="koboSpan" id="kobo.308.1" xmlns="http://www.w3.org/1999/xhtml">The open-source project </span><strong class="source-inline"><span class="koboSpan" id="kobo.309.1" xmlns="http://www.w3.org/1999/xhtml">KPCLib</span></strong><span class="koboSpan" id="kobo.310.1" xmlns="http://www.w3.org/1999/xhtml"> is a .NET Standard 2.0 library, and we will use it in our app. </span><span class="koboSpan" id="kobo.310.2" xmlns="http://www.w3.org/1999/xhtml">In </span><em class="italic"><span class="koboSpan" id="kobo.311.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.3</span></em><span class="koboSpan" id="kobo.312.1" xmlns="http://www.w3.org/1999/xhtml">, we can see that .NET Standard libraries can be used in both Xamarin and .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.313.1" xmlns="http://www.w3.org/1999/xhtml">MAUI apps.</span></span></p>
+<h1 id="_idParaDest-29"><a id="_idTextAnchor028"/><span class="koboSpan" id="kobo.314.1" xmlns="http://www.w3.org/1999/xhtml">Using Xamarin for mobile development</span></h1>
+<p><span class="koboSpan" id="kobo.315.1" xmlns="http://www.w3.org/1999/xhtml">As we mentioned</span><a id="_idIndexMarker046"/><span class="koboSpan" id="kobo.316.1" xmlns="http://www.w3.org/1999/xhtml"> in an earlier section, Xamarin was part of the Mono project</span><a id="_idIndexMarker047"/><span class="koboSpan" id="kobo.317.1" xmlns="http://www.w3.org/1999/xhtml"> and was an effort to support .NET on Android, iOS, and macOS. </span><span class="koboSpan" id="kobo.317.2" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms is a cross-platform UI framework from Xamarin. </span><span class="koboSpan" id="kobo.317.3" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI is an evolution of Xamarin.Forms. </span><span class="koboSpan" id="kobo.317.4" xmlns="http://www.w3.org/1999/xhtml">Before we discuss .NET MAUI and Xamarin.Forms, let us review the following diagram of Xamarin implementation on </span><span class="No-Break"><span class="koboSpan" id="kobo.318.1" xmlns="http://www.w3.org/1999/xhtml">various platforms.</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer008">
+<span class="koboSpan" id="kobo.319.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 1.1: Xamarin implementations" src="image/Figure_1.1_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.320.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1.1: Xamarin implementations</span></p>
+<p><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.321.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1</span></em></span><em class="italic"><span class="koboSpan" id="kobo.322.1" xmlns="http://www.w3.org/1999/xhtml">.1</span></em><span class="koboSpan" id="kobo.323.1" xmlns="http://www.w3.org/1999/xhtml"> shows the overall architecture of Xamarin. </span><span class="koboSpan" id="kobo.323.2" xmlns="http://www.w3.org/1999/xhtml">Xamarin allows developers to create native UIs on each platform and write business logic in C# that can be shared </span><span class="No-Break"><span class="koboSpan" id="kobo.324.1" xmlns="http://www.w3.org/1999/xhtml">across platforms.</span></span></p>
+<p><span class="koboSpan" id="kobo.325.1" xmlns="http://www.w3.org/1999/xhtml">On supported platforms, Xamarin contains bindings for nearly the entire underlying platform SDKs. </span><span class="koboSpan" id="kobo.325.2" xmlns="http://www.w3.org/1999/xhtml">Xamarin also provides facilities for directly invoking the Objective-C, Java, C, and C++ libraries, giving you the power to use a wide array of third-party code. </span><span class="koboSpan" id="kobo.325.3" xmlns="http://www.w3.org/1999/xhtml">You can use existing Android, iOS, or macOS libraries written in Objective-C, Swift, Java, </span><span class="No-Break"><span class="koboSpan" id="kobo.326.1" xmlns="http://www.w3.org/1999/xhtml">or C/C++.</span></span></p>
+<p><span class="koboSpan" id="kobo.327.1" xmlns="http://www.w3.org/1999/xhtml">The Mono runtime</span><a id="_idIndexMarker048"/><span class="koboSpan" id="kobo.328.1" xmlns="http://www.w3.org/1999/xhtml"> is used as the .NET runtime</span><a id="_idIndexMarker049"/><span class="koboSpan" id="kobo.329.1" xmlns="http://www.w3.org/1999/xhtml"> on these platforms. </span><span class="koboSpan" id="kobo.329.2" xmlns="http://www.w3.org/1999/xhtml">It has two modes of operation – </span><strong class="bold"><span class="koboSpan" id="kobo.330.1" xmlns="http://www.w3.org/1999/xhtml">Just-in-Time</span></strong><span class="koboSpan" id="kobo.331.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.332.1" xmlns="http://www.w3.org/1999/xhtml">JIT</span></strong><span class="koboSpan" id="kobo.333.1" xmlns="http://www.w3.org/1999/xhtml">) and </span><strong class="bold"><span class="koboSpan" id="kobo.334.1" xmlns="http://www.w3.org/1999/xhtml">Ahead-of-Time</span></strong><span class="koboSpan" id="kobo.335.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.336.1" xmlns="http://www.w3.org/1999/xhtml">AOT</span></strong><span class="koboSpan" id="kobo.337.1" xmlns="http://www.w3.org/1999/xhtml">). </span><span class="koboSpan" id="kobo.337.2" xmlns="http://www.w3.org/1999/xhtml">JIT compilation generates code dynamically as it is executed. </span><span class="koboSpan" id="kobo.337.3" xmlns="http://www.w3.org/1999/xhtml">In AOT compilation mode, Mono precompiles everything, so it can be used on operating systems where dynamic code generation is </span><span class="No-Break"><span class="koboSpan" id="kobo.338.1" xmlns="http://www.w3.org/1999/xhtml">not possible.</span></span></p>
+<p><span class="koboSpan" id="kobo.339.1" xmlns="http://www.w3.org/1999/xhtml">As we can see in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.340.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1</span></em></span><em class="italic"><span class="koboSpan" id="kobo.341.1" xmlns="http://www.w3.org/1999/xhtml">.1</span></em><span class="koboSpan" id="kobo.342.1" xmlns="http://www.w3.org/1999/xhtml">, JIT can be used on Android and macOS, while AOT is used for iOS where dynamic code generation is </span><span class="No-Break"><span class="koboSpan" id="kobo.343.1" xmlns="http://www.w3.org/1999/xhtml">not allowed.</span></span></p>
+<p><span class="koboSpan" id="kobo.344.1" xmlns="http://www.w3.org/1999/xhtml">There are two ways to develop native applications </span><span class="No-Break"><span class="koboSpan" id="kobo.345.1" xmlns="http://www.w3.org/1999/xhtml">using Xamarin.</span></span></p>
+<p><span class="koboSpan" id="kobo.346.1" xmlns="http://www.w3.org/1999/xhtml">You can develop native applications just like Android, iOS, or macOS developers, using native APIs on each platform. </span><span class="koboSpan" id="kobo.346.2" xmlns="http://www.w3.org/1999/xhtml">The difference is that you use .NET libraries and C# instead of the platform-specific language and libraries directly. </span><span class="koboSpan" id="kobo.346.3" xmlns="http://www.w3.org/1999/xhtml">The advantage of this approach is you can use one language and share a lot of components through the .NET BCL, even if you work on different platforms. </span><span class="koboSpan" id="kobo.346.4" xmlns="http://www.w3.org/1999/xhtml">You can also leverage the power of underlying platforms like native </span><span class="No-Break"><span class="koboSpan" id="kobo.347.1" xmlns="http://www.w3.org/1999/xhtml">application developers.</span></span></p>
+<p><span class="koboSpan" id="kobo.348.1" xmlns="http://www.w3.org/1999/xhtml">If you want to reuse</span><a id="_idIndexMarker050"/><span class="koboSpan" id="kobo.349.1" xmlns="http://www.w3.org/1999/xhtml"> code on the user</span><a id="_idIndexMarker051"/><span class="koboSpan" id="kobo.350.1" xmlns="http://www.w3.org/1999/xhtml"> interface layer, you can use Xamarin.Forms instead of the </span><span class="No-Break"><span class="koboSpan" id="kobo.351.1" xmlns="http://www.w3.org/1999/xhtml">native UI.</span></span></p>
+<h2 id="_idParaDest-30"><a id="_idTextAnchor029"/><span class="koboSpan" id="kobo.352.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms</span></h2>
+<p><span class="koboSpan" id="kobo.353.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Android, Xamarin.iOS, and Xamarin.Mac provide</span><a id="_idIndexMarker052"/><span class="koboSpan" id="kobo.354.1" xmlns="http://www.w3.org/1999/xhtml"> a .NET environment that exposes almost the entire original SDK capability on their respective platforms. </span><span class="koboSpan" id="kobo.354.2" xmlns="http://www.w3.org/1999/xhtml">For example, as a developer, you have almost the same capability with Xamarin.Android as you do with the original Android SDK. </span><span class="koboSpan" id="kobo.354.3" xmlns="http://www.w3.org/1999/xhtml">To further improve code sharing, an open source UI framework, Xamarin.Forms, was created. </span><span class="koboSpan" id="kobo.354.4" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms includes a collection of cross-platform user interface components. </span><span class="koboSpan" id="kobo.354.5" xmlns="http://www.w3.org/1999/xhtml">The user interface design can be implemented using the XAML markup language, which is similar to Windows user interface design in WinUI </span><span class="No-Break"><span class="koboSpan" id="kobo.355.1" xmlns="http://www.w3.org/1999/xhtml">or WPF.</span></span></p>
+<h2 id="_idParaDest-31"><a id="_idTextAnchor030"/><span class="koboSpan" id="kobo.356.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Essentials</span></h2>
+<p><span class="koboSpan" id="kobo.357.1" xmlns="http://www.w3.org/1999/xhtml">Since Xamarin exposes the capability </span><a id="_idIndexMarker053"/><span class="koboSpan" id="kobo.358.1" xmlns="http://www.w3.org/1999/xhtml">of the underlying platform SDKs, you can access device features using the .NET API. </span><span class="koboSpan" id="kobo.358.2" xmlns="http://www.w3.org/1999/xhtml">However, the implementation is platform-specific. </span><span class="koboSpan" id="kobo.358.3" xmlns="http://www.w3.org/1999/xhtml">For example, when you use a location service on Android or iOS, the .NET API can be different. </span><span class="koboSpan" id="kobo.358.4" xmlns="http://www.w3.org/1999/xhtml">To further improve code sharing across platforms, Xamarin.Essentials can be used to access native device features. </span><span class="koboSpan" id="kobo.358.5" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Essentials provides a unified .NET interface for native device features. </span><span class="koboSpan" id="kobo.358.6" xmlns="http://www.w3.org/1999/xhtml">If you use Xamarin.Essentials instead of native APIs, your code can be reused </span><span class="No-Break"><span class="koboSpan" id="kobo.359.1" xmlns="http://www.w3.org/1999/xhtml">across platforms.</span></span></p>
+<p><span class="koboSpan" id="kobo.360.1" xmlns="http://www.w3.org/1999/xhtml">Some examples of functionalities</span><a id="_idIndexMarker054"/><span class="koboSpan" id="kobo.361.1" xmlns="http://www.w3.org/1999/xhtml"> provided by Xamarin.Essentials include </span><span class="No-Break"><span class="koboSpan" id="kobo.362.1" xmlns="http://www.w3.org/1999/xhtml">the following:</span></span></p>
+<ul>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.363.1" xmlns="http://www.w3.org/1999/xhtml">Device info</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.364.1" xmlns="http://www.w3.org/1999/xhtml">The filesystem</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.365.1" xmlns="http://www.w3.org/1999/xhtml">An accelerometer</span></span></li>
+<li><span class="koboSpan" id="kobo.366.1" xmlns="http://www.w3.org/1999/xhtml">A </span><span class="No-Break"><span class="koboSpan" id="kobo.367.1" xmlns="http://www.w3.org/1999/xhtml">phone dialer</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.368.1" xmlns="http://www.w3.org/1999/xhtml">Text-to-speech</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.369.1" xmlns="http://www.w3.org/1999/xhtml">Screen</span></span><span class="No-Break"><a id="_idIndexMarker055"/></span><span class="No-Break"><span class="koboSpan" id="kobo.370.1" xmlns="http://www.w3.org/1999/xhtml"> lock</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.371.1" xmlns="http://www.w3.org/1999/xhtml">Using Xamarin.Forms together with Xamarin.Essentials, most implementations, including business logic, user interface design, and some level of device-specific features, can be shared </span><span class="No-Break"><span class="koboSpan" id="kobo.372.1" xmlns="http://www.w3.org/1999/xhtml">across platforms.</span></span></p>
+<h3><span class="koboSpan" id="kobo.373.1" xmlns="http://www.w3.org/1999/xhtml">Comparing user interface design on different platforms</span></h3>
+<p><span class="koboSpan" id="kobo.374.1" xmlns="http://www.w3.org/1999/xhtml">Most modern</span><a id="_idIndexMarker056"/><span class="koboSpan" id="kobo.375.1" xmlns="http://www.w3.org/1999/xhtml"> application development</span><a id="_idIndexMarker057"/><span class="koboSpan" id="kobo.376.1" xmlns="http://www.w3.org/1999/xhtml"> on various platforms uses the </span><strong class="bold"><span class="koboSpan" id="kobo.377.1" xmlns="http://www.w3.org/1999/xhtml">Model-View-Controller</span></strong><span class="koboSpan" id="kobo.378.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.379.1" xmlns="http://www.w3.org/1999/xhtml">MVC</span></strong><span class="koboSpan" id="kobo.380.1" xmlns="http://www.w3.org/1999/xhtml">) design pattern. </span><span class="koboSpan" id="kobo.380.2" xmlns="http://www.w3.org/1999/xhtml">To separate the business logic and user interface design, there are different approaches used on Android, iOS/macOS, and Windows. </span><span class="koboSpan" id="kobo.380.3" xmlns="http://www.w3.org/1999/xhtml">On all the platforms involved, even though the programming languages used are different, they all use XML-based markup language to design </span><span class="No-Break"><span class="koboSpan" id="kobo.381.1" xmlns="http://www.w3.org/1999/xhtml">user interfaces.</span></span></p>
+<p><span class="koboSpan" id="kobo.382.1" xmlns="http://www.w3.org/1999/xhtml">On an iOS/macOS platform, developers can use Interface Builder in XCode to generate </span><strong class="source-inline"><span class="koboSpan" id="kobo.383.1" xmlns="http://www.w3.org/1999/xhtml">.storyboard</span></strong><span class="koboSpan" id="kobo.384.1" xmlns="http://www.w3.org/1999/xhtml"> or </span><strong class="source-inline"><span class="koboSpan" id="kobo.385.1" xmlns="http://www.w3.org/1999/xhtml">.xib</span></strong><span class="koboSpan" id="kobo.386.1" xmlns="http://www.w3.org/1999/xhtml"> files. </span><span class="koboSpan" id="kobo.386.2" xmlns="http://www.w3.org/1999/xhtml">Both are XML-based script files used to keep user interface information, and this script is interpreted at runtime together with Swift or Objective-C code to create the user interface. </span><span class="koboSpan" id="kobo.386.3" xmlns="http://www.w3.org/1999/xhtml">In 2019, Apple announced a new framework, SwiftUI. </span><span class="koboSpan" id="kobo.386.4" xmlns="http://www.w3.org/1999/xhtml">Using SwiftUI, developers can build user interfaces using the Swift language in a declarative </span><span class="No-Break"><span class="koboSpan" id="kobo.387.1" xmlns="http://www.w3.org/1999/xhtml">way directly.</span></span></p>
+<p><span class="koboSpan" id="kobo.388.1" xmlns="http://www.w3.org/1999/xhtml">On the Android platform, developers can use </span><strong class="bold"><span class="koboSpan" id="kobo.389.1" xmlns="http://www.w3.org/1999/xhtml">Layout Editor</span></strong><span class="koboSpan" id="kobo.390.1" xmlns="http://www.w3.org/1999/xhtml"> in Android Studio to create a user interface graphically and store the result in layout files. </span><span class="koboSpan" id="kobo.390.2" xmlns="http://www.w3.org/1999/xhtml">The layout files are in the XML format as well and can be loaded at runtime to create the </span><span class="No-Break"><span class="koboSpan" id="kobo.391.1" xmlns="http://www.w3.org/1999/xhtml">user interface.</span></span></p>
+<p><span class="koboSpan" id="kobo.392.1" xmlns="http://www.w3.org/1999/xhtml">On the Windows platform, </span><strong class="bold"><span class="koboSpan" id="kobo.393.1" xmlns="http://www.w3.org/1999/xhtml">Extensible Application Markup Language</span></strong><span class="koboSpan" id="kobo.394.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.395.1" xmlns="http://www.w3.org/1999/xhtml">XAML</span></strong><span class="koboSpan" id="kobo.396.1" xmlns="http://www.w3.org/1999/xhtml">)</span><a id="_idIndexMarker058"/><span class="koboSpan" id="kobo.397.1" xmlns="http://www.w3.org/1999/xhtml"> is used in user interface design. </span><strong class="bold"><span class="koboSpan" id="kobo.398.1" xmlns="http://www.w3.org/1999/xhtml">XAML</span></strong><span class="koboSpan" id="kobo.399.1" xmlns="http://www.w3.org/1999/xhtml"> is an XML-based language used for user interface design on the Windows platform. </span><span class="koboSpan" id="kobo.399.2" xmlns="http://www.w3.org/1999/xhtml">For a WPF or UWP application, the XAML Designer can be used for user interface design. </span><span class="koboSpan" id="kobo.399.3" xmlns="http://www.w3.org/1999/xhtml">In .NET MAUI, the XAML-based UI is the default application UI. </span><span class="koboSpan" id="kobo.399.4" xmlns="http://www.w3.org/1999/xhtml">Another pattern, the </span><strong class="bold"><span class="koboSpan" id="kobo.400.1" xmlns="http://www.w3.org/1999/xhtml">Model View Update</span></strong><span class="koboSpan" id="kobo.401.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><strong class="bold"><span class="koboSpan" id="kobo.402.1" xmlns="http://www.w3.org/1999/xhtml">MVU</span></strong><span class="koboSpan" id="kobo.403.1" xmlns="http://www.w3.org/1999/xhtml">) pattern, can also be used. </span><span class="koboSpan" id="kobo.403.2" xmlns="http://www.w3.org/1999/xhtml">In the MVU pattern, the user interface is implemented in C# directly without XAML. </span><span class="koboSpan" id="kobo.403.3" xmlns="http://www.w3.org/1999/xhtml">The coding style of MVU is similar </span><span class="No-Break"><span class="koboSpan" id="kobo.404.1" xmlns="http://www.w3.org/1999/xhtml">to SwiftUI.</span></span></p>
+<p><span class="koboSpan" id="kobo.405.1" xmlns="http://www.w3.org/1999/xhtml">Even though SwiftUI on Apple platforms or MVU in .NET MAUI can be used, but the classic user interface implementation</span><a id="_idIndexMarker059"/><span class="koboSpan" id="kobo.406.1" xmlns="http://www.w3.org/1999/xhtml"> is the XML-based markup language. </span><span class="koboSpan" id="kobo.406.2" xmlns="http://www.w3.org/1999/xhtml">Let us do a comparison in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.407.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.4</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.408.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table004">
+<colgroup>
+<col/>
+<col/>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<thead>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.409.1" xmlns="http://www.w3.org/1999/xhtml">Platform</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.410.1" xmlns="http://www.w3.org/1999/xhtml">IDE</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.411.1" xmlns="http://www.w3.org/1999/xhtml">Editor</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.412.1" xmlns="http://www.w3.org/1999/xhtml">Language</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.413.1" xmlns="http://www.w3.org/1999/xhtml">File extension</span></strong></span></p>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.414.1" xmlns="http://www.w3.org/1999/xhtml">Windows</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.415.1" xmlns="http://www.w3.org/1999/xhtml">Visual Studio</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.416.1" xmlns="http://www.w3.org/1999/xhtml">XAML Designer</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.417.1" xmlns="http://www.w3.org/1999/xhtml">XAML/C#</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><strong class="source-inline"><span class="koboSpan" id="kobo.418.1" xmlns="http://www.w3.org/1999/xhtml">.</span></strong><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.419.1" xmlns="http://www.w3.org/1999/xhtml">xaml</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.420.1" xmlns="http://www.w3.org/1999/xhtml">Android</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.421.1" xmlns="http://www.w3.org/1999/xhtml">Android Studio</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.422.1" xmlns="http://www.w3.org/1999/xhtml">Layout Editor</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.423.1" xmlns="http://www.w3.org/1999/xhtml">XML/Java/Kotlin</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><strong class="source-inline"><span class="koboSpan" id="kobo.424.1" xmlns="http://www.w3.org/1999/xhtml">.</span></strong><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.425.1" xmlns="http://www.w3.org/1999/xhtml">layout</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.426.1" xmlns="http://www.w3.org/1999/xhtml">iOS/macOS</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.427.1" xmlns="http://www.w3.org/1999/xhtml">Xcode</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.428.1" xmlns="http://www.w3.org/1999/xhtml">Interface </span><span class="No-Break"><span class="koboSpan" id="kobo.429.1" xmlns="http://www.w3.org/1999/xhtml">Builder</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.430.1" xmlns="http://www.w3.org/1999/xhtml">XML/Swift/</span></span> <span class="No-Break"><span class="koboSpan" id="kobo.431.1" xmlns="http://www.w3.org/1999/xhtml">Objective C</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><strong class="source-inline"><span class="koboSpan" id="kobo.432.1" xmlns="http://www.w3.org/1999/xhtml">.storyboard</span></strong> <span class="No-Break"><span class="koboSpan" id="kobo.433.1" xmlns="http://www.w3.org/1999/xhtml">or </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.434.1" xmlns="http://www.w3.org/1999/xhtml">.xib</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.435.1" xmlns="http://www.w3.org/1999/xhtml">.</span><span class="No-Break"><span class="koboSpan" id="kobo.436.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI/</span></span> <span class="No-Break"><span class="koboSpan" id="kobo.437.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms</span></span></p>
+</td>
+<td class="No-Table-Style" rowspan="2">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.438.1" xmlns="http://www.w3.org/1999/xhtml">Visual Studio</span></span></p>
+</td>
+<td class="No-Table-Style" rowspan="2">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.439.1" xmlns="http://www.w3.org/1999/xhtml">N.A.</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.440.1" xmlns="http://www.w3.org/1999/xhtml">XAML/C#</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><strong class="source-inline"><span class="koboSpan" id="kobo.441.1" xmlns="http://www.w3.org/1999/xhtml">.</span></strong><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.442.1" xmlns="http://www.w3.org/1999/xhtml">xaml</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.443.1" xmlns="http://www.w3.org/1999/xhtml">.NET </span><span class="No-Break"><span class="koboSpan" id="kobo.444.1" xmlns="http://www.w3.org/1999/xhtml">MAUI Blazor</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.445.1" xmlns="http://www.w3.org/1999/xhtml">Razor/C#</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><strong class="source-inline"><span class="koboSpan" id="kobo.446.1" xmlns="http://www.w3.org/1999/xhtml">.</span></strong><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.447.1" xmlns="http://www.w3.org/1999/xhtml">razor</span></strong></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.448.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.4: A comparison of user interface design</span></p>
+<p><span class="koboSpan" id="kobo.449.1" xmlns="http://www.w3.org/1999/xhtml">In </span><em class="italic"><span class="koboSpan" id="kobo.450.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.4</span></em><span class="koboSpan" id="kobo.451.1" xmlns="http://www.w3.org/1999/xhtml">, we can see a comparison of user interface design on </span><span class="No-Break"><span class="koboSpan" id="kobo.452.1" xmlns="http://www.w3.org/1999/xhtml">different platforms.</span></span></p>
+<p><span class="koboSpan" id="kobo.453.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI and Xamarin.Forms use a dialect of XAML to design user interfaces on all supported platforms. </span><span class="koboSpan" id="kobo.453.2" xmlns="http://www.w3.org/1999/xhtml">For .NET MAUI, we have another choice for user interface design, which is Blazor. </span><span class="koboSpan" id="kobo.453.3" xmlns="http://www.w3.org/1999/xhtml">We will discuss Blazor later in </span><span class="No-Break"><span class="koboSpan" id="kobo.454.1" xmlns="http://www.w3.org/1999/xhtml">this chapter.</span></span></p>
+<p><span class="koboSpan" id="kobo.455.1" xmlns="http://www.w3.org/1999/xhtml">In Xamarin.Forms, we create user interfaces in XAML and code-behind in C#. </span><span class="koboSpan" id="kobo.455.2" xmlns="http://www.w3.org/1999/xhtml">The underlying implementation is still the native controls on each platform, so the look and feel of Xamarin.Forms applications are the same as </span><span class="No-Break"><span class="koboSpan" id="kobo.456.1" xmlns="http://www.w3.org/1999/xhtml">native ones.</span></span></p>
+<p><span class="koboSpan" id="kobo.457.1" xmlns="http://www.w3.org/1999/xhtml">Some examples of features</span><a id="_idIndexMarker060"/><span class="koboSpan" id="kobo.458.1" xmlns="http://www.w3.org/1999/xhtml"> provided by Xamarin.Forms include </span><span class="No-Break"><span class="koboSpan" id="kobo.459.1" xmlns="http://www.w3.org/1999/xhtml">the following:</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.460.1" xmlns="http://www.w3.org/1999/xhtml">XAML user </span><span class="No-Break"><span class="koboSpan" id="kobo.461.1" xmlns="http://www.w3.org/1999/xhtml">interface language</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.462.1" xmlns="http://www.w3.org/1999/xhtml">Data binding</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.463.1" xmlns="http://www.w3.org/1999/xhtml">Gestures</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.464.1" xmlns="http://www.w3.org/1999/xhtml">Effects</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.465.1" xmlns="http://www.w3.org/1999/xhtml">Styling</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.466.1" xmlns="http://www.w3.org/1999/xhtml">Even though we can share almost all UI code with Xamarin.Forms, we still need to handle most of the resources</span><a id="_idIndexMarker061"/><span class="koboSpan" id="kobo.467.1" xmlns="http://www.w3.org/1999/xhtml"> used by an application in each platform individually. </span><span class="koboSpan" id="kobo.467.2" xmlns="http://www.w3.org/1999/xhtml">These resources could be images, fonts, or strings. </span><span class="koboSpan" id="kobo.467.3" xmlns="http://www.w3.org/1999/xhtml">In the project structure of Xamarin.Forms, we have a common .NET standard project and multiple platform-specific projects. </span><span class="koboSpan" id="kobo.467.4" xmlns="http://www.w3.org/1999/xhtml">Most of the development work will be done in the common project, but the resources are still handled in the platform-specific </span><span class="No-Break"><span class="koboSpan" id="kobo.468.1" xmlns="http://www.w3.org/1999/xhtml">projects separately.</span></span></p>
+<h1 id="_idParaDest-32"><a id="_idTextAnchor031"/><span class="koboSpan" id="kobo.469.1" xmlns="http://www.w3.org/1999/xhtml">Moving to .NET MAUI</span></h1>
+<p><span class="koboSpan" id="kobo.470.1" xmlns="http://www.w3.org/1999/xhtml">With the .NET unification, Xamarin</span><a id="_idIndexMarker062"/><span class="koboSpan" id="kobo.471.1" xmlns="http://www.w3.org/1999/xhtml"> has become a part of the .NET platform, and Xamarin.Forms integrates with .NET in the form of .</span><span class="No-Break"><span class="koboSpan" id="kobo.472.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI.</span></span></p>
+<p><span class="koboSpan" id="kobo.473.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI is a first-class .NET citizen with the </span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.474.1" xmlns="http://www.w3.org/1999/xhtml">Microsoft.Maui</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.475.1" xmlns="http://www.w3.org/1999/xhtml"> namespace.</span></span></p>
+<p><span class="koboSpan" id="kobo.476.1" xmlns="http://www.w3.org/1999/xhtml">Making the move to .NET MAUI is also an opportunity for Microsoft to redesign and rebuild Xamarin.Forms from the ground up and tackle some of the issues that have been lingering at a lower level. </span><span class="koboSpan" id="kobo.476.2" xmlns="http://www.w3.org/1999/xhtml">Compared to Xamarin.Forms, .NET MAUI uses a single project structure, supports</span><a id="_idIndexMarker063"/><span class="koboSpan" id="kobo.477.1" xmlns="http://www.w3.org/1999/xhtml"> hot reloads better, and supports </span><strong class="bold"><span class="koboSpan" id="kobo.478.1" xmlns="http://www.w3.org/1999/xhtml">MVU</span></strong><span class="koboSpan" id="kobo.479.1" xmlns="http://www.w3.org/1999/xhtml"> and Blazor </span><span class="No-Break"><span class="koboSpan" id="kobo.480.1" xmlns="http://www.w3.org/1999/xhtml">development patterns.</span></span></p>
+<p><span class="koboSpan" id="kobo.481.1" xmlns="http://www.w3.org/1999/xhtml">From </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.482.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1</span></em></span><em class="italic"><span class="koboSpan" id="kobo.483.1" xmlns="http://www.w3.org/1999/xhtml">.2</span></em><span class="koboSpan" id="kobo.484.1" xmlns="http://www.w3.org/1999/xhtml">, we can see that there is a common BCL for all supported operating systems. </span><span class="koboSpan" id="kobo.484.2" xmlns="http://www.w3.org/1999/xhtml">Under the BCL, there are two runtimes, WinRT and the Mono Runtime, according to the platform. </span><span class="koboSpan" id="kobo.484.3" xmlns="http://www.w3.org/1999/xhtml">For each platform, there is a dedicated .NET implementation to provide full support for native </span><span class="No-Break"><span class="koboSpan" id="kobo.485.1" xmlns="http://www.w3.org/1999/xhtml">application development.</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer009">
+<span class="koboSpan" id="kobo.486.1" xmlns="http://www.w3.org/1999/xhtml"><img alt=" Figure 1.2: .NET MAUI architecture" src="image/Figure_1.2_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.487.1" xmlns="http://www.w3.org/1999/xhtml"> Figure 1.2: .NET MAUI architecture</span></p>
+<p><span class="koboSpan" id="kobo.488.1" xmlns="http://www.w3.org/1999/xhtml">Comparing to Xamarin.Forms, we can</span><a id="_idIndexMarker064"/><span class="koboSpan" id="kobo.489.1" xmlns="http://www.w3.org/1999/xhtml"> see from </span><em class="italic"><span class="koboSpan" id="kobo.490.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.5</span></em><span class="koboSpan" id="kobo.491.1" xmlns="http://www.w3.org/1999/xhtml">, there are many improvements in .</span><span class="No-Break"><span class="koboSpan" id="kobo.492.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI.</span></span></p>
+<p><span class="koboSpan" id="kobo.493.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI uses a single project structure to simplify project management. </span><span class="koboSpan" id="kobo.493.2" xmlns="http://www.w3.org/1999/xhtml">We can manage resources, dependency injection, and configurations in one location instead of managing them separately </span><span class="No-Break"><span class="koboSpan" id="kobo.494.1" xmlns="http://www.w3.org/1999/xhtml">per platform.</span></span></p>
+<p><span class="koboSpan" id="kobo.495.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI is fully integrated as part of .NET, so we can create and build projects using the .NET SDK command line. </span><span class="koboSpan" id="kobo.495.2" xmlns="http://www.w3.org/1999/xhtml">In this case, we have more</span><a id="_idIndexMarker065"/><span class="koboSpan" id="kobo.496.1" xmlns="http://www.w3.org/1999/xhtml"> choices in terms of </span><span class="No-Break"><span class="koboSpan" id="kobo.497.1" xmlns="http://www.w3.org/1999/xhtml">development environments.</span></span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table005">
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<thead>
+<tr class="No-Table-Style">
+<td class="No-Table-Style"/>
+<td class="No-Table-Style">
+<p><strong class="bold"><span class="koboSpan" id="kobo.498.1" xmlns="http://www.w3.org/1999/xhtml">.</span></strong><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.499.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.500.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms</span></strong></span></p>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.501.1" xmlns="http://www.w3.org/1999/xhtml">Project structure</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.502.1" xmlns="http://www.w3.org/1999/xhtml">Single project</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.503.1" xmlns="http://www.w3.org/1999/xhtml">Multiple projects</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.504.1" xmlns="http://www.w3.org/1999/xhtml">Resource </span><span class="No-Break"><span class="koboSpan" id="kobo.505.1" xmlns="http://www.w3.org/1999/xhtml">management</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.506.1" xmlns="http://www.w3.org/1999/xhtml">One location for </span><span class="No-Break"><span class="koboSpan" id="kobo.507.1" xmlns="http://www.w3.org/1999/xhtml">all platforms</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.508.1" xmlns="http://www.w3.org/1999/xhtml">Managed </span><span class="No-Break"><span class="koboSpan" id="kobo.509.1" xmlns="http://www.w3.org/1999/xhtml">per platform</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.510.1" xmlns="http://www.w3.org/1999/xhtml">Fully integrated </span><span class="No-Break"><span class="koboSpan" id="kobo.511.1" xmlns="http://www.w3.org/1999/xhtml">with .NET</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.512.1" xmlns="http://www.w3.org/1999/xhtml">Namespace in </span><strong class="source-inline"><span class="koboSpan" id="kobo.513.1" xmlns="http://www.w3.org/1999/xhtml">Microsoft.Maui</span></strong><span class="koboSpan" id="kobo.514.1" xmlns="http://www.w3.org/1999/xhtml"> and other IDEs can be chosen beside </span><span class="No-Break"><span class="koboSpan" id="kobo.515.1" xmlns="http://www.w3.org/1999/xhtml">Visual Studio.</span></span></p>
+<p><span class="koboSpan" id="kobo.516.1" xmlns="http://www.w3.org/1999/xhtml">Command-line support. </span><span class="koboSpan" id="kobo.516.2" xmlns="http://www.w3.org/1999/xhtml">We can create, build, and run in </span><span class="No-Break"><span class="koboSpan" id="kobo.517.1" xmlns="http://www.w3.org/1999/xhtml">a console:</span></span></p>
+<pre class="console"><span class="koboSpan" id="kobo.518.1" xmlns="http://www.w3.org/1999/xhtml">
+dotnet new maui
+dotnet build -t:Run -f net6.0-android
+dotnet build -t:Run -f net6.0-ios
+dotnet build -t:Run -f net6.0-maccatalyst</span></pre>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.519.1" xmlns="http://www.w3.org/1999/xhtml">Namespace in </span><strong class="source-inline"><span class="koboSpan" id="kobo.520.1" xmlns="http://www.w3.org/1999/xhtml">Xamarin.Forms</span></strong><span class="koboSpan" id="kobo.521.1" xmlns="http://www.w3.org/1999/xhtml"> and it uses Visual Studio as </span><span class="No-Break"><span class="koboSpan" id="kobo.522.1" xmlns="http://www.w3.org/1999/xhtml">an IDE</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.523.1" xmlns="http://www.w3.org/1999/xhtml">Design </span><span class="No-Break"><span class="koboSpan" id="kobo.524.1" xmlns="http://www.w3.org/1999/xhtml">improvement</span></span></p>
+</td>
+<td class="No-Table-Style">
+<ul>
+<li><span class="koboSpan" id="kobo.525.1" xmlns="http://www.w3.org/1999/xhtml">Configuration through .NET </span><span class="No-Break"><span class="koboSpan" id="kobo.526.1" xmlns="http://www.w3.org/1999/xhtml">Generic Host</span></span></li>
+<li><span class="koboSpan" id="kobo.527.1" xmlns="http://www.w3.org/1999/xhtml">Dependency </span><span class="No-Break"><span class="koboSpan" id="kobo.528.1" xmlns="http://www.w3.org/1999/xhtml">injection support</span></span></li>
+</ul>
+</td>
+<td class="No-Table-Style">
+<ul>
+<li><span class="koboSpan" id="kobo.529.1" xmlns="http://www.w3.org/1999/xhtml">Configuration scattered in </span><span class="No-Break"><span class="koboSpan" id="kobo.530.1" xmlns="http://www.w3.org/1999/xhtml">different locations</span></span></li>
+</ul>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.531.1" xmlns="http://www.w3.org/1999/xhtml">MVU pattern</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.532.1" xmlns="http://www.w3.org/1999/xhtml">A modern type of </span><span class="No-Break"><span class="koboSpan" id="kobo.533.1" xmlns="http://www.w3.org/1999/xhtml">UI implementation</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.534.1" xmlns="http://www.w3.org/1999/xhtml">No</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.535.1" xmlns="http://www.w3.org/1999/xhtml">Blazor Hybrid</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.536.1" xmlns="http://www.w3.org/1999/xhtml">Support </span><span class="No-Break"><span class="koboSpan" id="kobo.537.1" xmlns="http://www.w3.org/1999/xhtml">through </span></span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.538.1" xmlns="http://www.w3.org/1999/xhtml">BlazorWebView</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.539.1" xmlns="http://www.w3.org/1999/xhtml">No</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.540.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.5: .NET MAUI improvement</span></p>
+<p><span class="koboSpan" id="kobo.541.1" xmlns="http://www.w3.org/1999/xhtml">In </span><em class="italic"><span class="koboSpan" id="kobo.542.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.5</span></em><span class="koboSpan" id="kobo.543.1" xmlns="http://www.w3.org/1999/xhtml">, we can see that .NET MAUI supports application configuration using .NET generic host, can work with multiple IDE environments, supports dependency injection, and can use the MVVM toolkit, etc. </span><span class="koboSpan" id="kobo.543.2" xmlns="http://www.w3.org/1999/xhtml">It also supports the MVU pattern and Blazor Hybrid UI. </span><span class="koboSpan" id="kobo.543.3" xmlns="http://www.w3.org/1999/xhtml">Next, we will look at the Blazor </span><span class="No-Break"><span class="koboSpan" id="kobo.544.1" xmlns="http://www.w3.org/1999/xhtml">Hybrid app.</span></span></p>
+<h2 id="_idParaDest-33"><a id="_idTextAnchor032"/><span class="koboSpan" id="kobo.545.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI Blazor apps</span></h2>
+<p><span class="koboSpan" id="kobo.546.1" xmlns="http://www.w3.org/1999/xhtml">In </span><em class="italic"><span class="koboSpan" id="kobo.547.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.4</span></em><span class="koboSpan" id="kobo.548.1" xmlns="http://www.w3.org/1999/xhtml">, where we compared</span><a id="_idIndexMarker066"/><span class="koboSpan" id="kobo.549.1" xmlns="http://www.w3.org/1999/xhtml"> the user interface design options on different platforms, we mentioned that there is another way to design cross-platform user interfaces in .NET MAUI, which </span><span class="No-Break"><span class="koboSpan" id="kobo.550.1" xmlns="http://www.w3.org/1999/xhtml">is Blazor.</span></span></p>
+<p><span class="koboSpan" id="kobo.551.1" xmlns="http://www.w3.org/1999/xhtml">Released in ASP.NET Core 3.0, Blazor is a framework for building an interactive client-side web UI with .NET. </span><span class="koboSpan" id="kobo.551.2" xmlns="http://www.w3.org/1999/xhtml">With .NET MAUI and Blazor, we can build cross-platform apps in the form of Blazor Hybrid apps. </span><span class="koboSpan" id="kobo.551.3" xmlns="http://www.w3.org/1999/xhtml">This way, the boundary between a native application and a web application becomes blurred. </span><span class="koboSpan" id="kobo.551.4" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI Blazor Hybrid apps enable Blazor components to be integrated with native platform features and UI controls. </span><span class="koboSpan" id="kobo.551.5" xmlns="http://www.w3.org/1999/xhtml">The Blazor components have full access to the native capabilities of </span><span class="No-Break"><span class="koboSpan" id="kobo.552.1" xmlns="http://www.w3.org/1999/xhtml">a device.</span></span></p>
+<p><span class="koboSpan" id="kobo.553.1" xmlns="http://www.w3.org/1999/xhtml">The way to use the Blazor web framework</span><a id="_idIndexMarker067"/><span class="koboSpan" id="kobo.554.1" xmlns="http://www.w3.org/1999/xhtml"> in .NET MAUI is through a </span><strong class="source-inline"><span class="koboSpan" id="kobo.555.1" xmlns="http://www.w3.org/1999/xhtml">BlazorWebView</span></strong><span class="koboSpan" id="kobo.556.1" xmlns="http://www.w3.org/1999/xhtml"> component. </span><span class="koboSpan" id="kobo.556.2" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI Blazor enables both native and web UIs in a single application, and they can co-exist in a single view. </span><span class="koboSpan" id="kobo.556.3" xmlns="http://www.w3.org/1999/xhtml">With .NET MAUI Blazor, applications can leverage the Blazor component model (Razor components), which uses HTML, CSS, and the Razor syntax. </span><span class="koboSpan" id="kobo.556.4" xmlns="http://www.w3.org/1999/xhtml">The Blazor part of an app can reuse components, layouts, and styles that are used in an existing regular web app. </span><strong class="source-inline"><span class="koboSpan" id="kobo.557.1" xmlns="http://www.w3.org/1999/xhtml">BlazorWebView</span></strong><span class="koboSpan" id="kobo.558.1" xmlns="http://www.w3.org/1999/xhtml"> can be composed alongside native elements; additionally, they leverage platform features and share states with their </span><span class="No-Break"><span class="koboSpan" id="kobo.559.1" xmlns="http://www.w3.org/1999/xhtml">native counterparts.</span></span></p>
+<h2 id="_idParaDest-34"><a id="_idTextAnchor033"/><span class="koboSpan" id="kobo.560.1" xmlns="http://www.w3.org/1999/xhtml">Choosing XAML versus Razor in .NET MAUI</span></h2>
+<p><span class="koboSpan" id="kobo.561.1" xmlns="http://www.w3.org/1999/xhtml">To design the user interface</span><a id="_idIndexMarker068"/><span class="koboSpan" id="kobo.562.1" xmlns="http://www.w3.org/1999/xhtml"> of your .NET MAUI application, you have a few choices </span><span class="No-Break"><span class="koboSpan" id="kobo.563.1" xmlns="http://www.w3.org/1999/xhtml">for implementation:</span></span></p>
+<ul>
+<li><strong class="bold"><span class="koboSpan" id="kobo.564.1" xmlns="http://www.w3.org/1999/xhtml">XAML</span></strong><span class="koboSpan" id="kobo.565.1" xmlns="http://www.w3.org/1999/xhtml">: Implement user interface in XAML</span><a id="_idIndexMarker069"/><span class="koboSpan" id="kobo.566.1" xmlns="http://www.w3.org/1999/xhtml"> that is only similar to Xamarin.Forms. </span><span class="koboSpan" id="kobo.566.2" xmlns="http://www.w3.org/1999/xhtml">We can also choose the MVU pattern to use C# code to create and style UI elements directly. </span><span class="koboSpan" id="kobo.566.3" xmlns="http://www.w3.org/1999/xhtml">No matter whether you choose XAML or C# code directly, the underlying implementation is </span><span class="No-Break"><span class="koboSpan" id="kobo.567.1" xmlns="http://www.w3.org/1999/xhtml">the same.</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.568.1" xmlns="http://www.w3.org/1999/xhtml">Blazor</span></strong><span class="koboSpan" id="kobo.569.1" xmlns="http://www.w3.org/1999/xhtml">: Implement a user interface</span><a id="_idIndexMarker070"/><span class="koboSpan" id="kobo.570.1" xmlns="http://www.w3.org/1999/xhtml"> in Razor Pages, which is similar to web </span><span class="No-Break"><span class="koboSpan" id="kobo.571.1" xmlns="http://www.w3.org/1999/xhtml">application development.</span></span></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.572.1" xmlns="http://www.w3.org/1999/xhtml">Blazor Hybrid app</span></strong><span class="koboSpan" id="kobo.573.1" xmlns="http://www.w3.org/1999/xhtml">: Use both XAML and Razor Pages</span><a id="_idIndexMarker071"/><span class="koboSpan" id="kobo.574.1" xmlns="http://www.w3.org/1999/xhtml"> in </span><span class="No-Break"><span class="koboSpan" id="kobo.575.1" xmlns="http://www.w3.org/1999/xhtml">your application.</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.576.1" xmlns="http://www.w3.org/1999/xhtml">It’s your decision how you want to design your application. </span><span class="koboSpan" id="kobo.576.2" xmlns="http://www.w3.org/1999/xhtml">You can choose one of the preceding options or mix XAML and the Blazor UI according to the best fit. </span><span class="koboSpan" id="kobo.576.3" xmlns="http://www.w3.org/1999/xhtml">To develop Blazor Hybrid apps, you should be able to use most of the existing Blazor libraries directly. </span><span class="koboSpan" id="kobo.576.4" xmlns="http://www.w3.org/1999/xhtml">Blazor provides good JavaScript interoperability, and you can use your favorite JavaScript library in </span><span class="No-Break"><span class="koboSpan" id="kobo.577.1" xmlns="http://www.w3.org/1999/xhtml">your development.</span></span></p>
+<h1 id="_idParaDest-35"><a id="_idTextAnchor034"/><span class="koboSpan" id="kobo.578.1" xmlns="http://www.w3.org/1999/xhtml">Development environment setup</span></h1>
+<p><span class="koboSpan" id="kobo.579.1" xmlns="http://www.w3.org/1999/xhtml">Both Windows and macOS</span><a id="_idIndexMarker072"/><span class="koboSpan" id="kobo.580.1" xmlns="http://www.w3.org/1999/xhtml"> can be used for .NET MAUI development, but you won’t be able to build all targets with only one of them. </span><span class="koboSpan" id="kobo.580.2" xmlns="http://www.w3.org/1999/xhtml">You will need both Windows and Mac computers to build all targets. </span><span class="koboSpan" id="kobo.580.3" xmlns="http://www.w3.org/1999/xhtml">In this book, the Windows environment is used to build and test Android and Windows targets. </span><span class="koboSpan" id="kobo.580.4" xmlns="http://www.w3.org/1999/xhtml">iOS and macOS targets are built on a </span><span class="No-Break"><span class="koboSpan" id="kobo.581.1" xmlns="http://www.w3.org/1999/xhtml">Mac computer.</span></span></p>
+<p><span class="koboSpan" id="kobo.582.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI app can target the </span><span class="No-Break"><span class="koboSpan" id="kobo.583.1" xmlns="http://www.w3.org/1999/xhtml">following platforms:</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.584.1" xmlns="http://www.w3.org/1999/xhtml">Android 5.0 (API 21) </span><span class="No-Break"><span class="koboSpan" id="kobo.585.1" xmlns="http://www.w3.org/1999/xhtml">or higher</span></span></li>
+<li><span class="koboSpan" id="kobo.586.1" xmlns="http://www.w3.org/1999/xhtml">iOS 10 </span><span class="No-Break"><span class="koboSpan" id="kobo.587.1" xmlns="http://www.w3.org/1999/xhtml">or higher</span></span></li>
+<li><span class="koboSpan" id="kobo.588.1" xmlns="http://www.w3.org/1999/xhtml">macOS 10.13 or higher, using </span><span class="No-Break"><span class="koboSpan" id="kobo.589.1" xmlns="http://www.w3.org/1999/xhtml">Mac Catalyst</span></span></li>
+<li><span class="koboSpan" id="kobo.590.1" xmlns="http://www.w3.org/1999/xhtml">Windows 11 and Windows 10 version 1809 or higher, using </span><strong class="bold"><span class="koboSpan" id="kobo.591.1" xmlns="http://www.w3.org/1999/xhtml">Windows UI Library</span></strong><span class="koboSpan" id="kobo.592.1" xmlns="http://www.w3.org/1999/xhtml"> (</span><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.593.1" xmlns="http://www.w3.org/1999/xhtml">WinUI</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.594.1" xmlns="http://www.w3.org/1999/xhtml">) 3</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.595.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI Blazor apps use the platform-specific WebView control, so they have the following </span><span class="No-Break"><span class="koboSpan" id="kobo.596.1" xmlns="http://www.w3.org/1999/xhtml">additional requirements:</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.597.1" xmlns="http://www.w3.org/1999/xhtml">Android 7.0 (API 24) </span><span class="No-Break"><span class="koboSpan" id="kobo.598.1" xmlns="http://www.w3.org/1999/xhtml">or higher</span></span></li>
+<li><span class="koboSpan" id="kobo.599.1" xmlns="http://www.w3.org/1999/xhtml">iOS 14 </span><span class="No-Break"><span class="koboSpan" id="kobo.600.1" xmlns="http://www.w3.org/1999/xhtml">or higher</span></span></li>
+<li><span class="koboSpan" id="kobo.601.1" xmlns="http://www.w3.org/1999/xhtml">macOS 11 or higher, using </span><span class="No-Break"><span class="koboSpan" id="kobo.602.1" xmlns="http://www.w3.org/1999/xhtml">Mac Catalyst</span></span></li>
+</ul>
+<p><span class="koboSpan" id="kobo.603.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI build targets of Android, iOS, macOS, and Windows can be built using Visual Studio on a Windows computer. </span><span class="koboSpan" id="kobo.603.2" xmlns="http://www.w3.org/1999/xhtml">In this environment, a networked Mac is required to build iOS and macOS targets. </span><span class="koboSpan" id="kobo.603.3" xmlns="http://www.w3.org/1999/xhtml">Xcode must be installed on the paired Mac to debug and test an iOS MAUI app in a Windows </span><span class="No-Break"><span class="koboSpan" id="kobo.604.1" xmlns="http://www.w3.org/1999/xhtml">development environment.</span></span></p>
+<p><span class="koboSpan" id="kobo.605.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI targets of Android, iOS, and macOS can be built and tested on macOS. </span></p>
+<table class="No-Table-Style _idGenTablePara-1" id="table006">
+<colgroup>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<tbody>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.606.1" xmlns="http://www.w3.org/1999/xhtml">Target platform</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.607.1" xmlns="http://www.w3.org/1999/xhtml">Windows</span></strong></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><strong class="bold"><span class="koboSpan" id="kobo.608.1" xmlns="http://www.w3.org/1999/xhtml">macOS</span></strong></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.609.1" xmlns="http://www.w3.org/1999/xhtml">Windows</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.610.1" xmlns="http://www.w3.org/1999/xhtml">Yes</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.611.1" xmlns="http://www.w3.org/1999/xhtml">No</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.612.1" xmlns="http://www.w3.org/1999/xhtml">Android</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.613.1" xmlns="http://www.w3.org/1999/xhtml">Yes</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.614.1" xmlns="http://www.w3.org/1999/xhtml">Yes</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.615.1" xmlns="http://www.w3.org/1999/xhtml">iOS</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.616.1" xmlns="http://www.w3.org/1999/xhtml">Yes (pair </span><span class="No-Break"><span class="koboSpan" id="kobo.617.1" xmlns="http://www.w3.org/1999/xhtml">to Mac)</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.618.1" xmlns="http://www.w3.org/1999/xhtml">Yes</span></span></p>
+</td>
+</tr>
+<tr class="No-Table-Style">
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.619.1" xmlns="http://www.w3.org/1999/xhtml">macOS</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="koboSpan" id="kobo.620.1" xmlns="http://www.w3.org/1999/xhtml">Build only (pair </span><span class="No-Break"><span class="koboSpan" id="kobo.621.1" xmlns="http://www.w3.org/1999/xhtml">to Mac)</span></span></p>
+</td>
+<td class="No-Table-Style">
+<p><span class="No-Break"><span class="koboSpan" id="kobo.622.1" xmlns="http://www.w3.org/1999/xhtml">Yes</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.623.1" xmlns="http://www.w3.org/1999/xhtml">Table 1.6: The development environment of .NET MAUI</span></p>
+<p><span class="koboSpan" id="kobo.624.1" xmlns="http://www.w3.org/1999/xhtml">Please refer to Table 1.6 to find out the build configurations on Windows </span><span class="No-Break"><span class="koboSpan" id="kobo.625.1" xmlns="http://www.w3.org/1999/xhtml">and macOS.</span></span></p>
+<h2 id="_idParaDest-36"><a id="_idTextAnchor035"/><span class="koboSpan" id="kobo.626.1" xmlns="http://www.w3.org/1999/xhtml">Installing .NET MAUI on Windows</span></h2>
+<p><span class="koboSpan" id="kobo.627.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI can be installed</span><a id="_idIndexMarker073"/><span class="koboSpan" id="kobo.628.1" xmlns="http://www.w3.org/1999/xhtml"> as part of Visual Studio 2022. </span><span class="koboSpan" id="kobo.628.2" xmlns="http://www.w3.org/1999/xhtml">The</span><a id="_idIndexMarker074"/><span class="koboSpan" id="kobo.629.1" xmlns="http://www.w3.org/1999/xhtml"> Visual Studio Community</span><a id="_idIndexMarker075"/><span class="koboSpan" id="kobo.630.1" xmlns="http://www.w3.org/1999/xhtml"> edition is free, and we can download it from the Microsoft website </span><span class="No-Break"><span class="koboSpan" id="kobo.631.1" xmlns="http://www.w3.org/1999/xhtml">at </span></span><a href="https://visualstudio.microsoft.com/vs/community/"><span class="No-Break"><span class="koboSpan" id="kobo.632.1" xmlns="http://www.w3.org/1999/xhtml">https://visualstudio.microsoft.com/vs/community/</span></span></a><span class="No-Break"><span class="koboSpan" id="kobo.633.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></p>
+<p><span class="koboSpan" id="kobo.634.1" xmlns="http://www.w3.org/1999/xhtml">After launching Visual Studio Installer, we will see a screen similar to the one shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.635.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1</span></em></span><em class="italic"><span class="koboSpan" id="kobo.636.1" xmlns="http://www.w3.org/1999/xhtml">.3</span></em><span class="koboSpan" id="kobo.637.1" xmlns="http://www.w3.org/1999/xhtml">. </span><span class="koboSpan" id="kobo.637.2" xmlns="http://www.w3.org/1999/xhtml">Please select </span><strong class="bold"><span class="koboSpan" id="kobo.638.1" xmlns="http://www.w3.org/1999/xhtml">.NET Multi-platform App UI development</span></strong><span class="koboSpan" id="kobo.639.1" xmlns="http://www.w3.org/1999/xhtml"> and </span><strong class="bold"><span class="koboSpan" id="kobo.640.1" xmlns="http://www.w3.org/1999/xhtml">.NET desktop development</span></strong><span class="koboSpan" id="kobo.641.1" xmlns="http://www.w3.org/1999/xhtml"> in the list of options. </span><span class="koboSpan" id="kobo.641.2" xmlns="http://www.w3.org/1999/xhtml">We also need to select </span><strong class="bold"><span class="koboSpan" id="kobo.642.1" xmlns="http://www.w3.org/1999/xhtml">ASP.NET and web development</span></strong><span class="koboSpan" id="kobo.643.1" xmlns="http://www.w3.org/1999/xhtml"> for the .NET MAUI Blazor app, which will be covered in </span><em class="italic"><span class="koboSpan" id="kobo.644.1" xmlns="http://www.w3.org/1999/xhtml">Part 2</span></em><span class="koboSpan" id="kobo.645.1" xmlns="http://www.w3.org/1999/xhtml"> of </span><span class="No-Break"><span class="koboSpan" id="kobo.646.1" xmlns="http://www.w3.org/1999/xhtml">this book.</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer010">
+<span class="koboSpan" id="kobo.647.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 1.3: Visual Studio 2022 installation" src="image/Figure_1.3_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.648.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1.3: Visual Studio 2022 installation</span></p>
+<p><span class="koboSpan" id="kobo.649.1" xmlns="http://www.w3.org/1999/xhtml">After the installation is completed, we can check the installation from the command line using the following </span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.650.1" xmlns="http://www.w3.org/1999/xhtml">dotnet</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.651.1" xmlns="http://www.w3.org/1999/xhtml"> command:</span></span></p>
+<pre class="console"><span class="koboSpan" id="kobo.652.1" xmlns="http://www.w3.org/1999/xhtml">
+C:\&gt;dotnet workload list
+Installed Workload Ids  Manifest Version    Installation Source
+--------------------------------------------------------------------
+maui-windows          6.0.486/6.0.400       VS 17.3.32811.315
+maui-maccatalyst      6.0.486/6.0.400       VS 17.3.32811.315
+maccatalyst           15.4.446-ci.-release-6-0-4xx.446/6.0.400      VS 17.3.32811.315
+maui-ios              6.0.486/6.0.400         VS 17.3.32811.315
+ios                    15.4.446-ci.-release-6-0-4xx.446/6.0.400      VS 17.3.32811.315
+maui-android          6.0.486/6.0.400         VS 17.3.32811.315
+android               32.0.448/6.0.400        VS 17.3.32811.315
+Use `dotnet workload search` to find additional workloads to install.</span></pre>
+<p><span class="koboSpan" id="kobo.653.1" xmlns="http://www.w3.org/1999/xhtml">We are ready</span><a id="_idIndexMarker076"/><span class="koboSpan" id="kobo.654.1" xmlns="http://www.w3.org/1999/xhtml"> to create, build, and run a .NET MAUI app</span><a id="_idIndexMarker077"/> <span class="No-Break"><span class="koboSpan" id="kobo.655.1" xmlns="http://www.w3.org/1999/xhtml">on Windows.</span></span></p>
+<h2 id="_idParaDest-37"><a id="_idTextAnchor036"/><span class="koboSpan" id="kobo.656.1" xmlns="http://www.w3.org/1999/xhtml">Installing .NET MAUI on macOS</span></h2>
+<p><span class="koboSpan" id="kobo.657.1" xmlns="http://www.w3.org/1999/xhtml">The installation of the Visual Studio Community</span><a id="_idIndexMarker078"/><span class="koboSpan" id="kobo.658.1" xmlns="http://www.w3.org/1999/xhtml"> edition is similar</span><a id="_idIndexMarker079"/><span class="koboSpan" id="kobo.659.1" xmlns="http://www.w3.org/1999/xhtml"> to what we have done on Windows. </span><span class="koboSpan" id="kobo.659.2" xmlns="http://www.w3.org/1999/xhtml">The installation package can be downloaded from the </span><span class="No-Break"><span class="koboSpan" id="kobo.660.1" xmlns="http://www.w3.org/1999/xhtml">same link.</span></span></p>
+<p><span class="koboSpan" id="kobo.661.1" xmlns="http://www.w3.org/1999/xhtml">After launching Visual Studio Installer, we can see a screen similar to the one shown in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.662.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.663.1" xmlns="http://www.w3.org/1999/xhtml">.4</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.664.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></p>
+<div>
+<div class="IMG---Figure" id="_idContainer011">
+<span class="koboSpan" id="kobo.665.1" xmlns="http://www.w3.org/1999/xhtml"><img alt="Figure 1.4: Visual Studio for Mac 2022 installation" src="image/Figure_1.4_B16588.jpg"/></span>
+</div>
+</div>
+<p class="IMG---Caption" lang="en-US" xml:lang="en-US"><span class="koboSpan" id="kobo.666.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1.4: Visual Studio for Mac 2022 installation</span></p>
+<p><span class="koboSpan" id="kobo.667.1" xmlns="http://www.w3.org/1999/xhtml">Please select </span><strong class="bold"><span class="koboSpan" id="kobo.668.1" xmlns="http://www.w3.org/1999/xhtml">.NET</span></strong><span class="koboSpan" id="kobo.669.1" xmlns="http://www.w3.org/1999/xhtml"> and </span><strong class="bold"><span class="koboSpan" id="kobo.670.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI</span></strong><span class="koboSpan" id="kobo.671.1" xmlns="http://www.w3.org/1999/xhtml"> from the list of options in </span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.672.1" xmlns="http://www.w3.org/1999/xhtml">Figure 1</span></em></span><span class="No-Break"><em class="italic"><span class="koboSpan" id="kobo.673.1" xmlns="http://www.w3.org/1999/xhtml">.4</span></em></span><span class="No-Break"><span class="koboSpan" id="kobo.674.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></p>
+<p><span class="koboSpan" id="kobo.675.1" xmlns="http://www.w3.org/1999/xhtml">After the installation</span><a id="_idIndexMarker080"/><span class="koboSpan" id="kobo.676.1" xmlns="http://www.w3.org/1999/xhtml"> is completed, we can check the installation from the command</span><a id="_idIndexMarker081"/><span class="koboSpan" id="kobo.677.1" xmlns="http://www.w3.org/1999/xhtml"> line using the following </span><span class="No-Break"><strong class="source-inline"><span class="koboSpan" id="kobo.678.1" xmlns="http://www.w3.org/1999/xhtml">dotnet</span></strong></span><span class="No-Break"><span class="koboSpan" id="kobo.679.1" xmlns="http://www.w3.org/1999/xhtml"> command:</span></span></p>
+<pre class="console"><span class="koboSpan" id="kobo.680.1" xmlns="http://www.w3.org/1999/xhtml">
+% dotnet workload list
+Installed Workload Ids      Manifest Version      Installation Source
+--------------------------------------------------------------------
+wasm-tools                  6.0.9/6.0.400         SDK 6.0.400
+macos                       12.3.453/6.0.400      SDK 6.0.400
+maui-maccatalyst            6.0.536/6.0.400       SDK 6.0.400
+maui-ios                    6.0.536/6.0.400       SDK 6.0.400
+maui-android                6.0.536/6.0.400       SDK 6.0.400
+ios                         15.4.453/6.0.400      SDK 6.0.400
+maccatalyst                 15.4.453/6.0.400      SDK 6.0.400
+maui                        6.0.536/6.0.400       SDK 6.0.400
+tvos                        15.4.453/6.0.400      SDK 6.0.400
+android                     32.0.465/6.0.400      SDK 6.0.400
+Use `dotnet workload search` to find additional workloads to install.</span></pre>
+<p><span class="koboSpan" id="kobo.681.1" xmlns="http://www.w3.org/1999/xhtml">We are ready</span><a id="_idIndexMarker082"/><span class="koboSpan" id="kobo.682.1" xmlns="http://www.w3.org/1999/xhtml"> to create, build, and run a .NET MAUI app</span><a id="_idIndexMarker083"/> <span class="No-Break"><span class="koboSpan" id="kobo.683.1" xmlns="http://www.w3.org/1999/xhtml">on macOS.</span></span></p>
+<h1 id="_idParaDest-38"><a id="_idTextAnchor037"/><span class="koboSpan" id="kobo.684.1" xmlns="http://www.w3.org/1999/xhtml">What you will learn in this book</span></h1>
+<p><span class="koboSpan" id="kobo.685.1" xmlns="http://www.w3.org/1999/xhtml">In this book, you will learn how to develop</span><a id="_idIndexMarker084"/><span class="koboSpan" id="kobo.686.1" xmlns="http://www.w3.org/1999/xhtml"> cross-platform applications</span><a id="_idIndexMarker085"/><span class="koboSpan" id="kobo.687.1" xmlns="http://www.w3.org/1999/xhtml"> using .NET MAUI. </span><span class="koboSpan" id="kobo.687.2" xmlns="http://www.w3.org/1999/xhtml">The following are the topics covered in </span><span class="No-Break"><span class="koboSpan" id="kobo.688.1" xmlns="http://www.w3.org/1999/xhtml">this book:</span></span></p>
+<ul>
+<li><span class="koboSpan" id="kobo.689.1" xmlns="http://www.w3.org/1999/xhtml">The .NET ecosystem and .</span><span class="No-Break"><span class="koboSpan" id="kobo.690.1" xmlns="http://www.w3.org/1999/xhtml">NET MAUI</span></span></li>
+<li><span class="koboSpan" id="kobo.691.1" xmlns="http://www.w3.org/1999/xhtml">User interface design </span><span class="No-Break"><span class="koboSpan" id="kobo.692.1" xmlns="http://www.w3.org/1999/xhtml">using XAML</span></span></li>
+<li><span class="koboSpan" id="kobo.693.1" xmlns="http://www.w3.org/1999/xhtml">Data binding using the MVVM </span><span class="No-Break"><span class="koboSpan" id="kobo.694.1" xmlns="http://www.w3.org/1999/xhtml">design pattern</span></span></li>
+<li><span class="koboSpan" id="kobo.695.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI Shell navigation and design navigations </span><span class="No-Break"><span class="koboSpan" id="kobo.696.1" xmlns="http://www.w3.org/1999/xhtml">using routes</span></span></li>
+<li><span class="No-Break"><span class="koboSpan" id="kobo.697.1" xmlns="http://www.w3.org/1999/xhtml">Dependency injection</span></span></li>
+<li><span class="koboSpan" id="kobo.698.1" xmlns="http://www.w3.org/1999/xhtml">Exploring Blazor to design a user interface using the .NET MAUI Blazor </span><span class="No-Break"><span class="koboSpan" id="kobo.699.1" xmlns="http://www.w3.org/1999/xhtml">Hybrid app</span></span></li>
+<li><span class="koboSpan" id="kobo.700.1" xmlns="http://www.w3.org/1999/xhtml">Using </span><strong class="source-inline"><span class="koboSpan" id="kobo.701.1" xmlns="http://www.w3.org/1999/xhtml">xUnit.net</span></strong><span class="koboSpan" id="kobo.702.1" xmlns="http://www.w3.org/1999/xhtml"> to write unit test cases for .NET classes and </span><strong class="source-inline"><span class="koboSpan" id="kobo.703.1" xmlns="http://www.w3.org/1999/xhtml">bUnit</span></strong><span class="koboSpan" id="kobo.704.1" xmlns="http://www.w3.org/1999/xhtml"> to implement test cases for </span><span class="No-Break"><span class="koboSpan" id="kobo.705.1" xmlns="http://www.w3.org/1999/xhtml">Razor Pages</span></span></li>
+<li><span class="koboSpan" id="kobo.706.1" xmlns="http://www.w3.org/1999/xhtml">Publish</span><a id="_idIndexMarker086"/><span class="koboSpan" id="kobo.707.1" xmlns="http://www.w3.org/1999/xhtml">ing an application</span><a id="_idIndexMarker087"/><span class="koboSpan" id="kobo.708.1" xmlns="http://www.w3.org/1999/xhtml"> to Google Play, Apple Store, and </span><span class="No-Break"><span class="koboSpan" id="kobo.709.1" xmlns="http://www.w3.org/1999/xhtml">Microsoft Store</span></span></li>
+</ul>
+<h1 id="_idParaDest-39"><a id="_idTextAnchor038"/><span class="koboSpan" id="kobo.710.1" xmlns="http://www.w3.org/1999/xhtml">The app that we will build in this book</span></h1>
+<p><span class="koboSpan" id="kobo.711.1" xmlns="http://www.w3.org/1999/xhtml">Throughout the book, we will learn about .NET MAUI programming</span><a id="_idIndexMarker088"/><span class="koboSpan" id="kobo.712.1" xmlns="http://www.w3.org/1999/xhtml"> by building a password manager app. </span><span class="koboSpan" id="kobo.712.2" xmlns="http://www.w3.org/1999/xhtml">KeePass is an open</span><a id="_idIndexMarker089"/><span class="koboSpan" id="kobo.713.1" xmlns="http://www.w3.org/1999/xhtml"> source password manager used by many people. </span><span class="koboSpan" id="kobo.713.2" xmlns="http://www.w3.org/1999/xhtml">However, it is an application built for .NET Framework, so it can run on Windows only. </span><span class="koboSpan" id="kobo.713.3" xmlns="http://www.w3.org/1999/xhtml">KeePass has a library, </span><strong class="source-inline"><span class="koboSpan" id="kobo.714.1" xmlns="http://www.w3.org/1999/xhtml">KeePassLib</span></strong><span class="koboSpan" id="kobo.715.1" xmlns="http://www.w3.org/1999/xhtml">, which implements most of the logic for encrypted database management. </span><span class="koboSpan" id="kobo.715.2" xmlns="http://www.w3.org/1999/xhtml">This is a popular database format for password management. </span><span class="koboSpan" id="kobo.715.3" xmlns="http://www.w3.org/1999/xhtml">For example, IntelliJ IDEA uses the KeePass database to store passwords used during </span><span class="No-Break"><span class="koboSpan" id="kobo.716.1" xmlns="http://www.w3.org/1999/xhtml">development phases.</span></span></p>
+<p><span class="koboSpan" id="kobo.717.1" xmlns="http://www.w3.org/1999/xhtml">To make </span><strong class="source-inline"><span class="koboSpan" id="kobo.718.1" xmlns="http://www.w3.org/1999/xhtml">KeePassLib</span></strong><span class="koboSpan" id="kobo.719.1" xmlns="http://www.w3.org/1999/xhtml"> a cross-platform library, I ported </span><strong class="source-inline"><span class="koboSpan" id="kobo.720.1" xmlns="http://www.w3.org/1999/xhtml">KeePassLib</span></strong><span class="koboSpan" id="kobo.721.1" xmlns="http://www.w3.org/1999/xhtml"> to .NET Standard 2.0 as the open source </span><strong class="source-inline"><span class="koboSpan" id="kobo.722.1" xmlns="http://www.w3.org/1999/xhtml">KPCLib</span></strong><span class="koboSpan" id="kobo.723.1" xmlns="http://www.w3.org/1999/xhtml"> project. </span><span class="koboSpan" id="kobo.723.2" xmlns="http://www.w3.org/1999/xhtml">The source code can be found </span><span class="No-Break"><span class="koboSpan" id="kobo.724.1" xmlns="http://www.w3.org/1999/xhtml">at </span></span><a href="https://github.com/passxyz/KPCLib"><span class="No-Break"><span class="koboSpan" id="kobo.725.1" xmlns="http://www.w3.org/1999/xhtml">https://github.com/passxyz/KPCLib</span></span></a><span class="No-Break"><span class="koboSpan" id="kobo.726.1" xmlns="http://www.w3.org/1999/xhtml">.</span></span></p>
+<p><span class="koboSpan" id="kobo.727.1" xmlns="http://www.w3.org/1999/xhtml">I published an app, </span><strong class="source-inline"><span class="koboSpan" id="kobo.728.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault</span></strong><span class="koboSpan" id="kobo.729.1" xmlns="http://www.w3.org/1999/xhtml">, developed using Xamarin.Forms and </span><strong class="source-inline"><span class="koboSpan" id="kobo.730.1" xmlns="http://www.w3.org/1999/xhtml">KPCLib</span></strong><span class="koboSpan" id="kobo.731.1" xmlns="http://www.w3.org/1999/xhtml"> in app</span><a id="_idIndexMarker090"/><span class="koboSpan" id="kobo.732.1" xmlns="http://www.w3.org/1999/xhtml"> stores. </span><span class="koboSpan" id="kobo.732.2" xmlns="http://www.w3.org/1999/xhtml">In this book, we will rewrite </span><strong class="source-inline"><span class="koboSpan" id="kobo.733.1" xmlns="http://www.w3.org/1999/xhtml">PassXYZ.Vault</span></strong><span class="koboSpan" id="kobo.734.1" xmlns="http://www.w3.org/1999/xhtml"> together, using .NET MAUI. </span><span class="koboSpan" id="kobo.734.2" xmlns="http://www.w3.org/1999/xhtml">You can learn about cross-platform programming through the progressive development of this app until it is published in </span><span class="No-Break"><span class="koboSpan" id="kobo.735.1" xmlns="http://www.w3.org/1999/xhtml">app stores.</span></span></p>
+<h1 id="_idParaDest-40"><a id="_idTextAnchor039"/><span class="koboSpan" id="kobo.736.1" xmlns="http://www.w3.org/1999/xhtml">Summary</span></h1>
+<p><span class="koboSpan" id="kobo.737.1" xmlns="http://www.w3.org/1999/xhtml">In this chapter, we started with an overview of cross-platform technologies. </span><span class="koboSpan" id="kobo.737.2" xmlns="http://www.w3.org/1999/xhtml">We compared a .NET solution with other cross-platform technologies. </span><span class="koboSpan" id="kobo.737.3" xmlns="http://www.w3.org/1999/xhtml">After that, we went through the .NET landscape. </span><span class="koboSpan" id="kobo.737.4" xmlns="http://www.w3.org/1999/xhtml">I explained the relationship between .NET Framework, Mono, and .NET Core. </span><span class="koboSpan" id="kobo.737.5" xmlns="http://www.w3.org/1999/xhtml">Then, we discussed Xamarin and .NET MAUI. </span><span class="koboSpan" id="kobo.737.6" xmlns="http://www.w3.org/1999/xhtml">We reviewed the difference between Xamarin.Forms and .NET MAUI. </span><span class="koboSpan" id="kobo.737.7" xmlns="http://www.w3.org/1999/xhtml">One important feature in .NET MAUI is that we can use Blazor together with XAML user interface design. </span><span class="koboSpan" id="kobo.737.8" xmlns="http://www.w3.org/1999/xhtml">Then, we had an overview of .NET MAUI Blazor. </span><span class="koboSpan" id="kobo.737.9" xmlns="http://www.w3.org/1999/xhtml">Finally, we set up a development environment for the rest of </span><span class="No-Break"><span class="koboSpan" id="kobo.738.1" xmlns="http://www.w3.org/1999/xhtml">the chapters.</span></span></p>
+<p><span class="koboSpan" id="kobo.739.1" xmlns="http://www.w3.org/1999/xhtml">In the next chapter, we will explore how to build a .NET MAUI application </span><span class="No-Break"><span class="koboSpan" id="kobo.740.1" xmlns="http://www.w3.org/1999/xhtml">from scratch.</span></span></p>
+<h1 id="_idParaDest-41"><a id="_idTextAnchor040"/><span class="koboSpan" id="kobo.741.1" xmlns="http://www.w3.org/1999/xhtml">Further reading</span></h1>
+<ul>
+<li><strong class="bold"><span class="koboSpan" id="kobo.742.1" xmlns="http://www.w3.org/1999/xhtml">.NET MAUI</span></strong><span class="koboSpan" id="kobo.743.1" xmlns="http://www.w3.org/1999/xhtml">: You can find more information about .NET MAUI in Microsoft’s official </span><span class="No-Break"><span class="koboSpan" id="kobo.744.1" xmlns="http://www.w3.org/1999/xhtml">documentation: </span></span><a href="https://docs.microsoft.com/en-us/dotnet/maui/"><span class="No-Break"><span class="koboSpan" id="kobo.745.1" xmlns="http://www.w3.org/1999/xhtml">https://docs.microsoft.com/en-us/dotnet/maui/</span></span></a></li>
+<li><strong class="bold"><span class="koboSpan" id="kobo.746.1" xmlns="http://www.w3.org/1999/xhtml">KeePass</span></strong><span class="koboSpan" id="kobo.747.1" xmlns="http://www.w3.org/1999/xhtml">: The official website for KeePass can be found </span><span class="No-Break"><span class="koboSpan" id="kobo.748.1" xmlns="http://www.w3.org/1999/xhtml">at </span></span><a href="https://keepass.info/"><span class="No-Break"><span class="koboSpan" id="kobo.749.1" xmlns="http://www.w3.org/1999/xhtml">https://keepass.info/</span></span></a></li>
+</ul>
+</div>
+<div>
+<div class="IMG---Figure" id="_idContainer013">
+</div>
+</div>
+</body>
+</html>

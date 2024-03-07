@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/" unique-identifier="bookid" version="3.0" xmlns="http://www.idpf.org/2007/opf">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<meta content="Adobe InDesign 18.0" name="generator"/>
+<meta content="Cover.png" name="cover"/>
+<meta property="ibooks:specified-fonts">true</meta>
+<dc:title>.NET MAUI Cross-Platform Application Development</dc:title>
+<dc:creator>Roger Ye</dc:creator>
+<dc:description>Leverage a first-class cross-platform UI framework to build native apps on multiple platforms</dc:description>
+<dc:publisher>Packt Publishing Pvt. Ltd.</dc:publisher>
+<dc:date>2023-09-01</dc:date>
+<dc:language>en-GB</dc:language>
+<dc:language>en-US</dc:language>
+<meta property="dcterms:modified">2023-01-09T08:29:59Z</meta>
+<dc:identifier id="bookid" xmlns:dc="http://purl.org/dc/elements/1.1/">urn:uuid:5d3febc4-a3cd-44cd-b832-e530d7ca30cf</dc:identifier></metadata>
+<manifest>
+<item href="cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
+<item href="B16588_FM.xhtml" id="B16588_FM" media-type="application/xhtml+xml"/>
+<item href="B16588_TOC.xhtml" id="B16588_TOC" media-type="application/xhtml+xml"/>
+<item href="B16588_Preface.xhtml" id="B16588_Preface" media-type="application/xhtml+xml"/>
+<item href="B16588_Part_1.xhtml" id="B16588_Part_1" media-type="application/xhtml+xml"/>
+<item href="B16588_01.xhtml" id="B16588_01" media-type="application/xhtml+xml"/>
+<item href="B16588_02.xhtml" id="B16588_02" media-type="application/xhtml+xml"/>
+<item href="B16588_03.xhtml" id="B16588_03" media-type="application/xhtml+xml"/>
+<item href="B16588_04.xhtml" id="B16588_04" media-type="application/xhtml+xml"/>
+<item href="B16588_05.xhtml" id="B16588_05" media-type="application/xhtml+xml"/>
+<item href="B16588_06.xhtml" id="B16588_06" media-type="application/xhtml+xml"/>
+<item href="B16588_Part_2.xhtml" id="B16588_Part_2" media-type="application/xhtml+xml"/>
+<item href="B16588_07.xhtml" id="B16588_07" media-type="application/xhtml+xml"/>
+<item href="B16588_08.xhtml" id="B16588_08" media-type="application/xhtml+xml"/>
+<item href="B16588_09.xhtml" id="B16588_09" media-type="application/xhtml+xml"/>
+<item href="B16588_10.xhtml" id="B16588_10" media-type="application/xhtml+xml"/>
+<item href="B16588_Part_3.xhtml" id="B16588_Part_3" media-type="application/xhtml+xml"/>
+<item href="B16588_11.xhtml" id="B16588_11" media-type="application/xhtml+xml"/>
+<item href="B16588_12.xhtml" id="B16588_12" media-type="application/xhtml+xml"/>
+<item href="B16588_Index.xhtml" id="B16588_Index" media-type="application/xhtml+xml"/>
+<item href="B16588_BM.xhtml" id="B16588_BM" media-type="application/xhtml+xml"/>
+<item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+<item href="toc.xhtml" id="toc" media-type="application/xhtml+xml" properties="nav"/>
+<item href="css/style-JRserifv6.css" id="style-JRserifv6.css" media-type="text/css"/>
+<item href="image/Author_image_1.jpg" id="Author_image_1.jpg" media-type="image/jpeg"/>
+<item href="image/Author_sign.png" id="Author_sign.png" media-type="image/png"/>
+<item href="image/B16588_QR_Free_PDF.jpg" id="B16588_QR_Free_PDF.jpg" media-type="image/jpeg"/>
+<item href="image/B16588_QR_Free_PDF1.jpg" id="B16588_QR_Free_PDF1.jpg" media-type="image/jpeg"/>
+<item href="image/Cover.png" id="Cover.png" media-type="image/png" properties="cover-image"/>
+<item href="image/Figure_1.1_B16588.jpg" id="Figure_1.1_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_1.2_B16588.jpg" id="Figure_1.2_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_1.3_B16588.jpg" id="Figure_1.3_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_1.4_B16588.jpg" id="Figure_1.4_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_10.1_B16588.jpg" id="Figure_10.1_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_10.2_B16588.jpg" id="Figure_10.2_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_10.3_B16588.jpg" id="Figure_10.3_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_11.01_B16588.jpg" id="Figure_11.01_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.01_B16588.jpg" id="Figure_12.01_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.02_B16588.jpg" id="Figure_12.02_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.03_B16588.jpg" id="Figure_12.03_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.04_B16588.jpg" id="Figure_12.04_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.05_B16588.jpg" id="Figure_12.05_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.06_B16588.jpg" id="Figure_12.06_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.07_B16588.jpg" id="Figure_12.07_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.08_B16588.jpg" id="Figure_12.08_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.09_B16588.jpg" id="Figure_12.09_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.10_B16588.jpg" id="Figure_12.10_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.11_B16588.jpg" id="Figure_12.11_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.12_B16588.jpg" id="Figure_12.12_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.13_B16588.jpg" id="Figure_12.13_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.14_B16588.jpg" id="Figure_12.14_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.15_B16588.jpg" id="Figure_12.15_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_12.16_B16588.jpg" id="Figure_12.16_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.01_B16588.jpg" id="Figure_2.01_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.02_B16588.jpg" id="Figure_2.02_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.03_B16588.jpg" id="Figure_2.03_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.04_B16588.jpg" id="Figure_2.04_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.05_B16588.jpg" id="Figure_2.05_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.06_B16588.jpg" id="Figure_2.06_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.07_B16588.jpg" id="Figure_2.07_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.08_B16588.jpg" id="Figure_2.08_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.09_B16588.jpg" id="Figure_2.09_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.10_B16588.jpg" id="Figure_2.10_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.11_B16588.jpg" id="Figure_2.11_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.12_B16588.jpg" id="Figure_2.12_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.13_B16588.jpg" id="Figure_2.13_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.14_B16588.jpg" id="Figure_2.14_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.15_B16588.jpg" id="Figure_2.15_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.16_B16588.jpg" id="Figure_2.16_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.17_B16588.jpg" id="Figure_2.17_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_2.18_B16588.jpg" id="Figure_2.18_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.1_B16588.jpg" id="Figure_3.1_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.2_B16588.jpg" id="Figure_3.2_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.3_B16588.jpg" id="Figure_3.3_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.4_B16588.jpg" id="Figure_3.4_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.5_B16588.jpg" id="Figure_3.5_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.6_B16588.jpg" id="Figure_3.6_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.7_B16588.jpg" id="Figure_3.7_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.8_B16588.jpg" id="Figure_3.8_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_3.9_B16588.jpg" id="Figure_3.9_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.01_B16588.jpg" id="Figure_4.01_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.02_B16588.jpg" id="Figure_4.02_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.03_B16588.jpg" id="Figure_4.03_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.04_B16588.jpg" id="Figure_4.04_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.07_B16588.jpg" id="Figure_4.07_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.08_B16588.jpg" id="Figure_4.08_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.10_B16588.jpg" id="Figure_4.10_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.5_B16588.jpg" id="Figure_4.5_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.6_B16588.jpg" id="Figure_4.6_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_4.9_B16588.jpg" id="Figure_4.9_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_5.01_B16588.jpg" id="Figure_5.01_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_5.02_B16588.jpg" id="Figure_5.02_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_5.03_B16588.jpg" id="Figure_5.03_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_5.04_B16588.jpg" id="Figure_5.04_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_5.05_B16588.jpg" id="Figure_5.05_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_5.06_B16588.jpg" id="Figure_5.06_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_5.07_B16588.jpg" id="Figure_5.07_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_5.08_B16588.jpg" id="Figure_5.08_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.01_B16588.jpg" id="Figure_6.01_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.02_B16588.jpg" id="Figure_6.02_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.03_B16588.jpg" id="Figure_6.03_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.04_B16588.jpg" id="Figure_6.04_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.05_B16588.jpg" id="Figure_6.05_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.06_B16588.jpg" id="Figure_6.06_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.07_B16588.jpg" id="Figure_6.07_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.08_B16588.jpg" id="Figure_6.08_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_6.09_B16588.jpg" id="Figure_6.09_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_7.1_B16588.jpg" id="Figure_7.1_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_7.2_B16588.jpg" id="Figure_7.2_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_7.3_B16588.jpg" id="Figure_7.3_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_7.4_B16588.jpg" id="Figure_7.4_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_7.5_B16588.jpg" id="Figure_7.5_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_7.6_B16588.jpg" id="Figure_7.6_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_7.7_B16588.jpg" id="Figure_7.7_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_8.1_B16588.jpg" id="Figure_8.1_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_8.2_B16588.jpg" id="Figure_8.2_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_8.3_B16588.jpg" id="Figure_8.3_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_8.4_B16588.jpg" id="Figure_8.4_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_8.5_B16588.jpg" id="Figure_8.5_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_8.6_B16588.jpg" id="Figure_8.6_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_8.7_B16588.jpg" id="Figure_8.7_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.01_B16588.jpg" id="Figure_9.01_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.02_B16588.jpg" id="Figure_9.02_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.3_B16588.jpg" id="Figure_9.3_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.4_B16588.jpg" id="Figure_9.4_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.5_B16588.jpg" id="Figure_9.5_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.6_B16588.jpg" id="Figure_9.6_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.7_B16588.jpg" id="Figure_9.7_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.8_B16588.jpg" id="Figure_9.8_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/Figure_9.9_B16588.jpg" id="Figure_9.9_B16588.jpg" media-type="image/jpeg"/>
+<item href="image/MicrosoftTeams-image_%2841%29.jpg" id="MicrosoftTeams-image_-41-.jpg" media-type="image/jpeg"/>
+<item href="image/MicrosoftTeams-image_%2842%29.jpg" id="MicrosoftTeams-image_-42-.jpg" media-type="image/jpeg"/>
+<item href="image/Packt_logo.png" id="Packt_logo.png" media-type="image/png"/>
+<item href="image/Table_12.01_B16588.jpg" id="Table_12.01_B16588.jpg" media-type="image/jpeg"/>
+<item href="Fonts/CourierStd.otf" id="CourierStd.otf" media-type="font/otf"/>
+<item href="Fonts/CourierStd-Bold.otf" id="CourierStd-Bold.otf" media-type="font/otf"/>
+<item href="Fonts/MinionPro-Bold.otf" id="MinionPro-Bold.otf" media-type="font/otf"/>
+<item href="Fonts/MinionPro-BoldIt.otf" id="MinionPro-BoldIt.otf" media-type="font/otf"/>
+<item href="Fonts/MinionPro-It.otf" id="MinionPro-It.otf" media-type="font/otf"/>
+<item href="Fonts/MinionPro-Regular.otf" id="MinionPro-Regular.otf" media-type="font/otf"/>
+<item href="Fonts/MyriadPro-Light.otf" id="MyriadPro-Light.otf" media-type="font/otf"/>
+<item href="Fonts/MyriadPro-Regular.otf" id="MyriadPro-Regular.otf" media-type="font/otf"/>
+<item href="Fonts/MyriadPro-Semibold.otf" id="MyriadPro-Semibold.otf" media-type="font/otf"/>
+<item href="Fonts/MyriadPro-SemiboldIt.otf" id="MyriadPro-SemiboldIt.otf" media-type="font/otf"/>
+</manifest>
+<spine toc="ncx">
+<itemref idref="cover" linear="no"/>
+<itemref idref="B16588_FM"/>
+<itemref idref="B16588_TOC"/>
+<itemref idref="B16588_Preface"/>
+<itemref idref="B16588_Part_1"/>
+<itemref idref="B16588_01"/>
+<itemref idref="B16588_02"/>
+<itemref idref="B16588_03"/>
+<itemref idref="B16588_04"/>
+<itemref idref="B16588_05"/>
+<itemref idref="B16588_06"/>
+<itemref idref="B16588_Part_2"/>
+<itemref idref="B16588_07"/>
+<itemref idref="B16588_08"/>
+<itemref idref="B16588_09"/>
+<itemref idref="B16588_10"/>
+<itemref idref="B16588_Part_3"/>
+<itemref idref="B16588_11"/>
+<itemref idref="B16588_12"/>
+<itemref idref="B16588_Index"/>
+<itemref idref="B16588_BM"/>
+</spine>
+<guide>
+<reference href="cover.xhtml" title="Cover" type="cover"/>
+<reference href="B16588_TOC.xhtml#_idContainer002" title="Table of Contents" type="toc"/>
+</guide>
+</package>

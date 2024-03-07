@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?><ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+	<head>
+		<meta name="dtb:uid" content="urn:uuid:5d3febc4-a3cd-44cd-b832-e530d7ca30cf"/>
+		<meta name="dtb:depth" content="4"/>
+		<meta name="dtb:totalPageCount" content="0"/>
+		<meta name="dtb:maxPageNumber" content="0"/>
+	</head>
+	<docTitle>
+		<text>.NET MAUI Cross-Platform Application Development</text>
+	</docTitle>
+	<docAuthor>
+		<text>Roger Ye</text>
+	</docAuthor>
+	<navMap>
+		<navPoint id="navpoint1" playOrder="1"><navLabel><text>.NET MAUI Cross-Platform Application Development</text></navLabel><content src="B16588_FM.xhtml#_idParaDest-1"/></navPoint>
+		<navPoint id="navpoint2" playOrder="2"><navLabel><text>Contributors</text></navLabel><content src="B16588_FM.xhtml#_idParaDest-2"/></navPoint>
+		<navPoint id="navpoint3" playOrder="3"><navLabel><text>About the author</text></navLabel><content src="B16588_FM.xhtml#_idParaDest-3"/></navPoint>
+		<navPoint id="navpoint4" playOrder="4"><navLabel><text>About the reviewers</text></navLabel><content src="B16588_FM.xhtml#_idParaDest-4"/></navPoint>
+		<navPoint id="navpoint5" playOrder="5"><navLabel><text>Preface</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-5"/>
+			<navPoint id="navpoint6" playOrder="6"><navLabel><text>Who this book is for</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-6"/></navPoint>
+			<navPoint id="navpoint7" playOrder="7"><navLabel><text>What this book covers</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-7"/></navPoint>
+			<navPoint id="navpoint8" playOrder="8"><navLabel><text>To get the most out of this book</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-8"/></navPoint>
+			<navPoint id="navpoint9" playOrder="9"><navLabel><text>Download the example code files</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-9"/></navPoint>
+			<navPoint id="navpoint10" playOrder="10"><navLabel><text>Download the color images</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-10"/></navPoint>
+			<navPoint id="navpoint11" playOrder="11"><navLabel><text>Conventions used</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-11"/></navPoint>
+			<navPoint id="navpoint12" playOrder="12"><navLabel><text>Get in touch</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-12"/></navPoint>
+			<navPoint id="navpoint13" playOrder="13"><navLabel><text>Share Your Thoughts</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-13"/></navPoint>
+			<navPoint id="navpoint14" playOrder="14"><navLabel><text>Download a free PDF copy of this book</text></navLabel><content src="B16588_Preface.xhtml#_idParaDest-14"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint15" playOrder="15"><navLabel><text>Part 1: Exploring .NET MAUI</text></navLabel><content src="B16588_Part_1.xhtml#_idParaDest-15"/></navPoint>
+		<navPoint id="navpoint16" playOrder="16"><navLabel><text>1</text></navLabel><content src="B16588_01.xhtml#_idParaDest-16"/></navPoint>
+		<navPoint id="navpoint17" playOrder="17"><navLabel><text>Getting Started with .NET MAUI</text></navLabel><content src="B16588_01.xhtml#_idParaDest-17"/>
+			<navPoint id="navpoint18" playOrder="18"><navLabel><text>An overview of cross-platform technologies</text></navLabel><content src="B16588_01.xhtml#_idParaDest-18"/>
+				<navPoint id="navpoint19" playOrder="19"><navLabel><text>Native applications</text></navLabel><content src="B16588_01.xhtml#_idParaDest-19"/></navPoint>
+				<navPoint id="navpoint20" playOrder="20"><navLabel><text>Web applications</text></navLabel><content src="B16588_01.xhtml#_idParaDest-20"/></navPoint>
+				<navPoint id="navpoint21" playOrder="21"><navLabel><text>Backend services</text></navLabel><content src="B16588_01.xhtml#_idParaDest-21"/></navPoint>
+				<navPoint id="navpoint22" playOrder="22"><navLabel><text>Cross-platform technologies</text></navLabel><content src="B16588_01.xhtml#_idParaDest-22"/></navPoint>
+				<navPoint id="navpoint23" playOrder="23"><navLabel><text>A comparison of .NET, Java, and JavaScript</text></navLabel><content src="B16588_01.xhtml#_idParaDest-23"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint24" playOrder="24"><navLabel><text>Exploring the .NET landscape</text></navLabel><content src="B16588_01.xhtml#_idParaDest-24"/>
+				<navPoint id="navpoint25" playOrder="25"><navLabel><text>.NET Framework</text></navLabel><content src="B16588_01.xhtml#_idParaDest-25"/></navPoint>
+				<navPoint id="navpoint26" playOrder="26"><navLabel><text>Mono</text></navLabel><content src="B16588_01.xhtml#_idParaDest-26"/></navPoint>
+				<navPoint id="navpoint27" playOrder="27"><navLabel><text>.NET Core</text></navLabel><content src="B16588_01.xhtml#_idParaDest-27"/></navPoint>
+				<navPoint id="navpoint28" playOrder="28"><navLabel><text>.NET Standard and portable class libraries</text></navLabel><content src="B16588_01.xhtml#_idParaDest-28"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint29" playOrder="29"><navLabel><text>Using Xamarin for mobile development</text></navLabel><content src="B16588_01.xhtml#_idParaDest-29"/>
+				<navPoint id="navpoint30" playOrder="30"><navLabel><text>Xamarin.Forms</text></navLabel><content src="B16588_01.xhtml#_idParaDest-30"/></navPoint>
+				<navPoint id="navpoint31" playOrder="31"><navLabel><text>Xamarin.Essentials</text></navLabel><content src="B16588_01.xhtml#_idParaDest-31"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint32" playOrder="32"><navLabel><text>Moving to .NET MAUI</text></navLabel><content src="B16588_01.xhtml#_idParaDest-32"/>
+				<navPoint id="navpoint33" playOrder="33"><navLabel><text>.NET MAUI Blazor apps</text></navLabel><content src="B16588_01.xhtml#_idParaDest-33"/></navPoint>
+				<navPoint id="navpoint34" playOrder="34"><navLabel><text>Choosing XAML versus Razor in .NET MAUI</text></navLabel><content src="B16588_01.xhtml#_idParaDest-34"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint35" playOrder="35"><navLabel><text>Development environment setup</text></navLabel><content src="B16588_01.xhtml#_idParaDest-35"/>
+				<navPoint id="navpoint36" playOrder="36"><navLabel><text>Installing .NET MAUI on Windows</text></navLabel><content src="B16588_01.xhtml#_idParaDest-36"/></navPoint>
+				<navPoint id="navpoint37" playOrder="37"><navLabel><text>Installing .NET MAUI on macOS</text></navLabel><content src="B16588_01.xhtml#_idParaDest-37"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint38" playOrder="38"><navLabel><text>What you will learn in this book</text></navLabel><content src="B16588_01.xhtml#_idParaDest-38"/></navPoint>
+			<navPoint id="navpoint39" playOrder="39"><navLabel><text>The app that we will build in this book</text></navLabel><content src="B16588_01.xhtml#_idParaDest-39"/></navPoint>
+			<navPoint id="navpoint40" playOrder="40"><navLabel><text>Summary</text></navLabel><content src="B16588_01.xhtml#_idParaDest-40"/></navPoint>
+			<navPoint id="navpoint41" playOrder="41"><navLabel><text>Further reading</text></navLabel><content src="B16588_01.xhtml#_idParaDest-41"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint42" playOrder="42"><navLabel><text>2</text></navLabel><content src="B16588_02.xhtml#_idParaDest-42"/></navPoint>
+		<navPoint id="navpoint43" playOrder="43"><navLabel><text>Building Our First .NET MAUI App</text></navLabel><content src="B16588_02.xhtml#_idParaDest-43"/>
+			<navPoint id="navpoint44" playOrder="44"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_02.xhtml#_idParaDest-44"/></navPoint>
+			<navPoint id="navpoint45" playOrder="45"><navLabel><text>Managing the source code in this book</text></navLabel><content src="B16588_02.xhtml#_idParaDest-45"/></navPoint>
+			<navPoint id="navpoint46" playOrder="46"><navLabel><text>Setting up a new .NET MAUI project</text></navLabel><content src="B16588_02.xhtml#_idParaDest-46"/>
+				<navPoint id="navpoint47" playOrder="47"><navLabel><text>Creating a new project using Visual Studio</text></navLabel><content src="B16588_02.xhtml#_idParaDest-47"/></navPoint>
+				<navPoint id="navpoint48" playOrder="48"><navLabel><text>Creating a new project using the dotnet command</text></navLabel><content src="B16588_02.xhtml#_idParaDest-48"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint49" playOrder="49"><navLabel><text>App startup and lifecycle</text></navLabel><content src="B16588_02.xhtml#_idParaDest-49"/>
+				<navPoint id="navpoint50" playOrder="50"><navLabel><text>Lifecycle management</text></navLabel><content src="B16588_02.xhtml#_idParaDest-50"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint51" playOrder="51"><navLabel><text>Configuring the resources</text></navLabel><content src="B16588_02.xhtml#_idParaDest-51"/>
+				<navPoint id="navpoint52" playOrder="52"><navLabel><text>App icon</text></navLabel><content src="B16588_02.xhtml#_idParaDest-52"/></navPoint>
+				<navPoint id="navpoint53" playOrder="53"><navLabel><text>Splash screen</text></navLabel><content src="B16588_02.xhtml#_idParaDest-53"/></navPoint>
+				<navPoint id="navpoint54" playOrder="54"><navLabel><text>Setting custom font icons</text></navLabel><content src="B16588_02.xhtml#_idParaDest-54"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint55" playOrder="55"><navLabel><text>Building and debugging</text></navLabel><content src="B16588_02.xhtml#_idParaDest-55"/>
+				<navPoint id="navpoint56" playOrder="56"><navLabel><text>Windows</text></navLabel><content src="B16588_02.xhtml#_idParaDest-56"/></navPoint>
+				<navPoint id="navpoint57" playOrder="57"><navLabel><text>Android</text></navLabel><content src="B16588_02.xhtml#_idParaDest-57"/></navPoint>
+				<navPoint id="navpoint58" playOrder="58"><navLabel><text>iOS and macOS</text></navLabel><content src="B16588_02.xhtml#_idParaDest-58"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint59" playOrder="59"><navLabel><text>Scaffolding a Model-View-ViewModel project</text></navLabel><content src="B16588_02.xhtml#_idParaDest-59"/>
+				<navPoint id="navpoint60" playOrder="60"><navLabel><text>Migrating and reusing a Shell template from Xamarin.Forms</text></navLabel><content src="B16588_02.xhtml#_idParaDest-60"/></navPoint>
+				<navPoint id="navpoint61" playOrder="61"><navLabel><text>Visual Studio project template</text></navLabel><content src="B16588_02.xhtml#_idParaDest-61"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint62" playOrder="62"><navLabel><text>Summary</text></navLabel><content src="B16588_02.xhtml#_idParaDest-62"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint63" playOrder="63"><navLabel><text>3</text></navLabel><content src="B16588_03.xhtml#_idParaDest-63"/></navPoint>
+		<navPoint id="navpoint64" playOrder="64"><navLabel><text>User Interface Design with XAML</text></navLabel><content src="B16588_03.xhtml#_idParaDest-64"/>
+			<navPoint id="navpoint65" playOrder="65"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_03.xhtml#_idParaDest-65"/></navPoint>
+			<navPoint id="navpoint66" playOrder="66"><navLabel><text>Creating a XAML page</text></navLabel><content src="B16588_03.xhtml#_idParaDest-66"/></navPoint>
+			<navPoint id="navpoint67" playOrder="67"><navLabel><text>XAML syntax</text></navLabel><content src="B16588_03.xhtml#_idParaDest-67"/>
+				<navPoint id="navpoint68" playOrder="68"><navLabel><text>Element</text></navLabel><content src="B16588_03.xhtml#_idParaDest-68"/></navPoint>
+				<navPoint id="navpoint69" playOrder="69"><navLabel><text>Attribute</text></navLabel><content src="B16588_03.xhtml#_idParaDest-69"/></navPoint>
+				<navPoint id="navpoint70" playOrder="70"><navLabel><text>XML namespaces and XAML namespaces</text></navLabel><content src="B16588_03.xhtml#_idParaDest-70"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint71" playOrder="71"><navLabel><text>XAML markup extensions</text></navLabel><content src="B16588_03.xhtml#_idParaDest-71"/></navPoint>
+			<navPoint id="navpoint72" playOrder="72"><navLabel><text>Master-detail UI design</text></navLabel><content src="B16588_03.xhtml#_idParaDest-72"/>
+				<navPoint id="navpoint73" playOrder="73"><navLabel><text>Side-by-side</text></navLabel><content src="B16588_03.xhtml#_idParaDest-73"/></navPoint>
+				<navPoint id="navpoint74" playOrder="74"><navLabel><text>Stacked</text></navLabel><content src="B16588_03.xhtml#_idParaDest-74"/></navPoint>
+				<navPoint id="navpoint75" playOrder="75"><navLabel><text>Controls in .NET MAUI</text></navLabel><content src="B16588_03.xhtml#_idParaDest-75"/></navPoint>
+				<navPoint id="navpoint76" playOrder="76"><navLabel><text>Layouts in .NET MAUI</text></navLabel><content src="B16588_03.xhtml#_idParaDest-76"/></navPoint>
+				<navPoint id="navpoint77" playOrder="77"><navLabel><text>Navigation in the master-detail UI design</text></navLabel><content src="B16588_03.xhtml#_idParaDest-77"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint78" playOrder="78"><navLabel><text>Supporting multiple languages – localization</text></navLabel><content src="B16588_03.xhtml#_idParaDest-78"/>
+				<navPoint id="navpoint79" playOrder="79"><navLabel><text>Creating a .resx file</text></navLabel><content src="B16588_03.xhtml#_idParaDest-79"/></navPoint>
+				<navPoint id="navpoint80" playOrder="80"><navLabel><text>Localizing text</text></navLabel><content src="B16588_03.xhtml#_idParaDest-80"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint81" playOrder="81"><navLabel><text>Summary</text></navLabel><content src="B16588_03.xhtml#_idParaDest-81"/></navPoint>
+			<navPoint id="navpoint82" playOrder="82"><navLabel><text>Further reading</text></navLabel><content src="B16588_03.xhtml#_idParaDest-82"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint83" playOrder="83"><navLabel><text>4</text></navLabel><content src="B16588_04.xhtml#_idParaDest-83"/></navPoint>
+		<navPoint id="navpoint84" playOrder="84"><navLabel><text>Exploring MVVM and Data Binding</text></navLabel><content src="B16588_04.xhtml#_idParaDest-84"/>
+			<navPoint id="navpoint85" playOrder="85"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_04.xhtml#_idParaDest-85"/></navPoint>
+			<navPoint id="navpoint86" playOrder="86"><navLabel><text>Understanding MVVM and MVC</text></navLabel><content src="B16588_04.xhtml#_idParaDest-86"/>
+				<navPoint id="navpoint87" playOrder="87"><navLabel><text>MVVM in PassXYZ.Vault</text></navLabel><content src="B16588_04.xhtml#_idParaDest-87"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint88" playOrder="88"><navLabel><text>Data binding</text></navLabel><content src="B16588_04.xhtml#_idParaDest-88"/>
+				<navPoint id="navpoint89" playOrder="89"><navLabel><text>Binding mode</text></navLabel><content src="B16588_04.xhtml#_idParaDest-89"/></navPoint>
+				<navPoint id="navpoint90" playOrder="90"><navLabel><text>Changing notifications in viewmodels</text></navLabel><content src="B16588_04.xhtml#_idParaDest-90"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint91" playOrder="91"><navLabel><text>Improving the data model and service</text></navLabel><content src="B16588_04.xhtml#_idParaDest-91"/>
+				<navPoint id="navpoint92" playOrder="92"><navLabel><text>KPCLib</text></navLabel><content src="B16588_04.xhtml#_idParaDest-92"/></navPoint>
+				<navPoint id="navpoint93" playOrder="93"><navLabel><text>PassXYZLib</text></navLabel><content src="B16588_04.xhtml#_idParaDest-93"/></navPoint>
+				<navPoint id="navpoint94" playOrder="94"><navLabel><text>Updating the model</text></navLabel><content src="B16588_04.xhtml#_idParaDest-94"/></navPoint>
+				<navPoint id="navpoint95" playOrder="95"><navLabel><text>Updating the service</text></navLabel><content src="B16588_04.xhtml#_idParaDest-95"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint96" playOrder="96"><navLabel><text>Binding to collections</text></navLabel><content src="B16588_04.xhtml#_idParaDest-96"/></navPoint>
+			<navPoint id="navpoint97" playOrder="97"><navLabel><text>Summary</text></navLabel><content src="B16588_04.xhtml#_idParaDest-97"/></navPoint>
+			<navPoint id="navpoint98" playOrder="98"><navLabel><text>Further reading</text></navLabel><content src="B16588_04.xhtml#_idParaDest-98"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint99" playOrder="99"><navLabel><text>5</text></navLabel><content src="B16588_05.xhtml#_idParaDest-99"/></navPoint>
+		<navPoint id="navpoint100" playOrder="100"><navLabel><text>Navigation using .NET MAUI Shell and NavigationPage</text></navLabel><content src="B16588_05.xhtml#_idParaDest-100"/>
+			<navPoint id="navpoint101" playOrder="101"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_05.xhtml#_idParaDest-101"/></navPoint>
+			<navPoint id="navpoint102" playOrder="102"><navLabel><text>Implementing navigation</text></navLabel><content src="B16588_05.xhtml#_idParaDest-102"/>
+				<navPoint id="navpoint103" playOrder="103"><navLabel><text>INavigation interface and NavigationPage</text></navLabel><content src="B16588_05.xhtml#_idParaDest-103"/></navPoint>
+				<navPoint id="navpoint104" playOrder="104"><navLabel><text>Using the navigation stack</text></navLabel><content src="B16588_05.xhtml#_idParaDest-104"/></navPoint>
+				<navPoint id="navpoint105" playOrder="105"><navLabel><text>Manipulating the navigation stack</text></navLabel><content src="B16588_05.xhtml#_idParaDest-105"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint106" playOrder="106"><navLabel><text>Using Shell</text></navLabel><content src="B16588_05.xhtml#_idParaDest-106"/>
+				<navPoint id="navpoint107" playOrder="107"><navLabel><text>Flyout</text></navLabel><content src="B16588_05.xhtml#_idParaDest-107"/></navPoint>
+				<navPoint id="navpoint108" playOrder="108"><navLabel><text>Tabs</text></navLabel><content src="B16588_05.xhtml#_idParaDest-108"/></navPoint>
+				<navPoint id="navpoint109" playOrder="109"><navLabel><text>Shell navigation</text></navLabel><content src="B16588_05.xhtml#_idParaDest-109"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint110" playOrder="110"><navLabel><text>Improving our model</text></navLabel><content src="B16588_05.xhtml#_idParaDest-110"/>
+				<navPoint id="navpoint111" playOrder="111"><navLabel><text>Understanding the data model and its services</text></navLabel><content src="B16588_05.xhtml#_idParaDest-111"/></navPoint>
+				<navPoint id="navpoint112" playOrder="112"><navLabel><text>Improving the login process</text></navLabel><content src="B16588_05.xhtml#_idParaDest-112"/></navPoint>
+				<navPoint id="navpoint113" playOrder="113"><navLabel><text>The Command interface</text></navLabel><content src="B16588_05.xhtml#_idParaDest-113"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint114" playOrder="114"><navLabel><text>Summary</text></navLabel><content src="B16588_05.xhtml#_idParaDest-114"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint115" playOrder="115"><navLabel><text>6</text></navLabel><content src="B16588_06.xhtml#_idParaDest-115"/></navPoint>
+		<navPoint id="navpoint116" playOrder="116"><navLabel><text>Introducing Dependency Injection and Platform-Specific Services</text></navLabel><content src="B16588_06.xhtml#_idParaDest-116"/>
+			<navPoint id="navpoint117" playOrder="117"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_06.xhtml#_idParaDest-117"/></navPoint>
+			<navPoint id="navpoint118" playOrder="118"><navLabel><text>A quick review of design principles</text></navLabel><content src="B16588_06.xhtml#_idParaDest-118"/>
+				<navPoint id="navpoint119" playOrder="119"><navLabel><text>Exploring types of design principles</text></navLabel><content src="B16588_06.xhtml#_idParaDest-119"/></navPoint>
+				<navPoint id="navpoint120" playOrder="120"><navLabel><text>Using design principles</text></navLabel><content src="B16588_06.xhtml#_idParaDest-120"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint121" playOrder="121"><navLabel><text>Using DI</text></navLabel><content src="B16588_06.xhtml#_idParaDest-121"/>
+				<navPoint id="navpoint122" playOrder="122"><navLabel><text>Dependency Service</text></navLabel><content src="B16588_06.xhtml#_idParaDest-122"/></navPoint>
+				<navPoint id="navpoint123" playOrder="123"><navLabel><text>Using built-in MS.DI DI service</text></navLabel><content src="B16588_06.xhtml#_idParaDest-123"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint124" playOrder="124"><navLabel><text>Connecting to the database</text></navLabel><content src="B16588_06.xhtml#_idParaDest-124"/>
+				<navPoint id="navpoint125" playOrder="125"><navLabel><text>Initializing the database</text></navLabel><content src="B16588_06.xhtml#_idParaDest-125"/></navPoint>
+				<navPoint id="navpoint126" playOrder="126"><navLabel><text>Performing CRUD operations</text></navLabel><content src="B16588_06.xhtml#_idParaDest-126"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint127" playOrder="127"><navLabel><text>Summary</text></navLabel><content src="B16588_06.xhtml#_idParaDest-127"/></navPoint>
+			<navPoint id="navpoint128" playOrder="128"><navLabel><text>Further reading</text></navLabel><content src="B16588_06.xhtml#_idParaDest-128"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint129" playOrder="129"><navLabel><text>Part 2: Implementing .NET MAUI Blazor</text></navLabel><content src="B16588_Part_2.xhtml#_idParaDest-129"/></navPoint>
+		<navPoint id="navpoint130" playOrder="130"><navLabel><text>7</text></navLabel><content src="B16588_07.xhtml#_idParaDest-130"/></navPoint>
+		<navPoint id="navpoint131" playOrder="131"><navLabel><text>Introducing Blazor Hybrid App Development</text></navLabel><content src="B16588_07.xhtml#_idParaDest-131"/>
+			<navPoint id="navpoint132" playOrder="132"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_07.xhtml#_idParaDest-132"/></navPoint>
+			<navPoint id="navpoint133" playOrder="133"><navLabel><text>What is Blazor?</text></navLabel><content src="B16588_07.xhtml#_idParaDest-133"/>
+				<navPoint id="navpoint134" playOrder="134"><navLabel><text>Learning about Blazor Server</text></navLabel><content src="B16588_07.xhtml#_idParaDest-134"/></navPoint>
+				<navPoint id="navpoint135" playOrder="135"><navLabel><text>Understanding Blazor Wasm</text></navLabel><content src="B16588_07.xhtml#_idParaDest-135"/></navPoint>
+				<navPoint id="navpoint136" playOrder="136"><navLabel><text>Exploring Blazor Hybrid</text></navLabel><content src="B16588_07.xhtml#_idParaDest-136"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint137" playOrder="137"><navLabel><text>Creating a new .NET MAUI Blazor project</text></navLabel><content src="B16588_07.xhtml#_idParaDest-137"/>
+				<navPoint id="navpoint138" playOrder="138"><navLabel><text>Generating a .NET MAUI Blazor project with the dotnet command line</text></navLabel><content src="B16588_07.xhtml#_idParaDest-138"/></navPoint>
+				<navPoint id="navpoint139" playOrder="139"><navLabel><text>Creating a .NET MAUI Blazor project using Visual Studio on Windows</text></navLabel><content src="B16588_07.xhtml#_idParaDest-139"/></navPoint>
+				<navPoint id="navpoint140" playOrder="140"><navLabel><text>Running the new project</text></navLabel><content src="B16588_07.xhtml#_idParaDest-140"/></navPoint>
+				<navPoint id="navpoint141" playOrder="141"><navLabel><text>The startup code of the .NET MAUI Blazor app</text></navLabel><content src="B16588_07.xhtml#_idParaDest-141"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint142" playOrder="142"><navLabel><text>Migrating to a .NET MAUI Blazor app</text></navLabel><content src="B16588_07.xhtml#_idParaDest-142"/></navPoint>
+			<navPoint id="navpoint143" playOrder="143"><navLabel><text>Understanding Razor syntax</text></navLabel><content src="B16588_07.xhtml#_idParaDest-143"/>
+				<navPoint id="navpoint144" playOrder="144"><navLabel><text>Code blocks in Razor</text></navLabel><content src="B16588_07.xhtml#_idParaDest-144"/></navPoint>
+				<navPoint id="navpoint145" playOrder="145"><navLabel><text>Implicit Razor expressions</text></navLabel><content src="B16588_07.xhtml#_idParaDest-145"/></navPoint>
+				<navPoint id="navpoint146" playOrder="146"><navLabel><text>Explicit Razor expressions</text></navLabel><content src="B16588_07.xhtml#_idParaDest-146"/></navPoint>
+				<navPoint id="navpoint147" playOrder="147"><navLabel><text>Expression encoding</text></navLabel><content src="B16588_07.xhtml#_idParaDest-147"/></navPoint>
+				<navPoint id="navpoint148" playOrder="148"><navLabel><text>Directives</text></navLabel><content src="B16588_07.xhtml#_idParaDest-148"/></navPoint>
+				<navPoint id="navpoint149" playOrder="149"><navLabel><text>Directive attributes</text></navLabel><content src="B16588_07.xhtml#_idParaDest-149"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint150" playOrder="150"><navLabel><text>Creating a Razor component</text></navLabel><content src="B16588_07.xhtml#_idParaDest-150"/>
+				<navPoint id="navpoint151" playOrder="151"><navLabel><text>Redesigning the login page using a Razor component</text></navLabel><content src="B16588_07.xhtml#_idParaDest-151"/></navPoint>
+				<navPoint id="navpoint152" playOrder="152"><navLabel><text>The Model-View-ViewModel (MVVM) pattern in Blazor</text></navLabel><content src="B16588_07.xhtml#_idParaDest-152"/></navPoint>
+				<navPoint id="navpoint153" playOrder="153"><navLabel><text>Dependency injection in Blazor</text></navLabel><content src="B16588_07.xhtml#_idParaDest-153"/></navPoint>
+				<navPoint id="navpoint154" playOrder="154"><navLabel><text>CSS isolation</text></navLabel><content src="B16588_07.xhtml#_idParaDest-154"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint155" playOrder="155"><navLabel><text>Summary</text></navLabel><content src="B16588_07.xhtml#_idParaDest-155"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint156" playOrder="156"><navLabel><text>8</text></navLabel><content src="B16588_08.xhtml#_idParaDest-156"/></navPoint>
+		<navPoint id="navpoint157" playOrder="157"><navLabel><text>Understanding the Blazor Layout and Routing</text></navLabel><content src="B16588_08.xhtml#_idParaDest-157"/>
+			<navPoint id="navpoint158" playOrder="158"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_08.xhtml#_idParaDest-158"/></navPoint>
+			<navPoint id="navpoint159" playOrder="159"><navLabel><text>Understanding client-side routing</text></navLabel><content src="B16588_08.xhtml#_idParaDest-159"/>
+				<navPoint id="navpoint160" playOrder="160"><navLabel><text>Setup of BlazorWebView</text></navLabel><content src="B16588_08.xhtml#_idParaDest-160"/></navPoint>
+				<navPoint id="navpoint161" playOrder="161"><navLabel><text>Setup of Router</text></navLabel><content src="B16588_08.xhtml#_idParaDest-161"/></navPoint>
+				<navPoint id="navpoint162" playOrder="162"><navLabel><text>Defining routes</text></navLabel><content src="B16588_08.xhtml#_idParaDest-162"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint163" playOrder="163"><navLabel><text>Using Blazor layout components</text></navLabel><content src="B16588_08.xhtml#_idParaDest-163"/>
+				<navPoint id="navpoint164" playOrder="164"><navLabel><text>Applying a layout to a component</text></navLabel><content src="B16588_08.xhtml#_idParaDest-164"/></navPoint>
+				<navPoint id="navpoint165" playOrder="165"><navLabel><text>Nesting layouts</text></navLabel><content src="B16588_08.xhtml#_idParaDest-165"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint166" playOrder="166"><navLabel><text>Implementing navigation elements</text></navLabel><content src="B16588_08.xhtml#_idParaDest-166"/>
+				<navPoint id="navpoint167" playOrder="167"><navLabel><text>Implementing a list view</text></navLabel><content src="B16588_08.xhtml#_idParaDest-167"/></navPoint>
+				<navPoint id="navpoint168" playOrder="168"><navLabel><text>Adding a new item and navigating back</text></navLabel><content src="B16588_08.xhtml#_idParaDest-168"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint169" playOrder="169"><navLabel><text>Summary</text></navLabel><content src="B16588_08.xhtml#_idParaDest-169"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint170" playOrder="170"><navLabel><text>9</text></navLabel><content src="B16588_09.xhtml#_idParaDest-170"/></navPoint>
+		<navPoint id="navpoint171" playOrder="171"><navLabel><text>Implementing Blazor Components</text></navLabel><content src="B16588_09.xhtml#_idParaDest-171"/>
+			<navPoint id="navpoint172" playOrder="172"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_09.xhtml#_idParaDest-172"/></navPoint>
+			<navPoint id="navpoint173" playOrder="173"><navLabel><text>Understanding Razor components</text></navLabel><content src="B16588_09.xhtml#_idParaDest-173"/>
+				<navPoint id="navpoint174" playOrder="174"><navLabel><text>Inheritance</text></navLabel><content src="B16588_09.xhtml#_idParaDest-174"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint175" playOrder="175"><navLabel><text>Creating a Razor class library</text></navLabel><content src="B16588_09.xhtml#_idParaDest-175"/>
+				<navPoint id="navpoint176" playOrder="176"><navLabel><text>Using static assets in the Razor class library</text></navLabel><content src="B16588_09.xhtml#_idParaDest-176"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint177" playOrder="177"><navLabel><text>Creating reusable Razor components</text></navLabel><content src="B16588_09.xhtml#_idParaDest-177"/>
+				<navPoint id="navpoint178" playOrder="178"><navLabel><text>Creating a base modal dialog component</text></navLabel><content src="B16588_09.xhtml#_idParaDest-178"/></navPoint>
+				<navPoint id="navpoint179" playOrder="179"><navLabel><text>Data binding</text></navLabel><content src="B16588_09.xhtml#_idParaDest-179"/></navPoint>
+				<navPoint id="navpoint180" playOrder="180"><navLabel><text>Component parameters</text></navLabel><content src="B16588_09.xhtml#_idParaDest-180"/></navPoint>
+				<navPoint id="navpoint181" playOrder="181"><navLabel><text>Nested components</text></navLabel><content src="B16588_09.xhtml#_idParaDest-181"/></navPoint>
+				<navPoint id="navpoint182" playOrder="182"><navLabel><text>Two-way data binding</text></navLabel><content src="B16588_09.xhtml#_idParaDest-182"/></navPoint>
+				<navPoint id="navpoint183" playOrder="183"><navLabel><text>Communicating with cascading values and parameters</text></navLabel><content src="B16588_09.xhtml#_idParaDest-183"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint184" playOrder="184"><navLabel><text>Understanding the component lifecycle</text></navLabel><content src="B16588_09.xhtml#_idParaDest-184"/>
+				<navPoint id="navpoint185" playOrder="185"><navLabel><text>SetParametersAsync</text></navLabel><content src="B16588_09.xhtml#_idParaDest-185"/></navPoint>
+				<navPoint id="navpoint186" playOrder="186"><navLabel><text>OnInitialized and OnInitializedAsync</text></navLabel><content src="B16588_09.xhtml#_idParaDest-186"/></navPoint>
+				<navPoint id="navpoint187" playOrder="187"><navLabel><text>OnParametersSet and OnParametersSetAsync</text></navLabel><content src="B16588_09.xhtml#_idParaDest-187"/></navPoint>
+				<navPoint id="navpoint188" playOrder="188"><navLabel><text>ShouldRender</text></navLabel><content src="B16588_09.xhtml#_idParaDest-188"/></navPoint>
+				<navPoint id="navpoint189" playOrder="189"><navLabel><text>OnAfterRender and OnAfterRenderAsync</text></navLabel><content src="B16588_09.xhtml#_idParaDest-189"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint190" playOrder="190"><navLabel><text>Implementing CRUD operations</text></navLabel><content src="B16588_09.xhtml#_idParaDest-190"/>
+				<navPoint id="navpoint191" playOrder="191"><navLabel><text>CRUD operations of items</text></navLabel><content src="B16588_09.xhtml#_idParaDest-191"/></navPoint>
+				<navPoint id="navpoint192" playOrder="192"><navLabel><text>CRUD operations of fields</text></navLabel><content src="B16588_09.xhtml#_idParaDest-192"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint193" playOrder="193"><navLabel><text>Summary</text></navLabel><content src="B16588_09.xhtml#_idParaDest-193"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint194" playOrder="194"><navLabel><text>10</text></navLabel><content src="B16588_10.xhtml#_idParaDest-194"/></navPoint>
+		<navPoint id="navpoint195" playOrder="195"><navLabel><text>Advanced Topics in Creating Razor Components</text></navLabel><content src="B16588_10.xhtml#_idParaDest-195"/>
+			<navPoint id="navpoint196" playOrder="196"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_10.xhtml#_idParaDest-196"/></navPoint>
+			<navPoint id="navpoint197" playOrder="197"><navLabel><text>Creating more Razor components</text></navLabel><content src="B16588_10.xhtml#_idParaDest-197"/>
+				<navPoint id="navpoint198" playOrder="198"><navLabel><text>Creating the Navbar component</text></navLabel><content src="B16588_10.xhtml#_idParaDest-198"/></navPoint>
+				<navPoint id="navpoint199" playOrder="199"><navLabel><text>Creating a Dropdown component for the context menu</text></navLabel><content src="B16588_10.xhtml#_idParaDest-199"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint200" playOrder="200"><navLabel><text>Using templated components</text></navLabel><content src="B16588_10.xhtml#_idParaDest-200"/>
+				<navPoint id="navpoint201" playOrder="201"><navLabel><text>Creating a ListView component</text></navLabel><content src="B16588_10.xhtml#_idParaDest-201"/></navPoint>
+				<navPoint id="navpoint202" playOrder="202"><navLabel><text>Using the ListView component</text></navLabel><content src="B16588_10.xhtml#_idParaDest-202"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint203" playOrder="203"><navLabel><text>Built-in components and validation</text></navLabel><content src="B16588_10.xhtml#_idParaDest-203"/>
+				<navPoint id="navpoint204" playOrder="204"><navLabel><text>Using built-in components</text></navLabel><content src="B16588_10.xhtml#_idParaDest-204"/></navPoint>
+				<navPoint id="navpoint205" playOrder="205"><navLabel><text>Using the EditForm component</text></navLabel><content src="B16588_10.xhtml#_idParaDest-205"/></navPoint>
+				<navPoint id="navpoint206" playOrder="206"><navLabel><text>Creating an EditFormDialog component</text></navLabel><content src="B16588_10.xhtml#_idParaDest-206"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint207" playOrder="207"><navLabel><text>Summary</text></navLabel><content src="B16588_10.xhtml#_idParaDest-207"/></navPoint>
+			<navPoint id="navpoint208" playOrder="208"><navLabel><text>Further reading</text></navLabel><content src="B16588_10.xhtml#_idParaDest-208"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint209" playOrder="209"><navLabel><text>Part 3: Testing and Deployment</text></navLabel><content src="B16588_Part_3.xhtml#_idParaDest-209"/></navPoint>
+		<navPoint id="navpoint210" playOrder="210"><navLabel><text>11</text></navLabel><content src="B16588_11.xhtml#_idParaDest-210"/></navPoint>
+		<navPoint id="navpoint211" playOrder="211"><navLabel><text>Developing Unit Tests</text></navLabel><content src="B16588_11.xhtml#_idParaDest-211"/>
+			<navPoint id="navpoint212" playOrder="212"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_11.xhtml#_idParaDest-212"/></navPoint>
+			<navPoint id="navpoint213" playOrder="213"><navLabel><text>Unit testing in .NET</text></navLabel><content src="B16588_11.xhtml#_idParaDest-213"/>
+				<navPoint id="navpoint214" playOrder="214"><navLabel><text>Setting up the unit test project</text></navLabel><content src="B16588_11.xhtml#_idParaDest-214"/></navPoint>
+				<navPoint id="navpoint215" playOrder="215"><navLabel><text>Creating test cases to test the IDataStore interface</text></navLabel><content src="B16588_11.xhtml#_idParaDest-215"/></navPoint>
+				<navPoint id="navpoint216" playOrder="216"><navLabel><text>Sharing context between tests</text></navLabel><content src="B16588_11.xhtml#_idParaDest-216"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint217" playOrder="217"><navLabel><text>Razor component testing using bUnit</text></navLabel><content src="B16588_11.xhtml#_idParaDest-217"/>
+				<navPoint id="navpoint218" playOrder="218"><navLabel><text>Changing project configuration for bUnit</text></navLabel><content src="B16588_11.xhtml#_idParaDest-218"/></navPoint>
+				<navPoint id="navpoint219" playOrder="219"><navLabel><text>Creating a bUnit test case</text></navLabel><content src="B16588_11.xhtml#_idParaDest-219"/></navPoint>
+				<navPoint id="navpoint220" playOrder="220"><navLabel><text>Creating test cases in Razor files</text></navLabel><content src="B16588_11.xhtml#_idParaDest-220"/></navPoint>
+				<navPoint id="navpoint221" playOrder="221"><navLabel><text>Using the RenderFragment delegate</text></navLabel><content src="B16588_11.xhtml#_idParaDest-221"/></navPoint>
+				<navPoint id="navpoint222" playOrder="222"><navLabel><text>Testing Razor pages</text></navLabel><content src="B16588_11.xhtml#_idParaDest-222"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint223" playOrder="223"><navLabel><text>Summary</text></navLabel><content src="B16588_11.xhtml#_idParaDest-223"/></navPoint>
+			<navPoint id="navpoint224" playOrder="224"><navLabel><text>Further reading</text></navLabel><content src="B16588_11.xhtml#_idParaDest-224"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint225" playOrder="225"><navLabel><text>12</text></navLabel><content src="B16588_12.xhtml#_idParaDest-225"/></navPoint>
+		<navPoint id="navpoint226" playOrder="226"><navLabel><text>Deploying and Publishing in App Stores</text></navLabel><content src="B16588_12.xhtml#_idParaDest-226"/>
+			<navPoint id="navpoint227" playOrder="227"><navLabel><text>Technical requirements</text></navLabel><content src="B16588_12.xhtml#_idParaDest-227"/></navPoint>
+			<navPoint id="navpoint228" playOrder="228"><navLabel><text>Preparing application packages for publishing</text></navLabel><content src="B16588_12.xhtml#_idParaDest-228"/>
+				<navPoint id="navpoint229" playOrder="229"><navLabel><text>What to prepare for publishing</text></navLabel><content src="B16588_12.xhtml#_idParaDest-229"/></navPoint>
+				<navPoint id="navpoint230" playOrder="230"><navLabel><text>Publishing to Microsoft Store</text></navLabel><content src="B16588_12.xhtml#_idParaDest-230"/></navPoint>
+				<navPoint id="navpoint231" playOrder="231"><navLabel><text>Publishing to the Google Play Store</text></navLabel><content src="B16588_12.xhtml#_idParaDest-231"/></navPoint>
+				<navPoint id="navpoint232" playOrder="232"><navLabel><text>Publishing to Apple’s App Store</text></navLabel><content src="B16588_12.xhtml#_idParaDest-232"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint233" playOrder="233"><navLabel><text>GitHub Actions</text></navLabel><content src="B16588_12.xhtml#_idParaDest-233"/>
+				<navPoint id="navpoint234" playOrder="234"><navLabel><text>Understanding GitHub Actions</text></navLabel><content src="B16588_12.xhtml#_idParaDest-234"/></navPoint>
+			</navPoint>
+			<navPoint id="navpoint235" playOrder="235"><navLabel><text>Summary</text></navLabel><content src="B16588_12.xhtml#_idParaDest-235"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint236" playOrder="236"><navLabel><text>Index</text></navLabel><content src="B16588_Index.xhtml#_idParaDest-236"/>
+			<navPoint id="navpoint237" playOrder="237"><navLabel><text>Why subscribe?</text></navLabel><content src="B16588_BM.xhtml#_idParaDest-237"/></navPoint>
+		</navPoint>
+		<navPoint id="navpoint238" playOrder="238"><navLabel><text>Other Books You May Enjoy</text></navLabel><content src="B16588_BM.xhtml#_idParaDest-238"/>
+			<navPoint id="navpoint239" playOrder="239"><navLabel><text>Packt is searching for authors like you</text></navLabel><content src="B16588_BM.xhtml#_idParaDest-239"/></navPoint>
+			<navPoint id="navpoint240" playOrder="240"><navLabel><text>Download a free PDF copy of this book</text></navLabel><content src="B16588_BM.xhtml#_idParaDest-240"/></navPoint>
+		</navPoint>
+	</navMap>
+</ncx>
