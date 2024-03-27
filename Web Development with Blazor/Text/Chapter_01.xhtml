@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_01</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_01" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer019" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">1</h1>
+    <h1 id="_idParaDest-14" class="chapterTitle">Hello Blazor</h1>
+    <p class="normal">Thank you for picking up your copy of <em class="italic">Web Development with Blazor</em>. This book intends to get you started as quickly and pain-free as possible, chapter by chapter, without you having to read this book from cover to cover before getting your Blazor on.</p>
+    <p class="normal">This book will start by guiding you through the most common scenarios you’ll come across when you start your journey with Blazor and will also dive into a few more advanced scenarios. This book aims to show you what Blazor is – both Blazor Server, Blazor WebAssembly, and Blazor Hybrid – how it all works practically and to help you avoid traps.</p>
+    <p class="normal">This is the book’s second edition; much has happened since the first edition. .NET 6 and .NET 7 got released, and in this revision, I have updated the content to reflect the changes and the new functionality we got. Not only that, I have simplified the demos in the book, giving even more focus on Blazor and removing things that aren’t directly Blazor (like Entity Framework).</p>
+    <p class="normal">A common belief is that Blazor is WebAssembly, but WebAssembly is just one way of running Blazor. Many books, workshops, and blog posts on Blazor focus heavily on WebAssembly. This book will cover Blazor WebAssembly, Blazor Server, and Blazor Hybrid. There are a few differences between Blazor Server and Blazor WebAssembly; I will point them out as we go along.</p>
+    <p class="normal">This first chapter will explore where Blazor came from, what technologies made Blazor possible, and the different ways of running Blazor. We will also touch on which type is best for you.</p>
+    <p class="normal">In this chapter, we will cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Why Blazor?</li>
+      <li class="bulletList">Preceding Blazor</li>
+      <li class="bulletList">Introducing WebAssembly</li>
+      <li class="bulletList">Introducing .NET 7</li>
+      <li class="bulletList">Introducing Blazor</li>
+    </ul>
+    <h1 id="_idParaDest-15" class="heading-1">Technical requirements</h1>
+    <p class="normal">It is recommended that you have some knowledge of .NET before you start, as this book is aimed at .NET developers who want to utilize their skills to make interactive web applications. However, it’s more than possible that you will pick up a few .NET tricks along the way if you are new to the world of .NET.</p>
+    <h1 id="_idParaDest-16" class="heading-1">Why Blazor?</h1>
+    <p class="normal">Not<a id="_idIndexMarker000"></a> that long ago, I got asked by a random person on Facebook if I was working with Blazor.</p>
+    <p class="normal">I said: Yes, yes I do.</p>
+    <p class="normal">He then continued with a long remark telling me that Blazor would never beat Angular, React, or Vue.</p>
+    <p class="normal">I see these kinds of remarks quite often, and it’s essential to understand that beating other SPA frameworks has never been the goal. This is not Highlander, and there can be more than one.</p>
+    <p class="normal">Learning web development has previously been pretty tough. Not only do we need to know ASP.NET for the server, but we also need to learn a SPA framework like React, Angular, or VUE.</p>
+    <p class="normal">But it doesn’t end there. We also need to learn NPM, Bower, and Parcel, as well as JavaScript or TypeScript.</p>
+    <p class="normal">We need to understand transpiling and build that into our development pipeline. This is, of course, just the tip of the iceberg; depending on technology, we need to explore other rabbit holes.</p>
+    <p class="normal">Blazor is an excellent choice for .NET developers to write interactive web applications without needing to learn (or keep up with) all the things we just mentioned. We can leverage our existing C# knowledge and the packages we are used to and share code between server and client.</p>
+    <p class="normal">I usually say: “Blazor <a id="_idIndexMarker001"></a>removes all the things I hate about web development.” To be honest, I guess the saying should be, “Blazor can remove all the things I hate about web development.” With Blazor, it is still possible to do JavaScript interop and use JavaScript frameworks or other SPA frameworks from within Blazor, but we don’t have to.</p>
+    <p class="normal">Blazor has opened a door where I can feel productive, creating a great user experience for my users using my existing C# knowledge.</p>
+    <h1 id="_idParaDest-17" class="heading-1">Preceding Blazor</h1>
+    <p class="normal">You probably didn’t get this book to <a id="_idIndexMarker002"></a>read about <strong class="keyWord">JavaScript</strong>, but it helps to remember that we are coming from a pre-Blazor time. I recall that time – the dark times. Many of the concepts used in Blazor are not that far from those used in many JavaScript frameworks, so I will start with a brief overview of our challenges.</p>
+    <p class="normal">As developers, we have many different platforms we can develop for, including desktop, mobile, games, the cloud (or server-side), AI, and even IoT. All these platforms have a lot of different languages to choose from, but there is, of course, one more platform: the apps that run inside the browser.</p>
+    <p class="normal">I have been a web developer for a long time, and I’ve seen code move from the server to run within the browser. It has changed the way we develop our apps. Frameworks such as Angular, React, Aurelia, and Vue have changed the web from reloading the whole page to updating small parts on the fly. This <em class="italic">new</em> on-the-fly update method has enabled pages to load quicker, as the perceived load time has been lowered (not necessarily the whole page load).</p>
+    <p class="normal">But for many developers, this is an entirely new skill set; that is, switching between a server (most likely C#, if you are reading this book) to a frontend developed in JavaScript. Data objects are written in C# in the backend and then serialized into JSON, sent via an API, and then deserialized into another object written in JavaScript in the frontend.</p>
+    <p class="normal">JavaScript used to work differently in different browsers, which jQuery tried to solve by having a common API that was translated into something the web browser could understand. Now, the differences between different web browsers are much smaller, which has rendered jQuery obsolete in many cases.</p>
+    <p class="normal">JavaScript differs slightly from other languages since it is not object-oriented or typed, for example. In 2010, Anders Hejlsberg (known for being C#, Delphi, and Turbo Pascal’s original language designer) started working <a id="_idIndexMarker003"></a>on <strong class="keyWord">TypeScript</strong>. This object-oriented language can be compiled/transpiled into JavaScript.</p>
+    <p class="normal">You can use Typescript with Angular, React, Aurelia, and Vue, but in the end, it is JavaScript that will run the actual code. Simply put, to create interactive web applications today using JavaScript/TypeScript, you need to switch between languages and choose and keep up with different frameworks.</p>
+    <p class="normal">In this book, we will look at this in another way. Even though we will talk about JavaScript, our primary focus will be developing interactive web applications mainly using C#.</p>
+    <p class="normal">Now, we know a bit about the history of JavaScript. JavaScript is no longer the only language that can run within a browser, thanks to WebAssembly, which we will cover in the next section.</p>
+    <h1 id="_idParaDest-18" class="heading-1">Introducing WebAssembly</h1>
+    <p class="normal">In this section, we<a id="_idIndexMarker004"></a> will look at how <strong class="keyWord">WebAssembly</strong> works. One way of running Blazor is by using WebAssembly, but for now, let’s focus on what WebAssembly is.</p>
+    <p class="normal">WebAssembly is a binary instruction format that is compiled and, therefore, smaller. It is designed for native speeds, which means that when it comes to speed, it is closer to C++ than it is to JavaScript. When loading JavaScript, the JavaScript files (or inline) are downloaded, parsed, optimized, and JIT-compiled; most of those steps are not needed for WebAssembly.</p>
+    <p class="normal">WebAssembly has a very strict security model that protects users from buggy or malicious code. It runs within a sandbox and cannot escape that sandbox without going through the appropriate APIs. Suppose you want to communicate outside WebAssembly, for example, by changing <a id="_idIndexMarker005"></a>the <strong class="keyWord">Document Object Model</strong> (<strong class="keyWord">DOM</strong>) or downloading a file from the web. In that case, you will need to do that with JavaScript interop (more on that later, and don’t worry – Blazor will solve this for us).</p>
+    <p class="normal">Let’s look at some code to get a bit more familiar with WebAssembly.</p>
+    <p class="normal">In this section, we will create an app that sums two numbers and returns the result, written in C (to be honest, this is about the level of C I’m comfortable with).</p>
+    <p class="normal">We can <a id="_idIndexMarker006"></a>compile C into WebAssembly in a few easy steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Navigate to <a href="https://wasdk.github.io/WasmFiddle/"><span class="url">https://wasdk.github.io/WasmFiddle/</span></a>.</li>
+      <li class="numberedList">Add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>+<span class="hljs-number">2</span>;
+}
+</code></pre>
+      </li>
+      <li class="numberedList">Press <strong class="screenText">Build</strong> and then <strong class="screenText">Run</strong>.</li>
+    </ol>
+    <p class="normal">You will see the number <code class="inlineCode">3</code> being displayed in the output window toward the bottom of the page, as shown in the following screenshot:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_01_01.png" alt="Figure 1.1 – WasmFiddle"/></figure>
+    <p class="packt_figref">Figure 1.1: WasmFiddle</p>
+    <p class="normal">WebAssembly is a stack machine language, which means that it uses a stack to perform its operations.</p>
+    <p class="normal">Consider this code:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-number">1</span>+<span class="hljs-number">2</span>
+</code></pre>
+    <p class="normal">Most compilers (including the one we just used) will optimize the code and return <code class="inlineCode">3</code>.</p>
+    <p class="normal">But let’s <a id="_idIndexMarker007"></a>assume that all the instructions should be executed. This is the way WebAssembly would do things:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">It will start by pushing <code class="inlineCode">1</code> onto the stack (<code class="inlineCode">instruction: i32.const 1</code>), followed by pushing <code class="inlineCode">2</code> onto the stack (<code class="inlineCode">instruction: i32.const 2</code>). At this point, the stack contains <code class="inlineCode">1</code> and <code class="inlineCode">2</code>.</li>
+      <li class="numberedList">Then, we must execute the add-instruction (<code class="inlineCode">i32.add</code>), which will pop (<code class="inlineCode">get</code>) the two top values (<code class="inlineCode">1</code> and <code class="inlineCode">2</code>) from the stack, add them up, and push the new value onto the stack (<code class="inlineCode">3</code>).</li>
+    </ol>
+    <p class="normal">This demo shows that we can build WebAssembly from C code. Now, we have C code that’s been compiled into WebAssembly running in our browser.</p>
+    <div class="note">
+      <p class="normal"><strong class="keyWord">OTHER LANGUAGES</strong></p>
+      <p class="normal">Generally, it is only low-level languages that can be compiled into WebAssembly (such as C or Rust). However, there are a plethora of languages that can run on top of WebAssembly. Here is a great collection of some of these languages: <a href="https://github.com/appcypher/awesome-wasm-langs"><span class="url">https://github.com/appcypher/awesome-wasm-langs</span></a>.</p>
+    </div>
+    <p class="normal">WebAssembly is super performant (near-native speeds) – so performant that game engines have already adapted this technology for that very reason. Unity, as well as Unreal Engine, can be compiled into WebAssembly.</p>
+    <p class="normal">Here are a couple of <a id="_idIndexMarker008"></a>examples of games<a id="_idIndexMarker009"></a> running <a id="_idIndexMarker010"></a>on top of <a id="_idIndexMarker011"></a>WebAssembly:</p>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Angry Bots (Unity)</strong>: <a href="https://beta.unity3d.com/jonas/AngryBots/"><span class="url">https://beta.unity3d.com/jonas/AngryBots/</span></a></li>
+      <li class="bulletList"><strong class="keyWord">Doom</strong>: <a href="https://wasm.continuation-labs.com/d3demo/"><span class="url">https://wasm.continuation-labs.com/d3demo/</span></a></li>
+    </ul>
+    <p class="normal">This is a great list of <a id="_idIndexMarker012"></a>different WebAssembly projects: <a href="https://github.com/mbasso/awesome-wasm"><span class="url">https://github.com/mbasso/awesome-wasm</span></a>.</p>
+    <p class="normal">This section touched the surface of how WebAssembly works; in most cases, you won’t need to know much more. We will dive into how Blazor uses this technology later in this chapter.</p>
+    <p class="normal">To write Blazor apps, we must leverage the power of .NET 7, which we’ll look at next.</p>
+    <h1 id="_idParaDest-19" class="heading-1">Introducing .NET 7</h1>
+    <p class="normal">The .NET team <a id="_idIndexMarker013"></a>has been working hard on tightening everything up for us developers for years. They have been making everything simpler, smaller, cross-platform, and open source – not to mention easier to utilize your existing knowledge of .NET development.</p>
+    <p class="normal">.NET core was a <a id="_idIndexMarker014"></a>step toward a more unified .NET. It allowed Microsoft to reenvision the whole .NET platform and build it in a completely new way.</p>
+    <p class="normal">There are three <a id="_idIndexMarker015"></a>different types of .NET runtimes:</p>
+    <ul>
+      <li class="bulletList">.NET Framework (full .NET)</li>
+      <li class="bulletList">.NET Core</li>
+      <li class="bulletList">Mono/Xamarin</li>
+    </ul>
+    <p class="normal">Different runtimes had different capabilities and performances. This also meant that creating a .NET core app (for example) had different tooling and frameworks that needed to be installed.</p>
+    <p class="normal">.NET 5 is the <a id="_idIndexMarker016"></a>start of our journey toward one single .NET. With this unified toolchain, the experience to create, run, and so on will be the same across all the different project types. .NET 5 is still modular in a similar way that we are used to, so we do not have to worry that merging all the different .NET versions is going to result in a bloated .NET.</p>
+    <p class="normal">Thanks to the .NET platform, you will be able to reach all the platforms we talked about at the beginning of this chapter (web, desktop, mobile, games, the cloud (or server-side), AI, and even IoT) using only C# and with the same tooling.</p>
+    <p class="normal">Blazor has been around for a while now. In .NET Core 3, the first version of Blazor Server was released, and at Microsoft Build in 2020, Microsoft released Blazor WebAssembly.</p>
+    <p class="normal">In .NET 5, we got a lot of new components for Blazor, pre-rendering, and CSS Isolation to name a few things. Don’t worry; we will go through all these things throughout the book.</p>
+    <p class="normal">In .NET 6, we <a id="_idIndexMarker017"></a>got even more functionality like Hot Reload, co-located JavaScript, new components, and much more, all of which we will explore throughout the book.</p>
+    <p class="normal">In November 2022, Microsoft released .NET 7, which has even more enhancements for Blazor developers.</p>
+    <p class="normal">Looking at the enhancements and number of features, I can only conclude that Microsoft believes in Blazor, and so do I.</p>
+    <p class="normal">Now that you know about some of the surrounding technologies, in the next section, it’s time to introduce the main character of this book: Blazor.</p>
+    <h1 id="_idParaDest-20" class="heading-1">Introducing Blazor</h1>
+    <p class="normal"><strong class="keyWord">Blazor</strong> is an<a id="_idIndexMarker018"></a> open-source web UI SPA framework. That’s a lot of buzzwords in the same sentence, but simply put, it means that you can create interactive SPA web applications using HTML, CSS, and C# with full support for bindings, events, forms and validation, dependency injection, debugging, and much more. We will take a look at these in this book.</p>
+    <p class="normal">In 2017, Steve Sanderson (well-known for creating the Knockout JavaScript framework and who works for the ASP.NET team at Microsoft) was about to do a session called <em class="italic">Web Apps can’t really do *that*, can they?</em> at the developer conference NDC Oslo.</p>
+    <p class="normal">But Steve wanted to show a cool demo, so he thought, <em class="italic">would it be possible to run C# in WebAssembly?</em> He found an old inactive project on GitHub called <em class="italic">Dot Net Anywhere</em>, which was written in C and used tools (similar to what we just did) to compile the C code into WebAssembly.</p>
+    <p class="normal">He got a simple console app running inside the browser. This would have been a fantastic demo for most people, but Steve wanted to take it further. He thought, <em class="italic">is it possible to create a simple web framework on top of this?</em>, and went on to see if he could get the tooling working as well.</p>
+    <p class="normal">When it was time for his session, he had a working sample to create a new project, create a todo-list with great tooling support, and run the project inside the browser.</p>
+    <p class="normal">Damian Edwards (the .NET team) and David Fowler (the .NET team) were also at the NDC conferences. Steve showed them what he was about to demo, and they described the event as their heads exploded and their jaws dropped.</p>
+    <p class="normal">And that’s how the prototype of Blazor came into existence.</p>
+    <p class="normal">The name Blazor comes from a combination of Browser and Razor (which is the technology used to combine code and HTML). Adding an <em class="italic">L</em> made the name sound better, but other than that, it has no real meaning or acronym.</p>
+    <p class="normal">There are a couple of different flavors of Blazor, including Blazor Server, Blazor WebAssembly, Blazor Hybrid (using .NET MAUI).</p>
+    <p class="normal">There are some pros and cons of the different versions, all of which I will cover in the upcoming sections and chapters.</p>
+    <h2 id="_idParaDest-21" class="heading-2">Blazor Server</h2>
+    <p class="normal">Blazor Server<a id="_idIndexMarker019"></a> uses SignalR to communicate between the client and the server, as shown in the following diagram:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_01_02.png" alt="Figure 1.2 – Overview of Blazor Server"/></figure>
+    <p class="packt_figref">Figure 1.2: Overview of Blazor Server</p>
+    <p class="normal"><strong class="keyWord">SignalR</strong> is <a id="_idIndexMarker020"></a>an open-source, real-time communication library that will create a connection between the client and the server. SignalR can use many different means of transporting data and automatically select the best transport protocol based on your server and client capabilities. SignalR will always try to use WebSockets, which is a transport protocol built into HTML5. If WebSockets is not enabled, it will gracefully fall back to another protocol.</p>
+    <p class="normal">Blazor is built with reusable UI elements<a id="_idIndexMarker021"></a> called <strong class="keyWord">components</strong> (more on components in <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>). Each component contains C# code, and markup and can even include another component. You can use Razor syntax to mix markup and C# code or do everything in C# if you wish. The components can be updated by user interaction (pressing a button) or triggers (such as a timer).</p>
+    <p class="normal">The components are rendered into a render tree, a binary representation of the DOM containing object states and any properties or values. The render tree will keep track of any changes compared to the previous render tree, and then send only the things that changed over SignalR using a binary format to update the DOM.</p>
+    <p class="normal">JavaScript will receive the changes on the client-side and update the page accordingly. If we compare this to traditional ASP.NET, we only render the component itself, not the entire page, and we only send over the actual changes to the DOM, not the whole page.</p>
+    <p class="normal">There are, of<a id="_idIndexMarker022"></a> course, some disadvantages to Blazor Server:</p>
+    <ul>
+      <li class="bulletList">You need to always be connected to the server since the rendering is done on the server. If you have a bad internet connection, the site might not work. The big difference compared to a non-Blazor Server site is that a non-Blazor Server site can deliver a page and then disconnect until it requests another page. With Blazor, that connection (SignalR) must always be connected (minor disconnections are ok).</li>
+      <li class="bulletList">There is no offline/PWA mode since it needs to be connected.</li>
+      <li class="bulletList">Every click or page update must do a round trip to the server, which might result in higher latency. It is important to remember that Blazor Server will only send the changed data. I have not experienced any slow response times.</li>
+      <li class="bulletList">Since we have to have a connection to the server, the load on that server increases and makes scaling difficult. To solve this problem, you can use the Azure SignalR hub to handle the constant connections and let your server concentrate on delivering content.</li>
+      <li class="bulletList">Each connection stores the information in the server’s memory, increasing memory use and making load balancing more difficult.</li>
+      <li class="bulletList">To be able to run it, you have to host it on an ASP.NET Core-enabled server.</li>
+    </ul>
+    <p class="normal">However, there are <a id="_idIndexMarker023"></a>advantages to Blazor Server as well:</p>
+    <ul>
+      <li class="bulletList">It contains just enough code to establish that the connection is downloaded to the client, so the site has a small footprint, which makes the site startup really fast</li>
+      <li class="bulletList">Since everything is rendered on the server, Blazor server is more SEO friendly.</li>
+      <li class="bulletList">Since we are running on the server, the app can fully utilize the server’s capabilities.</li>
+      <li class="bulletList">The site will work on older web browsers that don’t support WebAssembly.</li>
+      <li class="bulletList">The code runs on the server and stays on the server; there is no way to decompile the code.</li>
+      <li class="bulletList">Since the code is executed on your server (or in the cloud), you can make direct calls to services and databases within your organization.</li>
+    </ul>
+    <p class="normal">At my workplace, we already had a large site, so we decided to use Blazor Server for our projects. We had a customer portal and an internal CRM tool, and our approach was to take one component at a time and convert it into a Blazor component.</p>
+    <p class="normal">We quickly realized that, in most cases, it was faster to remake the component in Blazor rather than continue to use ASP.NET MVC and add functionality. The <strong class="keyWord">User Experience</strong> (<strong class="keyWord">UX</strong>) for the<a id="_idIndexMarker024"></a> end-user became even better as we converted.</p>
+    <p class="normal">The pages loaded faster. We could reload parts of the page as we needed instead of the whole page, and so on.</p>
+    <p class="normal">We found that Blazor introduced a new problem: the pages became <em class="italic">too</em> fast. Our users didn’t understand if data had been saved because <em class="italic">nothing happened</em>; things <em class="italic">did</em> happen, but too fast for the users to notice. Suddenly, we had to think more about UX and how to inform the user that something had changed. This is, of course, a very positive side effect from Blazor.</p>
+    <p class="normal">Blazor Server is not the only way to run Blazor – you can also run it on the client (in the web browser) using WebAssembly.</p>
+    <h2 id="_idParaDest-22" class="heading-2">Blazor WebAssembly</h2>
+    <p class="normal">There is another <a id="_idIndexMarker025"></a>option: instead of running Blazor on a server, you can run it inside your web browser using WebAssembly.</p>
+    <p class="normal">Microsoft has taken the mono runtime (which is written in C) and compiled that into WebAssembly.</p>
+    <p class="normal">The <a id="_idIndexMarker026"></a>WebAssembly version of Blazor works very similarly to the server version, as shown in the following diagram. We have moved everything off the server, and it is now running within our web browser:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_01_03.png" alt="Figure 1.3 – Overview of  Blazor Web Assembly "/></figure>
+    <p class="packt_figref">Figure 1.3: Overview of Blazor WebAssembly</p>
+    <p class="normal">A render tree is still created, and instead of running the Razor pages on the server, they are now running inside our web browser. Instead of SignalR, since WebAssembly doesn’t have direct DOM access, Blazor updates the DOM with direct JavaScript interop.</p>
+    <p class="normal">The mono runtime that’s compiled into WebAssembly <a id="_idIndexMarker027"></a>is called <strong class="keyWord">dotnet.wasm</strong>. The page contains a small piece of JavaScript that will make sure to load <code class="inlineCode">dotnet.wasm</code>. Then, it will download <code class="inlineCode">blazor.boot.json</code>, a JSON file containing all the files the application needs to run, as well as the application’s entry point.</p>
+    <p class="normal">If we look at the default sample site that is created when we start a new Blazor project in Visual Studio, the <code class="inlineCode">Blazor.boot.json</code> file contains 63 dependencies that need to be downloaded. All the dependencies get downloaded and the app boots up.</p>
+    <p class="normal">As we mentioned previously, <code class="inlineCode">dotnet.wasm</code> is the mono runtime that’s compiled into WebAssembly. It runs .NET DLLs – the ones you<a id="_idIndexMarker028"></a> have written and the ones from .NET Framework (which is needed to run your app) – inside your browser.</p>
+    <p class="normal">When I first heard of this, I got a bit of a bad taste. It’s running the whole .NET runtime inside my browser?! But then, after a while, I realized how amazing that is. You can run any .NET Standard DLLs in your web browser.</p>
+    <p class="normal">In the next chapter, we <a id="_idIndexMarker029"></a>will look at exactly what happens and in what order code gets executed when a WebAssembly app boots up.</p>
+    <p class="normal">The big concern is the download size of the site. The simple <strong class="keyWord">file new</strong> sample app is about 1.3 MB, which is quite large if you put a lot of effort into the download size. What you should remember, though, is that this is more<a id="_idIndexMarker030"></a> like a <strong class="keyWord">Single-Page Application</strong> (<strong class="keyWord">SPA</strong>) – it is the whole site that has been downloaded to the client. I compared the size to some well-known sites on the internet; I then only included the JavaScript files for these sites but also included all the DLLs and JavaScript files for Blazor.</p>
+    <p class="normal">The following is a diagram of my findings:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_01_04.png" alt="Figure 1.4 – JavaScript download size for popular sites"/></figure>
+    <p class="packt_figref">Figure 1.4: JavaScript download size for popular sites</p>
+    <p class="normal">Even though the other sites are larger than the sample Blazor site, you should remember that the Blazor DLLs are compiled and should take up less space than a JavaScript file. WebAssembly is also faster than JavaScript.</p>
+    <p class="normal">There are some<a id="_idIndexMarker031"></a> disadvantages to Blazor WebAssembly:</p>
+    <ul>
+      <li class="bulletList">Even if we compare it to other large sites, the footprint of a Blazor WebAssembly is large and there are a large number of files to download.</li>
+      <li class="bulletList">To access any on-site resources, you will need to create a Web API to access them. You cannot access the database directly.</li>
+      <li class="bulletList">The code is running in the browser, meaning it can be decompiled. This is something all app developers are used to, but it is perhaps not as common for web developers.</li>
+    </ul>
+    <p class="normal">There are, of course, some<a id="_idIndexMarker032"></a> advantages of Blazor WebAssembly as well:</p>
+    <ul>
+      <li class="bulletList">Since the code runs in the browser, creating<a id="_idIndexMarker033"></a> a <strong class="keyWord">Progressive Web App</strong> (<strong class="keyWord">PWA</strong>) is easy.</li>
+      <li class="bulletList">Does not require a connection to the server. It will work offline.</li>
+      <li class="bulletList">Since we’re not running anything on the server, we can use any backend server or file share (no need for a .NET-compatible server in the backend).</li>
+      <li class="bulletList">No round trips mean that you can update the screen faster (that is why there are game engines that use WebAssembly).</li>
+    </ul>
+    <p class="normal">I wanted to put that last advantage to the test! When I was seven years old, I got my first computer, a Sinclair ZX Spectrum. I remember that I sat down and wrote the following:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-number">10</span> PRINT <span class="hljs-string">"Jimmy"</span>
+<span class="hljs-number">20</span> GOTO <span class="hljs-number">10</span>
+</code></pre>
+    <p class="normal">That was <em class="italic">my</em> code; I made the computer write my name on the screen over and over!</p>
+    <p class="normal">That was when I decided that I wanted to become a developer to make computers do stuff.</p>
+    <p class="normal">After becoming a developer, I wanted to revisit my childhood and decided I wanted to build a ZX Spectrum emulator. In many ways, the emulator has become my test project instead of a simple <em class="italic">Hello World</em> when I encounter new technology. I’ve had it running on a Gadgeteer, Xbox One, and even a HoloLens (to name a few).</p>
+    <p class="normal">But is it possible to run my emulator in Blazor?</p>
+    <p class="normal">It took me <a id="_idIndexMarker034"></a>only a couple of hours to get the emulator working with Blazor WebAssembly by leveraging my already built .NET Standard DLL; I only had to write the code specific to this implementation, such as the keyboard and graphics. This is one of the reasons Blazor (both Server and WebAssembly) is so powerful: it can run libraries that have already been made. Not only can you leverage your knowledge of C#, but you can also take advantage of the large ecosystem and .NET community.</p>
+    <p class="normal">You can find the<a id="_idIndexMarker035"></a> emulator here: <a href="http://zxbox.com"><span class="url">http://zxbox.com</span></a>. This is one of my favorite projects to work on, as I keep finding ways to optimize and improve the emulator.</p>
+    <p class="normal">Building this type of web application used to only be possible with JavaScript. Now, we know we can use Blazor WebAssembly and Blazor Server, but which one of these new options is the best?</p>
+    <h2 id="_idParaDest-23" class="heading-2">Blazor WebAssembly versus Blazor Server</h2>
+    <p class="normal">Which one should we choose? The answer is, as always, it depends. You have seen the advantages and disadvantages of both.</p>
+    <p class="normal">If you <a id="_idIndexMarker036"></a>have a current site that you want to port over to Blazor, I recommend going for the server side; once you have ported it, you can make a new decision as to whether you want to go for WebAssembly as well. This way, it is easy to port parts of the site, and the debugging experience is better with Blazor Server.</p>
+    <p class="normal">Suppose your site runs on a mobile browser or another unreliable internet connection. In that case, you might consider going for an offline-capable (PWA) scenario with Blazor WebAssembly since Blazor Server needs a constant connection.</p>
+    <p class="normal">The startup time for WebAssembly is a bit slow, but there are ways to combine the two hosting models to have the best of two worlds. We will cover this in Chapter <em class="chapterRef">16</em>, <em class="italic">Going Deeper into WebAssembly</em>.</p>
+    <p class="normal">There is no silver bullet when it comes to this question, but read up on the advantages and disadvantages and see how those affect your project and use cases.</p>
+    <p class="normal">We can run Blazor server-side and on the client, but what about desktop and mobile apps? </p>
+    <h2 id="_idParaDest-24" class="heading-2">Blazor Hybrid / .NET MAUI</h2>
+    <p class="normal">.NET MAUI <a id="_idIndexMarker037"></a>is a <a id="_idIndexMarker038"></a>cross-platform application framework. The name comes from .NET Multi-platform App UI and is the next version of Xamarin. We can use traditional XAML code to create our cross-platform application just as with Xamarin however, .NET MAUI also targets desktop operating systems that will make it possible to run our Blazor app on Windows and even macOS.</p>
+    <p class="normal">Using Blazor Hybrid, we also get access to native APIs (not only Web APIs), which makes it possible for us to take our application to another level.</p>
+    <p class="normal">We will take a look at .NET MAUI in <em class="chapterRef">Chapter 18</em>, <em class="italic">Visiting .NET MAUI</em>.</p>
+    <p class="normal">As you can see, there are a lot of things you can do with Blazor, and this is just the beginning.</p>
+    <h1 id="_idParaDest-25" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, you were provided with an overview of the different technologies you can use with Blazor, such as server-side (Blazor Server), client-side (WebAssembly), desktop, and mobile. This overview should have helped you decide what technology to choose for your next project.</p>
+    <p class="normal">We then discussed how Blazor was created and its underlying technologies, such as SignalR and WebAssembly. You also learned about the render tree and how the DOM gets updated to give you an understanding of how Blazor works under the hood.</p>
+    <p class="normal">In the upcoming chapters, I will walk you through various scenarios to equip you with the knowledge to handle everything from upgrading an old/existing site, and creating a new server-side site, to creating a new WebAssembly site.</p>
+    <p class="normal">We’ll get our hands dirty in the next chapter by configuring our development environment and creating and examining our first Blazor App.</p>
+    <h1 id="_idParaDest-26" class="heading-1">Further reading</h1>
+    <p class="normal">As a .NET developer, you might be interested in the Uno Platform (<a href="https://platform.uno/"><span class="url">https://platform.uno/</span></a>), which makes it possible to create a UI in XAML and deploy it to many different platforms, including WebAssembly.</p>
+    <p class="normal">If you want to see how the ZX Spectrum emulator is built, you can download the source code here: <a href="https://github.com/EngstromJimmy/ZXSpectrum"><span class="url">https://github.com/EngstromJimmy/ZXSpectrum</span></a>.</p>
+  </div>
+  <div id="_idContainer021" class="Basic-Text-Frame">
+    <h1 class="heading-1">Join our community on Discord&#160;</h1>
+    <p class="normal">Join our community’s Discord space for discussions with the author and other readers:&#160;</p>
+    <p class="normal"><a href="https://packt.link/WebDevBlazor2e"><span class="url">https://packt.link/WebDevBlazor2e</span></a></p>
+    <p class="normal"><span class="url"><img src="../Images/QR_Code748085881713038109.png" alt=""/></span></p>
+  </div>
+</body>
+</html>

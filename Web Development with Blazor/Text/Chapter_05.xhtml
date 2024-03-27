@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_05</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_05" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer053" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">5</h1>
+    <h1 id="_idParaDest-105" class="chapterTitle">Creating Advanced Blazor Components</h1>
+    <p class="normal">In the last chapter, we learned all the basics of creating a component. This chapter will teach us how to take our components to the next level.</p>
+    <p class="normal">This chapter will focus on some of the features that will make our components reusable, which will enable us to save time and also give us an understanding of how to use reusable components made by others.</p>
+    <p class="normal">We will also look at some built-in components that will help you by adding additional functionality (compared to using HTML tags) when you build your Blazor app.</p>
+    <p class="normal">In this chapter, we will cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Exploring binding</li>
+      <li class="bulletList">Actions and EventCallback</li>
+      <li class="bulletList">Using RenderFragment</li>
+      <li class="bulletList">Exploring the new built-in components</li>
+    </ul>
+    <h1 id="_idParaDest-106" class="heading-1">Technical requirements</h1>
+    <p class="normal">In this chapter, we will start building our components. For this, you’ll need the code we developed in <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>. You are good to go if you followed the instructions in the previous chapters. If not, then make sure you clone/download the repo. The starting point for this chapter can be found in the <code class="inlineCode">chapter04</code> folder, and the finished chapter is in <code class="inlineCode">chapter05</code>.</p>
+    <p class="normal">You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter05"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter05</span></a>.</p>
+    <h1 id="_idParaDest-107" class="heading-1">Exploring binding</h1>
+    <p class="normal">When building applications, data is important, and we can use binding<a id="_idIndexMarker222"></a> to show or change data. Using binding, you can connect variables within a component (so that it updates automatically) or by setting a component attribute. Perhaps the most fantastic thing is that by using binding, Blazor understands when it should update the UI and the variable (if the data changes in the UI).</p>
+    <p class="normal">In Blazor, there are two different ways that we can bind values to components, as follows:</p>
+    <ul>
+      <li class="bulletList">One-way binding</li>
+      <li class="bulletList">Two-way binding</li>
+    </ul>
+    <p class="normal">By using binding, we can send information between components and make sure we can update a value when we want to.</p>
+    <h2 id="_idParaDest-108" class="heading-2">One-way binding</h2>
+    <p class="normal">We <a id="_idIndexMarker223"></a>have <a id="_idIndexMarker224"></a>already <strong class="keyWord">discussed one-way binding</strong> in <em class="chapterRef">Chapter 4</em>, <em class="italic">Creating Basic Blazor Components</em>. Let’s look at the component again and continue building on it in this section.</p>
+    <p class="normal">In this section, we will combine parameters and binding.</p>
+    <p class="normal">The <strong class="keyWord">Counter.razor</strong> example looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/counter"
+<span class="hljs-tag">&lt;</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>Counter<span class="hljs-tag">&lt;/</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>Counter<span class="hljs-tag">&lt;/</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag"> </span><span class="hljs-attr">role</span><span class="hljs-tag">=</span><span class="hljs-string">"status"</span><span class="hljs-tag">&gt;</span>Current count: @currentCount<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-primary"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"IncrementCount"</span><span class="hljs-tag">&gt;</span>Click me<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+@code {
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> currentCount = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">IncrementCount</span><span class="hljs-function">()</span>
+    {
+        currentCount++;
+    }
+}
+</code></pre>
+    <p class="normal">The component will show the current count and a button that will increment the current count. This is one-way binding. Even though the button can change, the value of <code class="inlineCode">currentCount</code> only flows in one direction.</p>
+    <p class="normal">Since this part is designed to demonstrate the functionality and theory and is not part of the finished project we are building, you don’t have to write or run this code. The source code for these components is available on GitHub.</p>
+    <p class="normal">We can add a<a id="_idIndexMarker225"></a> parameter to the <code class="inlineCode">Counter</code> component. The <a id="_idIndexMarker226"></a>code will then look like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/counterwithparameter"
+<span class="hljs-tag">&lt;</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>Counter<span class="hljs-tag">&lt;/</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>Current count: @CurrentCount<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-primary"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"IncrementCount"</span><span class="hljs-tag">&gt;</span>Click me<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+@code {
+    [<span class="hljs-meta">Parameter</span>]
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> IncrementAmount { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-number">1</span>;
+    [<span class="hljs-meta">Parameter</span>]
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> CurrentCount { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">IncrementCount</span><span class="hljs-function">()</span>
+    {
+        CurrentCount+=IncrementAmount;
+    }
+}
+</code></pre>
+    <p class="normal">The code sample has two parameters, one for <code class="inlineCode">CurrentCount</code> and one for <code class="inlineCode">IncrementAmount</code>. By adding parameters to the components, we can change their behavior. This sample is, of course, a bit silly. The chances are that you won’t have any use for a component like this, but it illustrates the idea very well.</p>
+    <p class="normal">We can now take the component and add it to another component. This is how we can create a reusable component and change its behavior by changing the value of the parameters.</p>
+    <p class="normal">We change its behavior like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/parentcounter"
+<span class="hljs-tag">&lt;</span><span class="hljs-name">CounterWithParameter</span><span class="hljs-tag"> </span><span class="hljs-attr">IncrementAmount</span><span class="hljs-tag">=</span><span class="hljs-string">"@incrementamount"</span><span class="hljs-tag"> </span><span class="hljs-attr">CurrentCount</span><span class="hljs-tag">=</span><span class="hljs-string">"@currentcount"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">CounterWithParameter</span><span class="hljs-tag">&gt;</span>
+The current count <span class="hljs-keyword">is</span>: @currentcount
+@code {
+    <span class="hljs-built_in">int</span> incrementamount = <span class="hljs-number">10</span>;
+    <span class="hljs-built_in">int</span> currentcount = <span class="hljs-number">0</span>;
+}
+</code></pre>
+    <p class="normal">In this sample, we have two variables, <code class="inlineCode">incrementamount</code> and <code class="inlineCode">currentcount</code>, that we pass into our <code class="inlineCode">CounterWithParameter</code> component.</p>
+    <p class="normal">If we were to run this, we would see a <code class="inlineCode">Counter</code> component that counts in increments of <strong class="keyWord">10</strong>. However, the <code class="inlineCode">currentcount</code> variable will not be updated since it is only a one-way binding (one direction).</p>
+    <p class="normal">To help us <a id="_idIndexMarker227"></a>with <a id="_idIndexMarker228"></a>that, we can implement two-way binding so that our parent component will be notified of any changes.</p>
+    <h2 id="_idParaDest-109" class="heading-2">Two-way binding</h2>
+    <p class="normal"><strong class="keyWord">Two-way binding</strong> binds<a id="_idIndexMarker229"></a> values in both directions, and<a id="_idIndexMarker230"></a> our <code class="inlineCode">Counter</code> component will be able to notify our parent component of any changes. In the next chapter, <em class="chapterRef">Chapter 6</em>, <em class="italic">Building Forms with Validation</em>, we will talk even more about two-way binding.</p>
+    <p class="normal">To make our <code class="inlineCode">CounterWithParameter</code> component bind in two directions, we need to add <code class="inlineCode">EventCallback</code>. The name must consist of the parameter’s name followed by <code class="inlineCode">Changed</code>. This way, Blazor will update the value if it changes. In our case, we would need to name it <code class="inlineCode">CurrentCountChanged</code>. The code would then look like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Parameter</span>]
+<span class="hljs-keyword">public</span> EventCallback&lt;<span class="hljs-built_in">int</span>&gt; CurrentCountChanged { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+<span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">IncrementCount</span><span class="hljs-function">()</span>
+{
+    CurrentCount += IncrementAmount;
+    <span class="hljs-keyword">await</span> CurrentCountChanged.InvokeAsync(CurrentCount);
+}
+</code></pre>
+    <p class="normal">By merely using that naming convention, Blazor knows that <code class="inlineCode">CurrentCountChanged</code> is the event that will get triggered when a change to <code class="inlineCode">CurrentCount</code> occurs.</p>
+    <p class="normal"><code class="inlineCode">EventCallback</code> cannot be <code class="inlineCode">null</code>, so there is no reason to do a null check (more on that in the next section).</p>
+    <p class="normal">We also need to change how we listen for changes:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">CounterWithParameterAndEvent</span><span class="hljs-tag"> </span><span class="hljs-attr">IncrementAmount</span><span class="hljs-tag">=</span><span class="hljs-string">"@incrementamount"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-CurrentCount</span><span class="hljs-tag">=</span><span class="hljs-string">"currentcount"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <p class="normal">We need to add <code class="inlineCode">@bind-</code> before the <code class="inlineCode">CurrentCount</code> binding. You can also use the following syntax to set the name of the event:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">CounterWithParameterAndEvent</span><span class="hljs-tag"> </span><span class="hljs-attr">IncrementAmount</span><span class="hljs-tag">=</span><span class="hljs-string">"@incrementamount"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-CurrentCount</span><span class="hljs-tag">=</span><span class="hljs-string">"currentcount"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-CurrentCount:event</span><span class="hljs-tag">=</span><span class="hljs-string">"CurrentCountChanged"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <p class="normal">By using <code class="inlineCode">:event</code>, we can tell Blazor exactly what event we want to use; in this case, the <code class="inlineCode">CurrentCountChanged</code> event.</p>
+    <p class="normal">In the next chapter, <em class="chapterRef">Chapter 6</em>, <em class="italic">Building Forms with Validation</em>, we will continue to look at <a id="_idIndexMarker231"></a>binding<a id="_idIndexMarker232"></a> with input/form components.</p>
+    <p class="normal">We can, of course, create events as well using <strong class="keyWord">EventCallback</strong>.</p>
+    <h1 id="_idParaDest-110" class="heading-1">Actions and EventCallback</h1>
+    <p class="normal">To communicate <a id="_idIndexMarker233"></a>changes, we <a id="_idIndexMarker234"></a>can use <strong class="keyWord">EventCallback</strong>, as shown in the <em class="italic">Two-way binding</em> section. <code class="inlineCode">EventCallback&lt;T&gt;</code> differs a bit from what we might be used to in .NET. <code class="inlineCode">EventCallback&lt;T&gt;</code> is a class that is specially made for Blazor to be able to have the event callback exposed as a parameter for the component.</p>
+    <p class="normal">In .NET, in general, you can add multiple listeners to an event (multi-cast), but with <code class="inlineCode">EventCallback&lt;T&gt;</code>, you will only be able to add one listener (single-cast).</p>
+    <p class="normal">It is worth mentioning that you can use events the way you are used to from .NET in Blazor. However, you probably want to use <code class="inlineCode">EventCallback&lt;T&gt;</code> because there are many upsides to using <code class="inlineCode">EventCallback</code> over traditional .NET events.</p>
+    <p class="normal">.NET events use classes, and <code class="inlineCode">EventCallback</code> uses structs. This means that in Blazor, we don’t have to perform a null check before calling <code class="inlineCode">EventCallback</code> because a struct cannot be null.</p>
+    <p class="normal"><code class="inlineCode">EventCallback</code> is asynchronous and can be awaited. When <code class="inlineCode">EventCallback</code> has been called, Blazor will automatically execute <code class="inlineCode">StateHasChanged</code> on the consuming component to ensure the component updates (if it needs to be updated).</p>
+    <p class="normal">So, if you require multiple listeners, you can use <code class="inlineCode">Action&lt;T&gt;</code>. Otherwise, it would be best if you used <code class="inlineCode">EventCallback&lt;T&gt;</code>.</p>
+    <p class="normal">Some event types have event arguments that we can access. They are optional, so you don’t need to add them in most cases. </p>
+    <p class="normal">You can add them by specifying them in a method, or you can use a lambda expression like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"@((e)=&gt;message=$"</span><span class="hljs-attr">x:</span><span class="hljs-tag">{</span><span class="hljs-attr">e.ClientX</span><span class="hljs-tag">} </span><span class="hljs-attr">y:</span><span class="hljs-tag">{</span><span class="hljs-attr">e.ClientY</span><span class="hljs-tag">}")"&gt;</span>Click me<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">When the <code class="inlineCode">button</code> is clicked, it will set a variable called <code class="inlineCode">message</code> to a string containing the mouse coordinates. The lambda has one parameter, <code class="inlineCode">e</code>, of the <code class="inlineCode">MouseArgs</code> type. However, you don’t have<a id="_idIndexMarker235"></a> to<a id="_idIndexMarker236"></a> specify the type, and the compiler understands what type the parameter is.</p>
+    <p class="normal">Now that we have added actions and used <strong class="keyWord">EventCallback</strong> to communicate changes, we will see how we can execute <strong class="keyWord">RenderFragment</strong> in the next section.</p>
+    <h1 id="_idParaDest-111" class="heading-1">Using RenderFragment</h1>
+    <p class="normal">To make our components<a id="_idIndexMarker237"></a> even more reusable, we can supply them with a piece of Razor syntax. In Blazor, you can specify <strong class="keyWord">RenderFragment</strong>, which is a fragment of Razor syntax that you can execute and show.</p>
+    <p class="normal">Now that we have added actions and used <strong class="keyWord">EventCallback</strong> to communicate changes, we will see how we can execute <strong class="keyWord">RenderFragment</strong> in the next section.</p>
+    <p class="normal">There are two types of render elements, <code class="inlineCode">RenderFragment</code> and <code class="inlineCode">RenderFragment&lt;T&gt;</code>.<code class="inlineCode"> RenderFragment</code> is simply a Razor fragment without any input parameters, and <code class="inlineCode">RenderFragment&lt;T&gt;</code> has an input parameter that you can use inside the Razor fragment code by using the <code class="inlineCode">context</code> keyword. We won’t go into depth about how to use this now, but later in this chapter, we will talk about a <a id="_idIndexMarker238"></a>component (<strong class="keyWord">Virtualize</strong>) that uses <code class="inlineCode">RenderFragment&lt;T&gt;</code> and, in the next chapter, <em class="chapterRef">Chapter 6</em>, <em class="italic">Building Forms with Validation</em>, we will implement a component using <code class="inlineCode">RenderFragment&lt;T&gt;</code>.</p>
+    <p class="normal">We can make <code class="inlineCode">RenderFragment</code> the default content inside of the component tags as well as giving it a default value. We will explore this next and build a component using these features.</p>
+    <div class="packt_tip">
+      <p class="normal"><strong class="keyWord">GRID COMPONENT</strong></p>
+      <p class="normal">If you want to dig deeper into render fragments, please check out <strong class="screenText">Blazm.Components</strong>, which have a grid component that heavily uses <code class="inlineCode">RenderFragment&lt;T&gt;</code>. Where I currently work, we use this component, and it has been developed <a id="_idIndexMarker239"></a>using real-world scenarios.</p>
+      <p class="normal">You can find it on GitHub here: <a href="https://github.com/EngstromJimmy/Blazm.Components"><span class="url">https://github.com/EngstromJimmy/Blazm.Components</span></a>.</p>
+    </div>
+    <h2 id="_idParaDest-112" class="heading-2">ChildContent</h2>
+    <p class="normal">By naming the <a id="_idIndexMarker240"></a>render fragment <code class="inlineCode">ChildContent</code>, Blazor will <a id="_idIndexMarker241"></a>automatically use whatever is between the component tags as content. This only works, however, if you are using a single render fragment; if you are using more than one, you will have to specify the <code class="inlineCode">ChildComponent</code> tag as well.</p>
+    <h2 id="_idParaDest-113" class="heading-2">Default value</h2>
+    <p class="normal">We can<a id="_idIndexMarker242"></a> supply <code class="inlineCode">RenderFragment</code> with a default value or set it in code by using an <strong class="keyWord">@</strong> symbol:</p>
+    <pre class="programlisting code"><code class="hljs-code">@<span class="hljs-tag">&lt;</span><span class="hljs-name">b</span><span class="hljs-tag">&gt;</span>This is a default value<span class="hljs-tag">&lt;/</span><span class="hljs-name">b</span><span class="hljs-tag">&gt;</span>;
+</code></pre>
+    <h2 id="_idParaDest-114" class="heading-2">Building an alert component</h2>
+    <p class="normal">To better <a id="_idIndexMarker243"></a>understand how to use render fragments, let’s <a id="_idIndexMarker244"></a>build an alert component. The built-in templates use Bootstrap, so we will do the same for this component. Bootstrap has many components that are easy to import to Blazor. When working on big projects with multiple developers, building components is an easy way to ensure that everyone in one team is writing code the same way.</p>
+    <p class="normal">Let’s build a simple alert component based on Bootstrap:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Create a folder by right-clicking on <strong class="screenText">Components project</strong> | <strong class="screenText">Add</strong> | <strong class="screenText">New folder</strong> and name the folder <code class="inlineCode">RazorComponents</code>.</li>
+      <li class="numberedList">Create a new Razor component and name it <code class="inlineCode">Alert.razor</code>.</li>
+      <li class="numberedList">Replace the content with the following code in the <code class="inlineCode">Alert.razor</code> file:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"alert alert-primary"</span><span class="hljs-tag"> </span><span class="hljs-attr">role</span><span class="hljs-tag">=</span><span class="hljs-string">"alert"</span><span class="hljs-tag">&gt;</span>
+    A simple primary alert—check it out!
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">The code is taken from Bootstrap’s web page, <a href="http://getbootstrap.com"><span class="url">http://getbootstrap.com</span></a>, and it shows an alert that looks like this:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_05_01.png" alt="Figure 5.1 – The default look of a Bootstrap alert component "/></figure>
+    <p class="packt_figref">Figure 5.1: The default look of a Bootstrap alert component</p>
+    <p class="normal">There are two ways in which we could customize this <code class="inlineCode">alert</code> component. We could add a <code class="inlineCode">string</code> parameter for the message. </p>
+    <p class="normal">However, since this is a section on render fragments, we will explore the second option, yes, you guessed it, <em class="italic">render fragments</em>.</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Add a code <a id="_idIndexMarker245"></a>section with a <code class="inlineCode">RenderFragment</code> property called <code class="inlineCode">ChildContent</code> and replace <a id="_idIndexMarker246"></a>the alert text with the new property:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"alert alert-primary"</span><span class="hljs-tag"> </span><span class="hljs-attr">role</span><span class="hljs-tag">=</span><span class="hljs-string">"alert"</span><span class="hljs-tag">&gt;</span>
+    @ChildContent
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+@code{
+    [<span class="hljs-meta">Parameter</span>]
+    <span class="hljs-keyword">public</span> RenderFragment ChildContent { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } =@&lt;b&gt;This <span class="hljs-keyword">is</span> a <span class="hljs-literal">default</span> <span class="hljs-keyword">value</span>&lt;/b&gt;;
+}
+</code></pre>
+    <p class="normal">Now we have a <code class="inlineCode">RenderFragment</code> and set a default value, displaying the fragment between the <code class="inlineCode">div</code> tags. We also want to add an <code class="inlineCode">enum</code> for the different ways you can style the alert box.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">In the <code class="inlineCode">code</code> section, add an <code class="inlineCode">enum</code> containing the different styles available:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-built_in">enum</span> AlertStyle
+{
+    Primary,
+    Secondary,
+    Success,
+    Danger,
+    Warning,
+    Info,
+    Light,
+    Dark
+}
+</code></pre>
+      </li>
+      <li class="numberedList">Add a parameter/property for the <code class="inlineCode">enum</code> style:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Parameter</span>]
+<span class="hljs-keyword">public</span> AlertStyle Style { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+      </li>
+      <li class="numberedList">The final step is to update the <code class="inlineCode">class</code> attribute for <code class="inlineCode">div</code>. Change the <code class="inlineCode">class</code> attribute to look like this:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"@($"</span><span class="hljs-attr">alert</span><span class="hljs-tag"> </span><span class="hljs-attr">alert-</span><span class="hljs-tag">{</span><span class="hljs-attr">Style.ToString</span><span class="hljs-tag">()</span><span class="hljs-attr">.ToLower</span><span class="hljs-tag">()}")" </span><span class="hljs-attr">role</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">alert"</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+      </li>
+      <li class="numberedList">In the <code class="inlineCode">Pages</code> folder, add <a id="_idIndexMarker247"></a>a new <strong class="keyWord">Razor component</strong>, and<a id="_idIndexMarker248"></a> name it <code class="inlineCode">AlertTest.razor</code>.
+    <p class="normal">Replace the code with the following snippet:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/alerttest"
+@using Components.RazorComponents
+<span class="hljs-tag">&lt;</span><span class="hljs-name">Alert</span><span class="hljs-tag"> </span><span class="hljs-attr">Style</span><span class="hljs-tag">=</span><span class="hljs-string">"Alert.AlertStyle.Danger"</span><span class="hljs-tag">&gt;</span>
+    This is a test
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">Alert</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">Alert</span><span class="hljs-tag"> </span><span class="hljs-attr">Style</span><span class="hljs-tag">=</span><span class="hljs-string">"Alert.AlertStyle.Success"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ChildContent</span><span class="hljs-tag">&gt;</span>
+        This is another test
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ChildContent</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">Alert</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">Alert</span><span class="hljs-tag"> </span><span class="hljs-attr">Style</span><span class="hljs-tag">=</span><span class="hljs-string">"Alert.AlertStyle.Success"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <p class="normal">The page shows three alert components:</p>
+    <p class="normal">The first one has the <code class="inlineCode">Danger</code> style, and we are not specifying what property to set for the <code class="inlineCode">This is a test</code> text, but by convention, it will use the property called <code class="inlineCode">ChildContent</code>.</p>
+    <p class="normal">In the second one, we have specified the <code class="inlineCode">ChildContent</code> property. If you use more render fragments in your component, you must set them like this, with full names.</p>
+    <p class="normal">In the last one, we didn’t specify anything that will give the property the default render fragment we specified in the component.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Run the BlazorServer project and navigate to <code class="inlineCode">/AlertTest</code> to see the test page:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18549_05_02.png" alt="Figure 5.2 – Screenshot of the test page"/></figure>
+    <p class="packt_figref">Figure 5.2: Screenshot of the test page</p>
+    <p class="normal">We have finished our first reusable component!</p>
+    <p class="normal">Creating<a id="_idIndexMarker249"></a> reusable<a id="_idIndexMarker250"></a> components is how I prefer to make my Blazor sites because I don’t have to write the same code twice. This becomes even more apparent if you are working in a larger team. It makes it easier for all developers to produce the same code and end result, and with that, they can get a higher code quality and require fewer tests.</p>
+    <p class="normal">When we upgraded to the latest Bootstrap version, a few CSS classes were deprecated and replaced by others. Thankfully, we followed this approach by making reusable components, so we only had to change a handful of places. There were a couple of places where we still had some old code base (not using components), and it became very apparent <a id="_idIndexMarker251"></a>that <a id="_idIndexMarker252"></a>creating components was worth the effort.</p>
+    <p class="normal">Blazor has a bunch of built-in components. In the next section, we will dig deeper into what they are and how to use them.</p>
+    <h1 id="_idParaDest-115" class="heading-1">Exploring the new built-in components</h1>
+    <p class="normal">When Blazor first <a id="_idIndexMarker253"></a>came out, there were a couple of things that were hard to do, and, in some cases, we needed to involve JavaScript to solve the challenge. In this section, we will look at some of the new components we got in .NET 5 and .NET 6.</p>
+    <p class="normal">We will take a look at the following new components or functions:</p>
+    <ul>
+      <li class="bulletList">Setting the focus of the UI</li>
+      <li class="bulletList">Influencing the HTML head</li>
+      <li class="bulletList">Component virtualization</li>
+      <li class="bulletList">Error boundaries</li>
+    </ul>
+    <h2 id="_idParaDest-116" class="heading-2">Setting the focus of the UI</h2>
+    <p class="normal">One of my<a id="_idIndexMarker254"></a> first Blazor blog posts was about how to set the focus on a UI element, but now this is built into the framework. The previous solution involved JavaScript calls to change the focus on a UI element.</p>
+    <p class="normal">By using <code class="inlineCode">ElementReference</code>, you can now set the focus on the element.</p>
+    <p class="normal">Let’s build a component to test the behavior of this new feature:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, in the <code class="inlineCode">Pages</code> folder, add a new <strong class="screenText">Razor component</strong>, and name it <code class="inlineCode">SetFocus.razor</code>.</li>
+      <li class="numberedList">Open <code class="inlineCode">SetFocus.razor</code> and add a <code class="inlineCode">page</code> directive:
+        <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/setfocus"</span>
+</code></pre>
+      </li>
+      <li class="numberedList">Add an element reference:
+        <pre class="programlisting code"><code class="hljs-code">@code {
+    ElementReference textInput;
+}
+</code></pre>
+    <p class="normal"><code class="inlineCode">ElementReference</code> is precisely what it sounds like, a reference to an element. In this case, it is an input textbox.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">Add the textbox and a button:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">input</span><span class="hljs-tag"> @</span><span class="hljs-attr">ref</span><span class="hljs-tag">=</span><span class="hljs-string">"textInput"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"() =&gt; textInput.FocusAsync()"</span><span class="hljs-tag">&gt;</span>Set focus<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Using <code class="inlineCode">@ref</code>, we specify a reference to any type of component or tag that we can use to access the input box. The <code class="inlineCode">button onclick</code> method will execute the <code class="inlineCode">FocusAsync()</code> method and set the focus on the textbox.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Press <em class="keystroke">F5</em> to run the project and then navigate to <code class="inlineCode">/setfocus</code>.</li>
+      <li class="numberedList">Press the <strong class="screenText">Set focus</strong> button and notice how the textbox gets its focus.</li>
+    </ol>
+    <p class="normal">It could seem like a silly example since this only sets the focus, but it is a handy feature, and the <code class="inlineCode">autofocus</code> HTML attribute won’t work for Blazor.</p>
+    <p class="normal">In my blog post, I had another approach. My goal was to set the focus of an element without having to use code. In the upcoming chapter, <em class="chapterRef">Chapter 6</em>, <em class="italic">Building Forms with Validation</em>, we will implement the <code class="inlineCode">autofocus</code> feature from my blog post but use the new .NET features instead.</p>
+    <p class="normal">The release of .NET 5 solves<a id="_idIndexMarker255"></a> many things we previously had to write with JavaScript; setting the focus is one example. In .NET 6, we have a way to influence the HTML head.</p>
+    <h2 id="_idParaDest-117" class="heading-2">Influencing the HTML head</h2>
+    <p class="normal">Sometimes, we want to <a id="_idIndexMarker256"></a>set our page’s title or change the social network meta tags. The <code class="inlineCode">head</code> tag is located in <code class="inlineCode">_host.cshtml</code> (Blazor Server) and <code class="inlineCode">index.html</code> (Blazor WebAssembly), and that part of the page isn’t reloaded/rerendered (only the components within the app component are rerendered). In previous versions of Blazor, you had to write code for that yourself using JavaScript.</p>
+    <p class="normal">But .NET has a new component<a id="_idIndexMarker257"></a> called <strong class="keyWord">HeadOutlet</strong> that can solve that.</p>
+    <p class="normal">To use these components, we will create a page to view one of our blog posts. And we will use many of the techniques we have learned:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, open <strong class="screenText">Pages/Index.razor</strong>.</li>
+      <li class="numberedList">Change the <code class="inlineCode">foreach</code> loop to look like this:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"/Post/@p.Id"</span><span class="hljs-tag">&gt;</span>@p.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We added a link to the title to look at one blog post. Notice how we can use the <code class="inlineCode">@</code> symbol inside the <code class="inlineCode">href</code> attribute to get the ID of the post.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">In the <code class="inlineCode">Pages</code> folder, add a <strong class="keyWord">Razor component</strong>, and name it <code class="inlineCode">Post.razor</code>.</li>
+      <li class="numberedList">In the <code class="inlineCode">code</code> section, add a parameter that will hold the ID of the post:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Parameter</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> BlogPostId { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">This will hold the ID of the blog post that comes from the URL.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Add a <code class="inlineCode">page</code> directive to get the set, the URL, and the ID:
+        <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/post/{BlogPostId}"</span>
+</code></pre>
+    <p class="normal">The <code class="inlineCode">page</code> directive<a id="_idIndexMarker258"></a> will set the URL for our blog post to <code class="inlineCode">/post/</code>, followed by the ID of the post. We don’t have to add a <code class="inlineCode">using</code> statement to all our components. Instead, open <code class="inlineCode">_Imports.razor</code> and add the following namespaces:</p>
+    <pre class="programlisting code"><code class="hljs-code">@using Data.Models.Interfaces
+@using Data.Models
+</code></pre>
+    <p class="normal">This will ensure that all our components will have these namespaces by default.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Open <code class="inlineCode">Post.razor</code> again and, just beneath the <code class="inlineCode">page</code> directive, inject the API (the namespace is now supplied from <code class="inlineCode">_Imports.razor</code>):
+        <pre class="programlisting code"><code class="hljs-code">@inject IBlogApi _api
+@inject NavigationManager _navman
+</code></pre>
+    <p class="normal">Our API will now be injected into the component, and we can retrieve our blog post. We also have access to a navigation manager.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">In the <code class="inlineCode">code</code> section, add a property for our blog post:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> BlogPost? BlogPost { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">This will contain the blog post we want to show on the page.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">To load the blog post, add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnParametersSetAsync</span><span class="hljs-function">()</span>
+{
+    BlogPost=<span class="hljs-keyword">await</span> _api.GetBlogPostAsync(BlogPostId);
+    <span class="hljs-keyword">await</span> <span class="hljs-keyword">base</span>.OnParametersSetAsync();
+}
+</code></pre>
+    <p class="normal">In this case, we are using the <code class="inlineCode">OnParametersSetAsync()</code> method. This is to make sure that the parameter is set when we get data from the database and that the content updates when the parameter changes.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="9">We must also show the post and add the necessary <code class="inlineCode">meta</code> tags. To do that, add the<a id="_idIndexMarker259"></a> following code just above the code section:
+        <pre class="programlisting code"><code class="hljs-code">@if (BlogPost != null)
+{
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>@BlogPost.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">HeadContent</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">meta</span><span class="hljs-tag"> </span><span class="hljs-attr">property</span><span class="hljs-tag">=</span><span class="hljs-string">"og:title"</span>
+<span class="hljs-tag">      </span><span class="hljs-attr">content</span><span class="hljs-tag">=</span><span class="hljs-string">"@BlogPost.Title"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">meta</span><span class="hljs-tag"> </span><span class="hljs-attr">property</span><span class="hljs-tag">=</span><span class="hljs-string">"og:description"</span><span class="hljs-tag"> </span><span class="hljs-attr">content</span><span class="hljs-tag">=</span><span class="hljs-string">"@(new</span>
+<span class="hljs-string">      string(BlogPost.Text.Take(100).ToArray()))"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">meta</span><span class="hljs-tag"> </span><span class="hljs-attr">property</span><span class="hljs-tag">=</span><span class="hljs-string">"og:image"</span><span class="hljs-tag"> </span><span class="hljs-attr">content</span><span class="hljs-tag">=</span>
+<span class="hljs-tag">      </span><span class="hljs-string">"@($"</span><span class="hljs-tag">{</span><span class="hljs-attr">_navman.BaseUri</span><span class="hljs-tag">}/</span><span class="hljs-attr">pathtoanimage.png</span><span class="hljs-tag">")" /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">meta</span><span class="hljs-tag"> </span><span class="hljs-attr">property</span><span class="hljs-tag">=</span><span class="hljs-string">"og:url"</span><span class="hljs-tag"> </span><span class="hljs-attr">content</span><span class="hljs-tag">=</span><span class="hljs-string">"@_navman.Uri"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">meta</span><span class="hljs-tag"> </span><span class="hljs-attr">name</span><span class="hljs-tag">=</span><span class="hljs-string">"twitter:card"</span><span class="hljs-tag"> </span><span class="hljs-attr">content</span><span class="hljs-tag">=</span><span class="hljs-string">"@(new string(BlogPost.Text.Take(100).ToArray()))"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">HeadContent</span><span class="hljs-tag">&gt;</span>
+    
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">h2</span><span class="hljs-tag">&gt;</span>@BlogPost.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">h2</span><span class="hljs-tag">&gt;</span>
+    @((MarkupString)BlogPost.Text)
+    
+}
+</code></pre>
+    <p class="normal">When the page is first loaded, the <code class="inlineCode">BlogPost</code> parameter can be null, so we first need to check whether we should show the content at all.</p>
+    <p class="normal">By adding the <code class="inlineCode">Title</code> component, Blazor will set the title of our site to, in this instance, the title of our blog post.</p>
+    <p class="normal">According to the information I <a id="_idIndexMarker260"></a>gathered on <strong class="keyWord">Search Engine Optimization</strong> (<strong class="keyWord">SEO</strong>), the meta tags we have added are the bare minimum to use with Facebook and Twitter. We don’t have an image for each blog post, but we can have one that is site-wide (for all blog posts) if we would like. Just change <code class="inlineCode">Pathtoanimage.png</code> to the name of the image and put the image in the <code class="inlineCode">wwwroot</code> folder.</p>
+    <p class="normal">If the blog post is loaded, then show an <strong class="keyWord">H3</strong> tag with the title and the text beneath that. You might remember <strong class="keyWord">MarkupString</strong> from <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>. This will output the string from our blog post without changing the HTML (not escaping the HTML).</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="10">Run the project by pressing <em class="keystroke">F5</em> and navigate to a blog post to see the title change:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18549_05_03.png" alt="Figure 5.3 – Blog post screenshot "/></figure>
+    <p class="packt_figref">Figure 5.3: Blog post screenshot</p>
+    <p class="normal">Our blog is <a id="_idIndexMarker261"></a>starting to take form. We have a list of blog posts, and can view a single post; we are far from done but we’re well on our way.</p>
+    <h2 id="_idParaDest-118" class="heading-2">Component virtualization</h2>
+    <p class="normal"><strong class="keyWord">Virtualize</strong> is a component<a id="_idIndexMarker262"></a> in Blazor that will<a id="_idIndexMarker263"></a> make sure that it only renders the components or rows that can fit the screen. If you have a large list of items, rendering all of them will have a big impact on memory. </p>
+    <p class="normal">Many third-party component vendors offer grid components with the same virtualization function. The <strong class="keyWord">Virtualize</strong> component is, in my opinion, the most exciting thing in the .NET 5 release.</p>
+    <p class="normal">The <strong class="keyWord">Virtualize</strong> component will calculate how many items can fit on the screen (based on the size of the window and the height of an item). Blazor will add a <code class="inlineCode">div</code> tag before and after the content list if you scroll the page, ensuring that the scrollbar is showing the correct position and scale (even though there are no items rendered).</p>
+    <p class="normal">The <code class="inlineCode">Virtualize</code> component works just like a <code class="inlineCode">foreach</code> loop.</p>
+    <p class="normal">The following is the code we currently have in our <code class="inlineCode">Index.razor</code> file:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+    @foreach (var p in posts)
+    {
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"/Post/@p.Id"</span><span class="hljs-tag">&gt;</span>@p.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+    }
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Right now, it will show all our blog posts in our database in a long list. Granted, we only have a few right now, but we might have many posts one day.</p>
+    <p class="normal">We can change the code (don’t change the code just yet) to use the new <code class="inlineCode">Virtualize</code> component by changing it to the following:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">Virtualize</span><span class="hljs-tag"> </span><span class="hljs-attr">Items</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">posts"</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">"p"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"/Post/@p.Id"</span><span class="hljs-tag">&gt;</span>@p.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">Virtualize</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Instead of the <code class="inlineCode">foreach</code> loop, we use the <strong class="keyWord">Virtualize</strong> component and add a render fragment that shows how each item should be rendered. The <strong class="keyWord">Virtualize</strong> component uses <code class="inlineCode">RenderFragment&lt;T&gt;</code>, which, by default, will send in an item of type <code class="inlineCode">T</code> to the render fragment. In the case of the <strong class="keyWord">Virtualize</strong> component, the object will be one blog post (since items are <code class="inlineCode">List&lt;T&gt;</code> of blog posts). We access each post with the variable named <code class="inlineCode">context</code>. However, we can use the <strong class="keyWord">Context</strong> property on the <strong class="keyWord">Virtualize</strong> component to specify another name, so instead of <code class="inlineCode">context</code>, we are now using <code class="inlineCode">p</code>.</p>
+    <p class="normal">The <strong class="keyWord">Virtualize</strong> component is even more powerful than this, as we will see in the next feature that we implement:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, open <strong class="screenText">Pages/Index.razor</strong>.</li>
+      <li class="numberedList">Delete the <code class="inlineCode">OnInitializedAsync</code> method and <code class="inlineCode">protected List&lt;BlogPost&gt; posts = new List&lt;BlogPost&gt;()</code>; we don’t need them anymore.</li>
+      <li class="numberedList">Change the loading of the post to <code class="inlineCode">Virtualize</code>:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Virtualize</span><span class="hljs-tag"> </span><span class="hljs-attr">ItemsProvider</span><span class="hljs-tag">=</span><span class="hljs-string">"LoadPosts"</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">"p"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"/Post/@p.Id"</span><span class="hljs-tag">&gt;</span>@p.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Virtualize</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">In this case, we are using the <code class="inlineCode">ItemsProvider</code> delegate, which will take care of getting posts from our API.</p>
+    <p class="normal">We pass in a method called <code class="inlineCode">LoadPosts</code>, which we also need to add to the file.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">Now, let’s <a id="_idIndexMarker264"></a>add the <code class="inlineCode">LoadPosts</code> method <a id="_idIndexMarker265"></a>by adding the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> totalBlogposts { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">async</span> ValueTask&lt;ItemsProviderResult&lt;BlogPost&gt;&gt; LoadPosts(ItemsProviderRequest request)
+{
+    <span class="hljs-keyword">if</span> (totalBlogposts == <span class="hljs-number">0</span>)
+    {
+        totalBlogposts = <span class="hljs-keyword">await</span> _api.GetBlogPostCountAsync();
+    }
+    <span class="hljs-keyword">var</span> numblogposts = Math.Min(request.Count, totalBlogposts - request.StartIndex);
+    <span class="hljs-keyword">var</span> blogposts= <span class="hljs-keyword">await</span> _api.GetBlogPostsAsync(numblogposts,request.StartIndex);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ItemsProviderResult&lt;BlogPost&gt;(blogposts, totalBlogposts);
+}
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">We add a <code class="inlineCode">totalBlogposts</code> property where we store how many posts we currently have in our database. The <code class="inlineCode">LoadPost</code> method returns <code class="inlineCode">ValueTask</code> with <code class="inlineCode">ItemsProviderResult&lt;Blogpost&gt;</code>. The method has <code class="inlineCode">ItemsProviderRequest</code> as a parameter, which contains the number of posts the <strong class="keyWord">Virtualize</strong> component wants and how many it wants to skip.</p>
+    <p class="normal">If we don’t know how many total posts we have, we need to retrieve that information from our API by calling the <code class="inlineCode">GetBlogPostCountAsync</code> method. Then, we need to figure out how many posts we should get; either we get as many posts as we need, or we get all the remaining posts (whatever value is the smallest).</p>
+    <p class="normal">Then, we call our API to get the actual posts by calling <code class="inlineCode">GetBlogPostsAsync</code> and returning <code class="inlineCode">ItemsProviderResult</code>.</p>
+    <p class="normal">Now we have <a id="_idIndexMarker266"></a>implemented a <strong class="keyWord">Virtualize </strong>component that will load and render <a id="_idIndexMarker267"></a>only the number of blog posts needed to fill the screen.</p>
+    <h2 id="_idParaDest-119" class="heading-2">Error boundaries</h2>
+    <p class="normal">In .NET 6, we <a id="_idIndexMarker268"></a>got a very handy component to<a id="_idIndexMarker269"></a> handle errors called <strong class="keyWord">ErrorBoundary</strong>.</p>
+    <p class="normal">We can surround the component with an <code class="inlineCode">ErrorBoundary</code> component; if an error occurs, it will show an error message instead of the whole page failing:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ErrorBoundary</span><span class="hljs-tag">&gt;</span>
+   <span class="hljs-tag">&lt;</span><span class="hljs-name">ComponentWithError</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ErrorBoundary</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We can also supply a custom error message like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ErrorBoundary</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ChildContent</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">ComponentWithError</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ChildContent</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ErrorContent</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">h1</span><span class="hljs-tag"> </span><span class="hljs-attr">style</span><span class="hljs-tag">=</span><span class="hljs-string">"color: red;"</span><span class="hljs-tag">&gt;</span>Oops... something broke<span class="hljs-tag">&lt;/</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ErrorContent</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ErrorBoundary</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">This is a great component to extend and create your own functionality. You can get access to the exception by using the <code class="inlineCode">context</code> parameter (as we did with <code class="inlineCode">virtualize</code>):</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ErrorBoundary</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">ex</span><span class="hljs-tag">&gt;</span>
+     <span class="hljs-tag">&lt;</span><span class="hljs-name">ChildContent</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>@(1/zero)<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ChildContent</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ErrorContent</span><span class="hljs-tag">&gt;</span>
+       An error occurred
+       @ex.Message
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ErrorContent</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ErrorBoundary</span><span class="hljs-tag">&gt;</span>
+@code {
+    int zero = 0;
+}
+</code></pre>
+    <p class="normal">This is a <a id="_idIndexMarker270"></a>great <a id="_idIndexMarker271"></a>way to handle errors in the UI.</p>
+    <h1 id="_idParaDest-120" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we looked at more advanced scenarios for building components. Building components is what Blazor is all about. Components also make it easy to make changes along the way because there is only one point where you must implement the change. We also implemented our first reusable component, which will help maintain the same standard across the team and reduce duplicated code.</p>
+    <p class="normal">We also used some Blazor features to load and display data.</p>
+    <p class="normal">In the next chapter, we will look at forms and validation to start building the administration part of our blog.</p>
+  </div>
+</body>
+</html>

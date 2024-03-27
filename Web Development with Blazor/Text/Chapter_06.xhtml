@@ -1,0 +1,942 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_06</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_06" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer057" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">6</h1>
+    <h1 id="_idParaDest-121" class="chapterTitle">Building Forms with Validation</h1>
+    <p class="normal">In this chapter, we will learn about creating forms and validating them, which is an excellent opportunity to build our admin interface where we can manage our blog posts. We will also build multiple reusable components and learn about some of the new functionalities in Blazor.</p>
+    <p class="normal">This chapter will be super fun, and we will use a lot of the things we have learned up until now.</p>
+    <p class="normal">In this chapter, we will cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Exploring form elements</li>
+      <li class="bulletList">Adding validation</li>
+      <li class="bulletList">Custom validation class attributes</li>
+      <li class="bulletList">Looking at bindings</li>
+      <li class="bulletList">Building an admin interface</li>
+    </ul>
+    <h1 id="_idParaDest-122" class="heading-1">Technical requirements</h1>
+    <p class="normal">Make sure you have followed the previous chapters or use the <code class="inlineCode">Chapter05</code> folder as a starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter06"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter06</span></a>.</p>
+    <h1 id="_idParaDest-123" class="heading-1">Exploring form elements</h1>
+    <p class="normal">There are many <a id="_idIndexMarker272"></a>form elements in HTML, and we can use them all in Blazor. In the end, what Blazor will output is HTML.</p>
+    <p class="normal">Blazor does have components that will add to the functionality, so we can and should try to use those components instead of HTML elements. The built-in components will give us great functionality for free; we will return to this later in this chapter.</p>
+    <p class="normal">Blazor offers the following components:</p>
+    <pre class="programlisting code"><code class="hljs-code">EditForm
+InputBase&lt;&gt;
+InputCheckbox
+InputDate&lt;TValue&gt;
+InputNumber&lt;TValue&gt;
+InputSelect&lt;TValue&gt;
+InputText
+InputTextArea
+InputRadio
+InputRadioGroup
+ValidationMessage
+ValidationSummary
+</code></pre>
+    <p class="normal">Let’s go through them all in the next sections. </p>
+    <h2 id="_idParaDest-124" class="heading-2">EditForm</h2>
+    <p class="normal"><code class="inlineCode">EditForm</code> renders as <a id="_idIndexMarker273"></a>a <code class="inlineCode">form</code> tag, but it has a lot more functionalities.</p>
+    <p class="normal">First, we will not have an action or method like traditional <code class="inlineCode">form</code> tags; Blazor will handle all of that.</p>
+    <p class="normal"><code class="inlineCode">EditForm</code> will create an <code class="inlineCode">EditContext</code> instance as a cascading value so that all the components you put inside of <code class="inlineCode">EditForm</code> will access the same <code class="inlineCode">EditContext</code>. <code class="inlineCode">EditContext</code> will track the metadata regarding the editing process, such as what fields have been edited, and keep track of any validation messages.</p>
+    <p class="normal">You need to assign either a model (a class you wish to edit) or an <code class="inlineCode">EditContext</code> instance.</p>
+    <p class="normal">For most use cases, assigning a model is the way to go, but for more advanced scenarios, you might want to be able to trigger <code class="inlineCode">EditContext.Validate()</code>, for example, to validate all the controls connected to <code class="inlineCode">EditContext</code>.</p>
+    <p class="normal"><code class="inlineCode">EditForm</code> has the <a id="_idIndexMarker274"></a>following events that you can use to handle form submissions:</p>
+    <ul>
+      <li class="bulletList"><code class="inlineCode">OnValidSubmit</code> gets triggered when the data in the form validates correctly (we will come back to validation in just a bit).</li>
+      <li class="bulletList"><code class="inlineCode">OnInvalidSubmit</code> gets triggered if the form does not validate correctly.</li>
+      <li class="bulletList"><code class="inlineCode">OnSubmit</code> gets triggered when the form is submitted, regardless of whether the form validates correctly or not. Use <code class="inlineCode">OnSubmit</code> if you want to control the validation yourself.</li>
+    </ul>
+    <p class="normal">Let’s take a look at an example.</p>
+    <p class="normal">Consider a class that holds a person; the class has a name and an age for that person and looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> Age { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+}
+</code></pre>
+    <p class="normal"><code class="inlineCode">EditForm</code> for this class would look like this (without any other elements for now):</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">EditForm</span><span class="hljs-tag"> </span><span class="hljs-attr">Model</span><span class="hljs-tag">=</span><span class="hljs-string">"personmodel"</span><span class="hljs-tag"> </span><span class="hljs-attr">OnValidSubmit</span><span class="hljs-tag">=</span><span class="hljs-string">"validSubmit"</span><span class="hljs-tag">&gt;</span>
+    ...
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"submit"</span><span class="hljs-tag">&gt;</span>Submit<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">EditForm</span><span class="hljs-tag">&gt;</span>
+@code {
+    Person personmodel = <span class="hljs-keyword">new</span> Person();
+    <span class="hljs-keyword">private</span><span class="hljs-function"> Task </span><span class="hljs-title">validSubmit</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-comment">//Do database stuff</span>
+        <span class="hljs-keyword">return</span> Task.CompletedTask;
+    }
+}
+</code></pre>
+    <p class="normal"><code class="inlineCode">EditForm</code> specifies a <a id="_idIndexMarker275"></a>model (in this case, <code class="inlineCode">personmodel</code>), and we are listening to the <code class="inlineCode">OnValidSubmit</code> event.</p>
+    <p class="normal">The <code class="inlineCode">Submit</code> button is a regular HTML button that is not a specific Blazor component.</p>
+    <h2 id="_idParaDest-125" class="heading-2">InputBase&lt;&gt;</h2>
+    <p class="normal">All the Blazor input <a id="_idIndexMarker276"></a>classes derive from the <code class="inlineCode">InputBase</code> class. It has a bunch of things we can use for all the <code class="inlineCode">input</code> components; we will go through the most important ones.</p>
+    <p class="normal"><code class="inlineCode">InputBase</code> handles <code class="inlineCode">AdditionalAttributes</code>, which means that if we add any other attributes to the tag, they will automatically get transferred to the output. This means that the components derived from this class can leverage any HTML attributes since they will be part of the output.</p>
+    <p class="normal"><code class="inlineCode">InputBase</code> has properties for <code class="inlineCode">Value</code>, which we can bind to, and an event callback for when the value changes called <code class="inlineCode">ValueChanged</code>.</p>
+    <p class="normal">We can also change <code class="inlineCode">DisplayName</code> so that the automated validation messages will reflect the correct name and not the property’s name, which is the default behavior.</p>
+    <p class="normal">All controls do not support the <code class="inlineCode">DisplayName</code> property. Some properties are only used inside the component, and we will return to those in a bit.</p>
+    <h2 id="_idParaDest-126" class="heading-2">InputCheckbox</h2>
+    <p class="normal">The <code class="inlineCode">InputCheckbox</code> component<a id="_idIndexMarker277"></a> will render as <code class="inlineCode">&lt;input type="checkbox"&gt;</code>.</p>
+    <h2 id="_idParaDest-127" class="heading-2">InputDate&lt;TValue&gt;</h2>
+    <p class="normal">The <code class="inlineCode">InputDate</code> component will <a id="_idIndexMarker278"></a>render as <code class="inlineCode">&lt;input type="date"&gt;</code>. We can use <code class="inlineCode">DateTime</code> and <code class="inlineCode">DateTimeOffset</code> as values for the <code class="inlineCode">InputDate</code> component.</p>
+    <p class="normal">There is no way to format the date; it will use the web browser’s current setting. This behavior is by design and is part of the HTML5 spec.</p>
+    <h2 id="_idParaDest-128" class="heading-2">InputNumber&lt;TValue&gt;</h2>
+    <p class="normal">The <code class="inlineCode">InputNumber</code> component will<a id="_idIndexMarker279"></a> render as <code class="inlineCode">&lt;input type="number"&gt;</code>. We can use <code class="inlineCode">Int32</code>, <code class="inlineCode">Int64</code>, <code class="inlineCode">Single</code>, <code class="inlineCode">Double</code>, and <code class="inlineCode">Decimal</code> as values for the <code class="inlineCode">InputNumber</code> component.</p>
+    <h2 id="_idParaDest-129" class="heading-2">InputSelect&lt;TValue&gt;</h2>
+    <p class="normal">The <code class="inlineCode">InputSelect</code> component will render<a id="_idIndexMarker280"></a> as <code class="inlineCode">&lt;select&gt;</code>. We will create <code class="inlineCode">InputSelect</code> later in this chapter, so I won’t go into further detail here.</p>
+    <h2 id="_idParaDest-130" class="heading-2">InputText</h2>
+    <p class="normal">The <code class="inlineCode">InputText</code> component will<a id="_idIndexMarker281"></a> render as <code class="inlineCode">&lt;input type="text"&gt;</code>.</p>
+    <h2 id="_idParaDest-131" class="heading-2">InputTextArea</h2>
+    <p class="normal">The <code class="inlineCode">InputSelect</code> component will<a id="_idIndexMarker282"></a> render as <code class="inlineCode">&lt;textarea&gt;</code>. In this chapter, we will build our own version of this control.</p>
+    <h2 id="_idParaDest-132" class="heading-2">InputRadio</h2>
+    <p class="normal">The <code class="inlineCode">InputRadio</code> component<a id="_idIndexMarker283"></a> will render as <code class="inlineCode">&lt;input type="radio"&gt;</code>.</p>
+    <h2 id="_idParaDest-133" class="heading-2">InputRadioGroup</h2>
+    <p class="normal">The <code class="inlineCode">InputRadioGroup</code> component<a id="_idIndexMarker284"></a> will render as <code class="inlineCode">&lt;Input type="radio"&gt;</code>.</p>
+    <h2 id="_idParaDest-134" class="heading-2">InputFile</h2>
+    <p class="normal">The <code class="inlineCode">InputFile</code> component <a id="_idIndexMarker285"></a>will render as <code class="inlineCode">&lt;Input type="file"&gt;</code>. This component will make it easier to get the file data. It will supply us with a stream for each file’s content.</p>
+    <p class="normal">As we can see, there is a Blazor component for almost all the HTML form controls with some added functionality such as validation, which we will see in the next section.</p>
+    <h1 id="_idParaDest-135" class="heading-1">Adding validation</h1>
+    <p class="normal">We have already touched<a id="_idIndexMarker286"></a> on validation; there are some built-in functionalities in the <code class="inlineCode">input</code> components and <code class="inlineCode">EditForm</code> to handle validation.</p>
+    <p class="normal">One way to add validation to our form is to use <code class="inlineCode">DataAnnotations</code>. Using data annotations, we don’t have to write any custom logic to ensure the data in the form is correct; instead, we can add attributes to the data model and let <code class="inlineCode">DataAnnotationsValidator</code> take care of the rest.</p>
+    <p class="normal">There are a bunch of <code class="inlineCode">DataAnnotations</code> instances in .NET already that we can use; we can also build our own annotations.</p>
+    <p class="normal">Some of the built-in data annotations are as follows:</p>
+    <ul>
+      <li class="bulletList"><code class="inlineCode">Required</code>: Makes the field required.</li>
+      <li class="bulletList"><code class="inlineCode">Email</code>: Will check that the entered value is an email address.</li>
+      <li class="bulletList"><code class="inlineCode">MinLength</code>: Will check that the number of characters is not fewer than the value specified.</li>
+      <li class="bulletList"><code class="inlineCode">MaxLength</code>: Will check that the number of characters is not exceeded.</li>
+      <li class="bulletList"><code class="inlineCode">Range</code>: Will check that the value is within a specific range.</li>
+    </ul>
+    <p class="normal">There are <a id="_idIndexMarker287"></a>many more annotations that can help us validate our data. To test this out, let’s add data annotations to our data classes:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Data.Models</strong> project, open <code class="inlineCode">Models/BlogPost.cs</code>.</li>
+      <li class="numberedList">At the top of the file, add a <code class="inlineCode">using</code> statement for <code class="inlineCode">System.ComponentModel.DataAnnotations</code>:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> System.ComponentModel.DataAnnotations;
+</code></pre>
+      </li>
+      <li class="numberedList">Add the <code class="inlineCode">Required</code> and <code class="inlineCode">MinLength</code> attributes to the <code class="inlineCode">Title</code> property:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Required</span>]
+[<span class="hljs-meta">MinLength(5)</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Title { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+</code></pre>
+    <p class="normal">The <code class="inlineCode">Required</code> attribute will ensure we can’t leave the title empty, and <code class="inlineCode">MinLength</code> will make sure it has at least <code class="inlineCode">5</code> characters.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">Add the <code class="inlineCode">Required</code> attribute to the <code class="inlineCode">Text</code> property:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Required</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Text { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+</code></pre>
+    <p class="normal">The <code class="inlineCode">Required</code> attribute will ensure the <code class="inlineCode">Text</code> property cannot be empty, which makes sense – why would we create an empty blog post?</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Open <code class="inlineCode">Models/Category.cs</code>, and at the top of the file, add a <code class="inlineCode">using</code> statement for <code class="inlineCode">System.ComponentModel.DataAnnotations</code>.</li>
+      <li class="numberedList">Add the <code class="inlineCode">Required</code> attribute to the <code class="inlineCode">Name</code> property:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Required</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }=<span class="hljs-string">""</span>;
+</code></pre>
+    <p class="normal">The <code class="inlineCode">Required</code> attribute will make sure we can’t leave the name empty.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Open <code class="inlineCode">Models/Tag.cs</code>, and at the top of the file, add a <code class="inlineCode">using</code> statement for <code class="inlineCode">System.ComponentModel.DataAnnotations</code>.</li>
+      <li class="numberedList">Add the <code class="inlineCode">Required</code> attribute to the <code class="inlineCode">Name</code> property:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Required</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }=<span class="hljs-string">""</span>;
+</code></pre>
+    <p class="normal">The <code class="inlineCode">Required</code> attribute<a id="_idIndexMarker288"></a> will make sure we can’t leave the name empty.</p>
+      </li>
+    </ol>
+    <p class="normal">Great, now our data models have validation built into them. We need to give our users feedback on what went wrong with the validation.</p>
+    <p class="normal">We can do that by using the <code class="inlineCode">ValidationMessage</code> or <code class="inlineCode">ValidationSummary</code> components.</p>
+    <h2 id="_idParaDest-136" class="heading-2">ValidationMessage</h2>
+    <p class="normal">The <code class="inlineCode">ValidationMessage</code> component can show <a id="_idIndexMarker289"></a>us individual error messages for a specific property. We want to use this component to show validation errors under a form element.</p>
+    <p class="normal">To add a <code class="inlineCode">ValidationMessage</code> component, we have to specify the <code class="inlineCode">For</code> property with the name of the property we want to show the validation errors for:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ValidationMessage</span><span class="hljs-tag"> </span><span class="hljs-attr">For</span><span class="hljs-tag">=</span><span class="hljs-string">"@(() =&gt; model.Name)"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <h2 id="_idParaDest-137" class="heading-2">ValidationSummary</h2>
+    <p class="normal">The <code class="inlineCode">ValidationSummary</code> component will show <a id="_idIndexMarker290"></a>all the validation errors as a list for the entire <code class="inlineCode">EditContext</code>.</p>
+    <p class="normal">I prefer to show the error close to the problem so it’s apparent to the user where the issue is. But we also have the option to show the validation errors as a list using <code class="inlineCode">ValidationSummary</code>.</p>
+    <p class="normal">To ensure <a id="_idIndexMarker291"></a>our input controls match the Bootstrap theme (or whatever theme we might use), we can create our <strong class="keyWord">custom validation class</strong>.</p>
+    <h1 id="_idParaDest-138" class="heading-1">Custom validation class attributes</h1>
+    <p class="normal">By simply using the edit form, input<a id="_idIndexMarker292"></a> components, and <code class="inlineCode">DataAnnotationValidator</code>, the framework will automatically add classes to the components when it’s valid and not.</p>
+    <p class="normal">By default, these classes are <code class="inlineCode">.valid</code> and <code class="inlineCode">.invalid</code>. In .NET 5, we are given a way to customize these class names ourselves.</p>
+    <p class="normal">When using Bootstrap, the default class names are <code class="inlineCode">.is-valid</code> and <code class="inlineCode">.is-invalid</code> , and the class names must also have <code class="inlineCode">.form-control</code> to get the proper styles.</p>
+    <p class="normal">The next component we build will help us get the proper Bootstrap styling on all our form components.</p>
+    <p class="normal">We will create our own <code class="inlineCode">FieldCssClassProvider</code> to customize what classes Blazor will use:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, inside the <strong class="screenText">RazorComponents</strong> folder, add a new class called <code class="inlineCode">BootstrapFieldCssClassProvider.cs</code>.</li>
+      <li class="numberedList">Open the new class and add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.Forms;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Components</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BootstrapFieldCssClassProvider</span> : <span class="hljs-title">FieldCssClassProvider</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-built_in">string</span><span class="hljs-function"> </span><span class="hljs-title">GetFieldCssClass</span><span class="hljs-function">(</span><span class="hljs-params">EditContext editContext, </span><span class="hljs-keyword">in</span><span class="hljs-params"> FieldIdentifier fieldIdentifier</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">var</span> isValid = !editContext.GetValidationMessages(fieldIdentifier).Any();
+        <span class="hljs-keyword">var</span> isModified = editContext.IsModified(fieldIdentifier);
+        <span class="hljs-keyword">return</span> (isModified, isValid) <span class="hljs-keyword">switch</span>
+        {
+            (<span class="hljs-literal">true</span>, <span class="hljs-literal">true</span>) =&gt; <span class="hljs-string">"form-control modified is-valid"</span>,
+            (<span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>) =&gt; <span class="hljs-string">"form-control modified is-invalid"</span>,
+            (<span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>) =&gt; <span class="hljs-string">"form-control"</span>,
+            (<span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>) =&gt; <span class="hljs-string">"form-control"</span>
+        };
+    }
+}
+</code></pre>
+    <p class="normal"><code class="inlineCode">BootstrapFieldCssClassProvider</code> needs an <code class="inlineCode">EditContext</code> instance to work.</p>
+    <p class="normal">The <a id="_idIndexMarker293"></a>code will check whether the form (or <code class="inlineCode">EditContext</code> to be specific) is valid and whether or not it has been modified. Based on that, it returns the correct CSS classes.</p>
+    <p class="normal">It returns the form control for all elements; that way, we don’t have to add it to every element in the form. We could validate an untouched form as valid or invalid, but we don’t want it to show that the form is OK just because it hasn’t been changed yet.</p>
+    <p class="normal">Without the code we are about to build, we need to get the <code class="inlineCode">EditContext</code> instance from our <code class="inlineCode">EditForm</code> and then set <code class="inlineCode">FieldCssClassProvider</code> on <code class="inlineCode">EditContext</code> as follows:</p>
+    <pre class="programlisting code"><code class="hljs-code">CurrentEditContext.SetFieldCssClassProvider(provider);
+</code></pre>
+    <p class="normal">Next, we will do that more elegantly (in my humble opinion) with the <code class="inlineCode">CustomCssClassProvider</code> we will create next.</p>
+      </li>
+    </ol>
+    <p class="normal">Earlier in this chapter, I mentioned that <code class="inlineCode">EditForm</code> is exposing its <code class="inlineCode">EditContext</code> as <code class="inlineCode">CascadingValue</code>.</p>
+    <p class="normal">That means we will build a component that we can just put inside of our <code class="inlineCode">EditForm</code> and access <code class="inlineCode">EditContext</code> that way:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, inside the <strong class="screenText">RazorComponents</strong> folder, add a new class and name it <code class="inlineCode">CustomCssClassProvider.cs</code>.</li>
+      <li class="numberedList">Open the new file and replace the content with the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.Forms;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Components</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CustomCssClassProvider</span>&lt;<span class="hljs-title">ProviderType</span>&gt; : <span class="hljs-title">ComponentBase</span> <span class="hljs-keyword">where</span> <span class="hljs-title">ProviderType</span> : <span class="hljs-title">FieldCssClassProvider</span>, <span class="hljs-title">new</span>()
+{
+    [<span class="hljs-meta">CascadingParameter</span>]
+    EditContext? CurrentEditContext { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> ProviderType Provider { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-keyword">new</span> ProviderType();
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">OnInitialized</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">if</span> (CurrentEditContext == <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InvalidOperationException(<span class="hljs-string">$"</span><span class="hljs-subst">{</span><span class="hljs-keyword">nameof</span><span class="hljs-subst">(CustomCssClassProvider &lt;ProviderType&gt;)}</span><span class="hljs-string"> requires a cascading parameter of type </span><span class="hljs-subst">{</span><span class="hljs-keyword">nameof</span><span class="hljs-subst">(EditContext)}</span><span class="hljs-string">. For example, you can use </span><span class="hljs-subst">{</span><span class="hljs-keyword">nameof</span><span class="hljs-subst">(CustomCssClassProvider&lt;ProviderType&gt;)}</span><span class="hljs-string"> inside an EditForm."</span>);
+        }
+        CurrentEditContext.SetFieldCssClassProvider
+         (Provider);
+    }
+}
+</code></pre>
+    <p class="normal">This <a id="_idIndexMarker294"></a>generic component takes a <code class="inlineCode">type</code> value, in this case, the type of <code class="inlineCode">Provider</code>.</p>
+    <p class="normal">We specified that <code class="inlineCode">type</code> must inherit from <code class="inlineCode">FieldCssClassProvider</code> and must have a constructor without parameters.</p>
+    <p class="normal">The component inherits from <code class="inlineCode">ComponentBase</code>, which makes it possible to place the component inside a Blazor component.</p>
+    <p class="normal">In this case, we are writing our component with C# only, but it is not rendering anything.</p>
+    <p class="normal">We have a <code class="inlineCode">Cascading</code> parameter that will be populated from <code class="inlineCode">EditForm</code>. We throw an exception if <code class="inlineCode">EditContext</code> is missing for some reason (for example, if we place the component outside of <code class="inlineCode">EditForm</code>.</p>
+    <p class="normal">Finally, we set <code class="inlineCode">FieldCssClassProvider</code> on <code class="inlineCode">EditContext</code>.</p>
+      </li>
+    </ol>
+    <p class="normal">To use the component, we have to add the following code inside of our <code class="inlineCode">EditForm</code> (don’t worry, we will create an <code class="inlineCode">EditForm</code> soon):</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">CustomCssClassProvider</span><span class="hljs-tag"> </span><span class="hljs-attr">ProviderType</span><span class="hljs-tag">=</span><span class="hljs-string">"BootstrapFieldCssClassProvider"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <p class="normal">We provide our <code class="inlineCode">CustomCssClassProvider</code> component with the right <code class="inlineCode">ProviderType</code>: <code class="inlineCode">BootstrapFieldCssClassProvider</code>.</p>
+    <p class="normal">This is one way of implementing components, to help us encapsulate functionality. We could have written the code this way:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;EditForm Model=<span class="hljs-string">"personmodel"</span> @ref=<span class="hljs-string">"CurrentEditContext"</span>&gt;
+…
+&lt;/EditForm&gt;
+@code {
+    <span class="hljs-keyword">public</span> EditContext CurrentEditContext { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+    {
+        CurrentEditContext.SetFieldCssClassProvider(<span class="hljs-keyword">new</span> BootstrapFieldCssClassProvider())
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.OnInitializedAsync();
+    }
+}
+</code></pre>
+    <p class="normal">But<a id="_idIndexMarker295"></a> with the new <code class="inlineCode">CustomCssClassProvider</code> component, we can write the same thing like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">EditForm</span><span class="hljs-tag"> </span><span class="hljs-attr">Model</span><span class="hljs-tag">=</span><span class="hljs-string">"personmodel"</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">CustomCssClassProvider</span><span class="hljs-tag"> </span><span class="hljs-attr">ProviderType</span><span class="hljs-tag">=</span><span class="hljs-string">"BootstrapFieldCssClassProvider"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">EditForm</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">If we are doing something with an <code class="inlineCode">EditContext</code> we can always create a component like this since it is a <code class="inlineCode">cascading</code> parameter.</p>
+    <p class="normal">Now, we have a component that will make our form controls look like Bootstrap controls. Next, it’s time to put that into practice and create a couple of forms by building our admin interface.</p>
+    <h1 id="_idParaDest-139" class="heading-1">Looking at bindings</h1>
+    <p class="normal">In this chapter, we are using <a id="_idIndexMarker296"></a>bindings to bind data to our form controls. We briefly discussed bindings in <em class="chapterRef">Chapter 5</em>, <em class="italic">Creating Advanced Blazor Components</em>, but it’s time to dig deeper into bindings.</p>
+    <h2 id="_idParaDest-140" class="heading-2">Binding to HTML elements</h2>
+    <p class="normal">With HTML elements we can<a id="_idIndexMarker297"></a> use <code class="inlineCode">@bind</code> to bind to the element. We are not binding to a property; therefore, we don’t have to supply a name.</p>
+    <p class="normal">So if we are binding to a textbox, we would do it like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">input</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind</span><span class="hljs-tag">=</span><span class="hljs-string">"Variable"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <p class="normal"><code class="inlineCode">@bind</code> and <code class="inlineCode">@bind-value</code> both work and do the same thing. Note the lower <code class="inlineCode">v</code> in value.</p>
+    <p class="normal">By default, the value in the variable will change when we leave the textbox. But we can change that behavior by adding a <code class="inlineCode">@bind:event</code> attribute like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">input</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind</span><span class="hljs-tag">=</span><span class="hljs-string">"Variable"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind:event</span><span class="hljs-tag">=</span><span class="hljs-string">"oninput"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <p class="normal">We can even take full control over what is happening by using the <code class="inlineCode">@bind:get</code> and <code class="inlineCode">@bind:set</code> attributes like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">input</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind:get</span><span class="hljs-tag">=</span><span class="hljs-string">"SomeText"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind:set</span><span class="hljs-tag">=</span><span class="hljs-string">"SetAsync"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">These are doing the same thing as <code class="inlineCode">@bind</code>, so we can’t use them together with <code class="inlineCode">@bind</code>. The <code class="inlineCode">@bind:set</code> attribute has another nice feature. We can run asynchronous methods when we set a value.</p>
+    <p class="normal">There is also a way for us to run a method after the value is set by using <code class="inlineCode">@bind:after</code> like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">input</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind</span><span class="hljs-tag">=</span><span class="hljs-string">"SomeText"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind:after</span><span class="hljs-tag">=</span><span class="hljs-string">"AfterAsync"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">This gives us great flexibility when it comes to binding to HTML elements.</p>
+    <p class="normal">On top of that, we can also set the culture using <code class="inlineCode">@bind:culture</code>. Both date and number fields use invariant culture and will use the appropriate browser formatting, but if we use a text field, we can change the behavior like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">input</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind</span><span class="hljs-tag">=</span><span class="hljs-string">"SomeNumber"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind:culture</span><span class="hljs-tag">=</span><span class="hljs-string">"GBCulture"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">Lastly, we can set the format using <code class="inlineCode">@bind:format</code>. This is only implemented for <code class="inlineCode">DateTime</code> at his point:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">input</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind</span><span class="hljs-tag">=</span><span class="hljs-string">"SomeDate"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind:format</span><span class="hljs-tag">=</span><span class="hljs-string">"MM/dd/yyyy"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">input</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind</span><span class="hljs-tag">=</span><span class="hljs-string">"SomeDate"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind:format</span><span class="hljs-tag">=</span><span class="hljs-string">"yyyy-MM-dd"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">We now know how we can bind to HTML elements. Next, we will take a look at binding to components.</p>
+    <h2 id="_idParaDest-141" class="heading-2">Binding to components</h2>
+    <p class="normal">When binding to components <code class="inlineCode">Get</code>, <code class="inlineCode">Set</code>, and <code class="inlineCode">After</code> will also work. <code class="inlineCode">Culture</code>, <code class="inlineCode">Event</code>, and <code class="inlineCode">Format</code> will work on some <a id="_idIndexMarker298"></a>components.</p>
+    <p class="normal">When binding to a component, we use <code class="inlineCode">@bind-{ParameterName}</code>, so for the parameter <code class="inlineCode">Value</code> it would look like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">In the background, <code class="inlineCode">@bind-Value</code> will affect two other parameters, <code class="inlineCode">ValueExpression</code> and <code class="inlineCode">ValueChanged</code>. This means you will not be able to set them manually if you use <code class="inlineCode">@bind-Value</code>. When we change the value, <code class="inlineCode">ValueChanged</code> will get triggered, and we can listen to the event and make things happen when it changes.</p>
+    <p class="normal">We can also use <code class="inlineCode">Get</code> and <code class="inlineCode">Set</code> like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:get</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:set</span><span class="hljs-tag">=</span><span class="hljs-string">"(value) =&gt; {text=value; }"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:get</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:set</span><span class="hljs-tag">=</span><span class="hljs-string">"Set"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:get</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:set</span><span class="hljs-tag">=</span><span class="hljs-string">"SetAsync"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">We must always supply both a <code class="inlineCode">Get</code> and a <code class="inlineCode">Set</code>. These samples use <code class="inlineCode">InputText</code>, a built-in Blazor component, but this concept works with any parameter on any component. The same thing goes for <code class="inlineCode">After</code>. It can be used with any component like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:after</span><span class="hljs-tag">=</span><span class="hljs-string">"() =&gt; { }"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:after</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">After"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value:after</span><span class="hljs-tag">=</span><span class="hljs-string">"AfterAsync"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">We have access to some nice binding features, and they work when binding to components as well as HTML elements.</p>
+    <p class="normal">Next, we will build an admin interface using bindings.</p>
+    <h1 id="_idParaDest-142" class="heading-1">Building an admin interface</h1>
+    <p class="normal">Now it’s time to build a <a id="_idIndexMarker299"></a>simple admin interface for our blog.</p>
+    <p class="normal">We need to be able to do the following:</p>
+    <ul>
+      <li class="bulletList">List categories</li>
+      <li class="bulletList">Edit categories</li>
+      <li class="bulletList">List tags</li>
+      <li class="bulletList">Edit tags</li>
+      <li class="bulletList">List blog posts</li>
+      <li class="bulletList">Edit blog posts</li>
+    </ul>
+    <p class="normal">If we look at the preceding list, we might notice that some of the things seem similar – perhaps we can build components for those. Categories and tags are very similar; they have names, and the name is the only thing we should be able to edit.</p>
+    <p class="normal">Let’s make a component for that. The component is going to be responsible for listing, adding, deleting, and updating the object.</p>
+    <p class="normal">Since the object we are working with is either <code class="inlineCode">Category</code> or <code class="inlineCode">Tag</code>, we need to be able to call different <a id="_idIndexMarker300"></a>APIs depending on the object, so our component needs to be generic:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, in the <strong class="screenText">RazorComponents</strong> folder, add a new Razor component and call it <code class="inlineCode">ItemList.razor</code>.</li>
+      <li class="numberedList">Open the newly created file and at the top of the file, add:
+        <pre class="programlisting code"><code class="hljs-code">@typeparam ItemType
+</code></pre>
+    <p class="normal"><code class="inlineCode">@typeparam</code> is to make the component generic, and the variable holding the generic type is called <code class="inlineCode">ItemType</code>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">In the <code class="inlineCode">code</code> section, add the following lines of code:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Parameter</span>]
+<span class="hljs-keyword">public</span> List&lt;ItemType&gt; Items { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-keyword">new</span>();
+[<span class="hljs-meta">Parameter, EditorRequired</span>]
+    <span class="hljs-keyword">public</span> required RenderFragment&lt;ItemType&gt; ItemTemplate { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+      </li>
+      <li class="numberedList">We need two parameters: a list where we can add all the items and an <code class="inlineCode">ItemTemplate</code> instance that we can use to change how we want the item to be shown.
+    <p class="normal">In this case, we are using <code class="inlineCode">RenderFragment&lt;T&gt;</code>, which will give us access to the item inside the template (things will become clearer as soon as we implement it).</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">We also need a couple of events; add the following code to the <code class="inlineCode">code</code> section:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Parameter</span>]
+<span class="hljs-keyword">public</span> EventCallback&lt;ItemType&gt; DeleteEvent { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+[<span class="hljs-meta">Parameter</span>]
+<span class="hljs-keyword">public</span> EventCallback&lt;ItemType&gt; SelectEvent { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">We added two events; the first is when we delete a tag or a category. We will send an event to the parent component where we can add the code needed to delete the item.</p>
+    <p class="normal">The second one is when we select an item so that we can edit the item.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Now it’s <a id="_idIndexMarker301"></a>time to add the UI; replace the top of the file below the <code class="inlineCode">@typeparam</code> to the code tag with:
+        <pre class="programlisting code"><code class="hljs-code">@using System.Collections.Generic
+<span class="hljs-tag">&lt;</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>List<span class="hljs-tag">&lt;/</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">table</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Virtualize</span><span class="hljs-tag"> </span><span class="hljs-attr">Items</span><span class="hljs-tag">=</span><span class="hljs-string">"@Items"</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">"item"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">tr</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-primary"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"@(()=&gt; {SelectEvent.InvokeAsync(item); })"</span><span class="hljs-tag">&gt;</span> Select<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>@ItemTemplate(item)<span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-danger"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"@(()=&gt; {DeleteEvent.InvokeAsync(item);})"</span><span class="hljs-tag">&gt;</span> Delete<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">tr</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Virtualize</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">table</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">If we look back to <em class="italic">Step 3</em>, we’ll notice that we used the variable for the lists and <code class="inlineCode">RenderFragment</code>.</p>
+    <p class="normal">Then, we <a id="_idIndexMarker302"></a>use the new <code class="inlineCode">Virtualize</code> component to list our items; to be fair, we might not have that many categories or tags, but why not use it when we can? We set the <code class="inlineCode">Items</code> property to <code class="inlineCode">"Items"</code> (which is the name of our list) and the <code class="inlineCode">Context</code> parameter to <code class="inlineCode">"item"</code>.</p>
+    <p class="normal">We can give it whatever name we want; we’re only going to use it inside of the <code class="inlineCode">Virtualize</code> render template.</p>
+    <p class="normal">We added two buttons that simply invoke the <code class="inlineCode">EventCallback</code> instance we added in <em class="italic">Step 4</em>. Between those buttons, we added <code class="inlineCode">@ItemTemplate(item)</code>; we want Blazor <a id="_idIndexMarker303"></a>to render the template, but we also send the current item in the loop.</p>
+      </li>
+    </ol>
+    <p class="normal">That means we have access to the item’s value inside our template.</p>
+    <h2 id="_idParaDest-143" class="heading-2">Listing and editing categories</h2>
+    <p class="normal">With our new <a id="_idIndexMarker304"></a>component, it’s now time to create a component for listing and editing our categories:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, right-click on the <strong class="screenText">Pages</strong> folder, select <strong class="screenText">Add</strong> | <strong class="screenText">New folder</strong>, and name the folder <code class="inlineCode">Admin</code>.</li>
+      <li class="numberedList">In the <strong class="screenText">Pages/Admin</strong> folder, add a new Razor component and name it <code class="inlineCode">CategoryList.razor</code>.</li>
+      <li class="numberedList">At the top of the component, replace <code class="inlineCode">&lt;h3&gt;CategoryList&lt;/h3&gt;</code> with the following code:
+        <pre class="programlisting code"><code class="hljs-code">@page "/admin/categories"
+@using Components.RazorComponents 
+@inject IBlogApi _api
+<span class="hljs-tag">&lt;</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>Categories<span class="hljs-tag">&lt;/</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We started with the <code class="inlineCode">@page</code> directive, telling Blazor that if we navigate to the URL <code class="inlineCode">"admin/categories"</code>, we will get to the <code class="inlineCode">CategoryList.Razor</code> component.</p>
+    <p class="normal">We will add a <code class="inlineCode">using</code> statement and then inject our API.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">The next step is adding a form to edit the categories. Add the following code under the code from the previous step:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">EditForm</span><span class="hljs-tag"> </span><span class="hljs-attr">OnValidSubmit</span><span class="hljs-tag">=</span><span class="hljs-string">"Save"</span><span class="hljs-tag"> </span><span class="hljs-attr">Model</span><span class="hljs-tag">=</span><span class="hljs-string">"Item"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">DataAnnotationsValidator</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">CustomCssClassProvider</span><span class="hljs-tag"> </span><span class="hljs-attr">ProviderType</span><span class="hljs-tag">=</span><span class="hljs-string">"BootstrapFieldCssClassProvider"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"@Item.Name"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ValidationMessage</span><span class="hljs-tag"> </span><span class="hljs-attr">For</span><span class="hljs-tag">=</span><span class="hljs-string">"@(()=&gt;Item.Name)"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-success"</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"submit"</span><span class="hljs-tag">&gt;</span>Save<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">EditForm</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We added <code class="inlineCode">EditForm</code>, which will execute the <code class="inlineCode">Save</code> method if the form validates OK. For validation, we added <code class="inlineCode">DataAnnotationsValidator</code>, which will validate the supplied data against the annotations we added to the <code class="inlineCode">Tag</code> and <code class="inlineCode">Category</code> classes.</p>
+    <p class="normal">Since we are using Bootstrap, we want our form controls to look the same, so we added <code class="inlineCode">CustomCssClassProvider</code>, which we created earlier in this chapter.</p>
+    <p class="normal">We added <code class="inlineCode">InputText</code> and connected it to a <code class="inlineCode">Category</code> object called <code class="inlineCode">Item</code> (which we will add in just a second).</p>
+    <p class="normal">Below that, we added <code class="inlineCode">ValidationMessage</code>, which will show any errors for the <code class="inlineCode">name</code> property, and then a <code class="inlineCode">Submit</code> button.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Now it’s time to <a id="_idIndexMarker305"></a>add our <code class="inlineCode">ItemList</code> component; under the code we added in the previous step, add this code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ItemList</span><span class="hljs-tag"> </span><span class="hljs-attr">Items</span><span class="hljs-tag">=</span><span class="hljs-string">"Items"</span><span class="hljs-tag"> </span><span class="hljs-attr">DeleteEvent</span><span class="hljs-tag">=</span><span class="hljs-string">"@Delete"</span><span class="hljs-tag"> </span><span class="hljs-attr">SelectEvent</span><span class="hljs-tag">=</span><span class="hljs-string">"@Select"</span><span class="hljs-tag"> </span><span class="hljs-attr">ItemType</span><span class="hljs-tag">=</span><span class="hljs-string">"Category"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ItemTemplate</span><span class="hljs-tag">&gt;</span>
+        @{
+            var item = context as Category;
+            if (item != null)
+            {
+                @item.Name
+            }
+        }
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ItemTemplate</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ItemList</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We added our component, and we bind the <code class="inlineCode">Items</code> property to a list of items (we will create that list in the next step).</p>
+    <p class="normal">We bind the <code class="inlineCode">Select</code> and <code class="inlineCode">Delete</code> events to methods and we specify the type of the list in the <code class="inlineCode">ItemType</code> property. Then, we have <code class="inlineCode">ItemTemplate</code>. Since we are using <code class="inlineCode">RenderFragment&lt;T&gt;</code>, we now have access to a variable called <code class="inlineCode">context</code>.</p>
+    <p class="normal">We convert that variable to a category and print out the name of the category. This is the template for each item that will be shown on the list.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Finally, we<a id="_idIndexMarker306"></a> add the following code to the <code class="inlineCode">code</code> section:
+        <pre class="programlisting code"><code class="hljs-code">@code {
+    <span class="hljs-keyword">private</span> List&lt;Category&gt; Items { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-keyword">new</span>();
+    <span class="hljs-keyword">public</span> Category Item { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-keyword">new</span>();
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+    {
+        Items = (<span class="hljs-keyword">await</span> _api.GetCategoriesAsync()) ?? <span class="hljs-keyword">new</span>();
+        <span class="hljs-keyword">await</span> <span class="hljs-keyword">base</span>.OnInitializedAsync();
+    }
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">Delete</span><span class="hljs-function">(</span><span class="hljs-params">Category category</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">try</span>
+        {
+            <span class="hljs-keyword">await</span> _api.DeleteCategoryAsync(category.Id!);
+            Items.Remove(category);
+        }
+        <span class="hljs-keyword">catch</span> { }
+    }
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">Save</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">try</span>
+        {
+            <span class="hljs-keyword">await</span> _api.SaveCategoryAsync(Item);
+            <span class="hljs-keyword">if</span> (!Items.Contains(Item))
+            {
+                Items.Add(Item);
+            }
+            Item = <span class="hljs-keyword">new</span> Category();
+        }
+        <span class="hljs-keyword">catch</span> { }
+    }
+    <span class="hljs-keyword">private</span><span class="hljs-function"> Task </span><span class="hljs-title">Select</span><span class="hljs-function">(</span><span class="hljs-params">Category category</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">try</span>
+        {
+            Item = category;
+        }
+        <span class="hljs-keyword">catch</span> { }
+        <span class="hljs-keyword">return</span> Task.CompletedTask;
+    }
+}
+</code></pre>
+    <p class="normal">We added a list to hold all our categories and a variable that holds one item (the item currently being edited). We use <code class="inlineCode">OnInitializedAsync</code> to load all the categories from the API.</p>
+    <p class="normal">The <code class="inlineCode">Delete</code> and <code class="inlineCode">Save</code> methods call the API’s corresponding method, and the <code class="inlineCode">Select</code> method takes the provided item and puts it into the item variable (ready to be edited).</p>
+    <p class="normal">We check if <a id="_idIndexMarker307"></a>we already have the item in the list before we add it to the list. This is because in the Blazor Server version it will be added automatically (cached), and in the Blazor WebAssembly version, it will not be added automatically.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Run the project (<code class="inlineCode">BlazorServer</code>) and navigate to <code class="inlineCode">/admin/categories</code>.</li>
+      <li class="numberedList">Try to add, edit, and delete a category, as shown in <em class="italic">Figure 6.1</em>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18549_06_01.png" alt="Figure 6.1 – The edit category view "/></figure>
+    <p class="packt_figref">Figure 6.1: The edit category view</p>
+    <p class="normal">Now we need a component for listing and editing tags as well – it is pretty much the same thing, but we need to use <code class="inlineCode">Tag</code> instead of <code class="inlineCode">Category</code>.</p>
+    <h2 id="_idParaDest-144" class="heading-2">Listing and editing tags</h2>
+    <p class="normal">We just created a <a id="_idIndexMarker308"></a>component for listing and editing categories, now we need to create a component to list and edit tags:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Pages/Admin</strong> folder, add a new Razor component called <code class="inlineCode">TagList.razor</code>.</li>
+      <li class="numberedList">At the top of the component, replace <code class="inlineCode">&lt;h3&gt;TagList&lt;/h3&gt;</code> with the following code:
+        <pre class="programlisting code"><code class="hljs-code">@page "/admin/tags"
+@using Components.RazorComponents
+@inject IBlogApi _api
+<span class="hljs-tag">&lt;</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>Tags<span class="hljs-tag">&lt;/</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We started with the <code class="inlineCode">@page</code> directive telling Blazor that if we navigate to the URL <code class="inlineCode">"admin/tags"</code>, we will get to the <code class="inlineCode">TagList.Razor</code> component.</p>
+    <p class="normal">We add a <code class="inlineCode">using</code> statement and then inject our API.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">The next step is adding a form to edit the tags. Add the following code under the code from the previous step:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">EditForm</span><span class="hljs-tag"> </span><span class="hljs-attr">OnValidSubmit</span><span class="hljs-tag">=</span><span class="hljs-string">"Save"</span><span class="hljs-tag"> </span><span class="hljs-attr">Model</span><span class="hljs-tag">=</span><span class="hljs-string">"Item"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">DataAnnotationsValidator</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">CustomCssClassProvider</span>
+<span class="hljs-tag">      </span><span class="hljs-attr">ProviderType</span><span class="hljs-tag">=</span><span class="hljs-string">"BootstrapFieldCssClassProvider"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"@Item.Name"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ValidationMessage</span><span class="hljs-tag"> </span><span class="hljs-attr">For</span><span class="hljs-tag">=</span><span class="hljs-string">"@(()=&gt;Item.Name)"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-success"</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"submit"</span><span class="hljs-tag">&gt;</span>Save<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">EditForm</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We added <code class="inlineCode">EditForm</code>, which will execute the <code class="inlineCode">Save</code> method if the form validates OK. For validation, we added <code class="inlineCode">DataAnnotationsValidator</code>, which will validate the supplied data against the annotations we added to the <code class="inlineCode">Tag</code> and <code class="inlineCode">Category</code> classes.</p>
+    <p class="normal">Since we are using Bootstrap, we want our form controls to look the same, so we added <code class="inlineCode">CustomCssClassProvider</code>, which we created earlier in this chapter.</p>
+    <p class="normal">We added <code class="inlineCode">InputText</code> and connected it to a <code class="inlineCode">Tag</code> object called <code class="inlineCode">Item</code> (which we will add in a moment).</p>
+    <p class="normal">Below, we add a <code class="inlineCode">ValidationMessage</code> instance that will show any errors for the <code class="inlineCode">name</code> property and then a <code class="inlineCode">Submit</code> button.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">Now it’s<a id="_idIndexMarker309"></a> time to add our <code class="inlineCode">ItemList</code> component. Under the code we added in the previous step, add this code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ItemList</span><span class="hljs-tag"> </span><span class="hljs-attr">Items</span><span class="hljs-tag">=</span><span class="hljs-string">"Items"</span><span class="hljs-tag"> </span><span class="hljs-attr">DeleteEvent</span><span class="hljs-tag">=</span><span class="hljs-string">"@Delete"</span><span class="hljs-tag"> </span><span class="hljs-attr">SelectEvent</span><span class="hljs-tag">=</span><span class="hljs-string">"@Select"</span><span class="hljs-tag"> </span><span class="hljs-attr">ItemType</span><span class="hljs-tag">=</span><span class="hljs-string">"Tag"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ItemTemplate</span><span class="hljs-tag">&gt;</span>
+        @{
+            var item = context as Tag;
+            if (item != null)
+            {
+                @item.Name
+            }
+        }
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ItemTemplate</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ItemList</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We added our component and bound the <code class="inlineCode">Items</code> property to a list of items (we will create that list in the next step). We bind the <code class="inlineCode">Select</code> and <code class="inlineCode">Delete</code> events to methods and specify the <code class="inlineCode">List</code> type in the <code class="inlineCode">ItemType</code> property.</p>
+    <p class="normal">Then we have <code class="inlineCode">ItemTemplate</code>; since we are using <code class="inlineCode">RenderFragment&lt;T&gt;</code>, we now have access to a variable called <code class="inlineCode">context</code>. We convert that variable to a tag and print out the tag’s name.</p>
+    <p class="normal">This is the template for each item shown in the list.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Finally, we add the following code under the <code class="inlineCode">code</code> section:
+        <pre class="programlisting code"><code class="hljs-code">@code {
+    <span class="hljs-keyword">private</span> List&lt;Tag&gt; Items { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-keyword">new</span> List&lt;Tag&gt;();
+    <span class="hljs-keyword">public</span> Tag Item { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-keyword">new</span> Tag();
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+    {
+        Items = (<span class="hljs-keyword">await</span> _api.GetTagsAsync())??<span class="hljs-keyword">new</span>();
+        <span class="hljs-keyword">await</span> <span class="hljs-keyword">base</span>.OnInitializedAsync();
+    }
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">Delete</span><span class="hljs-function">(</span><span class="hljs-params">Tag tag</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">try</span>
+        {
+            <span class="hljs-keyword">await</span> _api.DeleteTagAsync(tag.Id!);
+            Items.Remove(tag);
+        }
+        <span class="hljs-keyword">catch</span> { }
+    }
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">Save</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">try</span>
+        {
+            <span class="hljs-keyword">await</span> _api.SaveTagAsync(Item);
+            <span class="hljs-keyword">if</span> (!Items.Contains(Item))
+            {
+                Items.Add(Item);
+            }
+            Item = <span class="hljs-keyword">new</span> Tag();
+        }
+        <span class="hljs-keyword">catch</span> { }
+    }
+    <span class="hljs-keyword">private</span><span class="hljs-function"> Task </span><span class="hljs-title">Select</span><span class="hljs-function">(</span><span class="hljs-params">Tag tag</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">try</span>
+        {
+            Item = tag;
+        }
+        <span class="hljs-keyword">catch</span> { }
+        <span class="hljs-keyword">return</span> Task.CompletedTask;
+    }
+}
+</code></pre>
+    <p class="normal">We added<a id="_idIndexMarker310"></a> a list to hold all our tags and a variable that holds one item (the item currently being edited). We use <code class="inlineCode">OnInitializedAsync</code> to load all the tags from the API.</p>
+    <p class="normal">The <code class="inlineCode">Delete</code> and <code class="inlineCode">Save</code> methods call the API’s corresponding method and the <code class="inlineCode">Select</code> method takes the provided item and puts it into the <code class="inlineCode">Item</code> variable (ready to be edited).</p>
+    <p class="normal">We check if we already have the item in the list before we add it to the list. This is because in the Blazor Server version, it will be added automatically (cached), and in the Blazor WebAssembly version, it will not be added automatically.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Run the <a id="_idIndexMarker311"></a>project and navigate to <code class="inlineCode">/admin/tags</code>.</li>
+      <li class="numberedList">Try to add, edit, and delete a tag, as shown in <em class="italic">Figure 6.2</em>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18549_06_02.png" alt="Figure 6.2 – The edit tag view "/></figure>
+    <p class="packt_figref">Figure 6.2: The edit tag view</p>
+    <p class="normal">Now we only have two things left: we need ways to list and edit blog posts.</p>
+    <h2 id="_idParaDest-145" class="heading-2">Listing and editing blog posts</h2>
+    <p class="normal">Let’s start with <a id="_idIndexMarker312"></a>listing and editing blog posts:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Pages/Admin</strong> folder, add a new Razor component called <code class="inlineCode">BlogPostList.razor</code>.</li>
+      <li class="numberedList">At the top of the <code class="inlineCode">BlogPostList.razor</code> file, replace <code class="inlineCode">&lt;h3&gt;BlogPostList&lt;/h3&gt;</code> with the following code:
+        <pre class="programlisting code"><code class="hljs-code">@page "/admin/blogposts"
+@inject IBlogApi _api
+<span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"/admin/blogposts/new"</span><span class="hljs-tag">&gt;</span>New blog post<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Virtualize</span><span class="hljs-tag"> </span><span class="hljs-attr">ItemsProvider</span><span class="hljs-tag">=</span><span class="hljs-string">"LoadPosts"</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">"p"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>@p.PublishDate
+         <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"/admin/blogposts/@p.Id"</span><span class="hljs-tag">&gt;</span>@p.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Virtualize</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We added a page directive, injected our API, and listed the blog posts using the <code class="inlineCode">Virtualize</code> component.</p>
+    <p class="normal">We also linked the posts to a URL with the <code class="inlineCode">Id</code> instance of the blog.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Replace<a id="_idIndexMarker313"></a> the <code class="inlineCode">code</code> section with the following code:
+        <pre class="programlisting code"><code class="hljs-code">@code {
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> TotalBlogposts { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">async</span> ValueTask&lt;ItemsProviderResult&lt;BlogPost&gt;&gt; LoadPosts(ItemsProviderRequest request)
+    {
+        <span class="hljs-keyword">if</span> (TotalBlogposts == <span class="hljs-number">0</span>)
+        {
+            TotalBlogposts = <span class="hljs-keyword">await</span>
+              _api.GetBlogPostCountAsync();
+        }
+        <span class="hljs-keyword">var</span> numblogposts = Math.Min(request.Count, TotalBlogposts - request.StartIndex);
+        List&lt;BlogPost&gt; posts = (<span class="hljs-keyword">await</span> _api.GetBlogPostsAsync (numblogposts, request.StartIndex))??<span class="hljs-keyword">new</span>();
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ItemsProviderResult&lt;BlogPost&gt; (posts, TotalBlogposts);
+    }
+}
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">We added a method that can load posts from the database. This code is identical to the code we have on our <strong class="screenText">Index</strong> page. Now there is only one thing left in the chapter: adding the page where we can edit the blog post.</p>
+    <p class="normal">A very <a id="_idIndexMarker314"></a>popular way of writing blog posts is using Markdown; our blog engine will support that. Since Blazor supports any .NET Standard DLLs, we will add an existing library called <code class="inlineCode">Markdig</code>.</p>
+    <p class="normal">This is the same engine that Microsoft uses for their <code class="inlineCode">docs</code> site.</p>
+    <p class="normal">We can extend <code class="inlineCode">Markdig</code> with different extensions (as Microsoft has done), but let’s keep this simple and only add support for Markdown without all the fancy extensions:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Under the <strong class="screenText">Components</strong> project, right-click on the <strong class="screenText">Dependencies</strong> node in the Solution Explorer and select <strong class="screenText">Manage NuGet Packages</strong>.</li>
+      <li class="numberedList">Search for <code class="inlineCode">Markdig</code> and click <strong class="screenText">Install</strong>.</li>
+      <li class="numberedList">Right-click on the <strong class="screenText">RazorComponents</strong> folder and select <strong class="screenText">Add</strong> | <strong class="screenText">Class</strong>, then name the component <code class="inlineCode">InputTextAreaOnInput.cs</code>.</li>
+      <li class="numberedList">Open the new file and replace its contents with the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> System.Diagnostics.CodeAnalysis;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.Rendering;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Microsoft.AspNetCore.Components.Forms</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">InputTextAreaOnInput</span> :
+     <span class="hljs-title">InputBase</span>&lt;<span class="hljs-title">string</span>?&gt;
+    {
+        <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">BuildRenderTree</span><span class="hljs-function">(</span><span class="hljs-params">RenderTreeBuilder builder</span><span class="hljs-function">)</span>
+        {
+            builder.OpenElement(<span class="hljs-number">0</span>, <span class="hljs-string">"</span><span class="hljs-string">textarea"</span>);
+            builder.AddMultipleAttributes(<span class="hljs-number">1</span>, AdditionalAttributes);
+            builder.AddAttribute(<span class="hljs-number">2</span>, <span class="hljs-string">"class"</span>, CssClass);
+            builder.AddAttribute(<span class="hljs-number">3</span>, <span class="hljs-string">"value"</span>, BindConverter.FormatValue(CurrentValue));
+            builder.AddAttribute(<span class="hljs-number">4</span>, <span class="hljs-string">"oninput"</span>, EventCallback.Factory.CreateBinder &lt;<span class="hljs-built_in">string</span>?&gt;(<span class="hljs-keyword">this</span>, __value =&gt; CurrentValueAsString = __value, CurrentValueAsString));
+            builder.CloseElement();
+        }
+        <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-built_in">bool</span><span class="hljs-function"> </span><span class="hljs-title">TryParseValueFromString</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params">? </span><span class="hljs-keyword">value</span><span class="hljs-params">, </span><span class="hljs-keyword">out</span><span class="hljs-params"> </span><span class="hljs-built_in">string</span><span class="hljs-params">? result, [NotNullWhen(</span><span class="hljs-literal">false</span><span class="hljs-function">)] </span><span class="hljs-keyword">out</span><span class="hljs-function"> </span><span class="hljs-built_in">string</span><span class="hljs-function">? validationErrorMessage)</span>
+        {
+            result = <span class="hljs-keyword">value</span>;
+            validationErrorMessage = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+    }
+</code></pre>
+    <p class="normal">The preceding code is taken from Microsoft’s GitHub repository; it is how they implement the <code class="inlineCode">InputTextArea</code> component.</p>
+    <p class="normal">In their <a id="_idIndexMarker315"></a>build system, they can’t handle <code class="inlineCode">.razor</code> files, so that’s why they implement the code this way. I made one change in Microsoft’s code, and that is <code class="inlineCode">oninput</code>, which used to say <code class="inlineCode">OnChange</code>.</p>
+    <p class="normal">For most cases, <code class="inlineCode">OnChange</code> will be just fine, which means when I leave the textbox, the value will be updated (and trigger validations). But in our case, we want the preview of the HTML to be updated in real time, which is why we had to implement our own.</p>
+    <p class="normal">One option could have been not to use the <code class="inlineCode">InputTextArea</code> component and instead use the <code class="inlineCode">TextArea</code> tag, but we would lose the validation highlighting. This is the way to go if we ever need to customize the behavior on an input control.</p>
+    <p class="normal">I recommend using <code class="inlineCode">.razor</code> files over <code class="inlineCode">.cs</code> files if you make many changes to the implementation.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">In the <strong class="screenText">Pages/Admin</strong> folder, add a new Razor component called <code class="inlineCode">BlogPostEdit.razor</code>.</li>
+      <li class="numberedList">At the top of the <code class="inlineCode">BlogPostEdit.razor</code> file, replace <code class="inlineCode">&lt;h3&gt;BlogPostEdit&lt;/h3&gt;</code> with the following code:
+        <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/admin/blogposts/new"</span>
+@page <span class="hljs-string">"/admin/blogposts/{Id}"</span>
+@inject IBlogApi _api
+@inject NavigationManager _manager
+@using Components.RazorComponents
+@using Markdig;
+</code></pre>
+    <p class="normal">We add two different <code class="inlineCode">page</code> directives because we want to be able to create a new blog post as well as supply an ID to edit an already existing one. If we do not supply an ID, the <code class="inlineCode">Id</code> parameter will be null (or the default).</p>
+    <p class="normal">We inject our API and <code class="inlineCode">NavigationManager</code> as well as adding <code class="inlineCode">using</code> statements.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Now we need to add the form; add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">EditForm</span><span class="hljs-tag"> </span><span class="hljs-attr">Model</span><span class="hljs-tag">=</span><span class="hljs-string">"Post"</span><span class="hljs-tag"> </span><span class="hljs-attr">OnValidSubmit</span><span class="hljs-tag">=</span><span class="hljs-string">"SavePost"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">DataAnnotationsValidator</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">CustomCssClassProvider</span><span class="hljs-tag"> </span><span class="hljs-attr">ProviderType</span><span class="hljs-tag">=</span><span class="hljs-string">"BootstrapFieldCssClassProvider"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">InputText</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"Post.Title"</span><span class="hljs-tag">/&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ValidationMessage</span><span class="hljs-tag"> </span><span class="hljs-attr">For</span><span class="hljs-tag">=</span><span class="hljs-string">"()=&gt;Post.Title"</span><span class="hljs-tag">/&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">InputDate</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"Post.PublishDate"</span><span class="hljs-tag">/&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ValidationMessage</span><span class="hljs-tag"> </span><span class="hljs-attr">For</span><span class="hljs-tag">=</span><span class="hljs-string">"()=&gt;Post.PublishDate"</span><span class="hljs-tag">/&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">InputSelect</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"selectedCategory"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">option</span><span class="hljs-tag"> </span><span class="hljs-attr">value</span><span class="hljs-tag">=</span><span class="hljs-string">"0"</span><span class="hljs-tag"> </span><span class="hljs-attr">disabled</span><span class="hljs-tag">&gt;</span>None selected<span class="hljs-tag">&lt;/</span><span class="hljs-name">option</span><span class="hljs-tag">&gt;</span>
+        @foreach (var category in Categories)
+        {
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">option</span><span class="hljs-tag"> </span><span class="hljs-attr">value</span><span class="hljs-tag">=</span><span class="hljs-string">"@category.Id"</span><span class="hljs-tag">&gt;</span>@category.Name <span class="hljs-tag">&lt;/</span><span class="hljs-name">option</span><span class="hljs-tag">&gt;</span>
+        }
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">InputSelect</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+        @foreach (var tag in Tags)
+        {
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+            @tag.Name
+            @if (Post.Tags.Any(t =&gt; t.Id == tag.Id))
+            {
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"button"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"@(() =&gt; {Post.Tags.Remove(Post.Tags.Single(t=&gt;t.Id==tag.Id)); })"</span><span class="hljs-tag">&gt;</span>Remove<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+            }
+            else
+            {
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"button"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"@(()=&gt; { Post.Tags.Add(tag); })"</span><span class="hljs-tag">&gt;</span>Add<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+            }
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+        }
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">InputTextAreaOnInput</span><span class="hljs-tag"> @</span><span class="hljs-attr">bind-Value</span><span class="hljs-tag">=</span><span class="hljs-string">"Post.Text"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onkeyup</span><span class="hljs-tag">=</span><span class="hljs-string">"UpdateHTML"</span><span class="hljs-tag">/&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">ValidationMessage</span><span class="hljs-tag"> </span><span class="hljs-attr">For</span><span class="hljs-tag">=</span><span class="hljs-string">"()=&gt;Post.Text"</span><span class="hljs-tag">/&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"submit"</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-success"</span><span class="hljs-tag">&gt;</span>Save<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">EditForm</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We <a id="_idIndexMarker316"></a>add an <code class="inlineCode">EditForm</code>, and when we submit the form (if it is valid), we execute the <code class="inlineCode">SavePost</code> method. We add <code class="inlineCode">DataAnnotationValidator</code>, which will validate our model against the data annotations in the class.</p>
+    <p class="normal">We add <code class="inlineCode">CustomCssClassProvider</code> so that we get the correct Bootstrap class names. Then, we add boxes for the title, publish date, category, tags, and, last but not least, the text (the blog post’s content).</p>
+    <p class="normal">Finally, we add the text using the component we created in <em class="italic">Step 4</em> (the component that updates for each keystroke).</p>
+    <p class="normal">We also hook up the <code class="inlineCode">@onkeyup</code> event to update the preview for each keystroke.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">We also need to add our <code class="inlineCode">SavePost</code> method. Add the following code in the <code class="inlineCode">code</code> section:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">SavePost</span><span class="hljs-function">()</span>
+{
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">string</span>.IsNullOrEmpty(selectedCategory) &amp;&amp; Categories != <span class="hljs-literal">null</span>)
+    {
+        <span class="hljs-keyword">var</span> category = Categories.FirstOrDefault(c =&gt;c.Id == selectedCategory);
+        <span class="hljs-keyword">if</span> (category != <span class="hljs-literal">null</span>)
+        {
+            Post.Category = category;
+        }
+    }
+    <span class="hljs-keyword">await</span> _api.SaveBlogPostAsync(Post);
+    _manager.NavigateTo(<span class="hljs-string">"/admin/blogposts"</span>);
+}
+</code></pre>
+      </li>
+      <li class="numberedList">Now it’s <a id="_idIndexMarker317"></a>time to show the preview. Add the following code just below <code class="inlineCode">EditForm</code>:
+        <pre class="programlisting code"><code class="hljs-code">@((MarkupString)markDownAsHTML)
+</code></pre>
+    <p class="normal">We use <code class="inlineCode">MarkupString</code> to make sure Blazor outputs the HTML code without escaping the characters. You might remember that from <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="10">We also need some variables. Add the following code in the <code class="inlineCode">code</code> section:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Parameter</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span>? Id { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+BlogPost Post { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-keyword">new</span>();
+List&lt;Category&gt; Categories { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }=<span class="hljs-keyword">new</span>();
+List&lt;Tag&gt; Tags { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }= <span class="hljs-keyword">new</span>();
+<span class="hljs-built_in">string</span>? selectedCategory = <span class="hljs-literal">null</span>;
+<span class="hljs-built_in">string</span>? markDownAsHTML { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">We added a parameter for the blog post ID (if we want to edit one), a variable to hold the post we are editing, one that holds all the categories, and one that holds all the tags. We also added a variable that holds the currently selected category and one that holds the Markdown converted to HTML.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="11">Now it is<a id="_idIndexMarker318"></a> time to set up <code class="inlineCode">Markdig</code>. Add the following code somewhere in the <code class="inlineCode">code</code> section:
+        <pre class="programlisting code"><code class="hljs-code">MarkdownPipeline pipeline = <span class="hljs-literal">default</span>!;
+<span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+{
+    pipeline = <span class="hljs-keyword">new</span> MarkdownPipelineBuilder()
+             .UseEmojiAndSmiley()
+             .Build();
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.OnInitializedAsync();
+}
+</code></pre>
+    <p class="normal">To configure <code class="inlineCode">Markdig</code>, we need to create a pipeline. As I mentioned earlier in the chapter, this is the engine Microsoft uses for their Docs site. It has many extensions available, including source code highlighting and emoticons.</p>
+    <p class="normal">We also added emoticons to the pipeline to make it a little more fun.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="12">We must also add code to load the data (blog post, categories, and tags). Add the following methods in the <code class="inlineCode">code</code> section:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">UpdateHTML</span><span class="hljs-function">()</span>
+{
+    markDownAsHTML = Markdig.Markdown.ToHtml(Post.Text, pipeline);
+}
+<span class="hljs-built_in">bool</span><span class="hljs-function"> </span><span class="hljs-title">hasTag</span><span class="hljs-function">(</span><span class="hljs-params">Tag tag</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">return</span> Post.Tags.Contains(tag);
+}
+<span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnParametersSetAsync</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">if</span> (Id != <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">var</span> p = <span class="hljs-keyword">await</span> _api.GetBlogPostAsync(Id);
+            <span class="hljs-keyword">if</span> (p != <span class="hljs-literal">null</span>)
+            {
+                Post = p;
+                <span class="hljs-keyword">if</span> (Post.Category != <span class="hljs-literal">null</span>)
+                {
+                    selectedCategory = Post.Category.Id;
+                }
+                UpdateHTML();
+            }
+        }
+        Categories = (<span class="hljs-keyword">await</span> _api.GetCategoriesAsync())??<span class="hljs-keyword">new</span>();
+        Tags = (<span class="hljs-keyword">await</span> _api.GetTagsAsync())?? <span class="hljs-keyword">new</span>();
+        <span class="hljs-keyword">base</span>.OnParametersSet();
+    }
+</code></pre>
+      </li>
+      <li class="numberedList">Now run the <a id="_idIndexMarker319"></a>site, navigate to <code class="inlineCode">/admin/blogposts</code>, click on a blog post to edit it, and test the new Markdown support. <em class="italic">Figure 6.4</em> shows the <strong class="screenText">Edit</strong> page with Markdown support:
+    <figure class="mediaobject"><img src="../Images/B18549_06_03.png" alt="Figure 6.4 – Edit page with Markdown support"/></figure>
+    <p class="packt_figref">Figure 6.4: Edit page with Markdown support</p>
+    <p class="normal">We still <a id="_idIndexMarker320"></a>have one more thing to do: we need to ensure that the blog post page shows a converted HTML version of the Markdown.</p>
+</li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="14">Open <code class="inlineCode">/Pages/Post.razor</code> and add the following <code class="inlineCode">using</code> statement at the top of the file:
+        <pre class="programlisting code"><code class="hljs-code">@using Markdig;
+</code></pre>
+      </li>
+      <li class="numberedList">Add the following code to the <code class="inlineCode">code</code> section:
+        <pre class="programlisting code"><code class="hljs-code">MarkdownPipeline pipeline;
+<span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+{
+    pipeline = <span class="hljs-keyword">new</span> MarkdownPipelineBuilder()
+             .UseEmojiAndSmiley()
+             .Build();
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.OnInitializedAsync();
+}
+</code></pre>
+      </li>
+      <li class="numberedList">Replace the following row:
+        <pre class="programlisting code"><code class="hljs-code">@((MarkupString)BlogPost.Text)
+</code></pre>
+    <p class="normal">Replace<a id="_idIndexMarker321"></a> it with this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@((MarkupString)Markdig.Markdown.ToHtml(BlogPost.Text, pipeline))
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Great job! Now we have an admin interface up and running so that we can start writing blog posts.</p>
+    <p class="normal">Before we summarize this chapter, we have one more component to build.</p>
+    <p class="normal">In .NET 7, we got a new component called <code class="inlineCode">NavigationLock</code>. Right now if we write a blog post and click somewhere in the menu, our changes will be lost. The same thing happens if we change the URL and press <em class="keystroke">Enter</em>. With <code class="inlineCode">NavigationLock</code> we can prevent that from happening. </p>
+    <p class="normal"><code class="inlineCode">NavigationLock</code> can prevent us from leaving the page and navigating to another page inside our site. In that case, we can show a custom message using JavaScript. If we navigate to another site, it can trigger a warning, but we don’t have control over the message shown. This functionality is built into the browser.</p>
+    <p class="normal">We will implement this in the same way we did with the <code class="inlineCode">FieldCssClassProvider</code>, as a reusable component. We want to check if our <code class="inlineCode">EditContext</code> has any changes made so we can trigger the navigation lock:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, in the <strong class="screenText">RazorComponents</strong> folder, add a new Razor component and name it <code class="inlineCode">BlogNavigationLock.razor</code>.</li>
+      <li class="numberedList">In the <code class="inlineCode">code</code> section, add the following code:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">CascadingParameter</span>]
+<span class="hljs-keyword">public</span> required EditContext CurrentEditContext { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> InternalNavigationMessage { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"You are about to loose changes, are you sure you want to navigate away?"</span>;
+</code></pre>
+    <p class="normal">We have a <code class="inlineCode">CascadingParameter</code> that gets the current <code class="inlineCode">EditContext</code>, just as we did with <code class="inlineCode">FieldCssClassProvider</code>.</p>
+    <p class="normal">We also added a string that is the message shown when we try to navigate from the page.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">At the top of the component (outside the <code class="inlineCode">code</code> section), add the following code:
+        <pre class="programlisting code"><code class="hljs-code">@inject IJSRuntime JSRuntime
+@implements IDisposable
+</code></pre>
+    <p class="normal">We inject an <code class="inlineCode">IJSRuntime</code> to make JavaScript calls. We will return to JavaScript interop in <em class="chapterRef">Chapter 10</em>, <em class="italic">JavaScript Interop</em>.</p>
+    <p class="normal">We also implement the <code class="inlineCode">IDisposable</code> interface.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">When a<a id="_idIndexMarker322"></a> change happens in the <code class="inlineCode">EditContext</code> we need to update the component and make sure it locks the navigation. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+{
+    CurrentEditContext.OnFieldChanged += OnFieldChangedAsync;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.OnInitializedAsync();
+}
+<span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">OnFieldChangedAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">object</span><span class="hljs-params">? sender,FieldChangedEventArgs args</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">await</span> InvokeAsync(StateHasChanged);
+    }
+<span class="hljs-keyword">void</span> IDisposable.Dispose()
+{
+        CurrentEditContext.OnFieldChanged -= OnFieldChangedAsync;
+    }
+</code></pre>
+    <p class="normal">We start to listen for field changes, and if a field changes, we call the <code class="inlineCode">StateHasChanged</code> method to update the component.</p>
+    <p class="normal"><code class="inlineCode">InvokeAsync</code> is needed since the call comes from another thread.</p>
+    <p class="normal">We also override the <code class="inlineCode">Dispose</code> method and remove the event listener. </p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">In the <code class="inlineCode">code</code> section, add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnBeforeInternalNavigation</span><span class="hljs-function"> (</span><span class="hljs-params">LocationChangingContext context</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">if</span> (CurrentEditContext.IsModified() &amp;&amp; CheckNavigation)
+    {
+        <span class="hljs-keyword">var</span> isConfirmed = <span class="hljs-keyword">await</span> JSRuntime.InvokeAsync&lt;<span class="hljs-built_in">bool</span>&gt;(<span class="hljs-string">"confirm"</span>,
+            InternalNavigationMessage);
+        <span class="hljs-keyword">if</span> (!isConfirmed)
+        {
+            context.PreventNavigation();
+        }
+    }
+}
+</code></pre>
+    <p class="normal">This method will make a JavaScript call, if there are changes in the <code class="inlineCode">EditContext</code> (or model), showing a confirm dialog and the message we added. If we do not confirm, the navigation will be prevented.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Now we can<a id="_idIndexMarker323"></a> add the <code class="inlineCode">NavigationLock</code> component. Just under the directives, add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">NavigationLock</span><span class="hljs-tag"> </span><span class="hljs-attr">ConfirmExternalNavigation</span><span class="hljs-tag">=</span><span class="hljs-string">"@(CurrentEditContext.IsModified() &amp;&amp; CheckNavigation)"</span><span class="hljs-tag"> </span><span class="hljs-attr">OnBeforeInternalNavigation</span><span class="hljs-tag">=</span><span class="hljs-string">"OnBeforeInternalNavigation"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">This <code class="inlineCode">NavigationLock</code> component will prevent external navigation (navigating to another site) and internal navigation (navigating to another page in our blog). It checks if the <code class="inlineCode">EditContext</code> (model) has any changes and prevents external navigation. On internal navigation, it will execute the <code class="inlineCode">OnBeforeInternalNavigation</code> method, which checks if the <code class="inlineCode">EditContext</code> has been changed.</p>
+    <p class="normal">Now we only have one more thing to do.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">In <code class="inlineCode">Pages/Admin/BlogPostEdit.razor</code> add the new Razor component we created just below the <code class="inlineCode">CustomCssClassProvider</code>:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">BlogNavigationLock</span><span class="hljs-tag"> @</span><span class="hljs-attr">ref</span><span class="hljs-tag">=</span><span class="hljs-string">"NavigationLock"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <p class="normal">This will get the <code class="inlineCode">EditContext</code> from the cascading value, and execute the code we just wrote.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">In the <code class="inlineCode">code</code> section add:
+        <pre class="programlisting code"><code class="hljs-code">BlogNavigationLock? NavigationLock { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+      </li>
+      <li class="numberedList">In the <code class="inlineCode">Save</code> method, just before navigating to <code class="inlineCode">admin/blogposts</code>, add:
+        <pre class="programlisting code"><code class="hljs-code">NavigationLock?.CurrentEditContext.MarkAsUnmodified();
+</code></pre>
+    <p class="normal">When saving the object, the <code class="inlineCode">EditContext</code> doesn’t know that, so we are telling the <code class="inlineCode">EditContext</code> that the model is now unmodified, so the navigation should not be stopped.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="10">Run the site, navigate to <strong class="screenText">Admin/BlogPosts</strong>, and click a blog post. 
+    <p class="normal">Try to navigate to another site (it should work).</p>
+    <p class="normal">Try to navigate to another page (it should work).</p>
+    <p class="normal">Change the blog post.</p>
+    <p class="normal">Try navigating to another site (it should show a message box).</p>
+    <p class="normal">Try <a id="_idIndexMarker324"></a>navigating to another page (it should show a message box).</p></li>
+    </ol>
+    <p class="normal">Awesome! We have implemented another reusable component.</p>
+    <h1 id="_idParaDest-146" class="heading-1">Summary</h1>
+    <p class="normal">This chapter taught us how to create forms and make API calls to get and save data.</p>
+    <p class="normal">We built custom input controls and got Bootstrap styling on our controls. Most business apps use forms, and by using data annotations, we can add logic close to the data.</p>
+    <p class="normal">We also created multiple reusable components and used many of the things we discussed in previous chapters. We even touched on JavaScript interop, which we will go into more depth about in <em class="chapterRef">Chapter 10</em>, <em class="italic">JavaScript Interop</em>.</p>
+    <p class="normal">The functionality that Blazor offers when it comes to validation and input controls will help us build amazing applications and give our users a great experience. You may notice that, right now, the admin pages are wide open. We need to secure our blog with login, but we will come to that in <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>.</p>
+    <p class="normal">In the next chapter, we will create a web API to get data in our Blazor WebAssembly project.</p>
+  </div>
+</body>
+</html>

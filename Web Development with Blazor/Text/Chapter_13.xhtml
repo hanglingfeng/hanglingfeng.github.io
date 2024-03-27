@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_13</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_13" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer082" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">13</h1>
+    <h1 id="_idParaDest-223" class="chapterTitle">Testing</h1>
+    <p class="normal">In this chapter, we will take a look at testing. Writing tests for our projects will help us develop things rapidly.</p>
+    <p class="normal">We can run the tests to ensure we haven’t broken anything with the latest change, and also, we don’t have to invest our time in testing the components manually since it is all done by the tests. Testing will improve the quality of the product since we’ll know that things that worked earlier still function as they should.</p>
+    <p class="normal">But writing tests for UI elements isn’t always easy; the most common way is to spin up the site, use tools that click on buttons, and then read the output to determine whether things work. The upside of this method is that we can test our site on different browsers and devices. The downside is that it usually takes a lot of time to do these tests. We need to spin up the website, start a web browser, verify the test, close the web browser, and repeat for the next test.</p>
+    <p class="normal">We can use this method in Blazor as well (as with any ASP.NET site), but with Blazor, we have other opportunities when it comes to testing.</p>
+    <p class="normal">Steve Sanderson created an embryo of a test framework for Blazor that Microsoft MVP Egil Hansen picked up and continued the development of.</p>
+    <p class="normal">Egil’s framework is<a id="_idIndexMarker507"></a> called <strong class="keyWord">bUnit</strong> and has become an industry standard in the Blazor community for testing Blazor components.</p>
+    <p class="normal">This chapter covers the following topics:</p>
+    <ul>
+      <li class="bulletList">What is bUnit?</li>
+      <li class="bulletList">Setting up a test project</li>
+      <li class="bulletList">Mocking the API</li>
+      <li class="bulletList">Writing tests</li>
+    </ul>
+    <h1 id="_idParaDest-224" class="heading-1">Technical requirements</h1>
+    <p class="normal">Make sure you have read the previous chapters or use the <code class="inlineCode">Chapter12</code> folder as a starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter13"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter13</span></a>.</p>
+    <div class="note">
+      <p class="normal">If you are jumping into this chapter using the code from GitHub, make sure you have added Auth0 account information in the settings files. You can find the instructions in <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>.</p>
+    </div>
+    <h1 id="_idParaDest-225" class="heading-1">What is bUnit?</h1>
+    <p class="normal">As mentioned in the introduction, some tests spin up web browsers to test pages/components, but bUnit takes another approach.</p>
+    <p class="normal">bUnit is <a id="_idIndexMarker508"></a>made specifically for Blazor. It can define and set up tests using C# or Razor syntax. It can mock JavaScript interop as well as Blazor’s authentication and authorization. To make our components more testable, sometimes we need to think about these things from the beginning or make minor changes to our code.</p>
+    <p class="normal">bUnit doesn’t rely on a web browser but renders the output internally and exposes it to us so that we can test against predefined outputs.</p>
+    <p class="normal">It’s time for us to get our hands dirty, so let’s create a test project.</p>
+    <h1 id="_idParaDest-226" class="heading-1">Setting up a test project</h1>
+    <p class="normal">To be able to run tests, we need a<a id="_idIndexMarker509"></a> test project:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">To install the bUnit templates, open PowerShell and run the following command:
+        <pre class="programlisting con"><code class="hljs-con">dotnet new install bunit.template
+</code></pre>
+      </li>
+      <li class="numberedList">Check which is the latest version of the templates on the bUnit web page: <a href="https://bunit.dev/"><span class="url">https://bunit.dev/</span></a>.</li>
+      <li class="numberedList">In Visual Studio, right-click <strong class="screenText">MyBlog</strong> solution and choose <strong class="screenText">Add</strong> | <strong class="screenText">New Project</strong>.</li>
+      <li class="numberedList">Search for <strong class="screenText">bUnit</strong> , select <strong class="screenText">bUnit Test Project</strong> in the results, and then click <strong class="screenText">Next</strong>. Sometimes it takes time to find a template, and we can also change the <strong class="screenText">Project Type</strong> dropdown to <strong class="screenText">bUnit</strong> to find the template. We might need to reboot Visual Studio to find it.</li>
+      <li class="numberedList">Name the project <code class="inlineCode">MyBlog.Tests</code>, leave the location as is, and click <strong class="screenText">Next</strong>.</li>
+      <li class="numberedList">Select <strong class="screenText">xUnit</strong> as the unit test framework and click <strong class="screenText">Create</strong>.</li>
+      <li class="numberedList">At the time of writing, we also need to upgrade the test project to .NET7. Click on the <code class="inlineCode">MyBlog.Test</code> project to open the project file. 
+    <p class="normal">Change:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;TargetFramework&gt;net<span class="hljs-number">6.0</span>&lt;/TargetFramework&gt;
+</code></pre>
+    <p class="normal">To:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;TargetFramework&gt;net<span class="hljs-number">7.0</span>&lt;/TargetFramework&gt;
+</code></pre></li>
+    </ol>
+    <p class="normal">Great! We <a id="_idIndexMarker510"></a>now have a test project.</p>
+    <p class="normal">Before we mock the API, let’s look at the different methods available to us so we can get a feel for how bUnit works.</p>
+    <p class="normal">In <code class="inlineCode">MyBlog.Tests</code>, we should have the following four files:</p>
+    <ul>
+      <li class="bulletList"><code class="inlineCode">_Imports.razor</code> contains the namespaces that we want all of our Razor files to have access to.</li>
+      <li class="bulletList"><code class="inlineCode">Counter.razor</code> is a copy of the same <code class="inlineCode">Counter</code> components we get by default in the Blazor template.</li>
+      <li class="bulletList"><code class="inlineCode">CounterCSharpTest.cs</code> contains tests written in C#.</li>
+      <li class="bulletList"><code class="inlineCode">CounterRazorTest.razor</code> contains tests written in Razor.</li>
+    </ul>
+    <p class="normal">Let’s start with the <code class="inlineCode">CounterCSharpTest.cs</code> file, which contains two tests: one that checks that the counter starts at <code class="inlineCode">0</code> and one that clicks the button and verifies the counter is now <code class="inlineCode">1</code>. These two simple tests make sense for testing the <code class="inlineCode">Counter</code> component.</p>
+    <p class="normal">The <code class="inlineCode">CounterStartsAtZero</code> test looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Fact</span>]
+<span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">CounterStartsAtZero</span><span class="hljs-function">()</span>
+{
+    <span class="hljs-comment">// Arrange</span>
+    <span class="hljs-keyword">var</span> cut = RenderComponent&lt;Counter&gt;();
+    <span class="hljs-comment">// Assert that content of the paragraph shows counter</span>
+    <span class="hljs-comment">// at zero</span>
+    cut.Find(<span class="hljs-string">"</span><span class="hljs-string">p"</span>).MarkupMatches(<span class="hljs-string">"&lt;p&gt;Current count: 0&lt;/p&gt;"</span>);
+}
+</code></pre>
+    <p class="normal">Let’s break this <a id="_idIndexMarker511"></a>down. The <code class="inlineCode">Fact</code> attribute tells the test runner that this is a <em class="italic">normal</em> test with no parameters. We can also use the <code class="inlineCode">Theory</code> attribute to tell the test runner that the <code class="inlineCode">test</code> method needs parameter values, but we don’t need parameters for this use case.</p>
+    <p class="normal">First, we arrange the test. Simply put, we set up everything we need to do the test. Egil uses <code class="inlineCode">cut</code> as the component’s name, which stands for <strong class="keyWord">component under testing</strong>.</p>
+    <p class="normal">We run the <code class="inlineCode">RenderComponent</code> method and pass in the component type, which is the <code class="inlineCode">Counter</code> component in this case. Next, we assert whether the component outputs the correct thing or not. We use the <code class="inlineCode">Find</code> method to find the first paragraph tag and then verify that the HTML looks like <code class="inlineCode">&lt;p&gt;Current count: 0&lt;/p&gt;</code>.</p>
+    <p class="normal">The second test is a bit more advanced, and it looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Fact</span>]
+<span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">ClickingButtonIncrementsCounter</span><span class="hljs-function">()</span>
+{
+    <span class="hljs-comment">// Arrange</span>
+    <span class="hljs-keyword">var</span> cut = RenderComponent&lt;Counter&gt;();
+    <span class="hljs-comment">// Act - click button to increment counter</span>
+    cut.Find(<span class="hljs-string">"button"</span>).Click();
+    <span class="hljs-comment">// Assert that the counter was incremented</span>
+    cut.Find(<span class="hljs-string">"p"</span>).MarkupMatches(<span class="hljs-string">"&lt;p&gt;Current count: 1&lt;/p&gt;"</span>);
+}
+</code></pre>
+    <p class="normal">As with the previous test, we start arranging by rendering our <code class="inlineCode">Counter</code> component. The next step is acting, where we click the button. We look for the button and then click the button in our <code class="inlineCode">Counter</code> component. There is only one button, so in this case, it’s safe to look for the button this way.</p>
+    <p class="normal">Then it’s time to assert again, and we check the markup in the same way as the previous test, but we look for <code class="inlineCode">1</code> instead of <code class="inlineCode">0</code>.</p>
+    <p class="normal">There is also another alternative where we can write out tests with Razor syntax. If we look at the <code class="inlineCode">CounterRazorTests.razor</code> files, we can see the exact same tests but with different syntax:</p>
+    <pre class="programlisting code"><code class="hljs-code">    [<span class="hljs-meta">Fact</span>]
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">CounterStartsAtZero</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-comment">// Arrange</span>
+        <span class="hljs-keyword">var</span> cut = Render(@&lt;Counter /&gt;);
+        <span class="hljs-comment">// Assert that content of the paragraph shows counter at zero</span>
+        cut.Find(<span class="hljs-string">"p"</span>).MarkupMatches(@&lt;p&gt;Current count: <span class="hljs-number">0</span>&lt;/p&gt;);
+    }
+</code></pre>
+    <p class="normal">This does the same thing and is only a matter of preference. I prefer using the Razor version; it is easier to read, and it’s also easier to add parameters to our component while testing.</p>
+    <p class="normal">Now let’s run the <a id="_idIndexMarker512"></a>tests and see whether they pass:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In Visual Studio, bring up <strong class="screenText">Test Explorer</strong> by searching for it using <em class="keystroke">Ctrl</em> + <em class="keystroke">Q</em>. We can also find it in <strong class="screenText">View</strong> | <strong class="screenText">Test Explorer</strong>.</li>
+      <li class="numberedList">Click <strong class="screenText">Run All Test</strong> in the view. Test Explorer should look like <em class="italic">Figure 13.1</em>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18549_13_01.png" alt="Figure 13.1 – Visual Studio Test Explorer "/></figure>
+    <p class="packt_figref">Figure 13.1: Visual Studio Test Explorer</p>
+    <p class="normal">Wonderful! Now our first test is running and hopefully passing.</p>
+    <p class="normal">Next, we will take a look at mocking the API.</p>
+    <h1 id="_idParaDest-227" class="heading-1">Mocking the API</h1>
+    <p class="normal">There are different ways to test our<a id="_idIndexMarker513"></a> application. Testing the API is outside the scope of this book, but we still need to test the components, which are dependent on the API. We could spin up the API and test against the API, but in this case, we are only interested in testing the Blazor component.</p>
+    <p class="normal">We can then mock the API or create a fake copy of the API that doesn’t read from the database but reads from a predefined dataset. This way, we always know what the output should be.</p>
+    <p class="normal">Luckily, the interface we created for our API is just what we need to create a mock API.</p>
+    <p class="normal">We won’t implement 100% of the tests for the project, so we don’t have to mock all the methods. Please feel free to implement tests for all methods as an exercise at the end of the chapter.</p>
+    <p class="normal">There are two ways we can implement the mock API. We could spin up an in-memory database, but to keep things simple, we will choose the other option and generate posts when we ask for them:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <code class="inlineCode">MyBlog.Tests</code> project, add a project reference to the <strong class="screenText">Components</strong> project.</li>
+      <li class="numberedList">Create a new class called <code class="inlineCode">BlogApiMock.cs</code>.</li>
+      <li class="numberedList">Add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">using</span> Data.Models.Interfaces;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> System.Threading.Tasks;
+</code></pre>
+      </li>
+      <li class="numberedList">Implement the <code class="inlineCode">IBlogApi</code> interface; the class should look like this:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">internal</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogApiMock</span> :<span class="hljs-title">IBlogApi</span>
+{
+}
+</code></pre>
+    <p class="normal">Now we will implement each of the methods so we can get data.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">For <code class="inlineCode">BlogPost</code>, add the following code in the class:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;BlogPost?&gt; GetBlogPostAsync(<span class="hljs-built_in">string</span> id)
+{
+    BlogPost post = <span class="hljs-keyword">new</span>()
+    {
+        Id = id,
+        Text = <span class="hljs-string">$"This is a blog post no </span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span>,
+        Title = <span class="hljs-string">$"Blogpost </span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span>,
+        PublishDate = DateTime.Now,
+        Category = <span class="hljs-keyword">await</span> GetCategoryAsync(<span class="hljs-string">"1"</span>),
+    };
+    post.Tags.Add(<span class="hljs-keyword">await</span> GetTagAsync(<span class="hljs-string">"1"</span>));
+    post.Tags.Add(<span class="hljs-keyword">await</span> GetTagAsync(<span class="hljs-string">"2"</span>));
+    <span class="hljs-keyword">return</span> post;
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> Task&lt;</span><span class="hljs-built_in">int</span><span class="hljs-function">&gt; </span><span class="hljs-title">GetBlogPostCountAsync</span><span class="hljs-function">()</span>
+{
+    <span class="hljs-keyword">return</span> Task.FromResult(<span class="hljs-number">10</span>);
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;BlogPost&gt;?&gt; GetBlogPostsAsync(<span class="hljs-built_in">int</span> numberofposts, <span class="hljs-built_in">int</span> startindex)
+    {
+        List&lt;BlogPost&gt; list = <span class="hljs-keyword">new</span>();
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> a = <span class="hljs-number">0</span>; a &lt; numberofposts; a++)
+        {
+            list.Add(<span class="hljs-keyword">await</span> GetBlogPostAsync(<span class="hljs-string">$"</span><span class="hljs-subst">{startindex + a}</span><span class="hljs-string">"</span>));
+        }
+        <span class="hljs-keyword">return</span> list;
+    }
+</code></pre>
+    <p class="normal">When we <a id="_idIndexMarker514"></a>get a blog post, we create a blog post and fill it with predefined information we can use later in our tests. The same thing goes for getting a list of blog posts.</p>
+    <p class="normal">We also say that we have a total of <code class="inlineCode">10</code> blog posts in the database.</p>
+    <p class="normal">For categories, add the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;Category&gt;?&gt; GetCategoriesAsync()
+    {
+        List&lt;Category&gt; list = <span class="hljs-keyword">new</span>();
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> a = <span class="hljs-number">0</span>; a &lt; <span class="hljs-number">10</span>; a++)
+        {
+            list.Add(<span class="hljs-keyword">await</span> GetCategoryAsync(<span class="hljs-string">$"</span><span class="hljs-subst">{a}</span><span class="hljs-string">"</span>));
+        }
+        <span class="hljs-keyword">return</span> list;
+    }
+    <span class="hljs-keyword">public</span> Task&lt;Category?&gt; GetCategoryAsync(<span class="hljs-built_in">string</span> id)
+    {
+        <span class="hljs-keyword">return</span> Task.FromResult(<span class="hljs-keyword">new</span> Category() { Id = id, Name = <span class="hljs-string">$"Category </span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span> });
+    }
+</code></pre>
+    <p class="normal">Here, we do the same thing: we create categories named <code class="inlineCode">Category</code> followed by a number.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">The same thing goes for tags; add the following code:
+        <pre class="programlisting code"><code class="hljs-code">    <span class="hljs-keyword">public</span> Task&lt;Tag?&gt; GetTagAsync(<span class="hljs-built_in">string</span> id)
+    {
+        <span class="hljs-keyword">return</span> Task.FromResult(<span class="hljs-keyword">new</span> Tag() { Id = id, Name = <span class="hljs-string">$"Tag </span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span> });
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;Tag&gt;?&gt; GetTagsAsync()
+    {
+        List&lt;Tag&gt; list = <span class="hljs-keyword">new</span>();
+        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> a = <span class="hljs-number">0</span>; a &lt; <span class="hljs-number">10</span>; a++)
+        {
+            list.Add(<span class="hljs-keyword">await</span> GetTagAsync(<span class="hljs-string">$"</span><span class="hljs-subst">{a}</span><span class="hljs-string">"</span>));
+        }
+        <span class="hljs-keyword">return</span> list;
+    }
+</code></pre>
+    <p class="normal">We will not add tests for other methods in the API. We do need to add them to the mock class to fulfill the interface.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Add the <a id="_idIndexMarker515"></a>following methods:
+        <pre class="programlisting code"><code class="hljs-code">    <span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">InvalidateCacheAsync</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">return</span> Task.CompletedTask;
+    }
+    <span class="hljs-keyword">public</span> Task&lt;BlogPost?&gt; SaveBlogPostAsync(BlogPost item)
+    {
+        <span class="hljs-keyword">return</span> Task.FromResult(item);
+    }
+    <span class="hljs-keyword">public</span> Task&lt;Category?&gt; SaveCategoryAsync(Category item)
+    {
+        <span class="hljs-keyword">return</span> Task.FromResult(item);
+    }
+    <span class="hljs-keyword">public</span> Task&lt;Tag?&gt; SaveTagAsync(Tag item)
+    {
+        <span class="hljs-keyword">return</span> Task.FromResult(item);
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteBlogPostAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">return</span> Task.CompletedTask;
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteCategoryAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">return</span> Task.CompletedTask;
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteTagAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">return</span> Task.CompletedTask;
+    }
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">We now have a <a id="_idIndexMarker516"></a>mock API that does the same thing repeatedly so we can make reliable tests.</p>
+    <h1 id="_idParaDest-228" class="heading-1">Writing tests</h1>
+    <p class="normal">Time to write some<a id="_idIndexMarker517"></a> tests. As I mentioned earlier in the chapter, we won’t create tests for the entire site; we will leave that to you to finish later if you want to. This is to get a feel for how to write tests:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <code class="inlineCode">MyBlog.Tests</code> project, create a new folder called <code class="inlineCode">Pages</code>. This is just so we can keep a bit of a structure (the same folder structure as the project we are testing).</li>
+      <li class="numberedList">Select the <code class="inlineCode">Pages</code> folder and create a new Razor component called <code class="inlineCode">IndexTest.razor</code>.</li>
+      <li class="numberedList">In the <code class="inlineCode">_Imports</code> file, add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code">@using Components.Pages
+@using Data.Models.Interfaces
+@using Components.RazorComponents
+</code></pre>
+      </li>
+      <li class="numberedList">In the <code class="inlineCode">IndexTest.razor</code> file, inherit from <code class="inlineCode">TestContext</code> by adding the following code:
+        <pre class="programlisting code"><code class="hljs-code">@inherits TestContext
+</code></pre>
+      </li>
+      <li class="numberedList">Now we will add the test. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Fact(DisplayName =</span><span class="hljs-string">"Checks that the Index component shows 10 posts"</span><span class="hljs-meta">)</span>]
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">Shows10Blogposts</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-comment">// Act</span>
+        <span class="hljs-keyword">var</span> cut = Render(@&lt;Index /&gt;);
+        <span class="hljs-comment">// Assert that the content has 10 article tags (each representing a blogpost)</span>
+        Assert.Equal(<span class="hljs-number">10</span>,cut.FindAll(<span class="hljs-string">"article"</span>).Count());
+    }
+</code></pre>
+    <p class="normal">We give <a id="_idIndexMarker518"></a>our test a display name so we understand what it does. The test is pretty simplistic; we know we have 10 blog posts from the mock API. We also know that each blog post is rendered within an <code class="inlineCode">article</code> tag. We find all <code class="inlineCode">article</code> tags and make sure we have 10 in total.</p>
+    <p class="normal">Since we are using injection, we need to configure the dependency injection, which we can do in the constructor.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">We need to add the <code class="inlineCode">IndexTest</code> method:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">IndexTest</span><span class="hljs-function">()</span>
+{
+      Services.AddScoped&lt;IBlogApi, BlogApiMock&gt;();
+}
+</code></pre>
+    <p class="normal">This method will run when the class is created, and here, we declare that if the components ask for an instance of <code class="inlineCode">BlogApi</code>, it will return an instance of our mock API.</p>
+    <p class="normal">This works the same way as with Blazor Server, where we return an API that talks directly to the database, and with Blazor WebAssembly, where we return an instance of the API that talks to a web API.</p>
+    <p class="normal">In this case, it will return our mock API that returns data that is easy to test. Now we need to run the actual test.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Delete the default tests:
+    <p class="normal"><code class="inlineCode">Counter.razor </code></p>
+    <p class="normal"><code class="inlineCode">CounterCSharpTests.cs</code></p>
+    <p class="normal"><code class="inlineCode">CounterRazorTests.cs</code></p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">In Visual <a id="_idIndexMarker519"></a>Studio, bring up Test Explorer by searching for it using <em class="keystroke">Ctrl</em> + <em class="keystroke">Q</em>. We can also find it in <strong class="screenText">View</strong> | <strong class="screenText">Test Explorer</strong>.
+    <p class="normal">Run our tests to see whether we get a green light, as shown in <em class="italic">Figure 13.2</em>:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_13_02.png" alt="Figure 13.2 – Test Explorer with IndexTest "/></figure>
+    <p class="packt_figref">Figure 13.2: Test Explorer with IndexTest</p></li>
+    </ol>
+    <p class="normal">Now we have a test that checks that 10 posts are rendered.</p>
+    <p class="normal">bUnit is an excellent framework for testing, and the fact that it is explicitly written for Blazor so that it takes advantage of Blazor’s power makes it amazing to work with.</p>
+    <p class="normal">Now we have a simplistic test testing our blog, but bUnit has support for more advanced features, such as authentication.</p>
+    <h2 id="_idParaDest-229" class="heading-2">Authentication</h2>
+    <p class="normal">Using bUnit, we can test <a id="_idIndexMarker520"></a>authentication<a id="_idIndexMarker521"></a> and authorization.</p>
+    <p class="normal">It is, however, not the components themselves that are doing the authentication. We added <code class="inlineCode">AuthorizeRouteView</code> to <code class="inlineCode">App.razor</code> in <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>, so testing that in individual components won’t make a difference.</p>
+    <p class="normal">But we can use <code class="inlineCode">AuthorizeView</code>, for example, and we do have it in our blog in the <code class="inlineCode">LoginStatus</code> component, which displays a login link when we are not authorized and a logout link when we are authorized. Please feel free to add these tests as we did in the previous section, or use them as a reference.</p>
+    <p class="normal">We can use the <code class="inlineCode">AddTestAuthorization</code> method to authorize our tests like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">    [<span class="hljs-meta">Fact(DisplayName =</span><span class="hljs-string">"Checks if log in is showed"</span><span class="hljs-meta">)</span>]
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">ShouldShowLogin</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-comment">// Arrange</span>
+        <span class="hljs-keyword">this</span>.AddTestAuthorization();
+        <span class="hljs-comment">// Act</span>
+        <span class="hljs-keyword">var</span> cut = Render(@&lt;LoginStatus /&gt;);
+        
+        <span class="hljs-comment">// Assert that there is a link with the text Log in</span>
+        Assert.Equal(<span class="hljs-string">"Log in"</span>,cut.Find(<span class="hljs-string">"a"</span>).InnerHtml);
+    }
+</code></pre>
+    <p class="normal">This method adds <code class="inlineCode">TestAuthorization</code> but is not authorized. The page will then display a link with the text <code class="inlineCode">"Log in"</code>. To test when the user is authorized, we just set the user as authorized:</p>
+    <pre class="programlisting code"><code class="hljs-code">    [<span class="hljs-meta">Fact(DisplayName =</span><span class="hljs-string">"Checks if logout is showed"</span><span class="hljs-meta">)</span>]
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">ShouldShowLogout</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-comment">// Arrange</span>
+        <span class="hljs-keyword">var</span> authContext = <span class="hljs-keyword">this</span>.AddTestAuthorization();
+        authContext.SetAuthorized(<span class="hljs-string">"Testuser"</span>, AuthorizationState.Authorized);
+        <span class="hljs-comment">// Act</span>
+        <span class="hljs-keyword">var</span> cut = Render(@&lt;LoginStatus /&gt;);
+       
+        <span class="hljs-comment">// Assert that there is a link with the text Log out</span>
+        Assert.Equal(<span class="hljs-string">"Log out"</span>,cut.Find(<span class="hljs-string">"a"</span>).InnerHtml);
+    }
+</code></pre>
+    <p class="normal">We can add <a id="_idIndexMarker522"></a>claims, roles, and much more. The user we utilize for testing <a id="_idIndexMarker523"></a>does not correlate with the users or roles in the database; the authorization is mocked by bUnit.</p>
+    <p class="normal">Authentication and authorization could be tricky to test, but using bUnit is really simple. Testing JavaScript is a bit harder to do, but bUnit has great support for that.</p>
+    <h2 id="_idParaDest-230" class="heading-2">Testing JavaScript</h2>
+    <p class="normal">Testing JavaScript is not <a id="_idIndexMarker524"></a>supported by bUnit, which is understandable. We can, however, test the interop ourselves.</p>
+    <p class="normal">In this book, we have used the .NET 5 syntax for our JavaScript. In our <code class="inlineCode">Components\RazorComponent\ItemList.razor</code> component, we make a JavaScript interop to confirm the deletion of an item.</p>
+    <p class="normal">The JavaScript call looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">jsmodule = <span class="hljs-keyword">await</span> jsRuntime.<span class="hljs-property">InvokeAsync</span>&lt;<span class="hljs-title">IJSObjectReference</span>&gt;(<span class="hljs-string">"import"</span>, <span class="hljs-string">"</span><span class="hljs-string">/_content/Components/RazorComponents/ItemList.razor.js"</span>);
+<span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> jsmodule.<span class="hljs-property">InvokeAsync</span>&lt;bool&gt; (<span class="hljs-string">"showConfirm"</span>, <span class="hljs-string">"Are you sure?"</span>);
+</code></pre>
+    <p class="normal">We make sure that we load the JavaScript module and then execute the <code class="inlineCode">showConfirm</code> method.</p>
+    <p class="normal">JavaScript testing in bUnit can be done in two modes – <code class="inlineCode">strict</code> and <code class="inlineCode">loose</code>. The default value is <code class="inlineCode">strict</code>, so we need to specify every module and every method.</p>
+    <p class="normal">If we choose <code class="inlineCode">loose</code>, all methods will just return the default value. For a Boolean, it would return <code class="inlineCode">false</code>, for example.</p>
+    <p class="normal">To test the preceding JavaScript call, we can do that by adding something like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">var</span> moduleInterop = <span class="hljs-variable">this</span>.<span class="hljs-property">JSInterop</span>.<span class="hljs-title">SetupModule</span>(<span class="hljs-string">"/_content/Components/RazorComponents/ItemList.razor.js"</span>);
+    <span class="hljs-keyword">var</span> showconfirm = moduleInterop.<span class="hljs-property">Setup</span>&lt;bool&gt;(<span class="hljs-string">"showConfirm"</span>, <span class="hljs-string">"Are you sure?"</span>).<span class="hljs-title">SetResult</span>(<span class="hljs-literal">true</span>);
+</code></pre>
+    <p class="normal">We set up a module with the same path to JavaScript as before. Then we specify the method and any parameters.</p>
+    <p class="normal">Lastly, we specify what the result should be. In this case, we return <code class="inlineCode">true</code>, which would return from JavaScript if we want to delete the item. We could also verify if the JavaScript method is being called. A complete example for testing this in the <code class="inlineCode">ItemList</code> component would look like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@using Data.Models;
+@inherits TestContext
+@code {
+    [<span class="hljs-meta">Fact(DisplayName = </span><span class="hljs-string">"Test if js method 'showConfirm' is called upon using JS interop"</span><span class="hljs-meta">)</span>]
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">ShouldShowConfirm</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-comment">// Arrange</span>
+        <span class="hljs-keyword">var</span> moduleInterop = <span class="hljs-keyword">this</span>.JSInterop.SetupModule(<span class="hljs-string">"/_content/Components/RazorComponents/ItemList.razor.js"</span>);
+        moduleInterop.Setup&lt;<span class="hljs-built_in">bool</span>&gt;(<span class="hljs-string">"showConfirm"</span>, <span class="hljs-string">"Are you sure?"</span>).SetResult(<span class="hljs-literal">true</span>);
+        <span class="hljs-keyword">var</span> cut = RenderComponent&lt;ItemList&lt;BlogPost&gt;&gt;(parameters =&gt; parameters
+            .Add(_ =&gt; _.Items, <span class="hljs-keyword">new</span>() { <span class="hljs-keyword">new</span> BlogPost() { Title = <span class="hljs-string">"Title"</span> } })
+            .Add(_ =&gt; _.ItemTemplate, blogpost =&gt; <span class="hljs-string">$"&lt;span&gt;</span><span class="hljs-subst">{blogpost.Title}</span><span class="hljs-string">&lt;/span&gt;"</span>));
+        <span class="hljs-comment">// Act</span>
+        <span class="hljs-keyword">var</span> buttons = cut.FindAll(<span class="hljs-string">"button"</span>);
+        buttons.First(_ =&gt; _.ClassList.Contains(<span class="hljs-string">"btn-danger"</span>)).Click();
+        <span class="hljs-comment">// Assert</span>
+        JSInterop.VerifyInvoke(<span class="hljs-string">"showConfirm"</span>);
+    }
+}
+</code></pre>
+    <p class="normal">Great job! We now have <a id="_idIndexMarker525"></a>tests in our project. Even though we aren’t covering all the components, we should have all the building blocks to complete the tests.</p>
+    <p class="normal">If you want to learn more<a id="_idIndexMarker526"></a> about bUnit, check out:</p>
+    <p class="normal"><a href="https://bunit.dev/docs/getting-started/index.html"><span class="url">https://bunit.dev/docs/getting-started/index.html</span></a>.</p>
+    <p class="normal">Their documentation is fantastic.</p>
+    <h1 id="_idParaDest-231" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we looked at testing our application. We looked at how we can mock an API to make reliable tests. We also covered how to test JavaScript interop as well as authentication.</p>
+    <p class="normal">Tests can speed up our development and, most importantly, build quality. With bUnit combined with dependency injection, it is easy to build tests that can help us test our components.</p>
+    <p class="normal">Since we can test every component by itself, we don’t have to log in, navigate to a specific place on our site, and then test the entire page as many other testing frameworks would have us do.</p>
+    <p class="normal">Now our site contains reusable components, authentication, APIs, Blazor Server, Blazor WebAssembly, authentication, shared code, JavaScript interop, state management, and tests. We only have one more thing to do: ship it!</p>
+    <p class="normal">In the next chapter, <em class="chapterRef">Chapter 14</em>, <em class="italic">Deploy to Production</em>, it’s time to ship.</p>
+  </div>
+  <div id="_idContainer084" class="Basic-Text-Frame">
+    <h1 class="heading-1">Join our community on Discord&#160;</h1>
+    <p class="normal">Join our community’s Discord space for discussions with the author and other readers:&#160;</p>
+    <p class="normal"><a href="https://packt.link/WebDevBlazor2e"><span class="url">https://packt.link/WebDevBlazor2e</span></a></p>
+    <p class="normal"><span class="url"><img src="../Images/QR_Code748085881713038109.png" alt=""/></span></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_08</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_08" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer062" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">8</h1>
+    <h1 id="_idParaDest-158" class="chapterTitle">Authentication and Authorization</h1>
+    <p class="normal">In this chapter, we will learn how to add <strong class="keyWord">authentication</strong> and <strong class="keyWord">authorization</strong> to our blog because we don’t<a id="_idIndexMarker360"></a> want just anyone to<a id="_idIndexMarker361"></a> be able to create or edit blog posts.</p>
+    <p class="normal">Covering authentication and authorization could take a whole book, so we will keep things simple here. This chapter aims to get the built-in authentication and authorization functionalities working, building on the already existing functionality that’s built into ASP.NET. That means that there is not a lot of Blazor magic involved here; many resources already exist that we can take advantage of.</p>
+    <p class="normal">Almost every system today has some way to log in, whether it is an admin interface (like ours) or a member login portal. There are many different login providers, such as Google, Twitter, and Microsoft. We can use all of these providers since we will just be building on existing architecture.</p>
+    <p class="normal">Some sites might already have a database for storing login credentials, but for our blog, we will use a service called Auth0 to manage our users. It is a very powerful way to add many different social providers (if we want to), and we don’t have to manage the users ourselves.</p>
+    <p class="normal">We can check the option to add authentication when creating our project. The authentication works differently when it comes to Blazor Server and Blazor WebAssembly, which we will look at in more detail in this chapter.</p>
+    <p class="normal">We will cover the following topics in this chapter:</p>
+    <ul>
+      <li class="bulletList">Setting up authentication</li>
+      <li class="bulletList">Securing Blazor Server</li>
+      <li class="bulletList">Securing Blazor WebAssembly</li>
+      <li class="bulletList">Securing the API</li>
+      <li class="bulletList">Adding authorization</li>
+    </ul>
+    <h1 id="_idParaDest-159" class="heading-1">Technical requirements</h1>
+    <p class="normal">Make sure you have followed the previous chapters or use the <code class="inlineCode">Chapter07</code> folder as a starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s end result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter08"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter08</span></a>.</p>
+    <h1 id="_idParaDest-160" class="heading-1">Setting up authentication</h1>
+    <p class="normal">There are a<a id="_idIndexMarker362"></a> lot of built-in functionalities when it comes to authentication. The easiest way to add authentication is to select an authentication option when creating a project.</p>
+    <p class="normal">We need to implement authentication separately for the Blazor Server project and the Blazor WebAssembly project because they work differently.</p>
+    <p class="normal">But there are still things we can share between these two projects. First, we need to set up Auth0.</p>
+    <p class="normal"><strong class="keyWord">Auth0</strong> is a <a id="_idIndexMarker363"></a>service that can help us with handling our users. There are many different services like this, but Auth0 is the one that seems to be a very good service to use. We can connect one or many social connectors, which will allow our users to log in with Facebook, Twitter, Twitch, or whatever we add to our site.</p>
+    <p class="normal">Even though all of this can be achieved by writing code ourselves, integration like this is a great way to add authentication fast and also get a very powerful solution. Auth0 is free for up to 7,000 users (which our blog probably won’t reach, especially not the admin interface).</p>
+    <p class="normal">It also has great functionality to add data to our users that we have access to. We will do that later in the chapter when we add roles to our users. You’ll need to take the following steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Head over to <a href="https://auth0.com"><span class="url">https://auth0.com</span></a> and create an account.</li>
+      <li class="numberedList">Click the <strong class="screenText">Create Application</strong> button.</li>
+      <li class="numberedList">Now it’s time to name our application. Use <code class="inlineCode">MyBlog</code>, for example. Then it’s time to select what kind of application type we are using. Is it a native app? Is it a <strong class="screenText">Single-Page Web Application</strong>, <strong class="screenText">Regular Web Application</strong>, or <strong class="screenText">Machine to Machine Application</strong>?
+    <p class="normal">This<a id="_idIndexMarker364"></a> depends on what version of Blazor we are going to run. </p>
+    <p class="normal">But it won’t limit the functionality, only what we need to configure when setting up our application.</p>
+    <p class="normal">We will start with Blazor server, which is a regular web application. But we want to be able to use the same authentication for both Blazor Server and Blazor WebAssembly, and we can do that by selecting <strong class="screenText">Single Page Application</strong>.</p>
+    <p class="normal">And if we are only making a Blazor Server Application, we should use <strong class="screenText">Regular Web Application</strong>, but since we are doing both, select <strong class="screenText">Single Page Web Application</strong> since this will make it possible to run both.</p>
+    <p class="normal">Next, we will choose what technology we are using for our project. We have got Apache, .NET, Django, Go, and many other choices, but we don’t have a choice for Blazor specifically, at least not at the time of writing. </p>
+    <p class="normal">Just skip this and click the <strong class="screenText">Setting</strong> tab. </p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">Now we will set up our application. There are a couple of values we need to save and use later. You need to make sure that you write down the <strong class="screenText">Domain, Client ID</strong>, and <strong class="screenText">Client Secret</strong>, as we will use those in a bit.
+    <p class="normal">If we scroll down, we can change the logo, but we will skip that.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">We need to set up the <strong class="keyWord">Application Login URI</strong>, our application URL (<code class="inlineCode">localhost</code> for now), and the port number.
+    <p class="normal">Starting with .NET 6, the port numbers are random, so make sure you add your application’s port number:</p>
+    <ol class="romanList" style="list-style-type: lower-roman;">
+      <li class="romanList" value="1"><strong class="screenText">Allowed Callback URLs</strong>: <code class="inlineCode">https://localhost:PORTNUMBER/callback</code></li>
+      <li class="romanList"><strong class="screenText">Allowed Logout URLs</strong>: <code class="inlineCode">https://localhost:PORTNUMBER/</code></li>
+    </ol>
+    <p class="normal">Allowed Callback URLs are the URLs Auth0 will make a call to after the user authentication<a id="_idIndexMarker365"></a> and Allowed Logout URLs are where the user should be redirected after logout.</p>
+    <p class="normal">Now press <strong class="screenText">Save Changes</strong> at the bottom of the page.</p></li>
+    </ol>
+    <h2 id="_idParaDest-161" class="heading-2">Configuring Blazor Server</h2>
+    <p class="normal">We are done with<a id="_idIndexMarker366"></a> configuring Auth0. Next, we will configure our Blazor application.</p>
+    <p class="normal">There are many ways to store secrets in .NET (a file that is not checked in, Azure Key Vault, etc.). You can use the one that you are most familiar with.</p>
+    <p class="normal">We will keep it very simple and store secrets in our <code class="inlineCode">appsettings.json</code>. Make sure to remember to exclude the file when you check in. You don’t check the secrets in source control.</p>
+    <p class="normal">To configure our Blazor Server project, follow these steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorServer</strong> project, open <code class="inlineCode">appsettings.json</code> and add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"Auth0"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"Authority"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Get this from the domain for your application at Auth0"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"ClientId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Get this from Auth0 setting"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+    <p class="normal">These are the values we made a note of in the previous section.</p>
+    <p class="normal">Blazor server is an ASP.NET site with some added Blazor functionality, which means we can use a NuGet package to get some of the functionality out of the box.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">In the <strong class="screenText">BlazorServer</strong> project, add a reference to the NuGet package <strong class="screenText">Auth0.AspNetCore.Authentication</strong>.</li>
+      <li class="numberedList">Open <code class="inlineCode">Program.cs</code> and add the following code just before <code class="inlineCode">WebApplication app = builder.Build();</code>:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services
+    .AddAuth0WebAppAuthentication(options =&gt;
+    {
+        options.Domain = builder.Configuration[<span class="hljs-string">"Auth0:Authority"</span>]??<span class="hljs-string">""</span>;;
+        options.ClientId = builder.Configuration[<span class="hljs-string">"Auth0:ClientId"</span>]??<span class="hljs-string">""</span>;;
+    });
+</code></pre>
+      </li>
+      <li class="numberedList">Also, add the following code just after <code class="inlineCode">app.UseRouting();</code>. This code will allow us to secure our site:
+        <pre class="programlisting code"><code class="hljs-code">app.UseAuthentication();
+app.UseAuthorization();
+</code></pre>
+      </li>
+      <li class="numberedList">Add the following <code class="inlineCode">using</code> at the top of the file:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Auth0.AspNetCore.Authentication;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Authentication;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Authentication.Cookies;
+</code></pre>
+      </li>
+      <li class="numberedList">Blazor<a id="_idIndexMarker367"></a> Server communication is done over SignalR, and OpenID and OpenAuth rely on HTTP. This is the only thing I don’t like about Blazor, because I sometimes need to build Razor pages instead of components.
+    <p class="normal">Minimal APIs are a great way to do this by adding two get methods. This way, we don’t need to create a Razor page.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">In <code class="inlineCode">Program.cs</code>, add the following code just before <code class="inlineCode">app.Run()</code>:
+        <pre class="programlisting code"><code class="hljs-code">app.MapGet(<span class="hljs-string">"authentication/login"</span>, <span class="hljs-keyword">async</span> (<span class="hljs-built_in">string</span> redirectUri, HttpContext context) =&gt;
+{
+    <span class="hljs-keyword">var</span> authenticationProperties = <span class="hljs-keyword">new</span> LoginAuthenticationPropertiesBuilder()
+         .WithRedirectUri(redirectUri)
+         .Build();
+    <span class="hljs-keyword">await</span> context.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
+});
+</code></pre>
+    <p class="normal">When our site redirects to <code class="inlineCode">"authentication/login"</code>, the minimal API endpoint will kick off the login functionality.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">We <a id="_idIndexMarker368"></a>need to add similar functionality for logout. Add the following code below the previous endpoint from step 7:
+        <pre class="programlisting code"><code class="hljs-code">app.MapGet(<span class="hljs-string">"authentication/logout"</span>, <span class="hljs-keyword">async</span> (HttpContext context) =&gt;
+{
+    <span class="hljs-keyword">var</span> authenticationProperties = <span class="hljs-keyword">new</span> LogoutAuthenticationPropertiesBuilder()
+         .WithRedirectUri(<span class="hljs-string">"/"</span>)
+         .Build();
+    <span class="hljs-keyword">await</span> context.SignOutAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
+    <span class="hljs-keyword">await</span> context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+});
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">The configuration is all set. Now, we need something to secure.</p>
+    <h1 id="_idParaDest-162" class="heading-1">Securing Blazor Server</h1>
+    <p class="normal">Blazor uses <code class="inlineCode">App.razor</code> for<a id="_idIndexMarker369"></a> routing. To enable securing Blazor, we need to add a couple of components in the app component.</p>
+    <p class="normal">We need to add a <code class="inlineCode">CascadingAuthenticationState</code>, which will send the authentication state to all the components that are listening for it. We also need to change the route view to an <code class="inlineCode">AuthorizeRouteView</code>, which can have different views depending on whether or not you are authenticated:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the end, the <code class="inlineCode">App.razor</code> component should look like this:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">CascadingAuthenticationState</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Router</span><span class="hljs-tag"> </span><span class="hljs-attr">AppAssembly</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(App).Assembly"</span><span class="hljs-tag"> </span><span class="hljs-attr">AdditionalAssemblies</span><span class="hljs-tag">=</span><span class="hljs-string">"new[] { typeof(Components.Pages.Index).Assembly}"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">Found</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">"routeData"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">AuthorizeRouteView</span><span class="hljs-tag"> </span><span class="hljs-attr">RouteData</span><span class="hljs-tag">=</span><span class="hljs-string">"@routeData"</span><span class="hljs-tag"> </span><span class="hljs-attr">DefaultLayout</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(MainLayout)"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">Authorizing</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>Determining session state, please wait...<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;/</span><span class="hljs-name">Authorizing</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>Sorry<span class="hljs-tag">&lt;/</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>You're not authorized to reach this page. You need to log in.<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;/</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">AuthorizeRouteView</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">FocusOnNavigate</span><span class="hljs-tag"> </span><span class="hljs-attr">RouteData</span><span class="hljs-tag">=</span><span class="hljs-string">"@routeData"</span><span class="hljs-tag"> </span><span class="hljs-attr">Selector</span><span class="hljs-tag">=</span><span class="hljs-string">"h1"</span><span class="hljs-tag"> /&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">Found</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">NotFound</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>Not found<span class="hljs-tag">&lt;/</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">LayoutView</span><span class="hljs-tag"> </span><span class="hljs-attr">Layout</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(MainLayout)"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag"> </span><span class="hljs-attr">role</span><span class="hljs-tag">=</span><span class="hljs-string">"alert"</span><span class="hljs-tag">&gt;</span>Sorry, there's nothing at this address.<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">LayoutView</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">NotFound</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Router</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">CascadingAuthenticationState</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Now only two things remain, a page that we can secure and a login link display.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">In<a id="_idIndexMarker370"></a> the <strong class="screenText">Components</strong> project, add the NuGet package:
+    <p class="normal"><strong class="screenText">Microsoft.AspNetCore.Components.Authorization</strong></p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Open <code class="inlineCode">_Imports.razor</code> and add the namespaces:
+        <pre class="programlisting code"><code class="hljs-code">@using Microsoft.AspNetCore.Components.Authorization 
+@using Components.RazorComponents
+</code></pre>
+      </li>
+      <li class="numberedList">In the <code class="inlineCode">RazorComponents</code> folder, add a new interface called <code class="inlineCode">ILoginStatus</code> and replace the content with:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Components.RazorComponents</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">ILoginStatus</span>
+{
+}
+</code></pre>
+      </li>
+      <li class="numberedList">In the <code class="inlineCode">RazorComponents</code> folder, add a new razor component called <code class="inlineCode">LoginStatus.razor</code>.
+    <p class="normal">Replace the content with:</p>
+    <pre class="programlisting code"><code class="hljs-code">@implements ILoginStatus
+<span class="hljs-tag">&lt;</span><span class="hljs-name">AuthorizeView</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Authorized</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"authentication/logout"</span><span class="hljs-tag">&gt;</span>Log out<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Authorized</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"authentication/login?redirectUri=/"</span><span class="hljs-tag">&gt;</span>Log in<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">AuthorizeView</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal"><code class="inlineCode">LoginStatus</code> is a component that will show a login link if we are not authenticated and a logout link if we are authenticated.</p>
+    <p class="normal">The code above is the Blazor Server implementation of that control. For Blazor WebAssembly, we need to change the component just a bit, but since all the components, including the layout, are in a shared library, it’s not entirely easy to do.</p>
+    <p class="normal">Here is where the <code class="inlineCode">DynamicComponent</code> component can help us. It makes it possible to load a component using a type or a string. We will solve this by dependency-injecting the component type we want the <code class="inlineCode">MainLayout</code> to use.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Open <code class="inlineCode">Shared/MainLayout.razor</code> and add the following:
+        <pre class="programlisting code"><code class="hljs-code">@inject ILoginStatus status
+</code></pre>
+    <p class="normal">We<a id="_idIndexMarker371"></a> are injecting a component of the type <code class="inlineCode">LoginStatus</code>; another way would be to create an interface and use it instead, but to keep it simple, let’s use the <code class="inlineCode">LoginStatus</code> component for now.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7"> Replace the about link with:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">DynamicComponent</span><span class="hljs-tag"> </span><span class="hljs-attr">Type</span><span class="hljs-tag">=</span><span class="hljs-string">"@status.GetType()"</span><span class="hljs-tag">/&gt;</span>
+</code></pre>
+    <p class="normal">So, based on what type of component the dependency injection returns to us, it will render that component.</p>
+    <p class="normal">In the next section, we will also create one for Blazor WebAssembly.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">Add <a id="_idIndexMarker372"></a>the <code class="inlineCode">authorize</code> attribute to the component we wish to secure. The choices are: 
+    <p class="normal"><code class="inlineCode">Pages/Admin/BlogPostEdit.razor</code></p>
+    <p class="normal"><code class="inlineCode">Pages/Admin/BlogPostList.razor</code></p>
+    <p class="normal"><code class="inlineCode">Pages/Admin/CategoryList.razor</code></p>
+    <p class="normal"><code class="inlineCode">Pages/Admin/TagList.razor</code></p>
+    <p class="normal">Add the following attribute to all of them:</p>
+    <pre class="programlisting code"><code class="hljs-code">@attribute [Authorize]
+</code></pre></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="9">In the <strong class="screenText">BlazorServer</strong> project, in the file <code class="inlineCode">Program.cs</code>, add the following line:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddTransient&lt;ILoginStatus,LoginStatus&gt;();
+</code></pre>
+      </li>
+      <li class="numberedList">Add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Components.RazorComponents;
+</code></pre>
+    <p class="normal">The dependency injection will return an instance of an <code class="inlineCode">ILoginStatus</code> and we will get the <code class="inlineCode">LoginStatus</code> class.</p>
+    <p class="normal">This is all it takes, some configuration, and then we are all set.</p>
+    <p class="normal">Now set the <code class="inlineCode">BlazorServer</code>-project as a startup project and see if you can access the <code class="inlineCode">/admin/blogposts</code> page (spoiler: you shouldn’t be able to); log in (create a user), and <a id="_idIndexMarker373"></a>see if you can access the page now.</p>
+    <p class="normal">Our admin interface is secured.</p>
+      </li>
+    </ol>
+    <p class="normal">In the next section, we will secure the Blazor WebAssembly version of our blog and the API. </p>
+    <h1 id="_idParaDest-163" class="heading-1">Securing Blazor WebAssembly</h1>
+    <p class="normal">The WebAssembly<a id="_idIndexMarker374"></a> project has some of the same functionalities; it is a bit more complicated because it requires API authentication, but we will start with securing the client.</p>
+    <p class="normal">By default (if we choose to add authentication when we create the project), it will use <code class="inlineCode">IdentityServer</code> to authenticate both the client and the API.</p>
+    <p class="normal">We will use <a id="_idIndexMarker375"></a>Auth0 for this instead, the same application we created earlier in this chapter:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorWebAssembly.Client</strong> project, in the <code class="inlineCode">wwwroot</code> folder, add a new JSON file called <code class="inlineCode">appsettings.json</code>.
+    <p class="normal">The <code class="inlineCode">appsettings</code> file will automatically be picked up by Blazor.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">Add the following JSON:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"Auth0"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"Authority"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Get this from the domain for your application from Auth0"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"</span><span class="hljs-attr">ClientId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Get this from Auth0 setting"</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+    <p class="normal">Replace the values with the same ones we did with the Blazor Server project – the values from the <em class="italic">Setting up Authentication</em> section.</p>
+    <p class="normal">Make sure to add <code class="inlineCode">https://</code> at the beginning of the <code class="inlineCode">Authority</code> (this is not needed in the Blazor Server project).</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Add the following NuGet packages:
+        <pre class="programlisting code"><code class="hljs-code">Microsoft.AspNetCore.Components.WebAssembly.Authentication
+Microsoft.Extensions.Http
+</code></pre>
+      </li>
+      <li class="numberedList">For us to be able to access our API, we need to set up an <code class="inlineCode">HttpClient</code>.
+    <p class="normal">In <code class="inlineCode">Program.cs</code>, add the following lines:</p>
+    <pre class="programlisting code"><code class="hljs-code">builder.Services.AddHttpClient(<span class="hljs-string">"Public"</span>,
+    client =&gt; client.BaseAddress = <span class="hljs-keyword">new</span> Uri(builder.HostEnvironment.BaseAddress));
+builder.Services.AddHttpClient(<span class="hljs-string">"Authenticated"</span>, client =&gt; client.BaseAddress = <span class="hljs-keyword">new</span> Uri(builder.HostEnvironment.BaseAddress))
+  .AddHttpMessageHandler&lt;BaseAddressAuthorizationMessageHandler&gt;();
+</code></pre>
+    <p class="normal">We will create one for getting requests (non-authenticated calls) called <code class="inlineCode">public</code>, and one for authenticated calls called <code class="inlineCode">authenticated</code>.</p>
+    <p class="normal">These are the names we used in <em class="chapterRef">Chapter 7</em>, <em class="italic">Creating an API</em>.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Add the<a id="_idIndexMarker376"></a> following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+<span class="hljs-keyword">using</span> Data;
+</code></pre>
+      </li>
+      <li class="numberedList">We also need to set up dependency injection so that when we ask for an <code class="inlineCode">IBlogAPI</code>, we will get the <code class="inlineCode">BlogApiWebClient</code> that we created in <em class="chapterRef">Chapter 7</em>, <em class="italic">Creating and API</em>.
+    <p class="normal">In <code class="inlineCode">Program.cs</code>, add the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code">builder.Services.AddTransient&lt;IBlogApi, BlogApiWebClient&gt;();
+</code></pre></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Now it’s time to configure the authentication. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddOidcAuthentication(options =&gt;
+{
+    builder.Configuration.Bind(<span class="hljs-string">"</span><span class="hljs-string">Auth0"</span>, options.ProviderOptions);
+    options.ProviderOptions.ResponseType = <span class="hljs-string">"code"</span>;
+});
+</code></pre>
+    <p class="normal">We are getting the configuration from our <code class="inlineCode">appsettings.json</code> file. In this case, we are using built-in functionality in .NET instead of using a library that Auth0 has provided for us.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">In <code class="inlineCode">wwwroot/index.html</code>, we need to add a reference to JavaScript.</li>
+      <li class="numberedList">Just above the <code class="inlineCode">&lt;/body&gt;</code> tag, add this JavaScript:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">script</span><span class="hljs-tag"> </span><span class="hljs-attr">src</span><span class="hljs-tag">=</span><span class="hljs-string">"_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">script</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">It will <a id="_idIndexMarker377"></a>handle any authentication logic on the client.</p>
+      </li>
+    </ol>
+    <p class="normal">Great, our app is configured. Next, let’s secure it.</p>
+    <p class="normal">Now everything is <a id="_idIndexMarker378"></a>prepared for us to secure our WebAssembly app.</p>
+    <p class="normal">This process is pretty much the same as for the Blazor server, but we need to implement it a bit differently.</p>
+    <p class="normal">We need to add a <code class="inlineCode">CascadingAuthenticationState</code>, which will send the authentication state to all the components that are listening for it. We also need to change the route view to an <code class="inlineCode">AuthorizeRouteView</code>, which can have different views depending on whether or not you are authenticated:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorWebAssembly.Client</strong> project, in the end, the <code class="inlineCode">App.razor</code> component should look like this:
+        <pre class="programlisting code"><code class="hljs-code">@using Microsoft.AspNetCore.Components.Authorization
+<span class="hljs-tag">&lt;</span><span class="hljs-name">CascadingAuthenticationState</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Router</span><span class="hljs-tag"> </span><span class="hljs-attr">AppAssembly</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(App).Assembly"</span><span class="hljs-tag"> </span><span class="hljs-attr">AdditionalAssemblies</span><span class="hljs-tag">=</span><span class="hljs-string">"new[] { typeof(Components.Pages.Index).Assembly}"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">Found</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">"routeData"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">AuthorizeRouteView</span><span class="hljs-tag"> </span><span class="hljs-attr">RouteData</span><span class="hljs-tag">=</span><span class="hljs-string">"@routeData"</span><span class="hljs-tag"> </span><span class="hljs-attr">DefaultLayout</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(MainLayout)"</span><span class="hljs-tag">&gt;</span>
+                  <span class="hljs-tag">&lt;</span><span class="hljs-name">Authorizing</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>Determining session state, please wait...<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;/</span><span class="hljs-name">Authorizing</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>Sorry<span class="hljs-tag">&lt;/</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>You're not authorized to reach this page. You need to log in.<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;/</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">AuthorizeRouteView</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">FocusOnNavigate</span><span class="hljs-tag"> </span><span class="hljs-attr">RouteData</span><span class="hljs-tag">=</span><span class="hljs-string">"@routeData"</span><span class="hljs-tag"> </span><span class="hljs-attr">Selector</span><span class="hljs-tag">=</span><span class="hljs-string">"h1"</span><span class="hljs-tag"> /&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">Found</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">NotFound</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>Not found<span class="hljs-tag">&lt;/</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">LayoutView</span><span class="hljs-tag"> </span><span class="hljs-attr">Layout</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(MainLayout)"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag"> </span><span class="hljs-attr">role</span><span class="hljs-tag">=</span><span class="hljs-string">"alert"</span><span class="hljs-tag">&gt;</span>Sorry, there's nothing at this address.<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">LayoutView</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">NotFound</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Router</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">CascadingAuthenticationState</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Now only two things remain, a page that we can secure and a login link display.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">Add <a id="_idIndexMarker379"></a>the NuGet package:
+    <p class="normal"><strong class="screenText">Microsoft.AspNetCore.Components.WebAssembly.Authentication</strong></p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Open<code class="inlineCode"> _Imports.razor</code> and add the namespace:
+        <pre class="programlisting code"><code class="hljs-code">@using Microsoft.AspNetCore.Components.Authorization 
+@using Microsoft.AspNetCore.Authorization 
+@using Components.RazorComponents;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+</code></pre>
+      </li>
+      <li class="numberedList">Add a new Razor component called <code class="inlineCode">LoginStatusWasm.razor</code>. This is the same component we created in our shared library, but this one is specific for WebAssembly.</li>
+      <li class="numberedList">Replace the content with:
+        <pre class="programlisting code"><code class="hljs-code">@implements ILoginStatus
+@inject NavigationManager Navigation
+<span class="hljs-tag">&lt;</span><span class="hljs-name">AuthorizeView</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Authorized</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"#"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"BeginSignOut"</span><span class="hljs-tag">&gt;</span>Log out<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Authorized</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"authentication/login"</span><span class="hljs-tag">&gt;</span>Log in<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">AuthorizeView</span><span class="hljs-tag">&gt;</span>
+@code {
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">BeginSignOut</span><span class="hljs-function">(</span><span class="hljs-params">MouseEventArgs args</span><span class="hljs-function">)</span>
+    {
+        Navigation.NavigateToLogout(<span class="hljs-string">"authentication/logout"</span>);
+    }
+}
+</code></pre>
+      </li>
+      <li class="numberedList">The <a id="_idIndexMarker380"></a>implementation uses an extension method, <code class="inlineCode">NavigateToLogout</code>. <code class="inlineCode">LoginStatusWasm</code> is a component that will show a login link if we are not authenticated and a logout link if we are authenticated.
+    <p class="normal">We also have a route called authentication that we will implement in just a bit.</p>
+    <p class="normal">The <code class="inlineCode">LoginStatusWasm</code> will be injected using dependency injection, just like we did with the Blazor Server implementation.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">In the <code class="inlineCode">Program.cs</code>, add the following line:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddTransient&lt;ILoginStatus, LoginStatusWasm&gt;();
+</code></pre>
+    <p class="normal">When our <code class="inlineCode">MainLayout</code> is rendered, it will get an instance of <code class="inlineCode">LoginStatusWasm</code> and render that component.</p>
+    <p class="normal">Now it’s time to implement the authentication route. Create a new Razor component called <code class="inlineCode">Authentication.razor</code> and add the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/authentication/{action}"
+@inject NavigationManager Navigation
+@inject IConfiguration Configuration
+<span class="hljs-tag">&lt;</span><span class="hljs-name">RemoteAuthenticatorView</span><span class="hljs-tag"> </span><span class="hljs-attr">Action</span><span class="hljs-tag">=</span><span class="hljs-string">"@Action"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">LogOut</span><span class="hljs-tag">&gt;</span>
+        @{
+            var authority = Configuration["Auth0:Authority"]??string.Empty;
+            var clientId = Configuration["Auth0:ClientId"]?? string.Empty;
+            Navigation.NavigateTo($"{authority}/v2/logout?client_id={clientId}");
+        }
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">LogOut</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">RemoteAuthenticatorView</span><span class="hljs-tag">&gt;</span>
+@code{
+    [<span class="hljs-meta">Parameter</span>] <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Action { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+}
+</code></pre>
+    <p class="normal">It uses a built-in component called <code class="inlineCode">RemoteAuthenticatorView</code>. It makes the necessary calls and also makes sure to protect us from cross-site calls.</p>
+    <p class="normal">The call to await <code class="inlineCode">SignOutManager.SetSignOutState();</code> that we added in our <code class="inlineCode">LoginStatusWasm</code> component will set a state that will be checked in the <code class="inlineCode">RemoteAuthenticatorView</code>.</p>
+    <p class="normal">It will then make a call to <a id="_idIndexMarker381"></a>Auth0 to log out the client.</p>
+      </li>
+    </ol>
+    <p class="normal">We now have secured our WebAssembly project. We also need to secure the pages we want to protect, but since they are in the <strong class="screenText">Components</strong> project, they are already secured since we did that in the <em class="italic">Securing Blazor Server</em> section.</p>
+    <h2 id="_idParaDest-164" class="heading-2">Adjusting Auth0</h2>
+    <p class="normal">We also need to update the <a id="_idIndexMarker382"></a>Auth0 Allowed Logout URLs and Allowed Callback URLs as follows: </p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Log in to Auth0, click <strong class="screenText">Applications</strong>, and select the application.</li>
+      <li class="numberedList">Add a new URL to <strong class="screenText">Allowed Callback URLs</strong> add (with a comma separating the URLs):
+    <p class="normal"><code class="inlineCode">https://localhost:PORTNUMBER/authentication/login-callback</code></p>
+    <p class="normal">Note: this port number is something else (not the same port we added earlier).</p>
+    <p class="normal">In my case it looks like this: </p>
+    <p class="normal"><code class="inlineCode">https://localhost:7174/callback</code>, <code class="inlineCode">https://localhost:7276/authentication/login-callback</code></p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">In the <strong class="screenText">Allowed Logout URLs</strong> box, add the following to the beginning of the string (the WASM URL needs to go first):
+    <p class="normal"><code class="inlineCode">https://localhost:PORTNUMBER</code></p>
+    <p class="normal">In my case, it looks like this: <code class="inlineCode">https://localhost:7276/</code>, <code class="inlineCode">https://localhost:7174/</code></p></li>
+    </ol>
+    <p class="normal">Set the <strong class="keyWord">BlazorWebAssembly.Server</strong> project as our startup project and run.</p>
+    <p class="normal">We should now be able to click <strong class="screenText">Login</strong> in the top right corner, log in, and you will end up with a logout link in the top left corner.</p>
+    <p class="normal">If we navigate to <code class="inlineCode">/admin/blogposts</code>, we will see a list of blog posts if we are authenticated; if we are not, we will see a message saying: <strong class="screenText">Sorry, You’re not authorized to reach this page. You need to log in</strong>.</p>
+    <p class="normal">Fantastic! Our <a id="_idIndexMarker383"></a>pages are secure, but our API is still wide open. We need to secure the API using the same login mechanism used to secure the client.</p>
+    <h1 id="_idParaDest-165" class="heading-1">Securing the API</h1>
+    <p class="normal">When working with <a id="_idIndexMarker384"></a>Blazor WebAssembly, we need a central place that handles authentication since we need to authenticate both the client and use the same authentication for the API.</p>
+    <p class="normal">Auth0 has support for APIs as well.</p>
+    <h2 id="_idParaDest-166" class="heading-2">Configure Auth0</h2>
+    <p class="normal">To secure our API, we <a id="_idIndexMarker385"></a>need to let Auth0 know about the API:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Log in to Auth0, click <strong class="screenText">Applications</strong>, then click <strong class="screenText">APIs</strong>, and then click <strong class="screenText">Create API</strong>.</li>
+      <li class="numberedList">Add a name, <code class="inlineCode">MyBlogAPI</code>, and add an identifier, <code class="inlineCode">https://MyBlogApi</code>. This is what we will later use as <strong class="screenText">Audience</strong>; Auth0 will never call this URL.
+    <p class="normal">Leave <strong class="screenText">Signing Algorithm</strong> as is.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Click <strong class="screenText">Create</strong>.</li>
+    </ol>
+    <p class="normal">Our authentication for our API is all done; next, we will limit access inside the API.</p>
+    <h2 id="_idParaDest-167" class="heading-2">Configure the API</h2>
+    <p class="normal">Now we need to<a id="_idIndexMarker386"></a> configure the API:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorWebAssembly.Server</strong> project, add the NuGet package:
+    <p class="normal"><strong class="screenText">Microsoft.AspNetCore.Authentication.JwtBearer</strong></p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">Open <code class="inlineCode">Program.cs</code> and add the <code class="inlineCode">using</code> statement:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Authentication.JwtBearer;
+</code></pre>
+      </li>
+      <li class="numberedList">Add the<a id="_idIndexMarker387"></a> following code just above <code class="inlineCode">var app=builder.Build;</code>:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, c =&gt;
+    {
+        c.Authority = builder.Configuration[<span class="hljs-string">"Auth0:Authority"</span>];
+        c.TokenValidationParameters = <span class="hljs-keyword">new</span> Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidAudience = builder.Configuration[<span class="hljs-string">"Auth0:Audience"</span>],
+            ValidIssuer = builder.Configuration[<span class="hljs-string">"Auth0:Authority"</span>]
+        };
+    });
+builder.Services.AddAuthorization();
+</code></pre>
+      </li>
+      <li class="numberedList">Just under <code class="inlineCode">app.UseRouting();</code>, add:
+        <pre class="programlisting code"><code class="hljs-code">app.UseAuthentication();
+app.UseAuthorization();
+</code></pre>
+      </li>
+      <li class="numberedList">Open <code class="inlineCode">appsettings.json</code> and add:
+        <pre class="programlisting code"><code class="hljs-code">  <span class="hljs-attr">"Auth0"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"Authority"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Get this value from the Domain in Auth0 application settings"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"Audience"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Get this value from the Identifier in Auth0 API settings"</span>
+  <span class="hljs-punctuation">}</span>
+</code></pre>
+    <p class="normal">Replace the placeholder with values from Auth0. Make sure to add <code class="inlineCode">https://</code> at the beginning of the Authority.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">In the <strong class="screenText">BlazorWebAssembly.Client</strong> project, we now need to add the audience. Open <code class="inlineCode">wwwroot/appsettings.json</code> in the Auth0 JSON object, and add:
+        <pre class="programlisting code"><code class="hljs-code">  <span class="hljs-string">"Audience"</span>: <span class="hljs-string">"Get this value from the Identifier in Auth0 API settings"</span>
+</code></pre>
+      </li>
+      <li class="numberedList">In <code class="inlineCode">Program.cs</code>, inside the <code class="inlineCode">AddOidcAuthentication</code> method call, add:
+        <pre class="programlisting code"><code class="hljs-code">options.ProviderOptions.AdditionalProviderParameters.Add(<span class="hljs-string">"audience"</span>, builder.Configuration[<span class="hljs-string">"Auth0:Audience"</span>]);
+</code></pre>
+    <p class="normal">That should be all it takes to configure the API.</p>
+    <p class="normal">Set <strong class="screenText">BlazorWebAssembly.Server</strong> as the startup project and run the project. You should<a id="_idIndexMarker388"></a> now be able to log in, add blog posts, and manage tags and categories.</p>
+      </li>
+    </ol>
+    <p class="normal">But what if different users have different permissions?</p>
+    <p class="normal">That is where roles come in.</p>
+    <h1 id="_idParaDest-168" class="heading-1">Adding roles</h1>
+    <p class="normal">Blazor Server and Blazor WebAssembly<a id="_idIndexMarker389"></a> handle roles a bit differently; it’s nothing major but we need to do different implementations.</p>
+    <h2 id="_idParaDest-169" class="heading-2">Configuring Auth0 by adding roles</h2>
+    <p class="normal">Let’s <a id="_idIndexMarker390"></a>start by adding <a id="_idIndexMarker391"></a>roles in Auth0:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Log in to Auth0, navigate to <strong class="screenText">User Management</strong>, <strong class="screenText">Roles</strong>, and click <strong class="screenText">Create Role</strong>. </li>
+      <li class="numberedList">Enter the name <code class="inlineCode">Administrator</code> and the description <code class="inlineCode">Can do anything</code> and press <strong class="screenText">Create</strong>.</li>
+      <li class="numberedList">Go to the <strong class="screenText">Users</strong> tab, click <strong class="screenText">Add Users</strong>, and search for your user and click <strong class="screenText">Assign</strong>. You can also manage roles from the <strong class="screenText">Users</strong> menu to the left.</li>
+      <li class="numberedList">By default, roles won’t be sent to the client, so we need to enrich the data to include roles.
+    <p class="normal">We do that by adding an action.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Go to <strong class="screenText">Actions</strong>, and then <strong class="screenText">Flows</strong>.
+    <p class="normal">Flows are a way to execute code in a particular flow.</p>
+    <p class="normal">We want Auth0 to add our roles when we log in.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Select <strong class="screenText">Login</strong>, and there we will see the flow; in our case, we don’t have anything yet.</li>
+      <li class="numberedList">On the right-hand side, click <strong class="screenText">Custom</strong> and the plus sign. As a small pop-up menu appears, select <strong class="screenText">Build Custom</strong>.</li>
+      <li class="numberedList">Name the action <code class="inlineCode">Add Roles</code>, leave <strong class="screenText">Trigger </strong>and <strong class="screenText">Runtime</strong> as is, and press <strong class="screenText">Create</strong>.
+    <p class="normal">We will see a window where we can write our action.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="9">Replace all the code with the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * @param {Event} event - Details about the user and the context in which they are logging in.</span>
+<span class="hljs-comment"> * @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.</span>
+<span class="hljs-comment"> */</span>
+exports.onExecutePostLogin = <span class="hljs-keyword">async</span> (<span class="hljs-keyword">event</span>, api) =&gt; {
+  <span class="hljs-keyword">const</span> claimName  = <span class="hljs-string">'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">event</span>.authorization) {
+    api.idToken.setCustomClaim(claimName, <span class="hljs-keyword">event</span>.authorization.roles);
+    api.accessToken.setCustomClaim(claimName, <span class="hljs-keyword">event</span>.authorization.roles);
+  }
+}
+</code></pre>
+      </li>
+      <li class="numberedList">Click <strong class="screenText">Deploy</strong> and then <strong class="screenText">Back to flow</strong>.</li>
+      <li class="numberedList">Click <strong class="screenText">Custom</strong> again, and we will see our newly created action.</li>
+      <li class="numberedList">Drag the <strong class="screenText">Add Roles</strong> action <a id="_idIndexMarker392"></a>to the<a id="_idIndexMarker393"></a> arrow between <strong class="screenText">Start</strong> and <strong class="screenText">Complete</strong>.</li>
+      <li class="numberedList">Click <strong class="screenText">Apply</strong>.</li>
+    </ol>
+    <p class="normal">Now we have an action that will add the roles to our login token.</p>
+    <p class="normal">Our user is now an administrator. It’s worth noting that roles are a paid feature in Auth0 and will only be free during the trial.</p>
+    <p class="normal">Now let’s set up Blazor Server to use this new role.</p>
+    <h2 id="_idParaDest-170" class="heading-2">Adding roles to Blazor Server</h2>
+    <p class="normal">Since we<a id="_idIndexMarker394"></a> are using the <a id="_idIndexMarker395"></a>Auth0 library the setup is almost done for Blazor Server.</p>
+    <p class="normal">Let’s modify a component to show if the user is an administrator:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, open <code class="inlineCode">Shared/NavMenu.razor</code>:
+    <p class="normal">At the top of the component, add:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">AuthorizeView</span><span class="hljs-tag"> </span><span class="hljs-attr">Roles</span><span class="hljs-tag">=</span><span class="hljs-string">"Administrator"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Authorized</span><span class="hljs-tag">&gt;</span>
+        Hi admin!
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Authorized</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+        You are not an admin =(
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">NotAuthorized</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">AuthorizeView</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Set <a id="_idIndexMarker396"></a>BlazorServer as <a id="_idIndexMarker397"></a>a startup project and run it. </p>
+    <p class="normal">If we log in, we should be able to see text to the left saying, <strong class="screenText">Hi Admin!</strong> in black text on top of dark blue, so it might not be very visible. We will take care of this in <em class="chapterRef">Chapter 9</em>, <em class="italic">Sharing Code and Resources.</em></p></li>
+    </ol>
+    <p class="normal">Next, we will add the same roles to the BlazorWebAssembly project.</p>
+    <h2 id="_idParaDest-171" class="heading-2">Adding roles to Blazor WebAssembly</h2>
+    <p class="normal">Adding<a id="_idIndexMarker398"></a> roles to Blazor WebAssembly is almost as<a id="_idIndexMarker399"></a> easy. There is one challenge we need to fix first.</p>
+    <p class="normal">When we get the roles from Auth0, we get them as an array, but we need to split them up into separate objects, and to do that, we need to create a class that does that for us:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorWebAssembly.Client</strong> project, create a new class called <code class="inlineCode">ArrayClaimsPrincipalFactory.cs</code>.</li>
+      <li class="numberedList">Replace the code with the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
+<span class="hljs-keyword">using</span> System.Security.Claims;
+<span class="hljs-keyword">using</span> System.Text.Json;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorWebAssembly.Client</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ArrayClaimsPrincipalFactory</span>&lt;<span class="hljs-title">TAccount</span>&gt; : <span class="hljs-title">AccountClaimsPrincipalFactory</span>&lt;<span class="hljs-title">TAccount</span>&gt; <span class="hljs-keyword">where</span> <span class="hljs-title">TAccount</span> : <span class="hljs-title">RemoteUserAccount</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">ArrayClaimsPrincipalFactory</span><span class="hljs-function">(</span><span class="hljs-params">IAccessTokenProviderAccessor accessor</span><span class="hljs-function">)</span>
+<span class="hljs-function">    : </span><span class="hljs-title">base</span><span class="hljs-function">(</span><span class="hljs-params">accessor</span><span class="hljs-function">)</span>
+    { }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> ValueTask&lt;ClaimsPrincipal&gt; </span><span class="hljs-title">CreateUserAsync</span><span class="hljs-function">(</span><span class="hljs-params">TAccount account, RemoteAuthenticationUserOptions options</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">await</span> <span class="hljs-keyword">base</span>.CreateUserAsync(account, options);
+        <span class="hljs-keyword">var</span> claimsIdentity = (ClaimsIdentity?)user.Identity;
+        <span class="hljs-keyword">if</span> (account != <span class="hljs-literal">null</span>)
+        {
+            <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> kvp <span class="hljs-keyword">in</span> account.AdditionalProperties)
+            {
+                <span class="hljs-keyword">var</span> name = kvp.Key;
+                <span class="hljs-keyword">var</span> <span class="hljs-keyword">value</span> = kvp.Value;
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> != <span class="hljs-literal">null</span> &amp;&amp; (<span class="hljs-keyword">value</span> <span class="hljs-keyword">is</span> JsonElement element &amp;&amp; element.ValueKind == JsonValueKind.Array))
+                {
+                    claimsIdentity?.RemoveClaim(claimsIdentity.FindFirst(kvp.Key));
+                    <span class="hljs-keyword">var</span> claims = element.EnumerateArray()
+                        .Select(x =&gt; <span class="hljs-keyword">new</span> Claim(kvp.Key, x.ToString()));
+                    claimsIdentity?.AddClaims(claims);
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> user;
+    }
+}
+</code></pre>
+    <p class="normal">The class checks if the roles we got back are in an array, and if so, splits them up into multiple entries.</p>
+    <p class="normal">In the Git repo, there is a page in the components project showing the roles if you would like to dig deeper (<code class="inlineCode">Pages/AuthTest.razor</code>).</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">In <code class="inlineCode">Program.cs</code>, add the following just after the call to <code class="inlineCode">AddOidcAuthentication</code>:
+        <pre class="programlisting code"><code class="hljs-code">.AddAccountClaimsPrincipalFactory&lt;ArrayClaimsPrincipalFactory &lt;RemoteUserAccount&gt;&gt;();
+</code></pre>
+    <p class="normal">In the end, it should look something like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">builder.Services.AddOidcAuthentication(options =&gt;
+{
+    <span class="hljs-comment">//Removed for brevity</span>
+}).AddAccountClaimsPrincipalFactory&lt;ArrayClaimsPrincipalFactory &lt;RemoteUserAccount&gt;&gt;();
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Set <strong class="screenText">BlazorWebAssembly.Server</strong> as a startup project and run it. If we log in, we should be <a id="_idIndexMarker400"></a>able to see text to the left <a id="_idIndexMarker401"></a>saying <strong class="screenText">Hi Admin!</strong> in black text on top of dark blue, so it might not be very visible. We will take care of this in <em class="chapterRef">Chapter 9</em>, <em class="italic">Sharing Code and Resources</em>.</p>
+    <p class="normal">Awesome! We have authentication and authorization working for both Blazor Server and Blazor WebAssembly and secured our API!</p>
+    <h1 id="_idParaDest-172" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we learned how to add authentication to our existing site. It is easier to add authentication at the point of creating a project, but now we have a better understanding of what is going on under the hood and how to handle adding an external source for authentication.</p>
+    <p class="normal">Throughout the book, we have been sharing components between the two projects.</p>
+    <p class="normal">In the next chapter, we will look at sharing even more things like static files and CSS and try to make everything look nice.</p>
+  </div>
+</body>
+</html>

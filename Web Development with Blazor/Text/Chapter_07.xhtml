@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_07</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_07" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer059" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">7</h1>
+    <h1 id="_idParaDest-147" class="chapterTitle">Creating an API</h1>
+    <p class="normal">Blazor WebAssembly needs to be able to retrieve data and also change our data. For that to work, we need an API to access the data. In this chapter, we will create a Web API using <strong class="keyWord">Minimal API</strong>.</p>
+    <p class="normal">When using Blazor Server, the API will be secured with the page (if we add an <strong class="keyWord">Authorize</strong> attribute), so we get that for free. But with WebAssembly, everything will be executed in the browser, so we need something that WebAssembly can communicate with to update the data on the server.</p>
+    <p class="normal">To do this, we will need to cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Creating the service</li>
+      <li class="bulletList">Creating the client</li>
+    </ul>
+    <h1 id="_idParaDest-148" class="heading-1">Technical requirements</h1>
+    <p class="normal">Make sure you have read the previous chapters or use the <code class="inlineCode">Chapter06</code> folder as a starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s end result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter07"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter07</span></a>.</p>
+    <h1 id="_idParaDest-149" class="heading-1">Creating the service</h1>
+    <p class="normal">There are many ways to create<a id="_idIndexMarker325"></a> a service, such as via REST or perhaps gRPC. In this book, we will cover REST.</p>
+    <p class="normal">For those who haven’t worked with REST before, <strong class="keyWord">REST</strong> stands for <strong class="keyWord">REpresentational State Transfer</strong>. Simply put, it is a way for machines<a id="_idIndexMarker326"></a> to talk to other devices using HTTP.</p>
+    <p class="normal">With REST, we use different HTTP verbs for different operations. They could look something like this:</p>
+    <p class="packt_figref"><img src="../Images/B18549_07_01.png" alt="Table  Description automatically generated"/></p>
+    <p class="packt_figref">Figure 7.1: Rest calls</p>
+    <p class="normal">We will implement an API for <strong class="keyWord">tags</strong>, <strong class="keyWord">categories</strong>, and <strong class="keyWord">blog posts</strong>.</p>
+    <p class="normal">Since the API takes care of whether the <em class="italic">post</em> should be created, we’ll cheat and only implement <code class="inlineCode">Put</code> (replace) because<a id="_idIndexMarker327"></a> we don’t know whether we are creating or updating the data.</p>
+    <p class="normal">The API will only be used by Blazor WebAssembly, so we will implement the API in the <strong class="keyWord">BlazorWebAssembly.Server</strong> project. Blazor Server has direct<a id="_idIndexMarker328"></a> data access.</p>
+    <h2 id="_idParaDest-150" class="heading-2">Adding data access</h2>
+    <p class="normal">For our API to get data<a id="_idIndexMarker329"></a> from our repository, we need to add the <code class="inlineCode">BlogApiJsonDirectAccessSetting</code> class to the dependency injection.</p>
+    <p class="normal">Execute the following steps to provide database access:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="keyWord">BlazorWebAssembly.Server</strong> project, open <code class="inlineCode">Program.cs</code>.</li>
+      <li class="numberedList">Add the following lines just above <code class="inlineCode">var app = builder.Build();</code>:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddOptions&lt;BlogApiJsonDirectAccessSetting&gt;()
+    .Configure(options =&gt;
+    {
+        options.DataPath = <span class="hljs-string">@"..\..\..\..\Data\"</span>;
+        options.BlogPostsFolder = <span class="hljs-string">"Blogposts"</span>;
+        options.TagsFolder = <span class="hljs-string">"Tags"</span>;
+        options.CategoriesFolder = <span class="hljs-string">"Categories"</span>;
+    });
+builder.Services.AddScoped&lt;IBlogApi, BlogApiJsonDirectAccess&gt;();
+</code></pre>
+    <p class="normal">This is the same database configuration as with the <strong class="keyWord">BlazorServer</strong> project.</p>
+    <p class="normal">We are even pointing <a id="_idIndexMarker330"></a>to the same folder, but since the folder structure is one level deeper for the Blazor WebAssembly project, we use <code class="inlineCode">..\..\..\..\Data</code> to reach the existing data.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Add a reference to the <strong class="keyWord">Data</strong> project by right-clicking <strong class="screenText">Dependencies</strong> beneath the <strong class="screenText">BlazorWebAssembly.Server</strong> project and selecting <strong class="screenText">Add project reference</strong>.</li>
+      <li class="numberedList">Check <strong class="keyWord">Data</strong> and click <strong class="screenText">OK</strong>.</li>
+      <li class="numberedList">Add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data;
+<span class="hljs-keyword">using</span> Data.Models.Interfaces;
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Now we have added access to the classes we have in the <strong class="keyWord">Data</strong> project.</p>
+    <p class="normal">We have configured it so that if we ask for an instance of <strong class="keyWord">IBlogApi</strong>, we will get an instance of the <code class="inlineCode">BlogApiJsonDirectAccess</code> class. This is because<a id="_idIndexMarker331"></a> we are on the server side, so the API can directly access the database.</p>
+    <p class="normal">Now, let’s create the API. For this, we will use Minimal API. The idea is that it should be easy to add without the need to add a lot of files.</p>
+    <h2 id="_idParaDest-151" class="heading-2">Learning about Minimal APIs</h2>
+    <p class="normal">Before we jump<a id="_idIndexMarker332"></a> into implementing the Minimal API, let’s take a moment to learn about it. Back in November 2019 when one of the members of the <strong class="keyWord">Distributed Application Runtime </strong>(<strong class="keyWord">Dapr</strong>) team wrote a couple of tutorials<a id="_idIndexMarker333"></a> on how to build a distributed calculator using different languages.</p>
+    <p class="normal">They had examples using Go, Python, Node.js, and .NET Core. The code showed how much harder it was to write a distributed calculator in C# compared with the other languages.</p>
+    <p class="normal">Microsoft asked various non-.NET developers what their perception was of C#. Their response wasn’t great. Then Microsoft asked them to complete a tutorial using an early version of Minimal APIs.</p>
+    <p class="normal">After the tutorial, they were asked about their perception now, and their response had shifted and was now more positive; it felt like home.</p>
+    <p class="normal">The goal of Minimal APIs was to reduce complexity and ceremony and embrace minimalism. I thought that “minimal” meant that I wouldn’t be able to do everything but digging deeper into the code, I soon realized that was not the case.</p>
+    <p class="normal">From my point of view, Minimal APIs are a much nicer way to code APIs. The idea is that if we need to, we can grow our API, and as soon as we feel like it, we can move our code into a controller to get more structure. At my workplace, we switched to Minimal APIs because we think the syntax is much nicer.</p>
+    <p class="normal">A very simple sample of adding a Minimal API would be just adding this line in <code class="inlineCode">Program.cs</code>:</p>
+    <pre class="programlisting code"><code class="hljs-code">app.MapGet(<span class="hljs-string">"/"</span>, () =&gt; <span class="hljs-string">"Hello world!"</span>);
+</code></pre>
+    <p class="normal">We say<a id="_idIndexMarker334"></a> that if we navigate to a URL without specifying any route, just a <code class="inlineCode">"/"</code>, we return a string with <code class="inlineCode">"</code><code class="inlineCode">Hello World"</code>.</p>
+    <p class="normal">This is of course, the simplest example possible, but it is possible to implement more complex things as well, as we will see in the next section.</p>
+    <h2 id="_idParaDest-152" class="heading-2">Adding the API controllers</h2>
+    <p class="normal">We have<a id="_idIndexMarker335"></a> three data models: blog posts, tags, and categories.</p>
+    <p class="normal">Let’s create three different files, one for each data model, to demonstrate that there are friendly ways to add more complex APIs using Minimal APIs. For a small project, it would probably make more sense to add everything in <code class="inlineCode">Program.cs</code>.</p>
+    <h3 id="_idParaDest-153" class="heading-3">Adding APIs for handling blog posts</h3>
+    <p class="normal">Let’s start by adding the API methods<a id="_idIndexMarker336"></a> for handling<a id="_idIndexMarker337"></a> blog posts.</p>
+    <p class="normal">Execute the following steps to create the API:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="keyWord">WebAssembly.Server</strong> project, add a new folder called <code class="inlineCode">Endpoints</code>.</li>
+      <li class="numberedList">In the <strong class="screenText">Endpoints</strong> folder, create a class called <code class="inlineCode">BlogPostEndpoints.cs</code>. The idea is to create an extension method we can use later in <code class="inlineCode">Program.cs</code>.
+    <p class="normal">Add these <code class="inlineCode">using</code> statements at the top of the file:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">using</span> Data.Models.Interfaces;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Authorization;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Mvc;
+</code></pre></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Replace the class with the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogPostEndpoints</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">static</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">MapBlogPostApi</span><span class="hljs-function">(</span><span class="hljs-keyword">this</span><span class="hljs-params"> WebApplication app</span><span class="hljs-function">)</span>
+    {
+        app.MapGet(<span class="hljs-string">"/api/BlogPosts"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api, [FromQuery] <span class="hljs-built_in">int</span> numberofposts, [FromQuery] <span class="hljs-built_in">int</span> startindex) =&gt;
+        {
+            <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.GetBlogPostsAsync(numberofposts, startindex));
+        });
+       }
+}
+</code></pre>
+    <p class="normal">We are creating an extension method, we must ensure the class is static. The <code class="inlineCode">MapBlogPostApi</code> method uses the <code class="inlineCode">this</code> keyword, which makes the method available on any <code class="inlineCode">WebApplication</code> class.</p>
+    <p class="normal">We set up the Minimal API by using <code class="inlineCode">MapGet</code> and a path, which means that the method will run if we access that path with the correct parameters using a <em class="italic">Get</em> verb.</p>
+    <p class="normal">The method takes a couple of parameters. The first is of the type <code class="inlineCode">IBlogApi</code>, which will use dependency injection to get an instance of the class we need, in this case, <code class="inlineCode">BlogApiJsonDirectAccess</code>, which will access the JSON files we have stored.</p>
+    <p class="normal">The other parameters will use the query string (since we are using the <code class="inlineCode">query</code> attribute); in most cases, a Minimal API will figure these things out but it’s never wrong to nudge it in the right direction.</p>
+    <p class="normal">We have created a method<a id="_idIndexMarker338"></a> that returns the data directly<a id="_idIndexMarker339"></a> from the database (the same API the Blazor Server project is using).</p>
+    <p class="normal">We also need to make sure to call it from <code class="inlineCode">Program.cs</code>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">In <code class="inlineCode">Program.cs</code>, add the following namespace:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> BlazorWebAssembly.Server.Endpoints;
+</code></pre>
+      </li>
+      <li class="numberedList">Also, add the following code just under <code class="inlineCode">app.UseRouting();</code>:
+        <pre class="programlisting code"><code class="hljs-code">app.MapBlogPostApi();
+</code></pre>
+      </li>
+      <li class="numberedList">Time to test the API; make sure to start the <strong class="keyWord">BlazorWebAssembly.Server</strong> project.
+    <p class="normal">Go to the following URL: <code class="inlineCode">https://localhost:5001/Api/BlogPosts?numberofposts=10&amp;startindex=0</code> (the port number might be something else). We will get some JSON back with a list of our blog posts.</p>
+    <p class="normal">We are off to a good start! Now we need to implement the rest of the API as well.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">In the <code class="inlineCode">Endpoints</code>/<code class="inlineCode">BlogPostEndpoint.cs</code> file, let’s add the code to get the blog post count:
+        <pre class="programlisting code"><code class="hljs-code">app.MapGet(<span class="hljs-string">"/api/BlogPostCount"</span>,
+<span class="hljs-keyword">async</span> (IBlogApi api) =&gt;
+{
+<span class="hljs-keyword">    return</span> Results.Ok(<span class="hljs-keyword">await</span> api.GetBlogPostCountAsync());
+});
+</code></pre>
+    <p class="normal">We use the <em class="italic">Get</em> verb but with another route.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">We also need to be able to get one blog post. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code">app.MapGet(<span class="hljs-string">"/api/BlogPosts/{*id}"</span>,
+<span class="hljs-keyword">async</span> (IBlogApi api, <span class="hljs-built_in">string</span> id) =&gt;
+{
+    <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.GetBlogPostAsync(id));
+});
+</code></pre>
+    <p class="normal">In this case, we are using the <em class="italic">Get</em> verb but with another URL, containing the ID for <em class="italic">Post</em> that we want to get.</p>
+    <p class="normal">We are using<a id="_idIndexMarker340"></a> a string as an ID<a id="_idIndexMarker341"></a> and some databases (like RavenDB, for example), uses an ID that looks like this: <code class="inlineCode">CollectionName/IdOfThePost</code>; we also make sure to add a <code class="inlineCode">*</code> to the parameter. This way, it will use anything that comes after as an ID otherwise it would interpret the slash as part of the routing and not find the endpoint.</p>
+    <p class="normal">Next, we need an API that is protected, typically the one that updates or deletes things.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="9">Let’s add an API that saves a blog post. Add the following code under the code we just added:
+        <pre class="programlisting code"><code class="hljs-code">app.MapPut(<span class="hljs-string">"/api/BlogPosts"</span>,
+<span class="hljs-keyword">async</span> (IBlogApi api, [FromBody] BlogPost item) =&gt;
+{
+    <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.SaveBlogPostAsync(item));
+}).RequireAuthorization();
+</code></pre>
+    <p class="normal">As I mentioned earlier in this chapter, we will only add one API for creating and updating blog posts, and we will use the <em class="italic">Put</em> verb (replace) to do that. We have added the <code class="inlineCode">RequireAuthorization</code> method at the end, which will ensure that the user needs to be authenticated to call the method.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="10">Next up, we add a code for deleting blog posts. To do this, add the following code:
+        <pre class="programlisting code"><code class="hljs-code">app.MapDelete(<span class="hljs-string">"/api/BlogPosts/{*id}"</span>,
+<span class="hljs-keyword">async</span> (IBlogApi api, <span class="hljs-built_in">string</span> id) =&gt;
+{
+<span class="hljs-keyword">    await</span> api.DeleteBlogPostAsync(id);
+    <span class="hljs-keyword">return</span> Results.Ok();
+}).RequireAuthorization();
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">In this case, we use<a id="_idIndexMarker342"></a> the <em class="italic">Delete</em> verb, and just<a id="_idIndexMarker343"></a> as with saving, we add the <code class="inlineCode">RequireAuthorization</code> method at the end.</p>
+    <p class="normal">Next, we need to do this for <strong class="keyWord">Categories</strong> and <strong class="keyWord">Tags</strong> as well. </p>
+    <h3 id="_idParaDest-154" class="heading-3">Adding APIs for handling categories</h3>
+    <p class="normal">Let’s start<a id="_idIndexMarker344"></a> with <strong class="keyWord">Categories</strong>. Follow<a id="_idIndexMarker345"></a> these steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Endpoints</strong> folder, add a new class called <code class="inlineCode">CategoryEndpoints.cs</code>. Replace the code with the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">using</span> Data.Models.Interfaces;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Mvc;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorWebAssembly.Server.Endpoints</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CategoryEndpoints</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">static</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">MapCategoryApi</span><span class="hljs-function">(</span><span class="hljs-keyword">this</span><span class="hljs-params"> WebApplication app</span><span class="hljs-function">)</span>
+    {
+        app.MapGet(<span class="hljs-string">"/api/Categories"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api) =&gt;
+        {
+            <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.GetCategoriesAsync());
+        });
+        app.MapGet(<span class="hljs-string">"/api/Categories/{*id}"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api, <span class="hljs-built_in">string</span> id) =&gt;
+        {
+            <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.GetCategoryAsync(id));
+        });
+        app.MapDelete(<span class="hljs-string">"/api/Categories/{*id}"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api, <span class="hljs-built_in">string</span> id) =&gt;
+        {
+            <span class="hljs-keyword">await</span> api.DeleteCategoryAsync(id);
+            <span class="hljs-keyword">return</span> Results.Ok();
+        }).RequireAuthorization();
+        app.MapPut(<span class="hljs-string">"/api/Categories"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api, [FromBody] Category item) =&gt;
+        {
+            <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.SaveCategoryAsync(item));
+        }).RequireAuthorization();
+    }
+} 
+</code></pre>
+      </li>
+      <li class="numberedList">In <code class="inlineCode">Program.cs</code>, add the following code just under <code class="inlineCode">var: app=builder.Build();</code>
+        <pre class="programlisting code"><code class="hljs-code">app.MapCategoryApi();
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">These are all the methods<a id="_idIndexMarker346"></a> needed to<a id="_idIndexMarker347"></a> handle <strong class="keyWord">Categories</strong>.</p>
+    <p class="normal">Next, let’s do the same thing with <strong class="keyWord">Tags</strong>. </p>
+    <h3 id="_idParaDest-155" class="heading-3">Adding APIs for handling tags</h3>
+    <p class="normal">Let’s do the same<a id="_idIndexMarker348"></a> things for tags<a id="_idIndexMarker349"></a> by following these steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Endpoints</strong> folder, add a new class called <code class="inlineCode">TagEndpoints.cs</code>. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">using</span> Data.Models.Interfaces;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Mvc;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorWebAssembly.Server.Endpoints</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TagEndpoints</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">static</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">MapTagApi</span><span class="hljs-function">(</span><span class="hljs-keyword">this</span><span class="hljs-params"> WebApplication app</span><span class="hljs-function">)</span>
+    {
+        app.MapGet(<span class="hljs-string">"/api/Tags"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api) =&gt;
+        {
+            <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.GetTagsAsync());
+        });
+        app.MapGet(<span class="hljs-string">"/api/Tags/{*id}"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api, <span class="hljs-built_in">string</span> id) =&gt;
+        {
+            <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.GetTagAsync(id));
+        });
+        app.MapDelete(<span class="hljs-string">"/api/Tags/{*id}"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api, <span class="hljs-built_in">string</span> id) =&gt;
+        {
+            <span class="hljs-keyword">await</span> api.DeleteTagAsync(id);
+            <span class="hljs-keyword">return</span> Results.Ok();
+        }).RequireAuthorization();
+        app.MapPut(<span class="hljs-string">"/api/Tags"</span>,
+        <span class="hljs-keyword">async</span> (IBlogApi api, [FromBody] Tag item) =&gt;
+        {
+            <span class="hljs-keyword">return</span> Results.Ok(<span class="hljs-keyword">await</span> api.SaveTagAsync(item));
+        }).RequireAuthorization();
+    }
+}
+</code></pre>
+      </li>
+      <li class="numberedList">In <code class="inlineCode">Program.cs</code>, add the following<a id="_idIndexMarker350"></a> code just<a id="_idIndexMarker351"></a> under <code class="inlineCode">var: app=builder.Build();</code>
+        <pre class="programlisting code"><code class="hljs-code">app.MapTagApi();
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Great! We have an API! Now it’s time to write the client that will access that API.</p>
+    <h1 id="_idParaDest-156" class="heading-1">Creating the client</h1>
+    <p class="normal">To access the API, we need<a id="_idIndexMarker352"></a> to create a client. There are many ways of doing this, but we will do it the simplest way possible by writing the code ourselves.</p>
+    <p class="normal">The client will implement the same <strong class="keyWord">IBlogApi</strong> interface. This way, we have the same<a id="_idIndexMarker353"></a> code regardless of which implementation we are using, and direct JSON access with <strong class="keyWord">BlogApiJsonDirectAccess</strong> or <strong class="keyWord">BlogApiWebClient</strong>, which we are going to create next:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Right-click on the <strong class="screenText">Dependencies</strong> node under <strong class="screenText">BlazorWebAssembly.Client</strong> and select <strong class="screenText">Manage NuGet Packages</strong>.</li>
+      <li class="numberedList">Search for <code class="inlineCode">Microsoft.AspNetCore.Components.WebAssembly.Authentication</code> and click <strong class="screenText">Install</strong>.</li>
+      <li class="numberedList">Also, search for <code class="inlineCode">Microsoft.Extensions.Http</code> and click <strong class="screenText">Install</strong>.</li>
+      <li class="numberedList">In the <strong class="screenText">BlazorWebAssembly.Client</strong> project, add a new class and name it <code class="inlineCode">BlogApiWebClient.cs</code>.</li>
+      <li class="numberedList">Open the newly created file.</li>
+      <li class="numberedList">Add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">using</span> Data.Models.Interfaces;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+<span class="hljs-keyword">using</span> System.Net.Http.Json;
+<span class="hljs-keyword">using</span> System.Text.Json;
+</code></pre>
+      </li>
+      <li class="numberedList">Add <code class="inlineCode">IBlogApi</code> to the class<a id="_idIndexMarker354"></a> and make it public like this:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorWebAssembly.Client</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogApiWebClient</span> : <span class="hljs-title">IBlogApi</span>
+{
+}
+</code></pre>
+      </li>
+      <li class="numberedList">Some API calls will be public (do not require authentication), but <code class="inlineCode">HttpClient</code> will be configured to require a token.
+    <p class="normal">So, we are going to need one authenticated <code class="inlineCode">HttpClient</code> and one unauthenticated <code class="inlineCode">HttpClient</code>, depending on what API we are calling.</p>
+    <p class="normal">To be able to call the API, we need to inject <code class="inlineCode">HttpClient</code>. Add the following code to the class:</p>
+    <pre class="programlisting code"><code class="hljs-code">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> IHttpClientFactory _factory;
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">BlogApiWebClient</span><span class="hljs-function">(</span><span class="hljs-params">IHttpClientFactory factory</span><span class="hljs-function">)</span>
+    {
+        _factory = factory;
+    }
+</code></pre></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="9">Now it’s time to implement calls to the API. Let’s begin with the <em class="italic">Get</em> calls for blog posts. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;BlogPost?&gt; GetBlogPostAsync(<span class="hljs-built_in">string</span> id)
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Public"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> httpclient.GetFromJsonAsync&lt;BlogPost&gt;(<span class="hljs-string">$"api/BlogPosts/</span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span>);
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task&lt;</span><span class="hljs-built_in">int</span><span class="hljs-function">&gt; </span><span class="hljs-title">GetBlogPostCountAsync</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Public"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> httpclient.GetFromJsonAsync&lt;<span class="hljs-built_in">int</span>&gt;(<span class="hljs-string">"/api/BlogPostCount"</span>);
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;BlogPost&gt;?&gt; GetBlogPostsAsync(<span class="hljs-built_in">int</span> numberofposts, <span class="hljs-built_in">int</span> startindex)
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Public"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> httpclient.GetFromJsonAsync&lt;List&lt;BlogPost&gt;&gt;(<span class="hljs-string">$"/api/BlogPosts?numberofposts=</span><span class="hljs-subst">{numberofposts}</span><span class="hljs-string">&amp;startindex=</span><span class="hljs-subst">{startindex}</span><span class="hljs-string">"</span>);
+    }
+</code></pre>
+    <p class="normal">We use the <code class="inlineCode">HttpClient</code> we injected and then call <code class="inlineCode">GetFromJsonAsync</code>, which will automatically download the JSON and convert it in to the class we supply to the generic method.</p>
+    <p class="normal">Now it gets a little<a id="_idIndexMarker355"></a> trickier: we need to handle authentication. Luckily, this is built into <code class="inlineCode">HttpClient</code> so we only need to handle <code class="inlineCode">AccessTokenNotAvailableException</code>. If a token is missing, it will automatically try and renew it, but if there is a problem (for example, the user is not logged in), we can redirect to the login page.</p>
+    <p class="normal">We will come back to tokens and how authentication works in <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="10">Next, we add the API calls that need authentication, such as saving or deleting a blog post.
+    <p class="normal">Add the following code under the code we just added:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;BlogPost?&gt; SaveBlogPostAsync(BlogPost item)
+{
+    <span class="hljs-keyword">try</span>
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Authenticated"</span>);
+        <span class="hljs-keyword">var</span> response = <span class="hljs-keyword">await</span> httpclient.PutAsJsonAsync&lt;BlogPost&gt;
+           (<span class="hljs-string">"api/BlogPosts"</span>, item);
+        <span class="hljs-keyword">var</span> json = <span class="hljs-keyword">await</span> response.Content.ReadAsStringAsync();
+        <span class="hljs-keyword">return</span> JsonSerializer.Deserialize&lt;BlogPost&gt;(json);
+    }
+    <span class="hljs-keyword">catch</span> (AccessTokenNotAvailableException exception)
+    {
+        exception.Redirect();
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteBlogPostAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">try</span>
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Authenticated"</span>);
+        <span class="hljs-keyword">await</span> httpclient.DeleteAsync(<span class="hljs-string">$"api/BlogPosts/</span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span>);
+    }
+    <span class="hljs-keyword">catch</span> (AccessTokenNotAvailableException exception)
+    {
+        exception.Redirect();
+    }
+}
+</code></pre>
+    <p class="normal">If the call throws <code class="inlineCode">AccessTokenNotAvailableException</code>, that means <code class="inlineCode">HttpClient</code> couldn’t get or renew a token automatically, and the user needs to log in.</p>
+    <p class="normal">This state should probably<a id="_idIndexMarker356"></a> never happen because we will ensure that when the user navigates to that page, they will need to be logged in, but it’s better to be safe than sorry.</p>
+    <p class="normal">We also use an <code class="inlineCode">HttpClient</code> named <code class="inlineCode">Authenticated</code>, which we need to configure, but we will return to that in <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="11">Now we need to<a id="_idIndexMarker357"></a> do the same for <strong class="keyWord">Categories</strong>. Add the following code to the <code class="inlineCode">BlogApiWebClient</code> class:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;Category&gt;?&gt; GetCategoriesAsync()
+{
+    <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Public"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> httpclient.GetFromJsonAsync&lt;List&lt;Category&gt;&gt;(<span class="hljs-string">$"api/Categories"</span>);
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Category?&gt; GetCategoryAsync(<span class="hljs-built_in">string</span> id)
+{
+    <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Public"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> httpclient.GetFromJsonAsync&lt;Category&gt;(<span class="hljs-string">$"api/Categories/</span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span>);
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteCategoryAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">try</span>
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Authenticated"</span>);
+        <span class="hljs-keyword">await</span> httpclient.DeleteAsync(<span class="hljs-string">$"api/Categories/</span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span>);
+    }
+    <span class="hljs-keyword">catch</span> (AccessTokenNotAvailableException exception)
+    {
+        exception.Redirect();
+    }
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Category?&gt; SaveCategoryAsync(Category item)
+{
+    <span class="hljs-keyword">try</span>
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Authenticated"</span>);
+        <span class="hljs-keyword">var</span> response = <span class="hljs-keyword">await</span> httpclient.PutAsJsonAsync&lt;Category&gt;(<span class="hljs-string">"api/Categories"</span>, item);
+        <span class="hljs-keyword">var</span> json = <span class="hljs-keyword">await</span> response.Content.ReadAsStringAsync();
+        <span class="hljs-keyword">return</span> JsonSerializer.Deserialize&lt;Category&gt;(json);
+    }
+    <span class="hljs-keyword">catch</span> (AccessTokenNotAvailableException exception)
+    {
+        exception.Redirect();
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+</code></pre>
+      </li>
+      <li class="numberedList">And next up, we will<a id="_idIndexMarker358"></a> do the same for <strong class="keyWord">Tags</strong>. Add the following code just under the code we just added:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Tag?&gt; GetTagAsync(<span class="hljs-built_in">string</span> id)
+{
+    <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Public"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> httpclient.GetFromJsonAsync&lt;Tag&gt;(<span class="hljs-string">$"api/Tags/</span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span>);
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;Tag&gt;?&gt; GetTagsAsync()
+{
+    <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Public"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> httpclient.GetFromJsonAsync&lt;List&lt;Tag&gt;&gt;(<span class="hljs-string">$"api/Tags"</span>);
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteTagAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">try</span>
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Authenticated"</span>);
+        <span class="hljs-keyword">await</span> httpclient.DeleteAsync(<span class="hljs-string">$"api/Tags/</span><span class="hljs-subst">{id}</span><span class="hljs-string">"</span>);
+    }
+    <span class="hljs-keyword">catch</span> (AccessTokenNotAvailableException exception)
+    {
+        exception.Redirect();
+    }
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Tag?&gt; SaveTagAsync(Tag item)
+{
+    <span class="hljs-keyword">try</span>
+    {
+        <span class="hljs-keyword">var</span> httpclient = _factory.CreateClient(<span class="hljs-string">"Authenticated"</span>);
+        <span class="hljs-keyword">var</span> response = <span class="hljs-keyword">await</span> httpclient.PutAsJsonAsync&lt;Tag&gt;(<span class="hljs-string">"api/Tags"</span>, item);
+        <span class="hljs-keyword">var</span> json = <span class="hljs-keyword">await</span> response.Content.ReadAsStringAsync();
+        <span class="hljs-keyword">return</span> JsonSerializer.Deserialize&lt;Tag&gt;(json);
+    }
+    <span class="hljs-keyword">catch</span> (AccessTokenNotAvailableException exception)
+    {
+        exception.Redirect();
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">InvalidateCacheAsync</span><span class="hljs-function">()</span>
+{
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NotImplementedException();
+}
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Great job! Our API client is <a id="_idIndexMarker359"></a>now done!</p>
+    <h1 id="_idParaDest-157" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we learned how to create an API using Minimal APIs and an API client, which is an important part of most applications. This way, we can get blog posts from our database and show them in our Blazor WebAssembly app.</p>
+    <p class="normal">In the next chapter, we will add login functionality to our sites and call our API for the first time.</p>
+  </div>
+  <div id="_idContainer061" class="Basic-Text-Frame">
+    <h1 class="heading-1">Join our community on Discord&#160;</h1>
+    <p class="normal">Join our community’s Discord space for discussions with the author and other readers:&#160;</p>
+    <p class="normal"><a href="https://packt.link/WebDevBlazor2e"><span class="url">https://packt.link/WebDevBlazor2e</span></a></p>
+    <p class="normal"><span class="url"><img src="../Images/QR_Code748085881713038109.png" alt=""/></span></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_14</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_14" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer085" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">14</h1>
+    <h1 id="_idParaDest-232" class="chapterTitle">Deploy to Production</h1>
+    <p class="normal">In this chapter, we will take a look at the different options we have when deploying our Blazor application to production. Since there are many different options, going through them all would be a book all by itself.</p>
+    <p class="normal">We won’t go into detail, but rather cover the different things we need to think about so that we can deploy to any provider.</p>
+    <p class="normal">In the end, deploying is what we need to do to make use of what we build.</p>
+    <p class="normal">In this chapter, we will cover the following:</p>
+    <ul>
+      <li class="bulletList">Continuous delivery options</li>
+      <li class="bulletList">Hosting options</li>
+    </ul>
+    <h1 id="_idParaDest-233" class="heading-1">Technical requirements</h1>
+    <p class="normal">This chapter is about general deployment, so we won’t need any code.</p>
+    <h1 id="_idParaDest-234" class="heading-1">Continuous delivery options</h1>
+    <p class="normal">When <a id="_idIndexMarker527"></a>deploying anything to production, we should think about making sure to remove uncertain factors. For example, if we are deploying from our own machine, how do we know it’s the latest version? How do we know that our teammates didn’t recently solve a problem and we don’t have the fix in our branch? To be honest, how do we even know that the version in source control is the same in production, or if the version in production even exists in source control?</p>
+    <p class="normal">This is where <strong class="keyWord">Continuous Integration</strong> and <strong class="keyWord">Continuous Delivery/Deployment</strong> (<strong class="keyWord">CI/CD</strong>) come into the picture. We <a id="_idIndexMarker528"></a>make sure that something else makes the deployment to production. Entire books could be written on deployment, so we won’t go that deep into the subject.</p>
+    <p class="normal">GitHub Actions<a id="_idIndexMarker529"></a> and Azure DevOps (or Azure Pipelines) are two products from Microsoft for CI/CD. There are many<a id="_idIndexMarker530"></a> more, such as Jenkins, TeamCity, and GitLab – the list is long. If the CI/CD system we are currently using supports deploying ASP.NET, it will be able to handle Blazor because, in the end, Blazor is just an ASP.NET site.</p>
+    <p class="normal">If we have tests (which we should have), we should also make sure to set up tests as part of our CI/CD pipeline. The nice thing is that we don’t need to add any specific hardware to test our components; it will work if our CI/CD pipeline can run unit tests.</p>
+    <p class="normal">In our setup at work, we build and run all tests when we do a pull request. If the build and tests pass, someone else in the team does a code review and approves the change. If the team member approves the change, it will then trigger a release, and the release deploys the site to our test environment. Our testers run through the test protocols and approve the changes.</p>
+    <p class="normal">When the sprint is over, the tester will run through the complete test protocol and approve the site. We then trigger another release that will deploy the site to production.</p>
+    <p class="normal">Since Blazor<a id="_idIndexMarker531"></a> is ASP.NET, nothing is stopping us from going even further with the automated testing of our site.</p>
+    <p class="normal">There is also something<a id="_idIndexMarker532"></a> called <strong class="keyWord">wasm-tools</strong>, which we will take a look at in <em class="chapterRef">Chapter 16</em>, <em class="italic">Going Deeper into WebAssembly</em>.</p>
+    <h1 id="_idParaDest-235" class="heading-1">Hosting options</h1>
+    <p class="normal">When it comes to <a id="_idIndexMarker533"></a>hosting Blazor, there are many options. Any cloud service that can host ASP.NET Core sites should be able to run Blazor without any problems.</p>
+    <p class="normal">We need to think about some things, so let’s go through the options one by one.</p>
+    <h2 id="_idParaDest-236" class="heading-2">Hosting Blazor Server</h2>
+    <p class="normal">If the cloud provider can <a id="_idIndexMarker534"></a>enable/disable WebSockets, we want to enable them since that’s the <a id="_idIndexMarker535"></a>protocol used by SignalR. Depending on the load, we might want to use a service such as Azure SignalR Service, which will take care of all the connections and enable our application to handle more users.</p>
+    <p class="normal">Sometimes, the cloud provider may support .NET Core 3.x but not support .NET 7 out of the box. But don’t worry; by making sure to publish our application with the deployment mode as self-contained, we make sure the deployment also adds any files necessary to run the project (this might not be true for all hosting providers).</p>
+    <p class="normal">This is also a good thing to do to make sure that we are running on the exact framework version we expect.</p>
+    <h2 id="_idParaDest-237" class="heading-2">Hosting Blazor WebAssembly</h2>
+    <p class="normal">If we are using a .NET <a id="_idIndexMarker536"></a>Core backend (like we do for the blog), we are hosting a .NET<a id="_idIndexMarker537"></a> Core website, so the same rules apply as with hosting Blazor Server. For our blog, we also added SignalR, so we need WebSockets enabled as well.</p>
+    <p class="normal">There are some other considerations when it comes to hosting Blazor WebAssembly, such as these:</p>
+    <ul>
+      <li class="bulletList">We may need a .NET Core backend.</li>
+      <li class="bulletList">The data we are getting may be static or hosted somewhere else.</li>
+    </ul>
+    <p class="normal">In either of these cases, we can host our application in Azure Static Web Apps or even GitHub Pages.</p>
+    <h2 id="_idParaDest-238" class="heading-2">Hosting on IIS</h2>
+    <p class="normal">We can also host our application<a id="_idIndexMarker538"></a> on <strong class="keyWord">Internet Information Server</strong> (<strong class="keyWord">IIS</strong>). Install the hosting bundle, and it will also make sure to include the <a id="_idIndexMarker539"></a>ASP.NET Core IIS module if installed on a machine with IIS.</p>
+    <p class="normal">You need to make sure to enable the WebSocket protocol on the server.</p>
+    <p class="normal">We currently run our sites on IIS and use Azure DevOps to deploy our sites. Since we are using Blazor Server, the downtime is very evident. As soon as the web loses the SignalR connection, the site <a id="_idIndexMarker540"></a>will show a reconnect <a id="_idIndexMarker541"></a>message.</p>
+    <p class="normal">For the sites we are using, there is about 8 to 10 seconds of downtime when deploying a new version, which is pretty quick.</p>
+    <h1 id="_idParaDest-239" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we talked about why we should use CI/CD since it makes a huge difference in ensuring the quality of the application. We looked at some of the things we need to do to run our Blazor app on any cloud provider supporting .NET 7.</p>
+    <p class="normal">Deploying is perhaps the most important step when it comes to an application. Without deploying our application, it’s just code. With the things we mentioned in this chapter, such as CI/CD, hosting, and deployment, we are now ready to deploy the code.</p>
+    <p class="normal">In the next chapter, we will dig deeper into how we can port a current site, use Blazor with other technologies, or use other technologies with Blazor.</p>
+  </div>
+</body>
+</html>

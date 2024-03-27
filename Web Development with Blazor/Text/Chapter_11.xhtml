@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_11</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_11" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer072" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">11</h1>
+    <h1 id="_idParaDest-199" class="chapterTitle">Managing State – Part 2</h1>
+    <p class="normal">In this chapter, we continue to look at managing state. Most applications manage state in some form.</p>
+    <p class="normal">A state<a id="_idIndexMarker456"></a> is simply information that is persisted in some way. It can be data stored in a database, session states, or even something stored in a URL.</p>
+    <p class="normal">The user state<a id="_idIndexMarker457"></a> is stored in memory either in the web browser or on the server. It contains the component hierarchy and the most recently rendered UI (render tree). It also contains the values or fields and properties in the component instances as well as the data stored in service instances in dependency injection.</p>
+    <p class="normal">If we make JavaScript calls, the values we set are also stored in memory. Blazor Server relies on the circuit (SignalR connection) to hold the user state, and Blazor WebAssembly relies on the browser’s memory. If we reload the page, the circuit and the memory will be lost. Managing state is not about handling connections or connection issues but rather how we can keep the data even if we reload the web browser.</p>
+    <p class="normal">Saving state between page navigations or sessions improves the user experience and could be the difference between a sale and not. Imagine reloading the page, and all your items in the shopping cart are gone; chances are you won’t shop there again.</p>
+    <p class="normal">Now imagine returning to a page a week or month later, and all those things are still there.</p>
+    <p class="normal">In this chapter, we will cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Storing data on the server side</li>
+      <li class="bulletList">Storing data in the URL</li>
+      <li class="bulletList">Implementing browser storage</li>
+      <li class="bulletList">Using an in-memory state container service</li>
+    </ul>
+    <p class="normal">Some of these things we have already talked about and even implemented. Let’s take this opportunity to recap the things we have already talked about, as well as introduce some new techniques.</p>
+    <h1 id="_idParaDest-200" class="heading-1">Technical requirements</h1>
+    <p class="normal">Make sure you have followed the previous chapters or use the <code class="inlineCode">Chapter10</code> folder as a starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s end result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter11"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter11</span></a>.</p>
+    <div class="note">
+      <p class="normal">If you are jumping into this chapter using the code from GitHub, make sure you have added Auth0 account information in the settings files. You can find the instructions in <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>.</p>
+    </div>
+    <h1 id="_idParaDest-201" class="heading-1">Storing data on the server side</h1>
+    <p class="normal">There are many different <a id="_idIndexMarker458"></a>ways in which to store data on the server side. The<a id="_idIndexMarker459"></a> only thing to remember is that Blazor WebAssembly will always need an API. Blazor Server doesn’t need an API since we can access the server-side resources directly.</p>
+    <p class="normal">I have had discussions with many developers regarding APIs or direct access, which all boils down to what you intend to do with the application. If you are building a Blazor Server application and have no interest in moving to Blazor WebAssembly, I would probably go for direct access, as we have done in the <strong class="screenText">MyBlog</strong> project.</p>
+    <p class="normal">I would not do direct database queries in the components, though. I would keep it in an API, just not a Web API. As we have seen, exposing those API functions in an API, as we did in <em class="chapterRef">Chapter 7</em>, <em class="italic">Creating an API</em>, does not require a lot of steps. We can always start with direct server access and move to an API if we want to.</p>
+    <p class="normal">When it comes to storing data, we can save it in blob storage, key-value storage, a relational database, a document database, table storage, etc.</p>
+    <p class="normal">There is no end to the possibilities. If .NET can communicate with the technology, we will be able to use it.</p>
+    <h1 id="_idParaDest-202" class="heading-1">Storing data in the URL</h1>
+    <p class="normal">At first glance, this <a id="_idIndexMarker460"></a>option might sound horrific, but it’s not. Data, in this case, can be the blog post ID or the page number if we use paging. Typically, the things you want to save in the URL are things you want to be able to link to later on, such as blog posts, in our case.</p>
+    <p class="normal">To read a parameter from the URL, we use the following syntax:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/post/{BlogPostId:int}"</span>
+</code></pre>
+    <p class="normal">The URL is <code class="inlineCode">post</code> followed by <code class="inlineCode">Id</code> of the post.</p>
+    <p class="normal">To find that particular route, <code class="inlineCode">BlogPostId</code> must be an integer; otherwise, the route won’t be found.</p>
+    <p class="normal">We also need a <code class="inlineCode">public</code> parameter with the same name:</p>
+    <pre class="programlisting code"><code class="hljs-code">    [<span class="hljs-meta">Parameter</span>]
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> BlogPostId{ <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">If we store data in the URL, we need to make sure to use the <code class="inlineCode">OnParametersSet</code> or <code class="inlineCode">OnParametersSetAsync</code> method;, otherwise, the data won’t get reloaded if we change the parameter. If the parameter changes, Blazor won’t run <code class="inlineCode">OnInitializedAsync</code> again.</p>
+    <p class="normal">This is why our <code class="inlineCode">post.razor</code> component loads the things that change based on the parameter in the URL in <code class="inlineCode">OnParametersSet</code>, and load the things that are not affected by the parameter in <code class="inlineCode">OnInitializedAsync</code>.</p>
+    <p class="normal">We can use optional parameters by specifying them as nullable like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/post/{BlogPostId:int?}"</span>
+</code></pre>
+    <h2 id="_idParaDest-203" class="heading-2">Route constraints</h2>
+    <p class="normal">When we <a id="_idIndexMarker461"></a>specify what type the parameter <a id="_idIndexMarker462"></a>should be, this is called a <strong class="keyWord">route constraint</strong>. We add a constraint so the match will only happen if the parameter value can be converted into the type we specified.</p>
+    <p class="normal">The following constraints are available:</p>
+    <ul>
+      <li class="bulletList"><code class="inlineCode">bool</code></li>
+      <li class="bulletList"><code class="inlineCode">datetime</code></li>
+      <li class="bulletList"><code class="inlineCode">decimal</code></li>
+      <li class="bulletList"><code class="inlineCode">float</code></li>
+      <li class="bulletList"><code class="inlineCode">guid</code></li>
+      <li class="bulletList"><code class="inlineCode">int</code></li>
+      <li class="bulletList"><code class="inlineCode">long</code></li>
+    </ul>
+    <p class="normal">The URL elements will be <a id="_idIndexMarker463"></a>converted to a <strong class="keyWord">C#</strong> object. Therefore, it’s important to <a id="_idIndexMarker464"></a>use an invariant culture when adding them to a URL.</p>
+    <h2 id="_idParaDest-204" class="heading-2">Using a query string</h2>
+    <p class="normal">So far, we have only talked about routes <a id="_idIndexMarker465"></a>that are specified in the <code class="inlineCode">page</code> directive, but <a id="_idIndexMarker466"></a>we can also read data from the query string.</p>
+    <p class="normal"><code class="inlineCode">NavigationManager</code> gives us access to the URI, so by using this code, we can access the query string parameters:</p>
+    <pre class="programlisting code"><code class="hljs-code">@inject NavigationManager Navigation
+@code{
+<span class="hljs-keyword">var</span> query = <span class="hljs-keyword">new</span> Uri(Navigation.Uri).Query;
+}
+</code></pre>
+    <p class="normal">We won’t dig deeper into this, but now we know that it is possible to access query string parameters if we need to.</p>
+    <p class="normal">We can also access the query parameter using an attribute like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Parameter, SupplyParameterFromQuery(Name = </span><span class="hljs-string">"parameterName"</span><span class="hljs-meta">)</span>] <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ParameterFromQuery { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">This syntax is a bit nicer to work with.</p>
+    <h2 id="_idParaDest-205" class="heading-2">Scenarios that are not that common</h2>
+    <p class="normal">Some scenarios <a id="_idIndexMarker467"></a>might not be as common, but I didn’t want to leave them out of the book completely since I have used them in some of my implementations. I want to mention them in case you might run into the same requirements as I did.</p>
+    <p class="normal">By default, Blazor will assume that a URL that contains a dot is a file and will try and serve the user a file (and will probably not find one if we are trying to match a route).</p>
+    <p class="normal">By adding the following in <code class="inlineCode">Startup.cs</code> to the Blazor WebAssembly server project (a server-hosted WebAssembly project), the server will redirect the request to the <code class="inlineCode">index.html</code> file:</p>
+    <pre class="programlisting code"><code class="hljs-code">app.MapFallbackToFile(<span class="hljs-string">"/example/{param?}"</span>, <span class="hljs-string">"index.html"</span>);
+</code></pre>
+    <p class="normal">If the URL is <code class="inlineCode">example/some.thing</code>, it will redirect the request to the Blazor WebAssembly entry point, and the Blazor routes will take care of it. Without it, the server would say <strong class="screenText">file not found</strong>.</p>
+    <p class="normal">The routing, including a dot in the URL, will work, and to do the same, we would need to add the following to <code class="inlineCode">Startup.cs</code> in our Blazor Server project:</p>
+    <pre class="programlisting code"><code class="hljs-code">app.MapFallbackToPage(<span class="hljs-string">"/example/{param?}"</span>, <span class="hljs-string">"/_Host"</span>);
+</code></pre>
+    <p class="normal">We are doing the same thing here, but instead of redirecting to <code class="inlineCode">index.html</code>, we are redirecting to <code class="inlineCode">_Host</code>, which is the entry point for Blazor Server.</p>
+    <p class="normal">The other <a id="_idIndexMarker468"></a>scenario that is not that common is handling routes that catch everything. Simply put, we are catching a URL that has multiple folder boundaries, but we are catching them as one parameter:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/catch-all/{*pageRoute}"</span>
+@code {
+    [<span class="hljs-meta">Parameter</span>]
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> PageRoute{ <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+}
+</code></pre>
+    <p class="normal">The preceding code will catch <code class="inlineCode">"/catch-all/OMG/Racoons/are/awesome"</code> and the <code class="inlineCode">pageRoute</code> parameter will contain <code class="inlineCode">"OMG/Racoons/are/awesome"</code>. This is what we are using for our <code class="inlineCode">MyBlog</code> project, because if we change the implementation to use RavenDB, for example, the default behavior is that the <code class="inlineCode">Id</code> is <code class="inlineCode">collectionname/Id</code>. This would be interpreted as a path, not a value, and would not hit our route unless we use the <code class="inlineCode">*</code> in the route.</p>
+    <p class="normal">I used both techniques when I created my own blog in order to be able to keep the old URLs and make them work even though everything else (including the URLs) had been rewritten.</p>
+    <p class="normal">Having data in the <a id="_idIndexMarker469"></a>URL is not really storing the data. If we navigate to another page, we need to make sure to include the new URL; otherwise, it would be lost. We can use the browser storage instead if we want to store data that we don’t need to include every time in the URL.</p>
+    <h1 id="_idParaDest-206" class="heading-1">Implementing browser storage</h1>
+    <p class="normal">The <a id="_idIndexMarker470"></a>browser has a bunch of different ways of storing data in the web browser. They are handled differently depending on what type we use. <strong class="keyWord">Local storage</strong> is scoped to the user’s browser window. The data will still be saved <a id="_idIndexMarker471"></a>if the user reloads the page or even closes the web browser.</p>
+    <p class="normal">The data is also shared across tabs. <strong class="keyWord">Session storage</strong> is scoped to the <strong class="screenText">Browser</strong> tab; if you reload the tab, the data will be saved, but<a id="_idIndexMarker472"></a> if you close the tab, the data will be lost. <code class="inlineCode">SessionsStorage</code> is, in a way, safer to use because we avoid risks with bugs that may occur due to multiple tabs manipulating the same values in storage.</p>
+    <p class="normal">To be able to access the browser storage, we need to use JavaScript. Luckily, we won’t need to write the code ourselves.</p>
+    <p class="normal">In .NET 5, Microsoft introduced <strong class="keyWord">Protected Browser Storage</strong>, which uses data protection in ASP.NET Core and is not available in <a id="_idIndexMarker473"></a>WebAssembly. We can, however, use an open-source library called <code class="inlineCode">Blazored.LocalStorage</code>, which can be used by both Blazor Server and Blazor WebAssembly.</p>
+    <p class="normal">But we are here to learn new things, right?</p>
+    <p class="normal">So, let’s implement an interface so that we can use both versions in our app, depending on which hosting model we are using.</p>
+    <h2 id="_idParaDest-207" class="heading-2">Creating an interface</h2>
+    <p class="normal">First, we need an interface that <a id="_idIndexMarker474"></a>can read and write to storage:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, create a new folder called <code class="inlineCode">Interfaces</code>.</li>
+      <li class="numberedList">In the new folder, create a new class called <code class="inlineCode">IBrowserStorage.cs</code>.</li>
+      <li class="numberedList">Replace the <a id="_idIndexMarker475"></a>content in the file with the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Components.Interfaces</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IBrowserStorage</span>
+{
+    Task&lt;T?&gt; GetAsync&lt;T&gt;(<span class="hljs-built_in">string</span> key);
+    <span class="hljs-function">Task </span><span class="hljs-title">SetAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> key, </span><span class="hljs-built_in">object</span><span class="hljs-params"> </span><span class="hljs-keyword">value</span><span class="hljs-function">)</span>;
+    <span class="hljs-function">Task </span><span class="hljs-title">DeleteAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> key</span><span class="hljs-function">)</span>;
+}
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Now we have an interface containing <code class="inlineCode">get</code>, <code class="inlineCode">set</code>, and <code class="inlineCode">delete</code> methods.</p>
+    <h2 id="_idParaDest-208" class="heading-2">Implementing Blazor Server</h2>
+    <p class="normal">For Blazor Server, we will use <a id="_idIndexMarker476"></a>protected browser storage:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorServer</strong> project, add a new folder called <code class="inlineCode">Services</code>.</li>
+      <li class="numberedList">In the new folder create a new class called <code class="inlineCode">BlogProtectedBrowserStorage.cs</code>.
+    <p class="normal">(I realize the naming is overkill, but it will be easier to tell the Blazor Server and the Blazor WebAssembly implementation apart because we will soon create another one.)</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Open the new file and add the following <code class="inlineCode">using</code> statements:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+<span class="hljs-keyword">using</span> Components.Interfaces;
+</code></pre>
+      </li>
+      <li class="numberedList">Replace the class with this one:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogProtectedBrowserStorage</span> : <span class="hljs-title">IBrowserStorage</span>
+{
+    ProtectedSessionStorage Storage { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">BlogProtectedBrowserStorage</span><span class="hljs-function">(</span><span class="hljs-params">ProtectedSessionStorage storage</span><span class="hljs-function">)</span>
+    {
+        Storage = storage;
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> key</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">await</span> Storage.DeleteAsync(key);
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-title">Task</span><span class="hljs-function">&lt;</span><span class="hljs-title">T</span><span class="hljs-function">?&gt; </span><span class="hljs-title">GetAsync</span><span class="hljs-function">&lt;</span><span class="hljs-title">T</span><span class="hljs-function">&gt;(</span><span class="hljs-built_in">string</span><span class="hljs-params"> key</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">var</span> <span class="hljs-keyword">value</span> = <span class="hljs-keyword">await</span> Storage.GetAsync&lt;T&gt;(key);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span>.Success)
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>.Value;
+        }
+        <span class="hljs-keyword">else</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">default</span>(T);
+        }
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">SetAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> key, </span><span class="hljs-built_in">object</span><span class="hljs-params"> </span><span class="hljs-keyword">value</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">await</span> Storage.SetAsync(key, <span class="hljs-keyword">value</span>);
+    }
+}
+</code></pre>
+    <p class="normal">The <code class="inlineCode">BlogProtectedBrowserStorage</code> class implements the <code class="inlineCode">IBrowserStorage</code> interface for protected browser storage. We inject a <code class="inlineCode">ProtectedSessionStorage</code> instance and implement the <code class="inlineCode">set</code>, <code class="inlineCode">get</code>, and <code class="inlineCode">delete</code> methods.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">In <code class="inlineCode">Program.cs</code>, add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Components.Interfaces;
+<span class="hljs-keyword">using</span> BlazorServer.Services;
+</code></pre>
+      </li>
+      <li class="numberedList">Add the following:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddScoped&lt;IBrowserStorage,BlogProtectedBrowserStorage&gt;();
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">We are configuring<a id="_idIndexMarker477"></a> Blazor to return an instance of <code class="inlineCode">BlogProtectedBrowserStorage</code> when we inject <code class="inlineCode">IBrowserStorage</code>.</p>
+    <p class="normal">This is the same as we did with the API. We inject different implementations depending on the platform.</p>
+    <h2 id="_idParaDest-209" class="heading-2">Implementing WebAssembly</h2>
+    <p class="normal">For Blazor<a id="_idIndexMarker478"></a> WebAssembly, we will use <code class="inlineCode">Blazored.SessionStorage</code>:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorWebAssembly.Client</strong>, add a NuGet reference to <code class="inlineCode">Blazored.SessionStorage</code>.</li>
+      <li class="numberedList">Add a new folder called <code class="inlineCode">Services</code>.</li>
+      <li class="numberedList">In the new folder, create a new class called <code class="inlineCode">BlogBrowserStorage.cs</code>.</li>
+      <li class="numberedList">Open the new file and replace the content with the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Blazored.SessionStorage;
+<span class="hljs-keyword">using</span> Components.Interfaces;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorWebAssembly.Client.Services</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogBrowserStorage</span> : <span class="hljs-title">IBrowserStorage</span>
+{
+    ISessionStorageService Storage { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">BlogBrowserStorage</span><span class="hljs-function">(</span><span class="hljs-params">ISessionStorageService storage</span><span class="hljs-function">)</span>
+    {
+        Storage = storage;
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> key</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">await</span> Storage.RemoveItemAsync(key);
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-title">Task</span><span class="hljs-function">&lt;</span><span class="hljs-title">T</span><span class="hljs-function">?&gt; </span><span class="hljs-title">GetAsync</span><span class="hljs-function">&lt;</span><span class="hljs-title">T</span><span class="hljs-function">&gt;(</span><span class="hljs-built_in">string</span><span class="hljs-params"> key</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> Storage.GetItemAsync&lt;T&gt;(key);
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">SetAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> key, </span><span class="hljs-built_in">object</span><span class="hljs-params"> </span><span class="hljs-keyword">value</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">await</span> Storage.SetItemAsync(key, <span class="hljs-keyword">value</span>);
+    }
+}
+</code></pre>
+    <p class="normal">The implementations of <code class="inlineCode">ProtectedBrowserStorage</code> and <code class="inlineCode">Blazored.SessionStorage</code> are pretty similar to one another. The names of the methods are different, but the parameters are the same.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">In the <code class="inlineCode">Program.cs</code> file, add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Blazored.SessionStorage;
+<span class="hljs-keyword">using</span> Components.Interfaces;
+<span class="hljs-keyword">using</span> BlazorWebAssembly.Client.Services;
+</code></pre>
+      </li>
+      <li class="numberedList">Add the following code just above <code class="inlineCode">await builder.Build().RunAsync();</code>:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddBlazoredSessionStorage();
+builder.Services.AddScoped&lt;IBrowserStorage, BlogBrowserStorage&gt;();
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">The <code class="inlineCode">AddBlazoredSessionStorage</code> extension method hooks up everything so that we can start using the <a id="_idIndexMarker479"></a>browser session storage.</p>
+    <p class="normal">Then we add our configuration for <code class="inlineCode">IBrowserStorage</code>, just as we did with the server, but in this case, we return <code class="inlineCode">BlogBrowserStorage</code> when we ask the dependency injection for <code class="inlineCode">IBrowserStorage</code>.</p>
+    <h2 id="_idParaDest-210" class="heading-2">Implementing the shared code</h2>
+    <p class="normal">We also need to implement <a id="_idIndexMarker480"></a>some code that calls the services we just created:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, open <code class="inlineCode">Pages/Admin/BlogPostEdit.razor</code>. We are going to make a couple of changes to the file.</li>
+      <li class="numberedList">Inject <code class="inlineCode">IBrowserStorage</code>:
+        <pre class="programlisting code"><code class="hljs-code">@inject Components.Interfaces.IBrowserStorage _storage
+</code></pre>
+      </li>
+      <li class="numberedList">Since we can only run JavaScript calls when doing an action (like a click) or in the <code class="inlineCode">OnAfterRender</code> method, let’s create an <code class="inlineCode">OnAfterRenderMethod</code>:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnAfterRenderAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">bool</span><span class="hljs-params"> firstRender</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">if</span> (firstRender &amp;&amp; <span class="hljs-built_in">string</span>.IsNullOrEmpty(Id))
+    {
+        <span class="hljs-keyword">var</span> saved = <span class="hljs-keyword">await</span> _storage.GetAsync&lt;BlogPost&gt;(<span class="hljs-string">"EditCurrentPost"</span>);
+        <span class="hljs-keyword">if</span> (saved != <span class="hljs-literal">null</span>)
+        {
+            Post = saved;
+   StateHasChanged();
+        }
+    }
+    <span class="hljs-keyword">await</span> <span class="hljs-keyword">base</span>.OnAfterRenderAsync(firstRender);
+}
+</code></pre>
+    <p class="normal">When we load the component and <code class="inlineCode">Id</code> is <code class="inlineCode">null</code>, this means we are editing a new file and then we can check whether we have a file saved in browser storage.</p>
+    <p class="normal">This <a id="_idIndexMarker481"></a>implementation can only have one file in the drafts and only saves new posts. If we were to edit an existing post, it would not save those changes.</p>
+    <p class="normal">Here is more information on handling protected browser storage with prerender:<a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-7.0&amp;pivots=server"><span class="url">https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-7.0&amp;pivots=server</span></a>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">We need our <code class="inlineCode">UpdateHTML</code> method to become async. Change the method to look like this:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">UpdateHTMLAsync</span><span class="hljs-function">()</span>
+{
+    <span class="hljs-keyword">if</span> (Post.Text != <span class="hljs-literal">null</span>)
+    {
+        markDownAsHTML = Markdig.Markdown.ToHtml(Post.Text, pipeline);
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">string</span>.IsNullOrEmpty(Post.Id))
+        {
+            <span class="hljs-keyword">await</span> _storage.SetAsync(<span class="hljs-string">"EditCurrentPost"</span>, Post);
+        }
+    }
+}
+</code></pre>
+    <p class="normal">If <code class="inlineCode">Id</code> on the blog post is <code class="inlineCode">null</code>, we will store the post in the browser storage. Make sure to change all the references from <code class="inlineCode">UpdateHTML</code> to <code class="inlineCode">UpdateHTMLAsync</code>.</p>
+    <p class="normal">Make sure to await the call as well in the <code class="inlineCode">OnParametersSetAsync</code> method like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">await</span> UpdateHTMLAsync();
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">We are done. Now it’s time to test the implementation:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Set the <strong class="screenText">BlazorServer</strong> project as <strong class="screenText">Startup Project</strong>, and run the project by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em>.</li>
+      <li class="numberedList">Log in to the site (so we can access the admin tools).</li>
+      <li class="numberedList">Click <strong class="screenText">Blog posts</strong> followed by <strong class="screenText">New blog post</strong>.</li>
+      <li class="numberedList">Type anything in the boxes, and as soon as we type something in the text area, it will save the post to storage.</li>
+      <li class="numberedList">Click <strong class="screenText">Blog posts</strong> (so we navigate away from our blog post).</li>
+      <li class="numberedList">Click <strong class="screenText">New blog post</strong> and all the information will still be there.</li>
+      <li class="numberedList">Press <em class="keystroke">F12</em> to see the browser developer tools. Click <strong class="screenText">Application</strong> | <strong class="screenText">Session storage</strong> | <strong class="screenText">https://localhost:portnumber</strong>.</li>
+    </ol>
+    <p class="normal">You should see one <a id="_idIndexMarker482"></a>post with the key <code class="inlineCode">EditCurrentPost</code>, and the value of that post should be an encrypted string, as seen in <em class="italic">Figure 11.1</em>:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_11_01.png" alt="Figure 11.1 – The encrypted protected browser storage "/></figure>
+    <p class="packt_figref">Figure 11.1: The encrypted protected browser storage</p>
+    <p class="normal">Let’s test Blazor WebAssembly next:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Set the <strong class="screenText">BlazorWebAssembly.Server</strong> project as <strong class="screenText">Startup Project</strong> and run the project by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em>.</li>
+      <li class="numberedList">Log in to the site (so we can access the admin tools).</li>
+      <li class="numberedList">Click <strong class="screenText">Blog posts</strong> and then <strong class="screenText">New blog post</strong>.</li>
+      <li class="numberedList">Type anything in the boxes, and as soon as we type something in the text area, it will save the post to storage.</li>
+      <li class="numberedList">Click <strong class="screenText">Blog posts</strong> (so we navigate away from our blog post).</li>
+      <li class="numberedList">Click <strong class="screenText">New blog post</strong> and all the information should still be there.</li>
+      <li class="numberedList">Press <em class="keystroke">F12</em> to see the browser developer tools. Click <strong class="screenText">Application</strong> | <strong class="screenText">Session storage</strong> | <strong class="screenText">https://localhost:portnumber</strong>.</li>
+    </ol>
+    <p class="normal">You should see one post with the key <code class="inlineCode">EditCurrentPost</code>, and the value of that post should be a JSON string, as seen in <em class="italic">Figure 11.2</em>.</p>
+    <p class="normal">If we were to change the data in the storage, it would also change in the application, so keep in mind that this is plain text, and the end user can manipulate the data:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_11_02.png" alt="Figure 11.2 – Browser storage that is unprotected "/></figure>
+    <p class="packt_figref">Figure 11.2: Browser storage that is unprotected</p>
+    <p class="normal">Now we have<a id="_idIndexMarker483"></a> implemented protected browser storage for Blazor Server and session storage for Blazor WebAssembly.</p>
+    <p class="normal">We only have one way left to go through, so let’s make it the most fun.</p>
+    <h1 id="_idParaDest-211" class="heading-1">Using an in-memory state container service</h1>
+    <p class="normal">When it comes to in-memory <a id="_idIndexMarker484"></a>state containers, we simply use dependency injection to keep the instance of the service in memory for the predetermined time (scoped, singleton, transient).</p>
+    <p class="normal">In <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>, we discussed how the scope of dependency injections differs from Blazor Server and Blazor WebAssembly. The big difference for us in this section is the fact that Blazor WebAssembly runs inside the web browser and doesn’t have a connection to the server or other users.</p>
+    <p class="normal">To show how the in-memory state works, we will do something that might seem a bit overkill for a blog, but it will be cool to see. When we edit our blog post, we will update all the web browsers connected<a id="_idIndexMarker485"></a> to our blog in real time (I did say overkill).</p>
+    <p class="normal">We will have to implement that a bit differently, depending on the host. Let’s start with Blazor Server.</p>
+    <h2 id="_idParaDest-212" class="heading-2">Implementing real-time updates on Blazor Server</h2>
+    <p class="normal">The <a id="_idIndexMarker486"></a>implementation for Blazor Server can also be used for Blazor WebAssembly. Since WebAssembly is running in our browser, it would only notify the users connected to the site, which would be just you. But it might be good to know that the same way works in Blazor Server as well as Blazor WebAssembly:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, in the <strong class="screenText">Interfaces</strong> folder, create an interface called <code class="inlineCode">IBlogNotificationService.cs</code>.</li>
+      <li class="numberedList">Add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Components.Interfaces</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IBlogNotificationService</span>
+{
+    <span class="hljs-keyword">event</span> Action&lt;BlogPost&gt;? BlogPostChanged;
+    <span class="hljs-function">Task </span><span class="hljs-title">SendNotification</span><span class="hljs-function">(</span><span class="hljs-params">BlogPost post</span><span class="hljs-function">)</span>;
+}
+</code></pre>
+    <p class="normal">We have an action that we can subscribe to when the blog post is updated and a method we can call when we update a post.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">In the <strong class="screenText">BlazorServer</strong> project, in the <strong class="screenText">Services</strong> folder, add a new class called <code class="inlineCode">BlazorServerBlogNotificationService.cs</code>.
+    <p class="normal">It might seem unnecessary to give the class a name that includes <code class="inlineCode">BlazorServer</code>, but it makes sure we can easily tell the classes apart.</p>
+    <p class="normal">Replace the content with the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Components.Interfaces;
+<span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorServer.Services</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlazorServerBlogNotificationService</span> : <span class="hljs-title">IBlogNotificationService</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> Action&lt;BlogPost&gt;? BlogPostChanged;
+    <span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">SendNotification</span><span class="hljs-function">(</span><span class="hljs-params">BlogPost post</span><span class="hljs-function">)</span>
+    {
+        BlogPostChanged?.Invoke(post);
+        <span class="hljs-keyword">return</span> Task.CompletedTask;
+    }
+}
+</code></pre>
+    <p class="normal">The code is pretty simple here. If we call <code class="inlineCode">SendNotification</code>, it will check whether anyone is listening for the <code class="inlineCode">BlogPostChanged</code> action and whether to trigger the action.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">In <code class="inlineCode">Program.cs</code>, add the dependency injection:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddSingleton&lt;IBlogNotificationService, BlazorServerBlogNotificationService&gt;();
+</code></pre>
+    <p class="normal">Whenever we ask for an instance of the type <code class="inlineCode">IBlogNotificationService</code>, we will get back an instance of <code class="inlineCode">BlazorServerBlogNotificationService</code>.</p>
+    <p class="normal">We<a id="_idIndexMarker487"></a> add this dependency injection as a <code class="inlineCode">Singleton</code>. I can’t stress this enough. When using Blazor Server, this will be the same instance for <em class="italic">ALL</em> users, so we must be careful when we use <code class="inlineCode">Singleton</code>.</p>
+    <p class="normal">In this case, we want the service to notify all the visitors of our blog that the blog post has changed.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">In the <strong class="screenText">Components</strong> project, open <code class="inlineCode">Post.razor</code>.</li>
+      <li class="numberedList">Add the following code at the top (or close to the top) of the page:
+        <pre class="programlisting code"><code class="hljs-code">@using Components.Interfaces
+@inject IBlogNotificationService notificationService
+@implements IDisposable
+</code></pre>
+    <p class="normal">We add dependency injection for <code class="inlineCode">IBlogNotificationService</code> and we also need to implement <code class="inlineCode">IDisposable</code> to avoid any memory leaks.</p>
+    <p class="normal">At the top of the <code class="inlineCode">OnInitializedAsync</code> method, add the following:</p>
+    <pre class="programlisting code"><code class="hljs-code">notificationService.BlogPostChanged += PostChanged;
+</code></pre>
+    <p class="normal">We added a listener to the event so we know when we should update the information.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">We also need the <code class="inlineCode">PostChanged</code> method, so add this code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">PostChanged</span><span class="hljs-function">(</span><span class="hljs-params">BlogPost post</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">if</span> (BlogPost?.Id == post.Id)
+    {
+        BlogPost = post;
+        <span class="hljs-keyword">await</span> InvokeAsync(()=&gt;<span class="hljs-keyword">this</span>.StateHasChanged());
+    }
+}
+</code></pre>
+    <p class="normal">If the parameter has the same ID as the post we are currently viewing, then replace the content with the post in the event and call <code class="inlineCode">StateHasChanged</code>.</p>
+    <p class="normal">Since<a id="_idIndexMarker488"></a> this is happening on another thread, we need to call <code class="inlineCode">StateHasChanged</code> using <code class="inlineCode">InvokeAsync</code> so that it runs on the UI thread.</p>
+    <p class="normal">The last thing in this component is to stop listening to the updates by implementing the <code class="inlineCode">Dispose</code> method. Add the following:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">void</span> IDisposable.Dispose()
+{
+notificationService.BlogPostChanged -= PostChanged;
+}
+</code></pre>
+    <p class="normal">We remove the event listener to avoid any memory leaks.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">Open the <code class="inlineCode">Pages/Admin/BlogPostEdit.Razor</code> file.</li>
+      <li class="numberedList">When we make changes to our blog post, we need to send a notification as well. At the top of the file, add the following:
+        <pre class="programlisting code"><code class="hljs-code">@using Components.Interfaces
+@inject IBlogNotificationService notificationService
+</code></pre>
+    <p class="normal">We add a namespace and inject our notification service.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="10">In the <code class="inlineCode">UpdateHTMLAsync</code> method, add the following just under the <code class="inlineCode">Post.Text!=null if</code> statement:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">await</span> notificationService.SendNotification(Post);
+</code></pre>
+    <p class="normal">Every time we change something, it will now send a notification that the blog post changed. I do realize that it would make more sense to do this when we save a post, but it makes for a much cooler demo.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="11">Set the <strong class="screenText">BlazorServer</strong> project as <strong class="screenText">Startup Project</strong> and run the project by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em>.</li>
+      <li class="numberedList">Copy the URL and open another web browser. We should now have two web <a id="_idIndexMarker489"></a>browser windows open showing us the blog.</li>
+    </ol>
+    <p class="normal">In the first window, open a blog post (doesn’t matter which one), and in the second window, log in and edit the same blog post.</p>
+    <p class="normal">When we change the text of the blog post in the second window, the change should be reflected in real time in the first window.</p>
+    <p class="normal">I am constantly amazed how a feature that would be a bit tricky to implement without using Blazor only requires 10 steps (not counting the test), and if we didn’t prepare for the next step, it would take even fewer steps.</p>
+    <p class="normal">Next, we will implement the same feature for Blazor WebAssembly, but Blazor WebAssembly runs inside the user’s web browser. There is no real-time communication built in, as with Blazor Server.</p>
+    <h2 id="_idParaDest-213" class="heading-2">Implementing real-time updates on Blazor WebAssembly</h2>
+    <p class="normal">We already<a id="_idIndexMarker490"></a> have a lot of things in place. We only need to add a real-time messaging system. Since SignalR is both easy to implement and awesome, let’s use that.</p>
+    <p class="normal">The first time I used SignalR, my first thought was, wait, it can’t be that easy. I must have forgotten something, or something must be missing. Hopefully, we will have the same experience now.</p>
+    <p class="normal">Let’s see whether that still holds true today:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorWebAssembly.Server</strong> project, add a new folder called <code class="inlineCode">Hubs</code>.</li>
+      <li class="numberedList">In the new folder create a class called <code class="inlineCode">BlogNotificationHub.cs</code>.</li>
+      <li class="numberedList">Replace the code with the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.SignalR;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorWebAssembly.Server.Hubs</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogNotificationHub</span> : <span class="hljs-title">Hub</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">SendNotification</span><span class="hljs-function">(</span><span class="hljs-params">BlogPost post</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">await</span> Clients.All.SendAsync(<span class="hljs-string">"BlogPostChanged"</span>, post);
+    }
+}
+</code></pre>
+    <p class="normal">The class inherits from the <code class="inlineCode">Hub</code> class. There is a method called <code class="inlineCode">SendNotification</code>. Keep that name in mind; we will come back to that.</p>
+    <p class="normal">We call <code class="inlineCode">Clients.All.SendAsync</code>, which means we will send a message called <code class="inlineCode">BlogPostChanged</code> with the content of a blog post.</p>
+    <p class="normal">The name <code class="inlineCode">BlogPostChanged</code> is also important, so keep that in mind as well.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">In the <code class="inlineCode">Program.cs</code> file add the following:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddSignalR();
+</code></pre>
+    <p class="normal">This adds SignalR.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Add the following namespace:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> BlazorWebAssembly.Server.Hubs;
+</code></pre>
+      </li>
+      <li class="numberedList">Just <a id="_idIndexMarker491"></a>above <code class="inlineCode">app.MapFallbackToFile("index.html")</code>, add:
+        <pre class="programlisting code"><code class="hljs-code">app.MapHub&lt;BlogNotificationHub&gt;(<span class="hljs-string">"/BlogNotificationHub"</span>);
+</code></pre>
+    <p class="normal">Here, we configure what URL <code class="inlineCode">BlogNotificationHub</code> should use. In this case, we are using the same URL as the name of the hub.</p>
+    <p class="normal">The URL here is also important. We will use that in just a bit.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">In the <code class="inlineCode">BlazorWebAssembly.Client</code> add a reference to the NuGet package <code class="inlineCode">Microsoft.AspNetCore.SignalR.Client</code>.</li>
+      <li class="numberedList">In the <strong class="screenText">Services</strong> folder, create a class called <code class="inlineCode">BlazorWebAssemblyBlogNotificationService.cs</code>.
+    <p class="normal">In this file, we will implement the SignalR communication.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="9">Add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.SignalR.Client;
+<span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">using</span> Components.Interfaces;
+</code></pre>
+      </li>
+      <li class="numberedList">Add this<a id="_idIndexMarker492"></a> class:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlazorWebAssemblyBlogNotificationService</span> : <span class="hljs-title">IBlogNotificationService</span>, <span class="hljs-title">IAsyncDisposable</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">BlazorWebAssemblyBlogNotificationService</span><span class="hljs-function">(</span><span class="hljs-params">NavigationManager navigationManager</span><span class="hljs-function">)</span>
+    {
+        _hubConnection = <span class="hljs-keyword">new</span> HubConnectionBuilder()
+        .WithUrl(navigationManager.ToAbsoluteUri(<span class="hljs-string">"/BlogNotificationHub"</span>))
+        .Build();
+        _hubConnection.On&lt;BlogPost&gt;(<span class="hljs-string">"BlogPostChanged"</span>, (post) =&gt;
+        {
+            BlogPostChanged?.Invoke(post);
+        });
+        _hubConnection.StartAsync();
+    }
+    <span class="hljs-keyword">private readonly</span> HubConnection _hubConnection;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> Action&lt;BlogPost&gt;? BlogPostChanged;
+        
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">SendNotification</span><span class="hljs-function">(</span><span class="hljs-params">BlogPost post</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">await</span> _hubConnection.SendAsync(<span class="hljs-string">"SendNotification"</span>, post);
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> ValueTask </span><span class="hljs-title">DisposeAsync</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">await</span> _hubConnection.DisposeAsync();
+    }
+}
+</code></pre>
+    <p class="normal">A lot is<a id="_idIndexMarker493"></a> happening here. The class is implementing <code class="inlineCode">IBlogNotificationService</code> and <code class="inlineCode">IAsyncDisposable</code>.</p>
+    <p class="normal">In the constructor, we use dependency injection to get <code class="inlineCode">NavigationManager</code>, so we can figure out the URL to the server.</p>
+    <p class="normal">Then we configure the connection to the hub. Then we specify the URL to the hub; this should be the same as we specified in <em class="italic">step 7</em>.</p>
+    <p class="normal">Now we can configure the hub connection to listen for events. In this case, we listen for the <code class="inlineCode">BlogPostChanged</code> event, the same name we specified in <em class="italic">step 3</em>. When someone sends the event, the method we specify will run.</p>
+    <p class="normal">The method, in this case, triggers the event we have in <code class="inlineCode">IBlogNotificationService</code>. Then we start the connection. Since the constructor can’t be async, we won’t await the <code class="inlineCode">StartAsync</code> method.</p>
+    <p class="normal"><code class="inlineCode">IBlogNotificationService</code> also implements the <code class="inlineCode">SendNotification</code> method, and we trigger the event with the same name on the hub, which will result in the hub sending the <code class="inlineCode">BlogPostChanged</code> event to all connected clients.</p>
+    <p class="normal">The last thing we do is make sure that we dispose of the hub connection.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="11">In the <code class="inlineCode">Program.cs</code> file, we need to configure dependency injection. Just above <code class="inlineCode">await builder.Build().RunAsync();</code>, add the following:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddSingleton&lt;IBlogNotificationService, BlazorWebAssemblyBlogNotificationService&gt;();
+</code></pre>
+      </li>
+      <li class="numberedList">Now, it’s time to carry out testing, and we do that the same way as for the Blazor Server project.
+    <p class="normal">Set the <strong class="screenText">BlazorWebAssembly.Server</strong> project as <strong class="screenText">Startup Project</strong> and run the project by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em>.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="13">Copy the URL and open another web browser. We should now have two web browser windows open showing us the blog.
+    <p class="normal">In the first window, open a blog post (it doesn’t matter which one), and in the second window, log in and edit the same blog post.</p>
+    <p class="normal">When we change the text of the blog post in the second window, the change<a id="_idIndexMarker494"></a> should be reflected in real time in the first window.</p></li>
+    </ol>
+    <p class="normal">In 11 steps (not counting testing), we have implemented real-time communication between the server and client, a Blazor WebAssembly client with .NET code running inside the web browser.</p>
+    <p class="normal">And no JavaScript!</p>
+    <h1 id="_idParaDest-214" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we learned how we can handle state in our application and how we can use local storage to store data, both encrypted and not. We looked at different ways of doing that, and we also made sure to include SignalR to be able to use real-time communication with the server.</p>
+    <p class="normal">Almost all applications need to save data in some form. Perhaps it can be settings or preferences. The things we covered in the chapter are the most common ones, but we should also know that there are many open-source projects we can use to persist state. We could save the information using IndexedDB.</p>
+    <p class="normal">In the next chapter, we will take a look at debugging. Hopefully, you won’t have needed to know how to debug yet!</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_02</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_02" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer043" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">2</h1>
+    <h1 id="_idParaDest-27" class="chapterTitle">Creating Your First Blazor App</h1>
+    <p class="normal">In this chapter, we will set up our development environment so that we can start developing Blazor apps. We will create our first Blazor app and go through the project structure, highlighting the differences between Blazor Server and Blazor WebAssembly projects.</p>
+    <p class="normal">By the end of this chapter, you will have a working development environment and have created both a Blazor Server app and a Blazor WebAssembly app.</p>
+    <p class="normal">In this chapter, we will cover the following:</p>
+    <ul>
+      <li class="bulletList">Setting up your development environment</li>
+      <li class="bulletList">Creating our first Blazor application</li>
+      <li class="bulletList">Using the command line</li>
+      <li class="bulletList">Figuring out the project structure</li>
+    </ul>
+    <h1 id="_idParaDest-28" class="heading-1">Technical requirements</h1>
+    <p class="normal">We will create a new project (a blog engine) and will continue working on that project throughout the book.</p>
+    <p class="normal">You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter02"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter02</span></a>.</p>
+    <h1 id="_idParaDest-29" class="heading-1">Setting up your development environment</h1>
+    <p class="normal">In<a id="_idIndexMarker039"></a> this book, the focus will be on Windows development, and any screenshots are going to be from Visual Studio (unless stated otherwise). But since .NET 7 is cross-platform, we will go through how to set up your development environment on Windows, macOS, and Linux.</p>
+    <p class="normal">The<a id="_idIndexMarker040"></a> go-to link for all the platforms can be found at <a href="https://visualstudio.microsoft.com/"><span class="url">https://visualstudio.microsoft.com/</span></a>.</p>
+    <p class="normal">We can download Visual Studio, Visual Studio Code, or Visual Studio for Mac from the web page.</p>
+    <h2 id="_idParaDest-30" class="heading-2">Windows</h2>
+    <p class="normal">On Windows, we have many different options for developing Blazor applications. Visual Studio 2022<a id="_idIndexMarker041"></a> is the most powerful tool we can use.</p>
+    <p class="normal">There are three different <a id="_idIndexMarker042"></a>editions, which are as follows:</p>
+    <ul>
+      <li class="bulletList">Community 2022</li>
+      <li class="bulletList">Professional 2022</li>
+      <li class="bulletList">Enterprise 2022</li>
+    </ul>
+    <p class="normal">In short, the Community Edition is free, while the others cost money. The Community Edition does have some limitations, and we can compare the different editions here: <a href="https://visualstudio.microsoft.com/vs/compare/"><span class="url">https://visualstudio.microsoft.com/vs/compare/</span></a>.</p>
+    <p class="normal">For this book, we can <a id="_idIndexMarker043"></a>use any of these versions. Take the following<a id="_idIndexMarker044"></a> steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Download Visual Studio 2022 from <a href="https://visualstudio.microsoft.com/vs/"><span class="url">https://visualstudio.microsoft.com/vs/</span></a>. Choose the version that is right for you.</li>
+      <li class="numberedList">Install Visual Studio and during the installation, make sure to select <strong class="screenText">ASP.NET and web development</strong>, as shown in <em class="italic">Figure 2.1</em>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18439_02_01.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.1: Visual Studio 2022 installation on Windows</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">To the<a id="_idIndexMarker045"></a> right is a list of all the <a id="_idIndexMarker046"></a>components that will be installed. Check <strong class="screenText">.NET WebAssembly Build Tools</strong>.</li>
+    </ol>
+    <p class="normal">We can also use Visual Studio Code to develop Blazor on Windows, but we won’t discuss the installation process for Windows.</p>
+    <h2 id="_idParaDest-31" class="heading-2">macOS</h2>
+    <p class="normal">On macOS, we also have some options. Visual Studio for Mac is the most powerful IDE we can use.</p>
+    <p class="normal">Download<a id="_idIndexMarker047"></a> Visual Studio<a id="_idIndexMarker048"></a> for Mac from <a href="https://visualstudio.microsoft.com/vs/mac/"><span class="url">https://visualstudio.microsoft.com/vs/mac/</span></a> as follows:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Click on the <strong class="screenText">Download Visual Studio for Mac</strong> button.</li>
+      <li class="numberedList">Open the file that we downloaded.</li>
+    </ol>
+    <p class="normal">Make sure to select <strong class="screenText">.NET</strong>, as shown in <em class="italic">Figure 2.2</em>:</p>
+    <figure class="mediaobject"><img src="../Images/B18439_02_02.png" alt="No description available."/></figure>
+    <p class="packt_figref">Figure 2.2: Visual Studio for Mac installation screen</p>
+    <p class="normal">Since <a id="_idIndexMarker049"></a>Visual Studio Code is a cross-platform<a id="_idIndexMarker050"></a> software, we can use it here as well.</p>
+    <h2 id="_idParaDest-32" class="heading-2">Linux (or macOS or Windows)</h2>
+    <p class="normal">Visual Studio Code<a id="_idIndexMarker051"></a> is cross-platform, which means we can use it on Linux, macOS, or Windows.</p>
+    <p class="normal">The different versions are available at <a href="https://code.visualstudio.com/Download"><span class="url">https://code.visualstudio.com/Download</span></a>.</p>
+    <p class="normal">Once installed, we also need to add two extensions:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Open <a id="_idIndexMarker052"></a>Visual Studio Code and press <em class="keystroke">Ctrl </em>+ <em class="keystroke">Shift </em>+ <em class="keystroke">X</em>.</li>
+      <li class="numberedList">Search for <code class="inlineCode">C# for Visual Studio Code (powered by OmniSharp)</code> and click <strong class="screenText">Install</strong>.</li>
+      <li class="numberedList">Search for <code class="inlineCode">JavaScript Debugger (Nightly)</code> and click <strong class="screenText">Install</strong>.</li>
+    </ol>
+    <p class="normal">To create a project, we can use the .NET CLI, which we will return to throughout this book, but we won’t do a deep dive into the .NET CLI.</p>
+    <p class="normal">Now that everything is set up, let’s create our first app.</p>
+    <h1 id="_idParaDest-33" class="heading-1">Creating our first Blazor application</h1>
+    <p class="normal">Throughout the book, we will <a id="_idIndexMarker053"></a>create a blog engine. There won’t be a lot of business logic that you’ll have to learn; the app is simple to understand but will touch base on many of the technologies and areas you will be faced with when building a Blazor app.</p>
+    <p class="normal">The project will allow visitors to read blog posts and search for them. It will also have an admin site where you can write a blog post, which will be password-protected.</p>
+    <p class="normal">We will make the same app for both Blazor Server and Blazor WebAssembly, and I will show you the steps you need to do differently for each platform.</p>
+    <div class="note">
+      <p class="normal"><strong class="keyWord">IMPORTANT NOTE</strong></p>
+      <p class="normal">This guide will use Visual Studio 2022 from now on, but other platforms have similar ways of creating projects.</p>
+    </div>
+    <h2 id="_idParaDest-34" class="heading-2">Exploring the templates</h2>
+    <p class="normal">In .NET 7, we got more<a id="_idIndexMarker054"></a> templates. We will explore them further in <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>. This chapter will give you a quick overview. In .NET 7 we have 4 Blazor templates, two Blazor Server, and two Blazor WebAssembly. We also have one Blazor Hybrid (.NET MAUI), but we will get back to it in <em class="chapterRef">Chapter 18</em>, <em class="italic">Visiting .NET MAUI</em>.</p>
+    <h3 id="_idParaDest-35" class="heading-3">Blazor Server App</h3>
+    <p class="normal">The <strong class="keyWord">Blazor Server App</strong> template<a id="_idIndexMarker055"></a> gives us (as the name implies) a Blazor <a id="_idIndexMarker056"></a>Server app. It contains a couple of components to see what a Blazor app looks like and some basic setup and menu structure. It also contains code for adding Bootstrap, Isolated CSS, and things like that (See <em class="chapterRef">Chapter 9</em>, <em class="italic">Sharing Code and Resources</em>).</p>
+    <p class="normal">This is the template we will use in the book to understand better how things go together.</p>
+    <h3 id="_idParaDest-36" class="heading-3">Blazor WebAssembly App</h3>
+    <p class="normal">The <strong class="keyWord">Blazor WebAssembly App</strong> template<a id="_idIndexMarker057"></a> gives us (as the name implies) a <a id="_idIndexMarker058"></a>Blazor WebAssembly app. Just like the Blazor Server App template, it contains a couple of components to see what a Blazor app looks like and some basic setup and menu structure. It also contains code for adding Bootstrap, Isolated CSS, and things like that (See <em class="chapterRef">Chapter 9</em>, <em class="italic">Sharing Code and Resources</em>).</p>
+    <p class="normal">This is the template we will use in the book to understand better how things go together.</p>
+    <h3 id="_idParaDest-37" class="heading-3">Blazor Server App Empty</h3>
+    <p class="normal">The <strong class="keyWord">Blazor Server App Empty</strong> template<a id="_idIndexMarker059"></a> is a basic template that contains <a id="_idIndexMarker060"></a>what is essential to run a Blazor Server App.</p>
+    <p class="normal">It doesn’t contain Isolated CSS and things like that. When starting an actual project, this is probably the template to use. But it does require us to implement things we might need that the non-empty templates will give us.</p>
+    <h3 id="_idParaDest-38" class="heading-3">Blazor WebAssembly App Empty</h3>
+    <p class="normal">The <strong class="keyWord">Blazor WebAssembly App Empty</strong> template<a id="_idIndexMarker061"></a> is a basic template that <a id="_idIndexMarker062"></a>contains what is essential to run a Blazor WebAssembly App.</p>
+    <p class="normal">It doesn’t contain Isolated CSS and things like that. When starting an actual project, this is probably the template to use. But it does require us to implement things we might need that the non-empty templates will give us.</p>
+    <h2 id="_idParaDest-39" class="heading-2">Creating a Blazor Server application</h2>
+    <p class="normal">To start, we will create a <a id="_idIndexMarker063"></a>Blazor Server application and play around with it:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Start Visual Studio 2022, and you will see the following screen:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18439_02_03.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.3: Visual Studio startup screen</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">Press <strong class="screenText">Create a new project</strong>, and<a id="_idIndexMarker064"></a> in the search bar, type <code class="inlineCode">blazor</code>.</li>
+      <li class="numberedList">Select <strong class="screenText">Blazor Server App</strong> from the search results and press <strong class="screenText">Next</strong>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18439_02_04.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.4: The Visual Studio Create a new project screen</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">Now name the<a id="_idIndexMarker065"></a> project (this is the hardest part of any project, but fear not, I have done that already!). Name the application <code class="inlineCode">BlazorServer</code>, change the solution name to <code class="inlineCode">MyBlog</code>, and press <strong class="screenText">Next</strong>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18439_02_05.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.5: The Visual Studio Configure your new project screen</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Next, choose what kind of <a id="_idIndexMarker066"></a>Blazor app we should create. Select <strong class="screenText">.NET 7.0 (Standard Term Support)</strong> from the dropdown menu and press <strong class="screenText">Create</strong>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18439_02_06.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.6: Visual Studio screen for creating a new Blazor app</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">Now run the<a id="_idIndexMarker067"></a> app by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em> (we can also find it under <strong class="screenText">Debug</strong> | <strong class="screenText">Start without debugging</strong>).</li>
+    </ol>
+    <p class="normal">Congratulations! You have just created your first Blazor Server application. The site should look something like in <em class="italic">Figure 2.7</em>:</p>
+    <figure class="mediaobject"><img src="../Images/B18439_02_07.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.7: A new Blazor Server server-side application</p>
+    <p class="normal">Explore the site a bit, navigate to <strong class="screenText">Counter</strong> and <strong class="screenText">Fetch data</strong> to get a feeling for the load times, and see what the sample application does.</p>
+    <p class="normal">The sample application has some sample data ready for us to test.</p>
+    <p class="normal">This is a Blazor Server project, which means that for every trigger (for example, a button press), a command will be sent via SignalR over to the server. The server will rerender the component, send the changes back to the client, and update the UI.</p>
+    <p class="normal">Press <em class="keystroke">F12</em> in your browser (to access the developer tools), switch to the <strong class="screenText">Network</strong> tab and then reload the page (<em class="keystroke">F5</em>). You’ll see all the files that get downloaded to the browser.</p>
+    <p class="normal">In <em class="italic">Figure 2.8</em>, you can<a id="_idIndexMarker068"></a> see some of the files that get downloaded:</p>
+    <figure class="mediaobject"><img src="../Images/B18439_02_08.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.8: The Network tab in Microsoft Edge</p>
+    <p class="normal">The <a id="_idIndexMarker069"></a>browser downloads the page, some CSS, and then <code class="inlineCode">blazor.server.js</code>, which is responsible for setting up the SignalR connection back to the server. It then calls the <code class="inlineCode">negotiate</code> endpoint (to set up the connections).</p>
+    <p class="normal">The call to <code class="inlineCode">_blazor?id=</code> (followed by a bunch of letters) is a <strong class="keyWord">WebSocket</strong> call, which is the open connection that the client and the server <a id="_idIndexMarker070"></a>communicate through.</p>
+    <p class="normal">If you navigate to the <strong class="screenText">Counter</strong> page and press the <strong class="screenText">Click me</strong> button, you will notice that the page won’t be reloaded. The trigger (click event) is sent over SignalR to the server, and the page is rerendered on the server and gets compared to the render tree, and only the actual change is pushed back over the WebSocket.</p>
+    <p class="normal">For a button click, three calls are being made:</p>
+    <ul>
+      <li class="bulletList">The page triggers the event (for example, a button click).</li>
+      <li class="bulletList">The server responds with the changes.</li>
+      <li class="bulletList">The page then acknowledges that <a id="_idIndexMarker071"></a>the <strong class="keyWord">Document Object Model</strong> (<strong class="keyWord">DOM</strong>) has been updated.</li>
+    </ul>
+    <p class="normal">In total, 600 bytes (this example is from the Counter page) are sent back and forth for a button click.</p>
+    <p class="normal">We have created a solution and a Blazor Server project and tried them out. Next up, we will add a Blazor WebAssembly app to that solution.</p>
+    <h2 id="_idParaDest-40" class="heading-2">Creating a WebAssembly application</h2>
+    <p class="normal">Now it is time to take a look at a<a id="_idIndexMarker072"></a> WebAssembly app. We will create a new Blazor WebAssembly app and add it to the same solution as the Blazor Server app we just created:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Right-click on the <strong class="screenText">MyBlog</strong> solution and select <strong class="screenText">Add</strong> | <strong class="screenText">New Project</strong>.</li>
+      <li class="numberedList">Search for <code class="inlineCode">blazor</code>, select <strong class="screenText">Blazor WebAssembly App</strong> in the search results, and press <strong class="screenText">Next</strong>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18439_02_09.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.9: The Visual Studio Add a new project screen</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Name the <a id="_idIndexMarker073"></a>app <code class="inlineCode">BlazorWebAssembly</code>. Leave the location as is (Visual Studio will put it in the correct folder by default) and press <strong class="screenText">Create</strong>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18439_02_10.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.10: The Visual Studio Configure your new project screen</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">On the <a id="_idIndexMarker074"></a>next screen, select <strong class="screenText">.NET 7.0 (Standard Term Support)</strong> from the dropdown.</li>
+      <li class="numberedList">In this dialog box, two new choices that were not available in the Blazor Server template appear. The first option is <strong class="screenText">ASP.NET Core hosted</strong>, which will create an ASP.NET backend project and will host the WebAssembly app, which is good if you want to host web APIs for your app to access; you should check this box.</li>
+      <li class="numberedList">The second option is <strong class="screenText">Progressive Web Application</strong>, which will create a <code class="inlineCode">manifest.json</code> file and a <code class="inlineCode">service-worker.js</code> file that will make your app available as <a id="_idIndexMarker075"></a>a <strong class="keyWord">Progressive Web Application</strong> (<strong class="keyWord">PWA</strong>). Make sure the <strong class="screenText">Progressive Web Application</strong> option is checked as well, and then press <strong class="screenText">Create</strong>:</li>
+    </ol>
+    <figure class="mediaobject"><img src="../Images/B18439_02_11.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.11: Visual Studio screen for creating a new Blazor app</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Right-click<a id="_idIndexMarker076"></a> on the <strong class="screenText">WebAssembly.Server</strong> project and select <strong class="screenText">Set as Startup Project</strong>.
+    <div class="note">
+      <p class="normal"> <strong class="keyWord">NOTE</strong>:</p>
+      <p class="normal">It can be confusing that this project also has <code class="inlineCode">Server</code> in the name.</p>
+      <p class="normal">Since we chose <strong class="screenText">ASP.NET Core hosted</strong> when we created the project, we are hosting the backend for our client-side (WebAssembly) in <strong class="screenText">WebAssembly.Server,</strong> and it is not related to Blazor Server.</p>
+      <p class="normal">Remember that if you want to run the WebAssembly app, you should run the <strong class="screenText">WebAssembly.Server</strong> project; that way, we know the backend ASP.NET Core project will also run.</p>
+    </div></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">Run the app by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em> (start without debugging).</li>
+    </ol>
+    <p class="normal">Congratulations! You have just<a id="_idIndexMarker077"></a> created your first Blazor WebAssembly application, as shown in <em class="italic">Figure 2.12</em>:</p>
+    <figure class="mediaobject"><img src="../Images/B18439_02_12.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.12: A new Blazor WebAssembly app</p>
+    <p class="normal">Explore the site by clicking the <strong class="screenText">Counter</strong> and <strong class="screenText">Fetch data</strong> links. The app should behave in the same way as the Blazor Server version.</p>
+    <p class="normal">Press <em class="keystroke">F12</em> in your browser (to access the developer tools), switch to the <strong class="screenText">Network</strong> tab, and reload the page (<em class="keystroke">F5</em>); you’ll see all the files downloaded to the browser.</p>
+    <p class="normal">In <em class="italic">Figure 2.13</em>, you can see <a id="_idIndexMarker078"></a>some of the files that got downloaded:</p>
+    <figure class="mediaobject"><img src="../Images/B18439_02_13.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.13: The Network tab in Microsoft Edge</p>
+    <p class="normal">In this case, when the page gets <a id="_idIndexMarker079"></a>downloaded, it will trigger a download of the <code class="inlineCode">blazor.webassembly.js</code> file. Then, <code class="inlineCode">blazor.boot.json</code> gets downloaded. <em class="italic">Figure 2.14</em> shows an example of part of <code class="inlineCode">blazor.boot.json</code>:</p>
+    <figure class="mediaobject"><img src="../Images/B18439_02_14.png" alt=""/></figure>
+    <p class="packt_figref">Figure 2.14: Part of the blazor.boot.json file</p>
+    <p class="normal">The most<a id="_idIndexMarker080"></a> important thing <code class="inlineCode">blazor.boot.json</code> contains is the entry assembly, which is the name of the DLL the browser should start executing. It also includes all the framework DLLs the app needs to run. Now our app knows what it needs to start up.</p>
+    <p class="normal">The JavaScript will then download <code class="inlineCode">dotnet.7.0.*.js</code>, which will download all the resources mentioned in <code class="inlineCode">blazor.boot.json</code>: this is a mix of your code compiled to a .NET Standard DLL, Microsoft .NET Framework code, and any community or third-party DLLs you might use. The JavaScript then downloads <code class="inlineCode">dotnet.wasm</code>, the Mono runtime compiled to WebAssembly, which will start booting up your app.</p>
+    <p class="normal">If you watch closely, you might see some text when you reload your page saying <strong class="keyWord">Loading</strong>. Between <strong class="keyWord">Loading</strong> showing up and the page finishing loading, JSON files, JavaScript, WebAssembly, and DLLs are downloaded, and everything boots up. According to Microsoft Edge, it takes 1.8 seconds to run in debug mode and with unoptimized code.</p>
+    <p class="normal">Now we have the base for our project, including a Blazor WebAssembly version and a Blazor Server version. Throughout this book, we will use Visual Studio, but there are other ways to run your Blazor site, such as using the command line. The command line is a super powerful tool, and in the next section, we will take a look at how to set up a project using the command line.</p>
+    <h1 id="_idParaDest-41" class="heading-1">Using the command line</h1>
+    <p class="normal">With .NET 5, we got a super powerful tool called <code class="inlineCode">dotnet.exe</code>. Developers that have used .NET Core before will <a id="_idIndexMarker081"></a>already be familiar with the tool, but with .NET 5, it is no longer exclusively for .NET Core developers.</p>
+    <p class="normal">It can do many things Visual Studio can do, for example, creating projects, adding and creating NuGet packages, and much more. In the following example, we will create a Blazor Server and a Blazor WebAssembly project.</p>
+    <h2 id="_idParaDest-42" class="heading-2">Creating projects using the command line</h2>
+    <p class="normal">The following steps are<a id="_idIndexMarker082"></a> to demonstrate the power of using the <a id="_idIndexMarker083"></a>command line. We will not use this project later in the book, so if you don’t want to try it, go ahead and skip this section. To create a solution with Blazor server and Blazor WebAssembly projects like the one we just did, we can run this command:</p>
+    <pre class="programlisting con"><code class="hljs-con">dotnet new blazorserver -o BlazorServer
+dotnet new blazorwasm -o BlazorWebAssembly --pwa –hosted
+</code></pre>
+    <p class="normal">Here, <code class="inlineCode">dotnet</code> is the command. To create a new project, we use the <code class="inlineCode">new</code> parameter.</p>
+    <p class="normal"><code class="inlineCode">blazorserver</code> is the template’s name, and <code class="inlineCode">-o</code> is the output folder (in this case, the project will be created in a subfolder called <code class="inlineCode">BlazorServer</code>).</p>
+    <p class="normal">The second line uses the template <code class="inlineCode">blazorwasm</code> that created a Blazor WebAssembly project, and it uses the <code class="inlineCode">pwa</code> flag to make it a Progressive web app and the hosted flag to get an ASP.NET hosted backend.</p>
+    <p class="normal">We also need to create a solution for our projects, and we can do that from the command line by using the template <code class="inlineCode">sln</code>.</p>
+    <pre class="programlisting con"><code class="hljs-con">dotnet new sln --name MyBlog
+</code></pre>
+    <p class="normal">We also need to add the projects we created, which are one Blazor Server project and 3 Blazor WebAssembly projects.</p>
+    <pre class="programlisting con"><code class="hljs-con">dotnet sln MyBlog.sln add ./BlazorWebAssembly\Server\BlazorWebAssembly.Server.csproj
+dotnet sln MyBlog.sln add ./BlazorWebAssembly\Client\BlazorWebAssembly.Client.csproj
+dotnet sln MyBlog.sln add .\BlazorWebAssembly\Shared\BlazorWebAssembly.Shared.csproj
+dotnet sln MyBlog.sln add .\BlazorServer\BlazorServer.csproj
+</code></pre>
+    <p class="normal">The <code class="inlineCode">dotnet</code> <a id="_idIndexMarker084"></a>command is super powerful; for some<a id="_idIndexMarker085"></a> scenarios, it makes sense to use it. I mostly use the UI in Visual Studio, but it’s important to know we have the <code class="inlineCode">dotnet</code> tool we can use.</p>
+    <div class="note">
+      <p class="normal"><strong class="keyWord">NOTE</strong>: THE .NET CLI</p>
+      <p class="normal">The idea is that you should be able to do everything from the command line. If you prefer working with the command line, you should check<a id="_idIndexMarker086"></a> out the .NET CLI; you can read more about the .NET CLI here: <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/"><span class="url">https://docs.microsoft.com/en-us/dotnet/core/tools/</span></a>.</p>
+    </div>
+    <p class="normal">Let’s go back to the Blazor template, which has added a lot of files for us. In the next section, we will look at what Visual Studio has generated for us.</p>
+    <h1 id="_idParaDest-43" class="heading-1">Figuring out the project structure</h1>
+    <p class="normal">Now it’s time to look at the different files and how they may differ in different projects. Take a look at the code in the two projects we just created (in the <em class="italic">Creating our first Blazor app</em> section) while we go through them.</p>
+    <h2 id="_idParaDest-44" class="heading-2">Program.cs</h2>
+    <p class="normal"><code class="inlineCode">Program.cs</code> is the first<a id="_idIndexMarker087"></a> class<a id="_idIndexMarker088"></a> that gets called. It also differs between Blazor Server and Blazor WebAssembly.</p>
+    <h3 id="_idParaDest-45" class="heading-3">WebAssembly Program.cs</h3>
+    <p class="normal">In the <code class="inlineCode">WebAssembly.Client</code> project, there <a id="_idIndexMarker089"></a>is a file called <code class="inlineCode">Program.cs</code>, and it looks<a id="_idIndexMarker090"></a> like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">var</span> builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add&lt;App&gt;(<span class="hljs-string">"#app"</span>);
+builder.RootComponents.Add&lt;HeadOutlet&gt;(<span class="hljs-string">"head::after"</span>);
+builder.Services.AddScoped(sp =&gt; <span class="hljs-keyword">new</span> HttpClient { BaseAddress = <span class="hljs-keyword">new</span> Uri(builder.HostEnvironment.BaseAddress) });
+<span class="hljs-keyword">await</span> builder.Build().RunAsync();
+</code></pre>
+    <p class="normal"><code class="inlineCode">Program.cs</code> uses top-level statements without any classes or methods. By using top-level statements, C# understands that this is the application’s entry point. It will look for a <code class="inlineCode">div</code> with the ID “app” and add (render) the <code class="inlineCode">App</code> component inside the <code class="inlineCode">div</code>, and the whole single-page application site will be rendered inside of the <code class="inlineCode">App</code> component (we will get back to that component later in the chapter).</p>
+    <p class="normal">It adds a component called <code class="inlineCode">HeadOutlet</code> and this component is for handling changing the <code class="inlineCode">head</code> tag. Things that are located in the <code class="inlineCode">head</code> tag are <code class="inlineCode">Title</code> and <code class="inlineCode">head</code> tags (to name a few). The Headoutlet gives us the ability to change the title of our page as well as meta tags.</p>
+    <p class="normal">It adds <code class="inlineCode">HttpClient</code> as a scoped dependency. In <em class="chapterRef">Chapter 3</em>, <em class="italic">Managing State – Part 1</em>, we will dig deeper into dependency injection, but for now, it is a way to abstract the creation of objects and types by injecting objects (dependencies), so we don’t create objects inside a page. The objects get passed into the page/classes instead, making testing easier, and the classes don’t have any dependencies we don’t know about.</p>
+    <p class="normal">The WebAssembly version<a id="_idIndexMarker091"></a> is running in the browser, so it can only get data by<a id="_idIndexMarker092"></a> making external calls (to a server, for example); therefore, we need to be able to access <code class="inlineCode">HttpClient</code>. WebAssembly is not allowed to make direct calls to download data. Therefore, <code class="inlineCode">HttpClient</code> is a special implementation for WebAssembly that will make JavaScript interop calls to download data.</p>
+    <p class="normal">As I mentioned before, WebAssembly is running in a sandbox, and to be able to communicate outside of this sandbox, it needs to go through appropriate JavaScript/browser APIs.</p>
+    <h3 id="_idParaDest-46" class="heading-3">Blazor Server Program.cs</h3>
+    <p class="normal">Blazor Server projects<a id="_idIndexMarker093"></a> look a bit different (but do pretty much the same thing). In<a id="_idIndexMarker094"></a> the <code class="inlineCode">BlazorServer</code> project, the <code class="inlineCode">Program.cs</code> file looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">var</span> builder = WebApplication.CreateBuilder(args);
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton&lt;WeatherForecastService&gt;();
+<span class="hljs-keyword">var</span> app = builder.Build();
+<span class="hljs-comment">// Configure the HTTP request pipeline.</span>
+<span class="hljs-keyword">if</span> (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler(<span class="hljs-string">"/Error"</span>);
+    app.UseHsts();
+}
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.MapBlazorHub();
+app.MapFallbackToPage(<span class="hljs-string">"/_Host"</span>);
+app.Run(); 
+</code></pre>
+    <p class="normal">In .NET 6, Microsoft removed the <code class="inlineCode">Startup.cs</code> file and put all the startup code in <code class="inlineCode">Program.cs</code>.</p>
+    <p class="normal">There are a few things worthy of mentioning here. It starts with adding all the dependencies we need in our application. In this case, we add <code class="inlineCode">RazorPages</code>, the pages that run Blazor (these are the <code class="inlineCode">.cshtml</code> files). Then we add <code class="inlineCode">ServerSideBlazor</code>, giving us access to all the objects we need to run Blazor Server. Then we add <code class="inlineCode">WeatherForcastService</code>, which is used when you navigate to the <strong class="screenText">Forecast</strong> page.</p>
+    <p class="normal">It also configures <strong class="keyWord">HTTP Strict Transport Security</strong> (<strong class="keyWord">HSTS</strong>), forcing your application to use HTTPS, and will make sure that <a id="_idIndexMarker095"></a>your users don’t use any untrusted resources or certificates. We also ensure that the site redirects to HTTPS to secure the site.</p>
+    <p class="normal"><code class="inlineCode">UseStaticFiles</code> enables downloading static files such as CSS or images.</p>
+    <p class="normal">The different <code class="inlineCode">Use*</code> methods<a id="_idIndexMarker096"></a> add request delegates to the request pipeline or <a id="_idIndexMarker097"></a>middleware pipeline. Each request delegate (<code class="inlineCode">DeveloperException</code>, <code class="inlineCode">httpRedirection</code>, <code class="inlineCode">StaticFiles</code>, and so on) is called consecutively from the top to the bottom and back again.</p>
+    <p class="normal">This is why the exception handler is the first one to be added.</p>
+    <p class="normal">If there is an exception in any of the request delegates that follow, the exception handler will still be able to handle it (since the request travels back through the pipeline), as shown in <em class="italic">Figure 2.15</em>:</p>
+    <figure class="mediaobject"><img src="../Images/B18439_02_15.png" alt="Figure 2.15 – The request middleware pipeline"/></figure>
+    <p class="packt_figref">Figure 2.15: The request middleware pipeline</p>
+    <p class="normal">If any of these <a id="_idIndexMarker098"></a>request delegates handle the request in the case of a <a id="_idIndexMarker099"></a>static file, for example, there is no need to involve routing, and the remaining request delegates will not get called. There is no need to involve routing if the request is for a static file. Sometimes, it is essential to add the request delegated in the correct order.</p>
+    <div class="note">
+      <p class="normal"><strong class="keyWord">NOTE</strong>:</p>
+      <p class="normal">There is more information about this here if you want to dig even further: <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-7.0"><span class="url">https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-7.0</span></a>.</p>
+    </div>
+    <p class="normal">At the end of the class, we hook up routing and add endpoints. We create an endpoint for the Blazor SignalR hub, and if we don’t find anything to return, we make sure that we will call the <code class="inlineCode">_host</code> file that will handle routing for the app. When <code class="inlineCode">_host</code> has triggered, the first page of the app will get loaded.</p>
+    <h2 id="_idParaDest-47" class="heading-2">Index/_Host</h2>
+    <p class="normal">The next thing that happens is<a id="_idIndexMarker100"></a> that the <code class="inlineCode">Index</code> or <code class="inlineCode">_host</code> file runs, and it contains the information <a id="_idIndexMarker101"></a>to load the necessary JavaScript.</p>
+    <h3 id="_idParaDest-48" class="heading-3">_Host (Blazor Server)</h3>
+    <p class="normal">The Blazor Server project has<a id="_idIndexMarker102"></a> a <code class="inlineCode">_Host.cshtml</code> file that is located in the <code class="inlineCode">pages</code> folder. It is a Razor page, which is not the same thing as a Razor component:</p>
+    <ul>
+      <li class="bulletList">A <strong class="keyWord">Razor page</strong> is a way <a id="_idIndexMarker103"></a>to create views or pages. It can use Razor syntax but not as a component (a component can be used as part of a page and inside of another component).</li>
+      <li class="bulletList">A <strong class="keyWord">Razor component</strong> is a way<a id="_idIndexMarker104"></a> to build reusable views (called <strong class="keyWord">components</strong>) that you can use throughout your app. You can build a Grid component (for example, a component that renders a table) and use it in your app, or package it as a library for others to use. However, a component can be used as a page by adding an <code class="inlineCode">@</code> page directive to your component, and it can be called a page (more on that later).</li>
+    </ul>
+    <p class="normal">For most Blazor Server applications, you should only have one <code class="inlineCode">.cshtml</code> page; the rest should be Razor components.</p>
+    <p class="normal">At the top of the page, you will find some <code class="inlineCode">@</code> directives (such as <code class="inlineCode">page</code>, <code class="inlineCode">namespace</code>, and <code class="inlineCode">addTagHelper</code>):</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@namespace BlazorServer.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<span class="hljs-meta">&lt;!DOCTYPE </span><span class="hljs-keyword">html</span><span class="hljs-meta">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">html</span><span class="hljs-tag"> </span><span class="hljs-attr">lang</span><span class="hljs-tag">=</span><span class="hljs-string">"en"</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">head</span><span class="hljs-tag">&gt;</span>
+    …
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">component</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">typeof(HeadOutlet)"</span><span class="hljs-tag"> </span><span class="hljs-attr">render-mode</span><span class="hljs-tag">=</span><span class="hljs-string">"ServerPrerendered"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">head</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">body</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">component</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">typeof(App)"</span><span class="hljs-tag"> </span><span class="hljs-attr">render-mode</span><span class="hljs-tag">=</span><span class="hljs-string">"ServerPrerendered"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">There are a couple of aspects of this file that are worth noting. The <code class="inlineCode">@</code> directives make sure to set the URL for the page, add a namespace, add a tag helper, and that we are using a <code class="inlineCode">Layout</code> page. We will cover directives in <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>.</p>
+    <p class="normal">Then we have the <code class="inlineCode">component</code> tag:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">component</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"typeof(App)"</span><span class="hljs-tag"> </span><span class="hljs-attr">render-mode</span><span class="hljs-tag">=</span><span class="hljs-string">"ServerPrerendered"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">This is where the <a id="_idIndexMarker105"></a>entire application will be rendered. The <code class="inlineCode">App</code> component handles that. This is also how you would add a Blazor component to your existing non-Blazor app using the <code class="inlineCode">component</code> tag helper.</p>
+    <p class="normal">It will render a component called <code class="inlineCode">App</code>. There are five different render modes:</p>
+    <ul>
+      <li class="bulletList">The first one is the default <code class="inlineCode">ServerPrerendered</code> mode, which will render all the content on the server and deliver it as part of the content when the page gets downloaded for the first time. Then it will hook up the Blazor SignalR hub and make sure your changes will be pushed to and from the server; however, the server will make another render and push those changes over SignalR. Typically, you won’t notice anything, but if you are using certain events on the server, they may get triggered twice and make unnecessary database calls, for example.</li>
+      <li class="bulletList">The second option is <code class="inlineCode">Server</code>, which will send over the whole page and add placeholders for the components. It then hooks up SignalR and lets the server send over the changes when it is done (when it has retrieved data from the database, for example).</li>
+      <li class="bulletList">The third option is <code class="inlineCode">Static</code>, which will render the component and then disconnect, which means that it will not listen to events and won’t update the component any longer. This can be a good option for static data.</li>
+      <li class="bulletList">The fourth option is <code class="inlineCode">WebAssembly</code>, which will render a marker for the WebAssembly application but not output anything from the component.</li>
+      <li class="bulletList">The fifth option is <code class="inlineCode">WebAssemblyPrerendered</code>, which will render the component into static HTML and bootstrap the WebAssembly app into that space. We will explore this scenario in <em class="chapterRef">Chapter 5</em>, <em class="italic">Creating Advanced Blazor Components</em>.</li>
+    </ul>
+    <p class="normal"><code class="inlineCode">ServerPrerendered</code> is technically the fastest way to get your page up on the screen; if you have a page that loads quickly, this is a good option. If you want your page to have a perceived fast loading time that shows you content fast and loads the data when the server gets the data from a database, then <code class="inlineCode">Server</code> is a better option, in my opinion.</p>
+    <p class="normal">I prefer the <code class="inlineCode">Server</code> option because the site should feel fast. Switching to <code class="inlineCode">Server</code> is the first thing I change when creating a new Blazor Server site; I’d much rather have the data pop up a couple of milliseconds later because the page will feel like it loads faster.</p>
+    <p class="normal">Close to the top of the page, we have the <code class="inlineCode">base</code> tag:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">base</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"~/"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">The <code class="inlineCode">base</code> tag allows Blazor to find the site’s root. Without the <code class="inlineCode">base</code> tag, Blazor won’t be able to find any static resources like images, JavaScript, and CSS.</p>
+    <p class="normal">Then we have CSS. By default, there are two static CSS files, one for Bootstrap and one for the site.</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"css/bootstrap/bootstrap.min.css"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"css/site.css"</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag"> /&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"BlazorServer.styles.css"</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">There is also the one called <code class="inlineCode">BlazorServer.styles.css</code>, a generated file with all the isolated CSS. CSS and Isolated CSS is something we will cover more in-depth in <em class="chapterRef">Chapter 9</em>, <em class="italic">Sharing Code and Resources</em>.</p>
+    <p class="normal">We also have a <a id="_idIndexMarker106"></a>component that gets rendered. This is the <code class="inlineCode">HeadOutlet</code> component, which makes it possible to change the head metadata like the <code class="inlineCode">title</code> and <code class="inlineCode">meta</code> tags:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">component</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"typeof(HeadOutlet)"</span><span class="hljs-tag"> </span><span class="hljs-attr">render-mode</span><span class="hljs-tag">=</span><span class="hljs-string">"ServerPrerendered"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">We will use this component in <em class="chapterRef">Chapter 5</em>, <em class="italic">Creating Advanced Blazor Components</em>, to add metadata and change the title.</p>
+    <p class="normal">There is a small part of the UI that will show if there are any error messages:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">id</span><span class="hljs-tag">=</span><span class="hljs-string">"blazor-error-ui"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">environment</span><span class="hljs-tag"> </span><span class="hljs-attr">include</span><span class="hljs-tag">=</span><span class="hljs-string">"Staging,Production"</span><span class="hljs-tag">&gt;</span>
+        An error has occurred. This application may no longer respond until reloaded.
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">environment</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">environment</span><span class="hljs-tag"> </span><span class="hljs-attr">include</span><span class="hljs-tag">=</span><span class="hljs-string">"Development"</span><span class="hljs-tag">&gt;</span>
+        An unhandled exception has occurred. See browser dev tools for details.
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">environment</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">""</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"reload"</span><span class="hljs-tag">&gt;</span>Reload<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"dismiss"</span><span class="hljs-tag">&gt;</span><img src="../Images/B18549_17_001.png" alt=""/><span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">I would recommend keeping this error UI (or a variation) if we changed the layout completely because JavaScript is involved in updating the UI. Sometimes, your page may break, the JavaScript will stop running, and the SignalR connection will fail. You will get a nice error message in the JavaScript console if that happens. But by having the error UI pop up, you’ll know that you need to check the console.</p>
+    <p class="normal">The last thing <a id="_idIndexMarker107"></a>we will cover on this page is also where all the magic happens, the JavaScript responsible for hooking everything up:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">script</span><span class="hljs-tag"> </span><span class="hljs-attr">src</span><span class="hljs-tag">=</span><span class="hljs-string">"_framework/blazor.server.js"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">script</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">The script will create a SignalR connection to the server and is responsible for updating the DOM from the server and sending triggers back to the server.</p>
+    <h3 id="_idParaDest-49" class="heading-3">Index (WebAssembly)</h3>
+    <p class="normal">The WebAssembly project <a id="_idIndexMarker108"></a>looks pretty much the same.</p>
+    <p class="normal">In the <code class="inlineCode">BlazorWebAssembly.Client</code> project, open the <code class="inlineCode">wwwroot/index.html</code> file. This file is HTML only, so there are no directives at the top like in the Blazor Server version.</p>
+    <p class="normal">Just like the Blazor Server version, you will find a <code class="inlineCode">base</code> tag:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">base</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"/"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">When hosting a Blazor WebAssembly site on, for example, GitHub Pages, we need to change the base tag to make the site work since it is served from a subfolder.</p>
+    <p class="normal">Instead of a <code class="inlineCode">component</code> tag (as with Blazor Server), you’ll find a <code class="inlineCode">div</code> tag here. Instead, there was a line in <code class="inlineCode">Program.cs</code> that connects the <code class="inlineCode">App</code> component to the <code class="inlineCode">div</code> tag (see the previous <em class="italic">Program.cs</em> section):</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">id</span><span class="hljs-tag">=</span><span class="hljs-string">"app"</span><span class="hljs-tag">&gt;</span>Loading...<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">You can replace <code class="inlineCode">Loading...</code> with something else if you want to – this is the content shown while the app is starting.</p>
+    <p class="normal">The error UI looks a bit different as well. There is no difference between development and production as in Blazor Server. Here, you only have one way of displaying errors:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">id</span><span class="hljs-tag">=</span><span class="hljs-string">"blazor-error-UI"</span><span class="hljs-tag">&gt;</span>
+    An unhandled error has occurred.
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">""</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"reload"</span><span class="hljs-tag">&gt;</span>Reload<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"dismiss"</span><span class="hljs-tag">&gt;</span><img src="../Images/B18549_17_001.png" alt=""/><span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Lastly, we have a <code class="inlineCode">script</code> tag that loads JavaScript. This makes sure to load all the code needed for the WebAssembly code to run:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">script</span><span class="hljs-tag"> </span><span class="hljs-attr">src</span><span class="hljs-tag">=</span><span class="hljs-string">"_framework/blazor.webassembly.js"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">script</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Like how the <a id="_idIndexMarker109"></a>Blazor Server script communicates with the backend server and the DOM, the WebAssembly script communicates between the WebAssembly .NET runtime and the DOM.</p>
+    <p class="normal">At this point, the app is starting up running the Razor component. These components are the same in both projects.</p>
+    <h2 id="_idParaDest-50" class="heading-2">App</h2>
+    <p class="normal">The <code class="inlineCode">App</code> component<a id="_idIndexMarker110"></a> is the same for both Blazor WebAssembly and Blazor Server. It contains a <code class="inlineCode">Router</code> component:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">Router</span><span class="hljs-tag"> </span><span class="hljs-attr">AppAssembly</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(App).Assembly"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">Found</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">"routeData"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">RouteView</span><span class="hljs-tag"> </span><span class="hljs-attr">RouteData</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">@routeData"</span><span class="hljs-tag"> </span><span class="hljs-attr">DefaultLayout</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(MainLayout)"</span><span class="hljs-tag"> /&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">FocusOnNavigate</span><span class="hljs-tag"> </span><span class="hljs-attr">RouteData</span><span class="hljs-tag">=</span><span class="hljs-string">"@routeData"</span><span class="hljs-tag"> </span><span class="hljs-attr">Selector</span><span class="hljs-tag">=</span><span class="hljs-string">"h1"</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">Found</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">NotFound</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>Not found<span class="hljs-tag">&lt;/</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">LayoutView</span><span class="hljs-tag"> </span><span class="hljs-attr">Layout</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">@typeof(MainLayout)"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag"> </span><span class="hljs-attr">role</span><span class="hljs-tag">=</span><span class="hljs-string">"alert"</span><span class="hljs-tag">&gt;</span>Sorry, there's nothing at this address.<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">LayoutView</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">NotFound</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">Router</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">This file handles the routing, finding the suitable component to show (based on the <code class="inlineCode">@page</code> directive). It shows an error message if the route can’t be found. In <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>, we will make changes to this file when we implement authentication.</p>
+    <p class="normal">The <code class="inlineCode">App</code> component <a id="_idIndexMarker111"></a>also includes a default layout. We can override the layout per component, but usually, you’ll have one layout page for your site. In this case, the default layout is called <code class="inlineCode">MainLayout</code>.</p>
+    <h2 id="_idParaDest-51" class="heading-2">MainLayout</h2>
+    <p class="normal"><code class="inlineCode">MainLayout</code> contains <a id="_idIndexMarker112"></a>the default layout for all components when viewed as a page. The <code class="inlineCode">MainLayout</code> contains a couple of <code class="inlineCode">div</code> tags, one for the sidebar and one for the main content:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="code-highlight"><strong class="hljs-slc">@inherits LayoutComponentBase</strong></span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>BlazorServer<span class="hljs-tag">&lt;/</span><span class="hljs-name">PageTitle</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"page"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"sidebar"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">NavMenu</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">main</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"top-row px-4"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"https://docs.microsoft.com/aspnet/"</span><span class="hljs-tag"> </span><span class="hljs-attr">target</span><span class="hljs-tag">=</span><span class="hljs-string">"_blank"</span><span class="hljs-tag">&gt;</span>About<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">article</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"content px-4"</span><span class="hljs-tag">&gt;</span>
+<span class="code-highlight"><strong class="hljs-slc">            @Body</strong></span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">article</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">main</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">The only things you need in this document are <code class="inlineCode">@inherits LayoutComponentBase</code> and <code class="inlineCode">@Body</code>; the rest is just Bootstrap. The <code class="inlineCode">@inherits</code> directive inherits from <code class="inlineCode">LayoutComponentBase</code>, which contains all the code to use a layout. <code class="inlineCode">@Body</code> is where the component will be <a id="_idIndexMarker113"></a>rendered (when viewed as a page).</p>
+    <h2 id="_idParaDest-52" class="heading-2">Bootstrap</h2>
+    <p class="normal"><strong class="keyWord">Bootstrap</strong> is one of the most <a id="_idIndexMarker114"></a>popular CSS frameworks for developing responsive and mobile-first websites.</p>
+    <p class="normal">We can find a reference to Bootstrap in the <code class="inlineCode">wwwroot/index.html</code> file.</p>
+    <p class="normal">It was created by and for Twitter. You can read more about<a id="_idIndexMarker115"></a> Bootstrap here: <a href="https://getbootstrap.com/"><span class="url">https://getbootstrap.com/</span></a>.</p>
+    <p class="normal">At the top of the layout, you can see <code class="inlineCode">&lt;NavMenu&gt;</code>, a Razor component. It is located in the <code class="inlineCode">Shared</code> folder and looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"top-row ps-3 navbar navbar-dark"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"container-fluid"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"navbar-brand"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">""</span><span class="hljs-tag">&gt;</span>BlazorServer<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">title</span><span class="hljs-tag">=</span><span class="hljs-string">"Navigation menu"</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"navbar-toggler"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"ToggleNavMenu"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"navbar-toggler-icon"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"@NavMenuCssClass nav-scrollable"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"ToggleNavMenu"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">nav</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">flex-column"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-item px-3"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">NavLink</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-link"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">""</span><span class="hljs-tag"> </span><span class="hljs-attr">Match</span><span class="hljs-tag">=</span><span class="hljs-string">"NavLinkMatch.All"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"oi oi-home"</span><span class="hljs-tag"> </span><span class="hljs-attr">aria-hidden</span><span class="hljs-tag">=</span><span class="hljs-string">"true"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span> Home
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">NavLink</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-item px-3"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">NavLink</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-link"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"counter"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"oi oi-plus"</span><span class="hljs-tag"> </span><span class="hljs-attr">aria-hidden</span><span class="hljs-tag">=</span><span class="hljs-string">"true"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span> Counter
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">NavLink</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-item px-3"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">NavLink</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-link"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"fetchdata"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"oi oi-list-rich"</span><span class="hljs-tag"> </span><span class="hljs-attr">aria-hidden</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">true"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span> Fetch data
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">NavLink</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">nav</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+@code {
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">bool</span> collapseNavMenu = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">string</span>? NavMenuCssClass =&gt; collapseNavMenu ? <span class="hljs-string">"collapse"</span> : <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">ToggleNavMenu</span><span class="hljs-function">()</span>
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
+</code></pre>
+    <p class="normal">It contains the left-side menu and is a standard Bootstrap menu. It also has three menu items and logic for a hamburger menu (if viewed on a phone). This type of nav menu is usually done with JavaScript, but this one is done solely with CSS and C#.</p>
+    <p class="normal">You will find another<a id="_idIndexMarker116"></a> component, <code class="inlineCode">NavLink</code>, which is built into the framework. It will render an anchor tag but will also check the current route. If you are currently on the same route/URL as the nav link, it will automatically add a CSS class called <code class="inlineCode">active</code> to the tag.</p>
+    <p class="normal">We will run into a couple more built-in components that will help us along the way. There are also some pages in the template, but we will leave them for now and go through them in the next chapter when we go into components.</p>
+    <h2 id="_idParaDest-53" class="heading-2">CSS</h2>
+    <p class="normal">In the <code class="inlineCode">Shared</code> folder, there are<a id="_idIndexMarker117"></a> two CSS files as well : <code class="inlineCode">NavMenu.razor.css</code> and <code class="inlineCode">MainLayout.razor.css</code>.</p>
+    <p class="normal">These files are CSS styles that affect only the specific component (the first part of the name). We will return to a concept called isolated CSS in <em class="chapterRef">Chapter 9</em>, <em class="italic">Sharing Code and Resources</em>.</p>
+    <h1 id="_idParaDest-54" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we got the development environment up and running, and we created our first Blazor app for both Blazor WebAssembly and Blazor Server. You learned in what order classes, components, and layouts are called, making it easier to follow the code. We also covered some differences between a Blazor Server project and a Blazor WebAssembly project.</p>
+    <p class="normal">In the next chapter, we will take a break from Blazor to look at managing state and set up a repository to store our blog posts.</p>
+  </div>
+</body>
+</html>

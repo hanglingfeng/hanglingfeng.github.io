@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_19</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_19" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer101" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">19</h1>
+    <h1 id="_idParaDest-294" class="chapterTitle">Where to Go from Here</h1>
+    <p class="normal">The book is coming to an end, and I want to leave you with some of the things we have encountered while running Blazor in production ever since it was in preview. We will also talk about where to go from here.</p>
+    <p class="normal">In this chapter, we will cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Learnings from running Blazor in production</li>
+      <li class="bulletList">The next steps</li>
+    </ul>
+    <h1 id="_idParaDest-295" class="heading-1">Technical requirements</h1>
+    <p class="normal">In this chapter, we are not using the code we have written throughout the book.</p>
+    <h1 id="_idParaDest-296" class="heading-1">Learnings from running Blazor in production</h1>
+    <p class="normal">Since <a id="_idIndexMarker655"></a>Blazor was in preview, we have been running Blazor Server in production. In most cases, everything has run without issues. Occasionally, we encounter a few problems, and I will share those learnings with you in this section.</p>
+    <p class="normal">We will look at the following:</p>
+    <ul>
+      <li class="bulletList">Solving memory problems</li>
+      <li class="bulletList">Solving concurrency problems</li>
+      <li class="bulletList">Solving errors</li>
+      <li class="bulletList">Old browsers</li>
+    </ul>
+    <p class="normal">These are some of the things we ran into, and we have solved them all in a way that works for us.</p>
+    <h2 id="_idParaDest-297" class="heading-2">Solving memory problems</h2>
+    <p class="normal">Our<a id="_idIndexMarker656"></a> latest upgrade did add many users and, with that, a bigger load on the server. The server manages memory quite well, but with this release, the backend system was a bit slow, so users pressed <em class="keystroke">F5</em> to reload a page. Then, the circuit disconnects, and a new circuit gets created. The old circuit waits for the user to connect to the server again for 3 minutes (by default).</p>
+    <p class="normal">The user now has a new circuit and will never connect to the old one again, but for 3 minutes, the user’s state will still take up memory. This is probably not a problem for most applications, but we are loading a lot of data into memory – the data, the render tree, and everything surrounding that will be kept in memory.</p>
+    <p class="normal">So, what can we learn from that? Blazor is a single-page application. Reloading the page is like restarting an app, which means we should always make sure to add a possibility to update the data from within the page (if that makes sense for the application). We could also update the data as it changes, as we did in <em class="chapterRef">Chapter 11</em>, <em class="italic">Managing State – Part 2</em>.</p>
+    <p class="normal">In our case, we added more memory to the server and then made sure there were reload buttons in the UI that refresh the data without reloading the whole page. The ultimate goal is to add real-time updates that continuously update the UI when the data changes.</p>
+    <p class="normal">If adding more memory to the server isn’t an option, we can try to change the garbage collection from server to desktop. The .NET garbage collection has two modes:</p>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Workstation</strong> mode<a id="_idIndexMarker657"></a> is optimized for running on a workstation that typically doesn’t have a lot of memory. It runs the garbage collection multiple times per second.</li>
+      <li class="bulletList"><strong class="keyWord">Server</strong> mode<a id="_idIndexMarker658"></a> is optimized for servers where there is usually lots of memory and prioritizes speed, meaning it will only run the garbage collector every 2 seconds.</li>
+    </ul>
+    <p class="normal">The mode of the garbage collector can be set in the project file or the <code class="inlineCode">runtimeconfig.json</code> file by changing the <code class="inlineCode">ServerGarbageCollection</code> node:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;PropertyGroup&gt;
+    &lt;ServerGarbageCollection&gt;<span class="hljs-literal">true</span>&lt;/ServerGarbageCollection&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+    <p class="normal">Adding more memory is probably a better idea, though.</p>
+    <p class="normal">We<a id="_idIndexMarker659"></a> have also noticed the importance of disposing of our database contexts. Make sure to use <code class="inlineCode">IDbContextFactory</code> to create an instance of the data context and, when we are done, dispose of it, by using the <code class="inlineCode">Using</code> keyword.</p>
+    <p class="normal">This method will only be available for a short time and then disposed of, freeing up memory fast.</p>
+    <h2 id="_idParaDest-298" class="heading-2">Solving concurrency problems</h2>
+    <p class="normal">We often ran<a id="_idIndexMarker660"></a> into problems where the data context was already in use, and couldn’t access the database from two different threads.</p>
+    <p class="normal">This is solved by using <code class="inlineCode">IDbContextFactory</code> and disposing of the data context when we are finished using it.</p>
+    <p class="normal">In a non-Blazor site, having multiple components to load at the same time is never a problem (because the web is doing one thing at a time), so the fact that Blazor can do multiple things at the same time is something we need to think about when we design our architecture.</p>
+    <h2 id="_idParaDest-299" class="heading-2">Solving errors</h2>
+    <p class="normal">Blazor usually <a id="_idIndexMarker661"></a>gives us an error that is easy to understand, but in some rare cases, we do run into problems that are hard to figure out. We can add detailed errors to our circuit (for Blazor Server) by adding the following option in <code class="inlineCode">Startup.cs</code>:</p>
+    <pre class="programlisting code"><code class="hljs-code">services.AddServerSideBlazor().AddCircuitOptions(options =&gt; { options.DetailedErrors = <span class="hljs-literal">true</span>; });
+</code></pre>
+    <p class="normal">By doing so, we will get more detailed errors. I don’t recommend using detailed errors in a production scenario, however. With that said, we have the setting turned on for an internal app in production because the internal users are briefed on it and understand how to handle it. It makes it easier for us to help our users, and the error message is only visible in the developer tools of the web browser and not in the interface of the user.</p>
+    <h2 id="_idParaDest-300" class="heading-2">Old browsers</h2>
+    <p class="normal">Some of our customers were running <a id="_idIndexMarker662"></a>old browsers on old systems, and even though Blazor supports all major browsers, that support doesn’t include really old browsers. We ended up helping those customers upgrade to Edge or Chrome simply because we didn’t think they should be browsing the web using browsers that no longer receive security patches.</p>
+    <p class="normal">Even our TV at home can run Blazor WebAssembly, so old browsers are probably not a big problem, but it can be worth thinking about when it comes to browser support. What browsers do we need/want to support?</p>
+    <h1 id="_idParaDest-301" class="heading-1">The next steps</h1>
+    <p class="normal">At this point, we know the difference between Blazor Server and Blazor WebAssembly. We know how to create reusable components, make APIs, manage state, and much more. But where do we go from here? What are the next steps?</p>
+    <h2 id="_idParaDest-302" class="heading-2">The community</h2>
+    <p class="normal">The Blazor community<a id="_idIndexMarker663"></a> is not as big as other frameworks but is growing fast. Many people share content with the community through blogs or videos. YouTube and PluralSight have a lot of tutorials and courses. Twitch has a growing amount of Blazor content, but it is not always easy to find in the vast content catalog.</p>
+    <p class="normal">There are a number of <a id="_idIndexMarker664"></a>resources worth mentioning:</p>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">My blog</strong>: My blog has a lot of Blazor content and more to come: <a href="https://engstromjimmy.com/"><span class="url">https://engstromjimmy.com/</span></a>
+    <p class="normal">Twitter: <code class="inlineCode">@EngstromJimmy</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList">The <strong class="keyWord">Blazm</strong> component library that we have written can be found here: <a href="http://blazm.net/"><span class="url">http://blazm.net/</span></a></li>
+      <li class="bulletList"><strong class="keyWord">Coding after Work</strong> has many episodes of our podcast and our stream covering Blazor; please follow us on social media: <a href="http://codingafterwork.com/FindUs"><span class="url">http://codingafterwork.com/FindUs</span></a>.</li>
+      <li class="bulletList"><strong class="keyWord">Daniel Roth</strong> is the PM for Blazor. Amazing to listen to, he has been a guest on our podcast. Search for him on YouTube.
+    <p class="normal">Twitter: <code class="inlineCode">@danroth27</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Steve Sanderson</strong> is the guy who invented Blazor; he is definitely worth a follow. He continues to do groundbreaking things in his talks; search for him on YouTube. Make sure to see his NDC Oslo talk where he shows Blazor for the first time.
+    <p class="normal">Twitter: <code class="inlineCode">@stevensanderson</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Awesome-Blazor</strong> has a huge list of Blazor-related links and resources that can be found here: <a href="https://github.com/AdrienTorris/awesome-blazor"><span class="url">https://github.com/AdrienTorris/awesome-blazor</span></a></li>
+      <li class="bulletList"><strong class="keyWord">Jeff Fritz</strong> shares Blazor knowledge (among other things) on Twitch. Twitch: <a href="https://www.twitch.tv/csharpfritz"><span class="url">https://www.twitch.tv/csharpfritz</span></a>
+    <p class="normal">Twitter: <code class="inlineCode">@csharpfritz</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Chris Sainty</strong> has written a book on Blazor and has lots of content on his blog: <a href="https://chrissainty.com/"><span class="url">https://chrissainty.com/</span></a> 
+    <p class="normal">Twitter: <code class="inlineCode">@chris_sainty</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Junichi Sakamoto</strong> has made loads of fantastic Blazor libraries, everything from connecting to gamepads to translation and pre-rendering.
+    <p class="normal">You can find his projects here:</p>
+    <p class="normal"><a href="https://github.com/jsakamoto"><span class="url">https://github.com/jsakamoto</span></a></p>
+    <p class="normal">Twitter: <code class="inlineCode">@jsakamoto</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Blazor University</strong> has a lot of training material and is a great resource to learn more: <a href="https://blazor-university.com/"><span class="url">https://blazor-university.com/</span></a></li>
+      <li class="bulletList"><strong class="keyWord">Gerald Versluis</strong> has plenty of content on his YouTube channel related to all kinds of .NET things: <a href="https://youtube.com/GeraldVersluis"><span class="url">https://youtube.com/GeraldVersluis</span></a> 
+    <p class="normal">Twitter: <code class="inlineCode">@jfversluis</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Maddy Montaquilla</strong> is <a id="_idIndexMarker665"></a>amazing to watch; search for her on YouTube to watch her video.
+    <p class="normal">Twitter: <code class="inlineCode">@maddymontaquila</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">James Montemagno</strong> has a great YouTube channel with loads of .NET MAUI content: <a href="https://www.youtube.com/JamesMontemagno"><span class="url">https://www.youtube.com/JamesMontemagno</span></a>
+    <p class="normal">Twitter: <code class="inlineCode">@JamesMontemagno</code></p></li>
+    </ul>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Daniel Hindrikes</strong> has <a id="_idIndexMarker666"></a>some great .NET MAUI content on this YouTube channel: <a href="mailto:https://www.youtube.com/@DanielHindrikes"><span class="url">https://www.youtube.com/@DanielHindrikes</span></a> 
+    <p class="normal">Twitter: <code class="inlineCode">@hindrikes</code></p></li>
+    </ul>
+    <h2 id="_idParaDest-303" class="heading-2">The components</h2>
+    <p class="normal">Most third-party component<a id="_idIndexMarker667"></a> vendors such as Progress Telerik, DevExpress, Syncfusion, Radzen, ComponentOne, and many more have invested in Blazor. Some cost money, and some are free. There are also a lot of open-source component libraries that we can use.</p>
+    <p class="normal">This question comes up a lot: <em class="italic">I am new to Blazor. What third-party vendor should I use?</em> My recommendation is to try to figure out what you need before investing in a library (either in terms of money or time).</p>
+    <p class="normal">Many vendors can do all the things we need but, in some cases, it will take a bit more effort to make an app work. We started to work on a grid component ourselves and after a while, we decided to make it open source.</p>
+    <p class="normal">This is how Blazm was born. We had a few special requirements (not anything fancy), but it required us to have to write a lot of code over and over again to make it work in a third-party vendor component.</p>
+    <p class="normal">We learned so much from writing our component, which is really easy to do. My recommendation is not to always write your own components. It is much better to focus on the actual business problem you are trying to solve.</p>
+    <p class="normal">For us, building a pretty advanced grid component taught us so much about the inner working of Blazor.</p>
+    <p class="normal">Think about what you need and try out the different vendors to see what works best for you, and perhaps it might be better to build the component yourself, at least in the beginning, to learn more about Blazor.</p>
+    <p class="normal">But always look at your code. If you repeat the same code, wrap it in a component. Always think: <em class="italic">Could this be a reusable component?</em></p>
+    <p class="normal">We currently use a component vendor, but we are wrapping all the components in one of our components. This way, it is easy to set defaults and add logic that is right for us.</p>
+    <h1 id="_idParaDest-304" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we looked at some of the things we have encountered while running Blazor in production. We also talked about where to go from here.</p>
+    <p class="normal">Throughout the book, we have learned how Blazor works and how to create basic and advanced components. We implemented security with both authentication and authorization. We created and consumed an API connected to a database.</p>
+    <p class="normal">We made JavaScript calls and real-time updates. We debugged our application and tested our code, and last but not least, we looked at deploying to production.</p>
+    <p class="normal">We are now ready to apply all this knowledge to the next adventure, another app. I hope you have had as much fun reading this book as I have had writing it. Being part of the Blazor community is so much fun and we learn new things every day.</p>
+    <p class="normal">Thank you for reading this book, and please stay in touch. I would love to learn more about the things you build!</p>
+    <p class="normal"><em class="italic">Welcome to the Blazor community!</em></p>
+  </div>
+  <div id="_idContainer103" class="Basic-Text-Frame">
+    <h1 class="heading-1">Join our community on Discord&#160;</h1>
+    <p class="normal">Join our community’s Discord space for discussions with the author and other readers:&#160;</p>
+    <p class="normal"><a href="https://packt.link/WebDevBlazor2e"><span class="url">https://packt.link/WebDevBlazor2e</span></a></p>
+    <p class="normal"><span class="url"><img src="../Images/QR_Code748085881713038109.png" alt=""/></span></p>
+  </div>
+</body>
+</html>

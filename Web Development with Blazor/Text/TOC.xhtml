@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Web Development with Blazor_Second Edition</title>
+</head>
+
+<body>
+  <nav id="toc" epub:type="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li style="list-style-type: none;"><a href="Preface.xhtml#_idParaDest-5">Preface</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Preface.xhtml#_idParaDest-6">Who this book is for</a></li>
+          <li style="list-style-type: none;"><a href="Preface.xhtml#_idParaDest-7">What this book covers</a></li>
+          <li style="list-style-type: none;"><a href="Preface.xhtml#_idParaDest-8">To get the most out of this book</a>
+          </li>
+          <li style="list-style-type: none;"><a href="Preface.xhtml#_idParaDest-12">Get in touch</a></li>
+        </ol>
+      </li>
+      <li value="1"><a href="Chapter_01.xhtml#_idParaDest-14">Hello Blazor</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-15">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-16">Why Blazor?</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-17">Preceding Blazor</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-18">Introducing WebAssembly</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-19">Introducing .NET 7</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-20">Introducing Blazor</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-21">Blazor Server</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-22">Blazor WebAssembly</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-23">Blazor WebAssembly versus Blazor Server</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-24">Blazor Hybrid / .NET MAUI</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-25">Summary</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_01.xhtml#_idParaDest-26">Further reading</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_02.xhtml#_idParaDest-27">Creating Your First Blazor App</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-28">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-29">Setting up your development environment</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-30">Windows</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-31">macOS</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-32">Linux (or macOS or Windows)</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-33">Creating our first Blazor application</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-34">Exploring the templates</a>
+                <ol style="list-style-type: none;">
+                  <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-35">Blazor Server App</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-36">Blazor WebAssembly App</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-37">Blazor Server App Empty</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-38">Blazor WebAssembly App Empty</a></li>
+                </ol>
+              </li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-39">Creating a Blazor Server application</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-40">Creating a WebAssembly application</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-41">Using the command line</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-42">Creating projects using the command line</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-43">Figuring out the project structure</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-44">Program.cs</a>
+                <ol style="list-style-type: none;">
+                  <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-45">WebAssembly Program.cs</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-46">Blazor Server Program.cs</a></li>
+                </ol>
+              </li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-47">Index/_Host</a>
+                <ol style="list-style-type: none;">
+                  <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-48">_Host (Blazor Server)</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-49">Index (WebAssembly)</a></li>
+                </ol>
+              </li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-50">App</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-51">MainLayout</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-52">Bootstrap</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-53">CSS</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_02.xhtml#_idParaDest-54">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_03.xhtml#_idParaDest-55">Managing State – Part 1</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_03.xhtml#_idParaDest-56">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_03.xhtml#_idParaDest-57">Creating a data project</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_03.xhtml#_idParaDest-58">Creating a new project</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_03.xhtml#_idParaDest-59">Creating data classes</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_03.xhtml#_idParaDest-60">Creating an interface</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_03.xhtml#_idParaDest-61">Implementing the interface</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_03.xhtml#_idParaDest-62">Adding the API to Blazor</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_03.xhtml#_idParaDest-63">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_04.xhtml#_idParaDest-64">Understanding Basic Blazor Components</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-65">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-66">Exploring components</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-67">Counter</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-68">FetchData</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-69">Learning Razor syntax</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-70">Razor code blocks</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-71">Implicit Razor expressions</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-72">Explicit Razor expressions</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-73">Expression encoding</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-74">Directives</a>
+                <ol style="list-style-type: none;">
+                  <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-75">Adding an attribute</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-76">Adding an interface</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-77">Inheriting</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-78">Generics</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-79">Changing the layout</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-80">Setting a namespace</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-81">Setting a route</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-82">Adding a using statement</a></li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-83">Understanding dependency injection</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-84">Singleton</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-85">Scoped</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-86">Transient</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-87">Injecting the service</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-88">Figuring out where to put the code</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-89">In the Razor file</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-90">In a partial class</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-91">Inheriting a class</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-92">Only code</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-93">Lifecycle events</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-94">OnInitialized and OnInitializedAsync</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-95">OnParametersSet and OnParametersSetAsync</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-96">OnAfterRender and OnAfterRenderAsync</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-97">ShouldRender</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-98">Parameters</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-99">Cascading parameters</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-100">Writing our first component</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-101">Creating a components library</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-102">Using our components library</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-103">Creating our own component</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_04.xhtml#_idParaDest-104">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_05.xhtml#_idParaDest-105">Creating Advanced Blazor Components</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-106">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-107">Exploring binding</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-108">One-way binding</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-109">Two-way binding</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-110">Actions and EventCallback</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-111">Using RenderFragment</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-112">ChildContent</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-113">Default value</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-114">Building an alert component</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-115">Exploring the new built-in components</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-116">Setting the focus of the UI</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-117">Influencing the HTML head</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-118">Component virtualization</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-119">Error boundaries</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_05.xhtml#_idParaDest-120">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_06.xhtml#_idParaDest-121">Building Forms with Validation</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-122">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-123">Exploring form elements</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-124">EditForm</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-125">InputBase&lt;&gt;</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-126">InputCheckbox</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-127">InputDate&lt;TValue&gt;</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-128">InputNumber&lt;TValue&gt;</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-129">InputSelect&lt;TValue&gt;</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-130">InputText</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-131">InputTextArea</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-132">InputRadio</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-133">InputRadioGroup</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-134">InputFile</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-135">Adding validation</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-136">ValidationMessage</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-137">ValidationSummary</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-138">Custom validation class attributes</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-139">Looking at bindings</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-140">Binding to HTML elements</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-141">Binding to components</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-142">Building an admin interface</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-143">Listing and editing categories</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-144">Listing and editing tags</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-145">Listing and editing blog posts</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_06.xhtml#_idParaDest-146">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_07.xhtml#_idParaDest-147">Creating an API</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-148">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-149">Creating the service</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-150">Adding data access</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-151">Learning about Minimal APIs</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-152">Adding the API controllers</a>
+                <ol style="list-style-type: none;">
+                  <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-153">Adding APIs for handling blog posts</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-154">Adding APIs for handling categories</a></li>
+                  <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-155">Adding APIs for handling tags</a></li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-156">Creating the client</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_07.xhtml#_idParaDest-157">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_08.xhtml#_idParaDest-158">Authentication and Authorization</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-159">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-160">Setting up authentication</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-161">Configuring Blazor Server</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-162">Securing Blazor Server</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-163">Securing Blazor WebAssembly</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-164">Adjusting Auth0</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-165">Securing the API</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-166">Configure Auth0</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-167">Configure the API</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-168">Adding roles</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-169">Configuring Auth0 by adding roles</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-170">Adding roles to Blazor Server</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-171">Adding roles to Blazor WebAssembly</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_08.xhtml#_idParaDest-172">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_09.xhtml#_idParaDest-173">Sharing Code and Resources</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-174">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-175">Adding static files</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-176">Choosing between frameworks</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-177">Adding a new style</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-178">Adding CSS to BlazorServer</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-179">Adding CSS to BlazorWebAssembly.Client</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-180">Making the admin interface more usable</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-181">Making the menu more useful</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-182">Making the blog look like a blog</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-183">CSS isolation</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_09.xhtml#_idParaDest-184">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_10.xhtml#_idParaDest-185">JavaScript Interop</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-186">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-187">Why do we need JavaScript?</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-188">.NET to JavaScript</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-189">Global JavaScript (the old way)</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-190">JavaScript Isolation</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-191">JavaScript to .NET</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-192">Static .NET method call</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-193">Instance method call</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-194">Implementing an existing JavaScript library</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-195">JavaScript interop in WebAssembly</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-196">.NET to JavaScript</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-197">JavaScript to .NET</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_10.xhtml#_idParaDest-198">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_11.xhtml#_idParaDest-199">Managing State – Part 2</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-200">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-201">Storing data on the server side</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-202">Storing data in the URL</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-203">Route constraints</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-204">Using a query string</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-205">Scenarios that are not that common</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-206">Implementing browser storage</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-207">Creating an interface</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-208">Implementing Blazor Server</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-209">Implementing WebAssembly</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-210">Implementing the shared code</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-211">Using an in-memory state container service</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-212">Implementing real-time updates on Blazor Server</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-213">Implementing real-time updates on Blazor WebAssembly</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_11.xhtml#_idParaDest-214">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_12.xhtml#_idParaDest-215">Debugging the Code</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_12.xhtml#_idParaDest-216">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_12.xhtml#_idParaDest-217">Making things break</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_12.xhtml#_idParaDest-218">Debugging Blazor Server</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_12.xhtml#_idParaDest-219">Debugging Blazor WebAssembly</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_12.xhtml#_idParaDest-220">Debugging Blazor WebAssembly in the web browser</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_12.xhtml#_idParaDest-221">Hot Reload</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_12.xhtml#_idParaDest-222">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_13.xhtml#_idParaDest-223">Testing</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_13.xhtml#_idParaDest-224">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_13.xhtml#_idParaDest-225">What is bUnit?</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_13.xhtml#_idParaDest-226">Setting up a test project</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_13.xhtml#_idParaDest-227">Mocking the API</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_13.xhtml#_idParaDest-228">Writing tests</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_13.xhtml#_idParaDest-229">Authentication</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_13.xhtml#_idParaDest-230">Testing JavaScript</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_13.xhtml#_idParaDest-231">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_14.xhtml#_idParaDest-232">Deploy to Production</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_14.xhtml#_idParaDest-233">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_14.xhtml#_idParaDest-234">Continuous delivery options</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_14.xhtml#_idParaDest-235">Hosting options</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_14.xhtml#_idParaDest-236">Hosting Blazor Server</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_14.xhtml#_idParaDest-237">Hosting Blazor WebAssembly</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_14.xhtml#_idParaDest-238">Hosting on IIS</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_14.xhtml#_idParaDest-239">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_15.xhtml#_idParaDest-240">Moving from, or Combining, an Existing Site</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-241">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-242">Introducing Web Components</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-243">Exploring Custom Elements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-244">Exploring the Blazor Component</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-245">Adding Blazor to an Angular site</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-246">Adding Blazor to a React site</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-247">Adding Blazor to MVC/Razor Pages</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-248">Adding Web components to a Blazor site</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-249">Migrating from Web Forms</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_15.xhtml#_idParaDest-250">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_16.xhtml#_idParaDest-251">Going Deeper into WebAssembly</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-252">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-253">.NET WebAssembly build tools</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-254">AOT compilation</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-255">WebAssembly Single Instruction, Multiple Data (SIMD)</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-256">Trimming</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-257">Lazy loading</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-258">PWA</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-259">Native dependencies</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-260">Common problems</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-261">Progress indicators</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-262">Prerendering on the server</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-263">Preloading and persisting the state</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_16.xhtml#_idParaDest-264">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_17.xhtml#_idParaDest-265">Examining Source Generators</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-266">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-267">What a source generator is</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-268">How to get started with source generators</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-269">Community projects</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-270">InterfaceGenerator</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-271">Blazorators</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-272">C# source generators</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-273">Roslyn SDK samples</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-274">Microsoft Learn</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_17.xhtml#_idParaDest-275">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_18.xhtml#_idParaDest-276">Visiting .NET MAUI</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-277">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-278">What is .NET MAUI?</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-279">Creating a new project</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-280">.NET MAUI App</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-281">.NET MAUI Class Library</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-282">.NET MAUI Blazor App</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-283">Looking at the template</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-284">Developing for Android</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-285">Running in an emulator</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-286">Running on a physical device</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-287">Developing for iOS</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-288">Hot restart</a>
+                <ol style="list-style-type: none;">
+                  <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-289">Simulator</a></li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-290">Developing for macOS</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-291">Developing for Windows</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-292">Developing for Tizen</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_18.xhtml#_idParaDest-293">Summary</a></li>
+        </ol>
+      </li>
+      <li><a href="Chapter_19.xhtml#_idParaDest-294">Where to Go from Here</a>
+        <ol style="list-style-type: none;">
+          <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-295">Technical requirements</a></li>
+          <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-296">Learnings from running Blazor in production</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-297">Solving memory problems</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-298">Solving concurrency problems</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-299">Solving errors</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-300">Old browsers</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-301">The next steps</a>
+            <ol style="list-style-type: none;">
+              <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-302">The community</a></li>
+              <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-303">The components</a></li>
+            </ol>
+          </li>
+          <li style="list-style-type: none;"><a href="Chapter_19.xhtml#_idParaDest-304">Summary</a></li>
+        </ol>
+      </li>
+      <li style="list-style-type: none;"><a href="Other_Books_You_May_Enjoy.xhtml#_idParaDest-306">Other Books You May Enjoy</a>
+      </li>
+      <li style="list-style-type: none;"><a href="Index.xhtml#_idParaDest-309">Index</a></li>
+    </ol>
+  </nav>
+  <nav epub:type="landmarks" id="landmarks" hidden="">
+    <h1>Landmarks</h1>
+    <ol>
+      <li>
+        <a epub:type="cover" href="cover.xhtml">Cover</a>
+      </li>
+      <li>
+        <a epub:type="index" href="Index.xhtml#_idContainer111">Index</a>
+      </li>
+    </ol>
+  </nav>
+</body>
+</html>

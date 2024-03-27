@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_03</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_03" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer044" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">3</h1>
+    <h1 id="_idParaDest-55" class="chapterTitle">Managing State – Part 1</h1>
+    <p class="normal">In this chapter, we will start looking at managing state. There is also a continuation of this chapter in <em class="chapterRef">Chapter 11</em>, <em class="italic">Managing State – Part 2</em>.</p>
+    <p class="normal">There are many different ways of managing state or persisting data. Since this book focuses on Blazor, we will not explore how to connect to databases but create a simple JSON storage instead.</p>
+    <p class="normal">In the repo on GitHub, you can find more examples of storing data in databases such as RavenDB or MSSQL.</p>
+    <p class="normal">We will use a common pattern called the <strong class="keyWord">repository pattern</strong>.</p>
+    <p class="normal">We will also create an API to access the data from the JSON repository.</p>
+    <p class="normal">By the end of this chapter, we will have learned how to create a JSON repository and an API.</p>
+    <p class="normal">We will cover the following main topics:</p>
+    <ul>
+      <li class="bulletList">Creating a data project</li>
+      <li class="bulletList">Adding the API to Blazor</li>
+    </ul>
+    <h1 id="_idParaDest-56" class="heading-1">Technical requirements</h1>
+    <p class="normal">Make sure you have followed the previous chapters or use the <code class="inlineCode">Chapter02</code> folder as the starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter03"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter03</span></a>.</p>
+    <h1 id="_idParaDest-57" class="heading-1">Creating a data project</h1>
+    <p class="normal">There<a id="_idIndexMarker118"></a> are many ways of persisting data: document databases, relational databases, and files, to name a few. To remove complexity from the book, we will use the simplest way of creating blog posts by storing them as JSON in a folder.</p>
+    <p class="normal">The data will be accessible from both our Blazor WebAssembly project and the Blazor Server project, so we want to create a new project (not just put the code in one of the projects we created previously).</p>
+    <p class="normal">To save our blog posts, we will use JSON files stored in a folder, and to do so, we need to create a new project.</p>
+    <h2 id="_idParaDest-58" class="heading-2">Creating a new project</h2>
+    <p class="normal">We can also create a new <a id="_idIndexMarker119"></a>project from within Visual Studio (to be honest, that’s how I would do it), but to get to know the .NET CLI, let’s do it from the command line instead.</p>
+    <p class="normal">To create a new project, follow these steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Open a PowerShell prompt.</li>
+      <li class="numberedList">Navigate to the <code class="inlineCode">MyBlog</code> folder.</li>
+      <li class="numberedList">Create a class library (<code class="inlineCode">classlib</code>) by typing the following command:
+        <pre class="programlisting con"><code class="hljs-con">dotnet new classlib -o Data
+</code></pre>
+    <p class="normal">The <code class="inlineCode">dotnet</code> tool should now have created a folder called <code class="inlineCode">Data</code>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">We also need to create a project where we can put our models:
+        <pre class="programlisting con"><code class="hljs-con">dotnet new classlib -o Data.Models
+</code></pre>
+      </li>
+      <li class="numberedList">Add the new projects to our solution by running the following command:
+        <pre class="programlisting con"><code class="hljs-con">dotnet sln add Data
+dotnet sln add Data.Models
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">It will look for any solution in the current folder. </p>
+    <p class="normal">We call the projects <code class="inlineCode">Data</code> and <code class="inlineCode">Data.Models</code> so their purpose will be easy to understand and they will be easy to find.</p>
+    <p class="normal">The default<a id="_idIndexMarker120"></a> project has a <code class="inlineCode">class1.cs</code> file – feel free to delete the file.</p>
+    <p class="normal">The next step is to create data classes to store our information.</p>
+    <h2 id="_idParaDest-59" class="heading-2">Creating data classes</h2>
+    <p class="normal">Now we need to create a <a id="_idIndexMarker121"></a>class for our blog post. To do that, we will go back to Visual Studio:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Open the <code class="inlineCode">MyBlog</code> solution in Visual Studio (if it is not already open).
+    <p class="normal">We should now have a new project called <code class="inlineCode">Data</code> in our solution. We might get a popup asking if we want to reload the solution; click <strong class="screenText">Reload</strong> if so.</p>
+</li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">Now we need to create three data classes. Right-click on <code class="inlineCode">Data.Models</code> and select <strong class="screenText">Add</strong> | <strong class="screenText">New Folder</strong>. Name the folder <code class="inlineCode">Models</code>.</li>
+      <li class="numberedList">Right-click on the <code class="inlineCode">Models</code> folder and select <strong class="screenText">Add</strong> | <strong class="screenText">Class</strong>. Name the class <code class="inlineCode">BlogPost.cs</code> and press <strong class="screenText">Add</strong>.</li>
+      <li class="numberedList">Right-click on the <code class="inlineCode">Models</code> folder and select <strong class="screenText">Add</strong> | <strong class="screenText">Class</strong>. Name the class <code class="inlineCode">Category.cs</code> and press <strong class="screenText">Add</strong>.</li>
+      <li class="numberedList">Right-click on the <code class="inlineCode">Models</code> folder and select <strong class="screenText">Add</strong> | <strong class="screenText">Class</strong>. Name the class <code class="inlineCode">Tag.cs</code> and press <strong class="screenText">Add</strong>.</li>
+      <li class="numberedList">Open <code class="inlineCode">Category.cs</code> and replace the content with the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Data.Models</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Category</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span>? Id { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+}
+</code></pre>
+    <p class="normal">The <code class="inlineCode">Category</code> class contains <code class="inlineCode">Id</code> and <code class="inlineCode">Name</code>. It might seem strange that the <code class="inlineCode">Id</code> property is a string, but this is because we will support multiple data storage types, including MSSQL, RavenDB, and JSON.</p>
+    <p class="normal">A string is a great datatype to support all of these. <code class="inlineCode">Id</code> is also nullable, so if we create a new <code class="inlineCode">Category</code> we send in null as an <code class="inlineCode">Id</code>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Open <code class="inlineCode">Tag.cs</code> and replace the content with the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Data.Models</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Tag</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span>? Id { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+}
+</code></pre>
+    <p class="normal">The <code class="inlineCode">Tag</code> class contains an <code class="inlineCode">Id</code> and <code class="inlineCode">Name</code>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="8">Open <code class="inlineCode">BlogPost.cs</code> and<a id="_idIndexMarker122"></a> replace the content with the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Data.Models</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogPost</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span>? Id { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Title { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Text { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+    <span class="hljs-keyword">public</span> DateTime PublishDate { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> Category? Category { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">public</span> List&lt;Tag&gt; Tags { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-keyword">new</span>();
+}
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">In this class, we define the content of our blog post. We need an <code class="inlineCode">Id</code> to identify the blog post, a title, some text (the article), and the publishing date. We also have a <code class="inlineCode">Category</code> property in the class, which is of the <code class="inlineCode">Category</code> type. In this case, a blog post can have only one category, and A blog post can contain zero or <a id="_idIndexMarker123"></a>more tags. We define the <code class="inlineCode">Tag</code> property with <code class="inlineCode">List&lt;Tag&gt;</code>.</p>
+    <p class="normal">By now, we have created a couple of classes that we will use. I have kept the complexity of these classes to a minimum since we are here to learn about Blazor.</p>
+    <p class="normal">Next, we will create a way to store and retrieve the information.</p>
+    <h2 id="_idParaDest-60" class="heading-2">Creating an interface</h2>
+    <p class="normal">In this section, we will<a id="_idIndexMarker124"></a> create an API. Since we are currently working with Blazor Server, we can access the database directly, so the API we create here will have a direct connection to the database:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Right-click <a id="_idIndexMarker125"></a>on the <strong class="screenText">Data.Models</strong> project and select <strong class="screenText">Add</strong> | <strong class="screenText">New Folder</strong> and name it <code class="inlineCode">Interfaces</code>.</li>
+      <li class="numberedList">Right-click in the <code class="inlineCode">Interfaces</code> folder and select <strong class="screenText">Add</strong> | <strong class="screenText">Class</strong>.</li>
+      <li class="numberedList">In the list of different templates, select <strong class="screenText">Interface</strong> and name it <code class="inlineCode">IBlogApi.cs</code>.</li>
+      <li class="numberedList">Open <code class="inlineCode">IBlogApi.cs</code> and replace its content with the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Data.Models.Interfaces</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">IBlogApi</span>
+{
+    <span class="hljs-function">Task&lt;</span><span class="hljs-built_in">int</span><span class="hljs-function">&gt; </span><span class="hljs-title">GetBlogPostCountAsync</span><span class="hljs-function">()</span>;
+    Task&lt;List&lt;BlogPost&gt;?&gt; GetBlogPostsAsync(<span class="hljs-built_in">int</span> numberofposts, <span class="hljs-built_in">int</span> startindex);
+    Task&lt;List&lt;Category&gt;?&gt; GetCategoriesAsync();
+    Task&lt;List&lt;Tag&gt;?&gt; GetTagsAsync();
+    Task&lt;BlogPost?&gt; GetBlogPostAsync(<span class="hljs-built_in">string</span> id);
+    Task&lt;Category?&gt; GetCategoryAsync(<span class="hljs-built_in">string</span> id);
+    Task&lt;Tag?&gt; GetTagAsync(<span class="hljs-built_in">string</span> id);
+    Task&lt;BlogPost?&gt; SaveBlogPostAsync(BlogPost item);
+    Task&lt;Category?&gt; SaveCategoryAsync(Category item);
+    Task&lt;Tag?&gt; SaveTagAsync(Tag item);
+    <span class="hljs-function">Task </span><span class="hljs-title">DeleteBlogPostAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>;
+    <span class="hljs-function">Task </span><span class="hljs-title">DeleteCategoryAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>;
+    <span class="hljs-function">Task </span><span class="hljs-title">DeleteTagAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>;
+    <span class="hljs-function">Task </span><span class="hljs-title">InvalidateCacheAsync</span><span class="hljs-function">()</span>;
+}
+</code></pre>
+    <p class="normal">The<a id="_idIndexMarker126"></a> interface contains all the methods we need to get, save, and delete blog posts, tags, and categories.</p>
+      </li>
+    </ol>
+    <p class="normal">Now we have an interface for the API with the methods we need to list blog posts, tags, and categories, as well as save (create/update) and delete them. Next, let’s implement the interface.</p>
+    <h2 id="_idParaDest-61" class="heading-2">Implementing the interface</h2>
+    <p class="normal">The idea is to create a <a id="_idIndexMarker127"></a>class that stores our blog posts, tags, and categories as JSON files on our filesystem.</p>
+    <p class="normal">To implement the interface for the Blazor Server implementation, follow these steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">First, we<a id="_idIndexMarker128"></a> need to add a reference to our <strong class="screenText">Data</strong> models. Expand the <code class="inlineCode">Data</code> project and right-click on the <strong class="screenText">Dependencies</strong> node. Select <strong class="screenText">Add Project reference</strong> and check the <code class="inlineCode">Data.Models</code> project. Click <strong class="screenText">OK</strong>.</li>
+      <li class="numberedList">Right-click on the <strong class="screenText">Dependencies</strong> node once again, but select <strong class="screenText">Manage NuGet Packages</strong>. Search for <code class="inlineCode">Microsoft.Extensions.Options</code> and click <strong class="screenText">Install</strong>.</li>
+      <li class="numberedList">Next, we need to create a class. Right-click on the <strong class="screenText">Data</strong> project, select <strong class="screenText">Add</strong> | <strong class="screenText">Class</strong>, and name the class <code class="inlineCode">BlogApiJsonDirectAccess.cs</code>.</li>
+      <li class="numberedList">Open <code class="inlineCode">BlogApiJsonDirectAccess.cs</code> and replace the code with the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data.Models.Interfaces;
+<span class="hljs-keyword">using</span> Microsoft.Extensions.Options;
+<span class="hljs-keyword">using</span> System.Text.Json;
+<span class="hljs-keyword">using</span> Data.Models;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Data</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogApiJsonDirectAccess</span>: <span class="hljs-title">IBlogApi</span>
+{
+}
+</code></pre>
+    <p class="normal">The error list should contain many errors since we haven’t implemented the methods yet. We are inheriting from the <code class="inlineCode">IBlogApi</code>, so we know what methods to expose.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">We need a class to hold our settings.
+    <p class="normal">In the <strong class="screenText">Data</strong> project, add a new class called <code class="inlineCode">BlogApiJsonDirectAccessSetting.cs</code> and replace its content with:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Data</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BlogApiJsonDirectAccessSetting</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> BlogPostsFolder { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> CategoriesFolder { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> TagsFolder { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> DataPath { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-built_in">string</span>.Empty;
+}
+</code></pre>
+    <p class="normal"><code class="inlineCode">IOptions</code> is configured in <code class="inlineCode">program</code> during the configuration of dependencies and is injected into all the classes that ask for a specific type.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="6">To be able to read settings, we also add a way to inject <code class="inlineCode">IOptions</code>. By getting the settings this way we don’t have to add any code – it can come from a database, a setting file, or even be hard coded. This is my favorite way to get settings because this part of the code itself doesn’t know how to do it – instead, we add all our configurations by using dependency injection.
+    <p class="normal">Add the<a id="_idIndexMarker129"></a> following code to the <code class="inlineCode">BlogApiJsonDirectAccess</code> class:</p>
+    <pre class="programlisting code"><code class="hljs-code">    BlogApiJsonDirectAccessSetting _settings;
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">BlogApiJsonDirectAccess</span><span class="hljs-function">(</span><span class="hljs-params">IOptions&lt;BlogApiJsonDirectAccessSetting&gt; option</span><span class="hljs-function">)</span>
+    {
+        _settings = option.Value;
+        <span class="hljs-keyword">if</span> (!Directory.Exists(_settings.DataPath))
+        {
+            Directory.CreateDirectory(_settings.DataPath);
+        }
+        <span class="hljs-keyword">if</span> (!Directory.Exists(<span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{_settings.BlogPostsFolder}</span><span class="hljs-string">"</span>))
+        {
+            Directory.CreateDirectory(<span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{_settings.BlogPostsFolder}</span><span class="hljs-string">"</span>);
+        }
+        <span class="hljs-keyword">if</span> (!Directory.Exists(<span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{_settings.CategoriesFolder}</span><span class="hljs-string">"</span>))
+        {
+            Directory.CreateDirectory(<span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{_settings.CategoriesFolder}</span><span class="hljs-string">"</span>);
+        }
+        <span class="hljs-keyword">if</span> (!Directory.Exists(<span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{_settings.TagsFolder}</span><span class="hljs-string">"</span>))
+        {
+            Directory.CreateDirectory(<span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{_settings.TagsFolder}</span><span class="hljs-string">"</span>);
+        }
+    }
+</code></pre>
+    <p class="normal">We get the injected setting and ensure we have the correct folder structure for our data.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">We <a id="_idIndexMarker130"></a>need a couple of private variables where we can store the data. Add the following code in the <code class="inlineCode">BlogApiJsonDirectAccess</code> class:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span> List&lt;BlogPost&gt;? _blogPosts;
+<span class="hljs-keyword">private</span> List&lt;Category&gt;? _categories;
+<span class="hljs-keyword">private</span> List&lt;Tag&gt;? _tags;
+</code></pre>
+      </li>
+      <li class="numberedList">Now it’s time to implement the API, but first, we need a couple of helper methods that can load the data from our filesystem and cache them. Let’s start with the methods for loading data from our filesystem by adding the following code to our class:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">Load</span><span class="hljs-function">&lt;</span><span class="hljs-title">T</span><span class="hljs-function">&gt;(</span><span class="hljs-keyword">ref</span><span class="hljs-params"> List&lt;T&gt;? list, </span><span class="hljs-built_in">string</span><span class="hljs-params"> folder</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">if</span> (list == <span class="hljs-literal">null</span>)
+    {
+        list = <span class="hljs-keyword">new</span>();
+        <span class="hljs-keyword">var</span> fullpath = <span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{folder}</span><span class="hljs-string">"</span>;
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> f <span class="hljs-keyword">in</span> Directory.GetFiles(fullpath))
+        {
+            <span class="hljs-keyword">var</span> json = File.ReadAllText(f);
+            <span class="hljs-keyword">var</span> bp = JsonSerializer.Deserialize&lt;T&gt;(json);
+            <span class="hljs-keyword">if</span> (bp != <span class="hljs-literal">null</span>)
+            {
+                list.Add(bp);
+            }
+        }
+    }
+}
+<span class="hljs-keyword">private</span><span class="hljs-function"> Task </span><span class="hljs-title">LoadBlogPostsAsync</span><span class="hljs-function">()</span>
+{
+    Load&lt;BlogPost&gt;(<span class="hljs-keyword">ref</span> _blogPosts, _settings.BlogPostsFolder);
+    <span class="hljs-keyword">return</span> Task.CompletedTask;
+}
+<span class="hljs-keyword">private</span><span class="hljs-function"> Task </span><span class="hljs-title">LoadTagsAsync</span><span class="hljs-function">()</span>
+{
+    Load&lt;Tag&gt;(<span class="hljs-keyword">ref</span> _tags, _settings.TagsFolder);
+    <span class="hljs-keyword">return</span> Task.CompletedTask;
+}
+<span class="hljs-keyword">private</span><span class="hljs-function"> Task </span><span class="hljs-title">LoadCategoriesAsync</span><span class="hljs-function">()</span>
+{
+    Load&lt;Category&gt;(<span class="hljs-keyword">ref</span> _categories, _settings.CategoriesFolder);
+    <span class="hljs-keyword">return</span> Task.CompletedTask;
+}
+</code></pre>
+    <p class="normal">The <code class="inlineCode">Load</code> method is a generic method that allows us to load blog posts, tags, and categories using the same method.</p>
+    <p class="normal">It will only load data from the filesystem if we don’t already have any data. We also add separate methods that load each type: <code class="inlineCode">LoadBlogpostsAsync</code>, <code class="inlineCode">LoadCategoriesAsync</code>, and <code class="inlineCode">LoadTagsAsync</code>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="9">Next, we <a id="_idIndexMarker131"></a>will add a couple of methods to help manipulate the data, namely <code class="inlineCode">SaveAsync</code> and <code class="inlineCode">DeleteAsync</code>. Add the following methods:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">SaveAsync</span><span class="hljs-function">&lt;</span><span class="hljs-title">T</span><span class="hljs-function">&gt;(</span><span class="hljs-params">List&lt;T&gt;? list, </span><span class="hljs-built_in">string</span><span class="hljs-params"> folder, </span><span class="hljs-built_in">string</span><span class="hljs-params"> filename, T item</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">var</span> filepath = <span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{folder}</span><span class="hljs-string">\</span><span class="hljs-subst">{filename}</span><span class="hljs-string">"</span>;
+    <span class="hljs-keyword">await</span> File.WriteAllTextAsync(filepath, JsonSerializer.Serialize&lt;T&gt;(item));
+    <span class="hljs-keyword">if</span> (list == <span class="hljs-literal">null</span>)
+    {
+        list = <span class="hljs-keyword">new</span>();
+    }
+    <span class="hljs-keyword">if</span> (!list.Contains(item))
+    {
+        list.Add(item);
+    }
+}
+<span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">DeleteAsync</span><span class="hljs-function">&lt;</span><span class="hljs-title">T</span><span class="hljs-function">&gt;(</span><span class="hljs-params">List&lt;T&gt;? list, </span><span class="hljs-built_in">string</span><span class="hljs-params"> folder, </span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">var</span> filepath = <span class="hljs-string">$@"</span><span class="hljs-subst">{_settings.DataPath}</span><span class="hljs-string">\</span><span class="hljs-subst">{folder}</span><span class="hljs-string">\</span><span class="hljs-subst">{id}</span><span class="hljs-string">.json"</span>;
+    <span class="hljs-keyword">try</span>
+    {
+        File.Delete(filepath);
+    }
+    <span class="hljs-keyword">catch</span> { }
+}
+</code></pre>
+    <p class="normal">These methods are also generic to share as much code as possible and avoid repeating the code for every type of class (<code class="inlineCode">BlogPost</code>, <code class="inlineCode">Category</code>, and <code class="inlineCode">Tag</code>).</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="10">Next, it’s <a id="_idIndexMarker132"></a>time to implement the API by adding the methods to get blog posts. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;BlogPost&gt;?&gt; GetBlogPostsAsync(<span class="hljs-built_in">int</span> numberofposts, <span class="hljs-built_in">int</span> startindex)
+{
+    <span class="hljs-keyword">await</span> LoadBlogPostsAsync();
+    <span class="hljs-keyword">return</span> _blogPosts ?? <span class="hljs-keyword">new</span>();
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;BlogPost?&gt; GetBlogPostAsync(<span class="hljs-built_in">string</span> id)
+{
+    <span class="hljs-keyword">await</span> LoadBlogPostsAsync();
+    <span class="hljs-keyword">if</span> (_blogPosts == <span class="hljs-literal">null</span>)
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">"Blog posts not found"</span>);
+    <span class="hljs-keyword">return</span> _blogPosts.FirstOrDefault(b =&gt; b.Id == id);
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task&lt;</span><span class="hljs-built_in">int</span><span class="hljs-function">&gt; </span><span class="hljs-title">GetBlogPostCountAsync</span><span class="hljs-function">()</span>
+{
+    <span class="hljs-keyword">await</span> LoadBlogPostsAsync();
+    <span class="hljs-keyword">if</span> (_blogPosts == <span class="hljs-literal">null</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">else</span>
+        <span class="hljs-keyword">return</span> _blogPosts.Count();
+}
+</code></pre>
+    <p class="normal">The <code class="inlineCode">GetBlogPostsAsync</code> method takes a couple of parameters we will use later for paging. We execute the <code class="inlineCode">LoadBlogPostsAsync</code> at the start of each method to ensure we have loaded any data from our filesystem. This method will only be executed while the <code class="inlineCode">_blogposts</code> list (in this case) is null.</p>
+    <p class="normal">We also have a method that returns the current blog post count, which we will also use for paging.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="11">Now we <a id="_idIndexMarker133"></a>need to add the same methods for categories, add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;Category&gt;?&gt; GetCategoriesAsync()
+{
+    <span class="hljs-keyword">await</span> LoadCategoriesAsync();
+    <span class="hljs-keyword">return</span> _categories ?? <span class="hljs-keyword">new</span>();
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Category?&gt; GetCategoryAsync(<span class="hljs-built_in">string</span> id)
+{
+    <span class="hljs-keyword">await</span> LoadCategoriesAsync();
+    <span class="hljs-keyword">if</span> (_categories == <span class="hljs-literal">null</span>)
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">"Categories not found"</span>);
+    <span class="hljs-keyword">return</span> _categories.FirstOrDefault(b =&gt; b.Id == id);
+}
+</code></pre>
+    <p class="normal">The <code class="inlineCode">Category</code> methods don’t have any support for paging. Otherwise, they should look familiar as they do almost the same as the blog post methods.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="12">Now it’s time to do the same thing for tags. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;List&lt;Tag&gt;?&gt; GetTagsAsync()
+{
+    <span class="hljs-keyword">await</span> LoadTagsAsync();
+    <span class="hljs-keyword">return</span> _tags ?? <span class="hljs-keyword">new</span>();
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Tag?&gt; GetTagAsync(<span class="hljs-built_in">string</span> id)
+{
+    <span class="hljs-keyword">await</span> LoadTagsAsync();
+    <span class="hljs-keyword">if</span> (_tags == <span class="hljs-literal">null</span>)
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">"Tags not found"</span>);
+    <span class="hljs-keyword">return</span> _tags.FirstOrDefault(b =&gt; b.Id == id);
+}
+</code></pre>
+    <p class="normal">As we can see, the code for tags is basically a copy of the one for categories.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="13">We also need a couple of methods for saving the data, so next up we’ll add methods for saving, blog posts, categories, and tags.
+    <p class="normal">Add the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;BlogPost?&gt; SaveBlogPostAsync(BlogPost item)
+{
+    <span class="hljs-keyword">if</span> (item.Id == <span class="hljs-literal">null</span>)
+    {
+        item.Id = Guid.NewGuid().ToString();
+    }
+    <span class="hljs-keyword">await</span> SaveAsync&lt;BlogPost&gt;(_blogPosts, _settings.BlogPostsFolder, <span class="hljs-string">$"</span><span class="hljs-subst">{item.Id}</span><span class="hljs-string">.json"</span>, item);
+    <span class="hljs-keyword">return</span> item;
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Category?&gt; SaveCategoryAsync(Category item)
+{
+    <span class="hljs-keyword">if</span> (item.Id == <span class="hljs-literal">null</span>)
+    {
+        item.Id = Guid.NewGuid().ToString();
+    }
+    <span class="hljs-keyword">await</span> SaveAsync&lt;Category&gt;(_categories, _settings.CategoriesFolder, <span class="hljs-string">$"</span><span class="hljs-subst">{item.Id}</span><span class="hljs-string">.json"</span>, item);
+    <span class="hljs-keyword">return</span> item;
+}
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;Tag?&gt; SaveTagAsync(Tag item)
+{
+    <span class="hljs-keyword">if</span> (item.Id == <span class="hljs-literal">null</span>)
+    {
+        item.Id = Guid.NewGuid().ToString();
+    }
+    <span class="hljs-keyword">await</span> SaveAsync&lt;Tag&gt;(_tags, _settings.TagsFolder, <span class="hljs-string">$"</span><span class="hljs-subst">{item.Id}</span><span class="hljs-string">.json"</span>, item);
+    <span class="hljs-keyword">return</span> item;
+}
+</code></pre>
+    <p class="normal">The first <a id="_idIndexMarker134"></a>thing we do is to check that the <code class="inlineCode">id</code> of the item is not null. If it is, we create a new <code class="inlineCode">Guid</code>. This is the <code class="inlineCode">id</code> of the new item. And this is also going to be the name of the JSON files stored on the filesystem.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="14">We now have a method for saving items as well as getting items. But sometimes things don’t go as planned and we need a way to delete the items that we have created. Next up, we will add some delete methods. Add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteBlogPostAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+{
+    DeleteAsync(_blogPosts, _settings.BlogPostsFolder, id);
+    <span class="hljs-keyword">if</span> (_blogPosts != <span class="hljs-literal">null</span>)
+    {
+        <span class="hljs-keyword">var</span> item = _blogPosts.FirstOrDefault(b =&gt; b.Id == id);
+        <span class="hljs-keyword">if</span> (item != <span class="hljs-literal">null</span>)
+        {
+            _blogPosts.Remove(item);
+        }
+    }
+    <span class="hljs-keyword">return</span> Task.CompletedTask;
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteCategoryAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+{
+    DeleteAsync(_categories, _settings.CategoriesFolder, id);
+    <span class="hljs-keyword">if</span> (_categories != <span class="hljs-literal">null</span>)
+    {
+        <span class="hljs-keyword">var</span> item = _categories.FirstOrDefault(b =&gt; b.Id == id);
+        <span class="hljs-keyword">if</span> (item != <span class="hljs-literal">null</span>)
+        {
+            _categories.Remove(item);
+        }
+    }
+    <span class="hljs-keyword">return</span> Task.CompletedTask;
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">DeleteTagAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> id</span><span class="hljs-function">)</span>
+{
+    DeleteAsync(_tags, _settings.TagsFolder, id);
+    <span class="hljs-keyword">if</span> (_tags != <span class="hljs-literal">null</span>)
+    {
+        <span class="hljs-keyword">var</span> item = _tags.FirstOrDefault(b =&gt; b.Id == id);
+        <span class="hljs-keyword">if</span> (item != <span class="hljs-literal">null</span>)
+        {
+            _tags.Remove(item);
+        }
+    }
+    <span class="hljs-keyword">return</span> Task.CompletedTask;
+}
+</code></pre>
+    <p class="normal">The code <a id="_idIndexMarker135"></a>we just added calls the <code class="inlineCode">DeleteAsync</code> method that deletes the item and will also remove the item from the collection.</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="15">Since we are updating the collections as we go, they should always be updated, but for good measure, let’s add a method for clearing the cache.</li>
+    </ol>
+    <p class="normal">Add the following method:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span><span class="hljs-function"> Task </span><span class="hljs-title">InvalidateCacheAsync</span><span class="hljs-function">()</span>
+{
+    _blogPosts = <span class="hljs-literal">null</span>;
+    _tags = <span class="hljs-literal">null</span>;
+    _categories = <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">return</span> Task.CompletedTask;
+}
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Our JSON<a id="_idIndexMarker136"></a> storage is done!</p>
+    <p class="normal">In the end, there will be three folders stored on the filesystem, one for blog posts, one for categories, and one for tags.</p>
+    <p class="normal">The next step is to add and configure the Blazor project to use our new storage.</p>
+    <h1 id="_idParaDest-62" class="heading-1">Adding the API to Blazor</h1>
+    <p class="normal">We now have a<a id="_idIndexMarker137"></a> way to access JSON files stored on our filesystem. In <a id="_idIndexMarker138"></a>the repo on GitHub, you can find more ways of storing our data with RavenDB or SQL server, but be mindful to keep the focus on what is important (Blazor).</p>
+    <p class="normal">Now it’s time to add the API to our Blazor Server project:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorServer</strong> project, <strong class="keyWord">add a project reference</strong> to the <code class="inlineCode">Data</code> project. Open <code class="inlineCode">Program.cs</code> and add the following namespaces:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Data;
+<span class="hljs-keyword">using</span> Data.Models.Interfaces;
+</code></pre>
+      </li>
+      <li class="numberedList">Add the following code:
+        <pre class="programlisting code"><code class="hljs-code">builder.Services.AddOptions&lt;BlogApiJsonDirectAccessSetting&gt;()
+    .Configure(options =&gt;
+    {
+        options.DataPath = <span class="hljs-string">@"..\..\..\Data\"</span>;
+        options.BlogPostsFolder = <span class="hljs-string">"Blogposts"</span>;
+        options.TagsFolder = <span class="hljs-string">"Tags"</span>;
+        options.CategoriesFolder = <span class="hljs-string">"Categories"</span>;
+    });
+builder.Services.AddScoped&lt;IBlogApi, BlogApiJsonDirectAccess&gt;();
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">The<a id="_idIndexMarker139"></a> snippet of code is the setting for where we want to <a id="_idIndexMarker140"></a>store our files. You can change the data path property to where you want to store the files. Whenever we ask for <code class="inlineCode">IOptions&lt;BlogApiJsonDirectAccessSetting&gt;</code>, the dependency injection will return an object populated with the information we have supplied above. This is an excellent place to load configuration from our .NET configuration, a key vault, or a database.</p>
+    <p class="normal">We are also saying that when we ask for an <code class="inlineCode">IBlogAPI</code> we will get an instance of <code class="inlineCode">BlogApiJsonDirectAccess</code> back from our dependency injection. We will return to dependency injection in <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>.</p>
+    <p class="normal">Now we can use our API to access the database in our Blazor Server project.</p>
+    <h1 id="_idParaDest-63" class="heading-1">Summary</h1>
+    <p class="normal">This chapter taught us how to create a simple JSON repository for our data. We also learned that other alternatives could be found in the GitHub repo if you want to look at other options.</p>
+    <p class="normal">We also created an interface to access the data, which we will use more throughout the book.</p>
+    <p class="normal">In the next chapter, we will learn about components, particularly the built-in components in Blazor templates. We will also create our first component using the API and repository we made in this chapter.</p>
+  </div>
+</body>
+</html>

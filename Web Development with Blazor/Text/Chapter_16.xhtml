@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_16</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_16" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer087" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">16</h1>
+    <h1 id="_idParaDest-251" class="chapterTitle">Going Deeper into WebAssembly</h1>
+    <p class="normal">In this chapter, we will go deeper into technologies that are only relevant for Blazor <strong class="keyWord">WebAssembly</strong>.</p>
+    <p class="normal">Most things in Blazor can be applied to Blazor Server and Blazor WebAssembly. Still, since Blazor WebAssembly is running inside the web browser, we can do some things to optimize the code and use other libraries that we can’t use server-side.</p>
+    <p class="normal">We will also look at some common problems and how to solve them.</p>
+    <p class="normal">In this chapter, we will cover the following:</p>
+    <ul>
+      <li class="bulletList">.NET WebAssembly build tools</li>
+      <li class="bulletList">AOT compilation</li>
+      <li class="bulletList">WebAssembly <strong class="keyWord">Single Instruction, Multiple Data</strong> (<strong class="keyWord">SIMD</strong>)</li>
+      <li class="bulletList">Trimming</li>
+      <li class="bulletList">Lazy loading</li>
+      <li class="bulletList">PWA</li>
+      <li class="bulletList">Native dependencies</li>
+      <li class="bulletList">Common problems</li>
+    </ul>
+    <p class="normal">The idea for this chapter is not that you have to follow along but rather for reference so that you can implement the features discussed in this chapter on your own.</p>
+    <h1 id="_idParaDest-252" class="heading-1">Technical requirements</h1>
+    <p class="normal">This chapter is a reference chapter and is not connected with the book’s other chapters. You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter16"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter16</span></a>.</p>
+    <h1 id="_idParaDest-253" class="heading-1">.NET WebAssembly build tools</h1>
+    <p class="normal">When it <a id="_idIndexMarker573"></a>comes to the more “advanced” scenarios, we need additional tooling installed. There are two ways of installing the tools. We can select the <strong class="screenText">.NET WebAssembly Build Tools</strong> option when installing Visual Studio (or add them using the Visual Studio installer) or by running the following command in a command prompt (as administrator):</p>
+    <pre class="programlisting con"><code class="hljs-con">dotnet workload install wasm-tools
+</code></pre>
+    <p class="normal">The .NET WebAssembly build tools are based on <strong class="keyWord">Emscripten</strong>, a compiler toolchain for the web platform.</p>
+    <h1 id="_idParaDest-254" class="heading-1">AOT compilation</h1>
+    <p class="normal">By default, the only thing that<a id="_idIndexMarker574"></a> is running as WebAssembly in a Blazor WebAssembly app is the runtime. Everything else is ordinary .NET assemblies running on the <a id="_idIndexMarker575"></a>browser using a .NET <strong class="keyWord">Intermediate Language</strong> (<strong class="keyWord">IL</strong>) interpreter implemented in WebAssembly.</p>
+    <p class="normal">I was not too fond of that when I started playing around with Blazor; it felt wasteful to run everything using IL instead of something the browser would understand natively. Then I thought the browser was running the same code as I would on the server. The same code! In the browser. That is pretty amazing!</p>
+    <p class="normal">However, we have the option to compile directly to WebAssembly; this is called <strong class="keyWord">AOT</strong> (<strong class="keyWord">ahead-of-time</strong>) compilation. It has a downside: the app download size will increase but run and load faster.</p>
+    <p class="normal">An AOT-compiled app is generally twice the size of an IL-compiled app. AOT will take the .NET code and compile that directly into WebAssembly.</p>
+    <p class="normal">AOT<a id="_idIndexMarker576"></a> does not trim managed assemblies, and more code is needed to represent high-level .NET IL instructions when using native WebAssembly. That is why the size is much larger, and it is also less compressible over HTTP.</p>
+    <p class="normal">AOT is not for everyone; most apps running without AOT will work fine. For CPU-intensive apps, there is a lot to gain by using AOT.</p>
+    <p class="normal">My ZX Spectrum emulator is one of those apps; it runs many iterations per second, and the performance gain by running AOT for these scenarios is remarkable.</p>
+    <p class="normal">To compile our Blazor WebAssembly project using AOT, we add the following property in the <code class="inlineCode">csproj</code> file:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;PropertyGroup&gt;
+  &lt;RunAOTCompilation&gt;<span class="hljs-literal">true</span>&lt;/RunAOTCompilation&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+    <p class="normal">AOT <a id="_idIndexMarker577"></a>compilation is only performed when the app is published. It can take a long time to compile (7 minutes for the ZX Spectrum emulator), so it is pretty nice that we don’t have to wait for that every time we compile our application.</p>
+    <p class="normal">However, running in release mode may be a problem, so if you want to do a quick test in release mode, temporarily disable the setting above.</p>
+    <p class="normal">Don’t forget to enable it again; I have some experience in that area.</p>
+    <h1 id="_idParaDest-255" class="heading-1">WebAssembly Single Instruction, Multiple Data (SIMD)</h1>
+    <p class="normal">One of the new features in .NET7 is SIMD, a type of parallel processing recently added to WebAssembly.</p>
+    <p class="normal">SIMD stands <a id="_idIndexMarker578"></a>for Single Instruction, Multiple Data. It is a type of computer architecture that allows<a id="_idIndexMarker579"></a> a <strong class="keyWord">central processing unit</strong> (<strong class="keyWord">CPU</strong>) to perform the same operation on multiple data points simultaneously, improving the performance of certain kinds of tasks. SIMD instructions are often used to perform vector arithmetic, in which a single instruction is applied to multiple elements of a vector simultaneously. SIMD can be beneficial for tasks such as image and video processing, where large amounts of data need to be processed quickly.</p>
+    <p class="normal">To enable SIMD, we need to enable it in the project file like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;PropertyGroup&gt;
+  &lt;WasmEnableSIMD&gt;<span class="hljs-literal">true</span>&lt;/WasmEnableSIMD&gt;
+  &lt;RunAOTCompilation&gt;<span class="hljs-literal">true</span>&lt;/RunAOTCompilation&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+    <p class="normal">We need to use<a id="_idIndexMarker580"></a> AOT compilation for SIMD to work.</p>
+    <p class="normal">This is outside of the scope of this book, but I wanted to mention it in case this is what you need for your project.</p>
+    <h1 id="_idParaDest-256" class="heading-1">Trimming</h1>
+    <p class="normal">By default, when <a id="_idIndexMarker581"></a>publishing a Blazor WebAssembly app, trimming will be performed. It will remove unnecessary things and, by doing so, reduce the size of the app.</p>
+    <p class="normal">If our application uses reflection, the trimmer may have problems identifying what can and cannot be removed.</p>
+    <p class="normal">For most applications, the trimming is automatic and will work. To read more about trimming options, you<a id="_idIndexMarker582"></a> can look here: <a href="https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trimming-options?pivots=dotnet-7-0"><span class="url">https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trimming-options?pivots=dotnet-7-0</span></a>.</p>
+    <h1 id="_idParaDest-257" class="heading-1">Lazy loading</h1>
+    <p class="normal">When working with Blazor <a id="_idIndexMarker583"></a>WebAssembly, one of the challenges is download size. Even though it’s not a big problem, in my opinion, we can do some things to handle the download and loading time. We will get back to this in the <em class="italic">Common problems</em> section later in this chapter.</p>
+    <p class="normal">When navigating to a Blazor WebAssembly application, all the DLLs for our application and the DLLs from the .NET Framework are downloaded. It takes a bit of time to get everything started up. We can load some DLLs when needed by using<strong class="keyWord"> lazy loading</strong> to solve this.</p>
+    <p class="normal">Let’s say that our<a id="_idIndexMarker584"></a> application is massive where there is a reporting part of the application. Reporting is perhaps not used every day and not used by everyone, and it would make sense to remove that part from the initial download and only load it when we need to.</p>
+    <p class="normal">To make that happen, the part we want to lazy load must be in a separate project/DLL. In the <code class="inlineCode">csproj</code> file of the Blazor WebAssembly client project, add a reference to the DLL by adding the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;ItemGroup&gt;
+  &lt;BlazorWebAssemblyLazyLoad Include=<span class="hljs-string">"{ASSEMBLY NAME}.dll"</span> /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+    <p class="normal">The snippet will make sure the file is not downloaded from the start. To load the DLL when we need it, we will use a built-in service called <code class="inlineCode">LazyAssemblyLoader</code>.</p>
+    <p class="normal">The <code class="inlineCode">LazyAssemblyLoader</code> service will make a JS Interop call to download the assembly and load it into the runtime.</p>
+    <p class="normal">We make sure to download the necessary assemblies/DLLs in the router (so we make sure they are downloaded before we navigate to the component that is using them:</p>
+    <pre class="programlisting code"><code class="hljs-code">@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@using Microsoft.Extensions.Logging
+@inject LazyAssemblyLoader AssemblyLoader
+@inject ILogger&lt;App&gt; Logger
+&lt;Router AppAssembly=<span class="hljs-string">"@typeof(App).Assembly"</span> 
+    OnNavigateAsync=<span class="hljs-string">"@OnNavigateAsync"</span>&gt;
+    ...
+&lt;/Router&gt;
+@code {
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnNavigateAsync</span><span class="hljs-function">(</span><span class="hljs-params">NavigationContext args</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">try</span>
+           {
+               <span class="hljs-keyword">if</span> (args.Path == <span class="hljs-string">"{PATH}"</span>)
+               {
+                   <span class="hljs-keyword">var</span> assemblies = <span class="hljs-keyword">await</span> AssemblyLoader.LoadAssembliesAsync(
+                       <span class="hljs-keyword">new</span>[] { {LIST OF ASSEMBLIES} });
+               }
+           }
+           <span class="hljs-keyword">catch</span> (Exception ex)
+           {
+               Logger.LogError(<span class="hljs-string">"Error: {Message}"</span>, ex.Message);
+           }
+    }
+}
+</code></pre>
+    <p class="normal">We need to inject <code class="inlineCode">LazyAssemblyLoader</code>; it is registered as a singleton by default in a Blazor WebAssembly project.</p>
+    <p class="normal">Set up an event <code class="inlineCode">OnNavigateAsync</code>, and in that method, check the path and make sure to load the assemblies we need.</p>
+    <p class="normal">This can also be used for<a id="_idIndexMarker585"></a> routable components by doing something similar to this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@using System.Reflection
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@using Microsoft.Extensions.Logging
+@inject LazyAssemblyLoader AssemblyLoader
+@inject ILogger&lt;App&gt; Logger
+&lt;Router AppAssembly=<span class="hljs-string">"@typeof(App).Assembly"</span> 
+    AdditionalAssemblies=<span class="hljs-string">"@lazyLoadedAssemblies"</span> 
+    OnNavigateAsync=<span class="hljs-string">"@OnNavigateAsync"</span>&gt;
+    ...
+&lt;/Router&gt;
+@code {
+    <span class="hljs-keyword">private</span> List&lt;Assembly&gt; lazyLoadedAssemblies = <span class="hljs-keyword">new</span>();
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnNavigateAsync</span><span class="hljs-function">(</span><span class="hljs-params">NavigationContext args</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">try</span>
+           {
+               <span class="hljs-keyword">if</span> (args.Path == <span class="hljs-string">"{PATH}"</span>)
+               {
+                   <span class="hljs-keyword">var</span> assemblies = <span class="hljs-keyword">await</span> AssemblyLoader.LoadAssembliesAsync(
+                       <span class="hljs-keyword">new</span>[] { {LIST OF ASSEMBLIES} });
+                   lazyLoadedAssemblies.AddRange(assemblies);
+               }
+           }
+           <span class="hljs-keyword">catch</span> (Exception ex)
+           {
+               Logger.LogError(<span class="hljs-string">"Error: {Message}"</span>, ex.Message);
+           }
+    }
+}
+</code></pre>
+    <p class="normal">We need to replace the <code class="inlineCode">{PATH}</code> in the snippet above with the path where we want to load the assemblies, something like this: <code class="inlineCode">"</code><code class="inlineCode">/fetchdata"</code>. The <code class="inlineCode">{LIST OF ASSEMBLIES}</code>, which contains a<a id="_idIndexMarker586"></a> list of assemblies we wish to load, can be: <code class="inlineCode">"sample.dll"</code>. </p>
+    <p class="normal">This makes it possible not to load the Admin interface for the users that don’t have access to it, for example.</p>
+    <h1 id="_idParaDest-258" class="heading-1">PWA</h1>
+    <p class="normal">Both Blazor Server and Blazor WebAssembly can <a id="_idIndexMarker587"></a>create <strong class="keyWord">PWA</strong> (<strong class="keyWord">Progressive Web Apps</strong>). But it is much more common for Blazor WebAssembly. PWA makes it possible to download the web as an app to your phone or computer. It will make it possible to add nice-looking icons and launch in a web browser without a URL input field, it will feel more like an app.</p>
+    <p class="normal">When creating our project, we select <strong class="screenText">Progressive Web App</strong>. By doing that, we will get some configuration and JavaScript to set everything up. </p>
+    <p class="normal">PWA is outside the scope of this book, but there are great resources to get us started. You can find more information here: <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/progressive-web-app?view=aspnetcore-7.0&amp;tabs=visual-studio"><span class="url">https://learn.microsoft.com/en-us/aspnet/core/blazor/progressive-web-app?view=aspnetcore-7.0&amp;tabs=visual-studio</span></a>.</p>
+    <h1 id="_idParaDest-259" class="heading-1">Native dependencies</h1>
+    <p class="normal">Since we are running WebAssembly, we<a id="_idIndexMarker588"></a> can use WebAssembly assemblies written in other languages in our project. This means that we can use any native dependencies right inside our project.</p>
+    <p class="normal">One way is to add C files right into our project. In the <code class="inlineCode">Chapter16</code> folder in the repo, you will find an example.</p>
+    <p class="normal">I have added a file called <code class="inlineCode">Test.c</code> with the following content:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-built_in">int</span><span class="hljs-function"> </span><span class="hljs-title">fact</span><span class="hljs-function">(</span><span class="hljs-built_in">int</span><span class="hljs-params"> n</span><span class="hljs-function">)</span>
+{
+    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> n * fact(n - <span class="hljs-number">1</span>);
+}
+</code></pre>
+    <p class="normal">In the project file, I have added a reference to that file:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;ItemGroup&gt;
+    &lt;NativeFileReference Include=<span class="hljs-string">"Test.c"</span> /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+    <p class="normal">In <code class="inlineCode">Index.razor</code>, I have added the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/"</span>
+@using System.Runtime.InteropServices
+&lt;PageTitle&gt;Native C&lt;/PageTitle&gt;
+&lt;h1&gt;Native C Test&lt;/h1&gt;
+&lt;p&gt;
+    @@fact(<span class="hljs-number">3</span>) result: @fact(<span class="hljs-number">3</span>)
+&lt;/p&gt;
+@code {
+    [<span class="hljs-meta">DllImport(</span><span class="hljs-string">"Test"</span><span class="hljs-meta">)</span>]
+    <span class="hljs-keyword">static</span><span class="hljs-function"> </span><span class="hljs-keyword">extern</span><span class="hljs-function"> </span><span class="hljs-built_in">int</span><span class="hljs-function"> </span><span class="hljs-title">fact</span><span class="hljs-function">(</span><span class="hljs-built_in">int</span><span class="hljs-params"> n</span><span class="hljs-function">)</span>;
+}
+</code></pre>
+    <p class="normal">In our <a id="_idIndexMarker589"></a>C# project, we now have a C file that we can call from our Blazor project. We can take this even further by using a library that is using a C++ library. Skia is an open-source graphics engine written in C++.</p>
+    <p class="normal">Read more here: <a href="https://github.com/mono/SkiaSharp"><span class="url">https://github.com/mono/SkiaSharp</span></a>. We can add that library to a Blazor WebAssembly app by adding the NuGet package <code class="inlineCode">SkiaSharp.Views.Blazor</code>.</p>
+    <p class="normal">In the <code class="inlineCode">Chapter16</code> folder in the repo, you can explore a project called <code class="inlineCode">SkiaSharpDemo</code>.</p>
+    <p class="normal">In the <code class="inlineCode">Index.razor</code> file, I have added the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;SKCanvasView OnPaintSurface=<span class="hljs-string">"@OnPaintSurface"</span> /&gt;
+@code {
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">OnPaintSurface</span><span class="hljs-function">(</span><span class="hljs-params">SKPaintSurfaceEventArgs e</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">var</span> canvas = e.Surface.Canvas;
+        canvas.Clear(SKColors.White);
+        <span class="hljs-keyword">using</span> <span class="hljs-keyword">var</span> paint = <span class="hljs-keyword">new</span> SKPaint
+        {
+            Color = SKColors.Black,
+            IsAntialias = <span class="hljs-literal">true</span>,
+            TextSize = <span class="hljs-number">24</span>
+        };
+        canvas.DrawText(<span class="hljs-string">"Raccoons are awesome!"</span>, <span class="hljs-number">0</span>, <span class="hljs-number">24</span>, paint);
+    }
+}
+</code></pre>
+    <p class="normal">The page will draw <code class="inlineCode">"Raccoons are awesome"</code> on the canvas.</p>
+    <p class="normal">In this case, we are using a C# library that is using a C++ library.</p>
+    <p class="normal">We can<a id="_idIndexMarker590"></a> even refer to libraries that have already been built with Emscripten directly by adding <strong class="keyWord">Object files</strong> (<code class="inlineCode">.o</code>), <strong class="keyWord">Archive files</strong> (<code class="inlineCode">.a</code>), <strong class="keyWord">Bitcode</strong> (<code class="inlineCode">.bc</code>), and <strong class="keyWord">Standalone WebAssembly modules</strong> (<code class="inlineCode">.wasm</code>). If we find a library written in another language, we could compile that to WebAssembly and then use it from our Blazor application. This opens up so many doors!</p>
+    <p class="normal">Next, we will look at some common problems I have encountered.</p>
+    <h1 id="_idParaDest-260" class="heading-1">Common problems</h1>
+    <p class="normal">Let’s dive into this one right from the start.</p>
+    <p class="normal">The most common comments regarding Blazor WebAssembly are download size and load time. A small project is around 1 MB in size, but I believe the problem is loading time and not download size/time since everything is cached and in most parts of the world, we have access to high-speed internet.</p>
+    <p class="normal">There are a couple of solutions to this problem.</p>
+    <h2 id="_idParaDest-261" class="heading-2">Progress indicators</h2>
+    <p class="normal">When<a id="_idIndexMarker591"></a> it comes to <strong class="keyWord">UX</strong> (<strong class="keyWord">User Experience</strong>), we can give the users a perceived sense of speed.</p>
+    <p class="normal">The default Blazor WebAssembly template has a loading progress indicator that gives the users something to look at instead of a blank page. It is built so that it is easy to customize using CSS variables. We can use the variables <code class="inlineCode">--blazor-load-percentage</code> and <code class="inlineCode">--blazor-load-percentage-text</code> to customize and create our progress bar.</p>
+    <p class="normal">It doesn’t even have <a id="_idIndexMarker592"></a>to indicate what is happening; Dragons Mania Legends has comments like “Sewing mini Vikings,” which is obviously not what is going on. So depending on the application we are building, showing something is more important than showing nothing.</p>
+    <h2 id="_idParaDest-262" class="heading-2">Prerendering on the server</h2>
+    <p class="normal">We have <a id="_idIndexMarker593"></a>seen that Blazor Server and Blazor WebAssembly work separately, but there is a way to combine the two. Adding a few lines of code to the app can prerender the app on the server and then serve the prerendered HTML to the browser. </p>
+    <p class="normal">When Blazor WebAssembly is loaded, it will take its place once it’s loaded. The downside of this approach is that it requires an ASP.NET backend.</p>
+    <p class="normal">The project is in the <code class="inlineCode">WasmServerPrerendered</code> folder.</p>
+    <p class="normal">We will get three different projects when we create a new Blazor WebAssembly project with an ASP.NET Core backend: Client, Server, and Shared.</p>
+    <p class="normal">They are named <code class="inlineCode">TheNameOfOurProject.Server</code>, for example. For this, we need to create a Razor page that will hook everything up. To keep the same naming conventions as with a Blazor Server project, we can name the page <code class="inlineCode">_host.cshtml</code>.</p>
+    <p class="normal">Next, we need to copy the HTML located in the <code class="inlineCode">index.html</code> file and make some changes.</p>
+    <p class="normal">We need to add a tag helper and a namespace:</p>
+    <pre class="programlisting code"><code class="hljs-code">@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using WasmServerPrerendered.Client
+</code></pre>
+    <p class="normal">This will give us access to the component-tag helper.</p>
+    <p class="normal">We need to add the following to the page (where we want our components to render):</p>
+    <pre class="programlisting code"><code class="hljs-code"> <span class="hljs-tag">&lt;</span><span class="hljs-name">component</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"typeof(App)"</span><span class="hljs-tag"> </span><span class="hljs-attr">render-mode</span><span class="hljs-tag">=</span><span class="hljs-string">"WebAssemblyPrerendered"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">The secret here is the render mode, <code class="inlineCode">WebAssemblyPrerendered</code>. It means render on the server and then replace with the WebAssembly version.</p>
+    <p class="normal">In <code class="inlineCode">Program.cs</code>, we also need to change this line:</p>
+    <pre class="programlisting code"><code class="hljs-code">app.MapFallbackToFile(<span class="hljs-string">"index.html"</span>);
+</code></pre>
+    <p class="normal">to:</p>
+    <pre class="programlisting code"><code class="hljs-code">app.MapFallbackToPage(<span class="hljs-string">"/_Host"</span>);
+</code></pre>
+    <p class="normal">We say that <a id="_idIndexMarker594"></a>instead of redirecting to <code class="inlineCode">index.html</code>, we want Blazor to redirect to the Razor page we just created.</p>
+    <p class="normal">In the client project, we also need to remove a couple of lines, by default, it hooks up the WebAssembly, but that is already taken care of by the component helper tag.</p>
+    <p class="normal">In <code class="inlineCode">Program.cs</code>, remove these two lines:</p>
+    <pre class="programlisting code"><code class="hljs-code">builder.RootComponents.Add&lt;App&gt;(<span class="hljs-string">"#app"</span>);
+builder.RootComponents.Add&lt;HeadOutlet&gt;(<span class="hljs-string">"head::after"</span>);
+</code></pre>
+    <p class="normal">That’s it, we now have prerendered components on the server that gets replaced by WebAssembly.</p>
+    <p class="normal">This is a great and simple way to add SEO to our site.</p>
+    <p class="normal">There is one problem: it will load data when rendering on the server, and then again when the WebAssembly loads.</p>
+    <p class="normal">There is a way to work around that, which we will take a look at next.</p>
+    <h2 id="_idParaDest-263" class="heading-2">Preloading and persisting the state</h2>
+    <p class="normal">We don’t want our<a id="_idIndexMarker595"></a> component to<a id="_idIndexMarker596"></a> call the database twice if we can avoid it.</p>
+    <p class="normal">If you run the <code class="inlineCode">WasmServerPrerendered</code> example and go to the <strong class="screenText">Fetch data</strong> page, you should be able to see it load twice since the data is random and generated every time we request it.</p>
+    <p class="normal">This goes for Blazor Prerender, which is the same functionality on the server: it first renders the page before sending the response to the web browser, hooks up SignalR, and then renders the component again.</p>
+    <p class="normal">We can solve that by adding another component called <code class="inlineCode">persist-component-state</code>.</p>
+    <p class="normal">The source for this example is the <code class="inlineCode">WasmServerPrerenderedWPersist</code> project.</p>
+    <p class="normal">The sample is the same setup as the <code class="inlineCode">WasmServerPrerendered</code> example but with some added state persistence. In the server project in the file <code class="inlineCode">_Host.cshtml</code>, we add a component:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">persist-component-state</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">This component will render the saved state of the component. When WebAssembly is finished, it will load the data from that field instead of making an HTTP request to retrieve data again.</p>
+    <p class="normal">In the Client project and in the component where we want to have the persistence (<code class="inlineCode">FetchData.razor</code> in the sample), we inject a <code class="inlineCode">PersistanceComponentState</code> and also make the component implement <code class="inlineCode">Idisposable</code>:</p>
+    <pre class="programlisting code"><code class="hljs-code">@inject PersistentComponentState ApplicationState
+@implements IDisposable
+</code></pre>
+    <p class="normal">We add<a id="_idIndexMarker597"></a> a <code class="inlineCode">PersistingComponentStateSubscription</code> component that saves the data to <a id="_idIndexMarker598"></a>the application state:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span> PersistingComponentStateSubscription _subscription;
+</code></pre>
+    <p class="normal">In <code class="inlineCode">OnInitializedAsync</code>, we register to listen to run code when the component wants to persist the data:</p>
+    <pre class="programlisting code"><code class="hljs-code">_subscription = ApplicationState.RegisterOnPersisting(PersistState);
+</code></pre>
+    <p class="normal">When we load the data, we make sure first to check the application state. If the data is not available, we can continue and make an HTTP request:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">if</span> (ApplicationState.TryTakeFromJson&lt;WeatherForecast[]&gt;(<span class="hljs-string">"weatherdata"</span>, <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> stored))
+    {
+        forecasts = stored;
+    }
+    <span class="hljs-keyword">else</span>
+    {
+        forecasts = <span class="hljs-keyword">await</span> Http.GetFromJsonAsync&lt;WeatherForecast[]&gt;(<span class="hljs-string">"</span><span class="hljs-string">WeatherForecast"</span>);
+    }
+</code></pre>
+    <p class="normal">It refers to a method that will persist the data in the application state:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span><span class="hljs-function"> Task </span><span class="hljs-title">PersistState</span><span class="hljs-function">()</span>
+{
+    ApplicationState.PersistAsJson("weatherdata", forecasts);
+    <span class="hljs-keyword">return</span> Task.CompletedTask;
+}
+<span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">Dispose</span><span class="hljs-function">()</span>
+{
+    _subscription.Dispose();
+}
+</code></pre>
+    <p class="normal">The server will <a id="_idIndexMarker599"></a>first render the content, and when the server is done, it will respond <a id="_idIndexMarker600"></a>with the whole page, including a <code class="inlineCode">Base64</code>-encoded JSON string with data that looks something like this:</p>
+    <pre class="programlisting con"><code class="hljs-con">&lt;!—Blazor:{"prerenderId":"20e8ba483175467fbc45be3a822c2d58"}(—!--Blazor-Component-State:eyJ3ZWF0aGVyZGF0YSI6Ilczc2laR0YwWlNJNklqSXdNakl0TVRFdE...--&gt;
+</code></pre>
+    <p class="normal">Since everything we put into the application state is stored as JSON, it is important not to include any sensitive data that we were not thinking of displaying. This is, of course, true for all calls since we are sending data with JSON.</p>
+    <p class="normal">We can also use <code class="inlineCode">PersistentComponentState</code> on Blazor Server (in the same way we just did). These components work in both Blazor Server and Blazor WebAssembly.</p>
+    <p class="normal">Now we know a couple of common problems and how to solve them.</p>
+    <h1 id="_idParaDest-264" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we looked at some of the Blazor WebAssembly-specific things in Blazor. For the most part, we can reuse components in both Blazor Server and Blazor WebAssembly. But we can speed up WebAssembly by using what we learned in this chapter.</p>
+    <p class="normal">We also looked at native dependencies opening up possibilities to reuse other libraries and mixing languages. If our application doesn’t need to support both scenarios, we can use WebAssembly to the fullest.</p>
+    <p class="normal">In the next chapter, we will examine <em class="italic">source generators</em>.</p>
+  </div>
+  <div id="_idContainer089" class="Basic-Text-Frame">
+    <h1 class="heading-1">Join our community on Discord&#160;</h1>
+    <p class="normal">Join our community’s Discord space for discussions with the author and other readers:&#160;</p>
+    <p class="normal"><a href="https://packt.link/WebDevBlazor2e"><span class="url">https://packt.link/WebDevBlazor2e</span></a></p>
+    <p class="normal"><span class="url"><img src="../Images/QR_Code748085881713038109.png" alt=""/></span></p>
+  </div>
+</body>
+</html>

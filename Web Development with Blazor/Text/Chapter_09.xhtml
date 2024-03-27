@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_09</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_09" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer063" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">9</h1>
+    <h1 id="_idParaDest-173" class="chapterTitle">Sharing Code and Resources</h1>
+    <p class="normal">Throughout the book, we have been building Blazor Server and Blazor WebAssembly side by side. This is a great way to build our projects if we want to switch technologies further down the road or, as we do at work, share components between the customer portal and our internal CRM system.</p>
+    <p class="normal">Most of us will probably have one hosting model that we are working with, not usually two, but building it this way does have some perks.</p>
+    <p class="normal">Always think about if there might be a sharable part of the component we are building; that way, we can reuse it, and if we add something to the component, we get that benefit for all our components.</p>
+    <p class="normal">But it’s not only about sharing components inside our own projects. What if we want to create a library that can be shared with other departments, or even an open-source project sharing components with the world?</p>
+    <p class="normal">In this chapter, we will look at some of the things we already use when sharing components, and also at sharing CSS and other static files.</p>
+    <p class="normal">In this chapter, we will cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Adding static files</li>
+      <li class="bulletList">CSS isolation</li>
+    </ul>
+    <h1 id="_idParaDest-174" class="heading-1">Technical requirements</h1>
+    <p class="normal">Make sure you have followed the previous chapters or use the <code class="inlineCode">Chapter08</code> folder as a starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter09"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter09</span></a>.</p>
+    <p class="normal">If you are jumping into this chapter using the code from GitHub, make sure you have added Auth0 account information in the settings files. You can find the instructions in <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>.</p>
+    <h1 id="_idParaDest-175" class="heading-1">Adding static files</h1>
+    <p class="normal">Blazor can use <a id="_idIndexMarker402"></a>static files, such as images, CSS, and JavaScript. If we put our files in the <code class="inlineCode">wwwroot</code> folder, they will automatically be exposed to the internet and be accessible from the root of our site. The nice thing about Blazor is that we can do the same with a library; it is super easy to distribute static files within a library.</p>
+    <p class="normal">At work, we share components between all of our Blazor projects, and the shared library can also depend on other libraries. By sharing components and building our own components (sometimes on top of other libraries), we ensure we have the same look and feel throughout a site. We also share static content like images and CSS, and this makes it simple and fast if we need to change something and we want all our sites to be affected.</p>
+    <p class="normal">To link to a resource in another library/assembly, we can use the <code class="inlineCode">_content</code> folder.</p>
+    <p class="normal">Take a look at this example:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"_content/Components/MyBlogStyle.min.css"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">The HTML <code class="inlineCode">link</code> tag, <code class="inlineCode">rel</code>, and <code class="inlineCode">href</code> are ordinary HTML tags and attributes, but adding the URL that starts with <code class="inlineCode">_content</code> tells us that the content we want to access is in another library. The name of the library (assembly name), in our case <code class="inlineCode">Components</code>, is followed by the file we want to access, which is stored in the <code class="inlineCode">wwwroot</code> folder in our library.</p>
+    <p class="normal">Blazor is, in the end, just HTML, and HTML can be styled using CSS. As mentioned, the Blazor templates are using Bootstrap by default, and we will continue to use that as well.</p>
+    <p class="normal">There is an excellent site with easy-to-use Bootstrap themes ready to be downloaded, which can be<a id="_idIndexMarker403"></a> found at <a href="https://bootswatch.com/"><span class="url">https://bootswatch.com/</span></a>.</p>
+    <p class="normal">I like the Darkly theme, so that’s the one we’ll use, but feel free to experiment with this later on.</p>
+    <h2 id="_idParaDest-176" class="heading-2">Choosing between frameworks</h2>
+    <p class="normal">I often get asked about how to style out Blazor apps, and the truth is you can use all the things you are used to. In the end, Blazor will output HTML. There are many languages and frameworks we can use to write our CSS.</p>
+    <p class="normal">We can<a id="_idIndexMarker404"></a> use CSS, SASS, and LESS. As<a id="_idIndexMarker405"></a> long as the <a id="_idIndexMarker406"></a>output is CSS, we can use it.</p>
+    <p class="normal">In this chapter, we will stick with Bootstrap and continue using CSS. SASS and LESS are outside this book’s scope.</p>
+    <p class="normal">Tailwind<a id="_idIndexMarker407"></a> is a popular framework for Blazor, and it is absolutely possible to use it together with Blazor. Tailwind is very component-focused and needs a bit of configuration to start, but if it is something you have worked with and like, you can use it together with Blazor.</p>
+    <h2 id="_idParaDest-177" class="heading-2">Adding a new style</h2>
+    <p class="normal">Many<a id="_idIndexMarker408"></a> templates use Bootstrap as a base, so if you are looking for a design for your website, using a Bootstrap-based template will be an easy implementation.</p>
+    <p class="normal">The problem with Bootstrap (and why some people don’t like it) is that many sites use Bootstrap and “all” sites look the same. This can be good if we are building a <strong class="keyWord">LOB</strong> (<strong class="keyWord">Line of Business</strong>), but it can be bad if we <a id="_idIndexMarker409"></a>are trying to be innovative. Bootstrap is also quite large when it comes to downloading, so that is also an argument against it.</p>
+    <p class="normal">This chapter is about making our blog look a bit nicer, so we will stick with Bootstrap, but we should know that if we use something else to handle our CSS, it will work with Blazor.</p>
+    <p class="normal">One of these template sites is Bootswatch, which gives <a id="_idIndexMarker410"></a>us some nice variations from the traditional Bootstrap themes:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Navigate to <a href="https://bootswatch.com/darkly/"><span class="url">https://bootswatch.com/darkly/</span></a>.</li>
+      <li class="numberedList">In the top menu called <strong class="screenText">Darkly</strong>, there are some links. Download <code class="inlineCode">bootstrap.min.css</code>.</li>
+      <li class="numberedList">In <a id="_idIndexMarker411"></a>the <strong class="screenText">Components</strong> project, in the <code class="inlineCode">wwwroot</code> folder, add the <code class="inlineCode">bootstrap.min.css</code> file.</li>
+    </ol>
+    <p class="normal">We have all the prerequisites and CSS that we can add to our site.</p>
+    <h2 id="_idParaDest-178" class="heading-2">Adding CSS to BlazorServer</h2>
+    <p class="normal">Now it’s<a id="_idIndexMarker412"></a> time to add a new style to our sites. Let’s start <a id="_idIndexMarker413"></a>with <strong class="keyWord">BlazorServer</strong>:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorServer</strong> project, open <code class="inlineCode">Pages/_Host.cshtml</code>.</li>
+      <li class="numberedList">Replace this row:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"css/bootstrap/bootstrap.min.css"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">With:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">_content/Components/bootstrap.min.css"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Set <strong class="screenText">BlazorServer</strong> as the startup project and run the project by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em>.</li>
+    </ol>
+    <p class="normal">Great! Our Blazor Server project is now updated to use the new style. The main color should now be dark, but there is still some work to do.</p>
+    <h2 id="_idParaDest-179" class="heading-2">Adding CSS to BlazorWebAssembly.Client</h2>
+    <p class="normal">Now let’s do<a id="_idIndexMarker414"></a> the same with the Blazor WebAssembly <a id="_idIndexMarker415"></a>project:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorWebAssembly.Client</strong> project, open <code class="inlineCode">wwwroot/index.html</code>.</li>
+      <li class="numberedList">Replace this line:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"css/bootstrap/bootstrap.min.css"</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+    <p class="normal">With:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">_content/Components/bootstrap.min.css"</span><span class="hljs-tag"> /&gt;</span>
+</code></pre>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Set <strong class="screenText">BlazorWebAssembly.Server</strong> as the <a id="_idIndexMarker416"></a>startup project and <a id="_idIndexMarker417"></a>run the project by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em>.</li>
+    </ol>
+    <p class="normal">Now we have the same layout for both projects.</p>
+    <h2 id="_idParaDest-180" class="heading-2">Making the admin interface more usable</h2>
+    <p class="normal">Let’s now<a id="_idIndexMarker418"></a> clean it up some more. We have only started with the admin functionality, so let’s make it more accessible. The menu on the left is no longer required, so let’s change it so that it is only visible if you are an administrator:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Open <code class="inlineCode">Components/Shared/MainLayout.razor</code> and put <code class="inlineCode">AuthorizeView</code> around the <code class="inlineCode">sidebar</code> <code class="inlineCode">div</code> like this:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">AuthorizeView</span><span class="hljs-tag"> </span><span class="hljs-attr">Roles</span><span class="hljs-tag">=</span><span class="hljs-string">"Administrator"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"sidebar"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">NavMenu</span><span class="hljs-tag"> /&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">AuthorizeView</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">In this case, we are not specifying <code class="inlineCode">Authorized</code> or <code class="inlineCode">NotAuthorized</code>. The default behavior is <code class="inlineCode">Authorized</code>, so if we are only looking for an authorized state, we don’t need to specify it by name.</p>
+    <p class="normal">Since this is already a shared component, we are all set. Start one of the projects (<strong class="screenText">BlazorServer</strong> or <strong class="screenText">BlazorWebAssembly.Server</strong>) to see it in action. The menu should not be shown if we are not logged in.</p>
+    <p class="normal">Now we need to make the menu look better. Even though the counter is really fun to click on, it doesn’t make much sense regarding our blog.</p>
+    <p class="normal">Since the <code class="inlineCode">nav</code> menu is now shared, we can put it in one place, which will change for both Blazor Server and Blazor WebAssembly.</p>
+    <h2 id="_idParaDest-181" class="heading-2">Making the menu more useful</h2>
+    <p class="normal">We should<a id="_idIndexMarker419"></a> replace the links with links to our admin pages instead:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, open the <code class="inlineCode">Shared/Navmenu.razor</code> file.
+    <p class="normal">Edit the code so that it looks like this (keep the code block as is):</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"top-row pl-4 navbar navbar-dark"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"navbar-brand"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">""</span><span class="hljs-tag">&gt;</span>MyBlog Admin<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">navbar-toggler"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"ToggleNavMenu"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"navbar-toggler-icon"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span>    
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"@NavMenuCssClass"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"ToggleNavMenu"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ul</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav flex-column"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-item px-3"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">NavLink</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-link"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">""</span><span class="hljs-tag"> </span><span class="hljs-attr">Match</span><span class="hljs-tag">=</span><span class="hljs-string">"NavLinkMatch.All"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"oi oi-home"</span><span class="hljs-tag"> </span><span class="hljs-attr">aria-hidden</span><span class="hljs-tag">=</span><span class="hljs-string">"true"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span> Home
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">NavLink</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-item px-3"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">NavLink</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-link"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"Admin/Blogposts"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"oi oi-signpost"</span><span class="hljs-tag"> </span><span class="hljs-attr">aria-hidden</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">true"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span> Blog posts
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">NavLink</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-item px-3"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">NavLink</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-link"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"Admin/Tags"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"oi oi-tags"</span><span class="hljs-tag"> </span><span class="hljs-attr">aria-hidden</span><span class="hljs-tag">=</span><span class="hljs-string">"true"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span> Tags
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">NavLink</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">nav-item px-3"</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">NavLink</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-link"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"Admin/Categories"</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">oi oi-tags"</span><span class="hljs-tag"> </span><span class="hljs-attr">aria-hidden</span><span class="hljs-tag">=</span><span class="hljs-string">"true"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span> Categories
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">NavLink</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+</code></pre></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="2">Also, remove <a id="_idIndexMarker420"></a>the <code class="inlineCode">AuthorizeView</code> we added; we don’t need that anymore.</li>
+    </ol>
+    <p class="normal">Great! Our blog is looking more like a blog, but we can do more!</p>
+    <h2 id="_idParaDest-182" class="heading-2">Making the blog look like a blog</h2>
+    <p class="normal">The admin interface is done (at least, for now), and we should focus on the front page of our blog. The <a id="_idIndexMarker421"></a>front page should have the title of the blog post and some descriptions. </p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, open the <code class="inlineCode">Pages/Index.razor</code> file.</li>
+      <li class="numberedList">Add a <code class="inlineCode">using</code> statement for <code class="inlineCode">Markdig</code> at the top of the file:
+        <pre class="programlisting code"><code class="hljs-code">@using Markdig;
+</code></pre>
+      </li>
+      <li class="numberedList">Add an <code class="inlineCode">OnInitializedAsync</code> method to handle the instantiation of the <code class="inlineCode">Markdig</code> pipeline (this is the same code we have in the <code class="inlineCode">Post.razor</code> file):
+        <pre class="programlisting code"><code class="hljs-code">MarkdownPipeline pipeline;
+<span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+{
+    pipeline = <span class="hljs-keyword">new</span> MarkdownPipelineBuilder()
+                .UseEmojiAndSmiley()
+                .Build();
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">base</span>.OnInitializedAsync();
+}
+</code></pre>
+      </li>
+      <li class="numberedList">Inside the <code class="inlineCode">Virtualize</code> component, change the content (<code class="inlineCode">RenderFragment</code>) to the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">Virtualize</span><span class="hljs-tag"> </span><span class="hljs-attr">ItemsProvider</span><span class="hljs-tag">=</span><span class="hljs-string">"LoadPosts"</span><span class="hljs-tag"> </span><span class="hljs-attr">Context</span><span class="hljs-tag">=</span><span class="hljs-string">"p"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">article</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">h2</span><span class="hljs-tag">&gt;</span>@p.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">h2</span><span class="hljs-tag">&gt;</span>
+        @((MarkupString)Markdig.Markdown.ToHtml(new string(p.Text.Take(100).ToArray()), pipeline))
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">a</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"/Post/@p.Id"</span><span class="hljs-tag">&gt;</span>Read more<span class="hljs-tag">&lt;/</span><span class="hljs-name">a</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">article</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">Virtualize</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+      </li>
+      <li class="numberedList">Also, remove the <code class="inlineCode">&lt;ul&gt;</code> tags.</li>
+    </ol>
+    <p class="normal">Now, run the project using <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em> and look at our new front page. Our blog is starting to take form, but we still have work to do.</p>
+    <h1 id="_idParaDest-183" class="heading-1">CSS isolation</h1>
+    <p class="normal">In .NET 5, Microsoft added something <a id="_idIndexMarker422"></a>called isolated CSS. This is something that many other frameworks have as well. The idea is to write CSS specifically for one component. The upsides, of course, are that the CSS that we create won’t impact any of the other components.</p>
+    <p class="normal">The template for Blazor uses isolated CSS for <code class="inlineCode">Components/Shared/MainLayout.razor</code> and <code class="inlineCode">NavMenu.Razor</code>. If we expand <code class="inlineCode">MainLayout.razor</code>, we’ll see a file called <code class="inlineCode">MainLayout.razor.css</code>.</p>
+    <p class="normal">We can also use SASS here by adding a file called <code class="inlineCode">MainLayout.razor.scss</code>. The important thing is that the file we add should generate a file called <code class="inlineCode">MainLayout.razor.css</code> for the compiler to pick up.</p>
+    <p class="normal">This naming convention will make sure to rewrite CSS and the HTML output.</p>
+    <p class="normal">CSS has the following naming convention:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-selector-tag">main</span> {
+    <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;
+}
+</code></pre>
+    <p class="normal">It will be rewritten as follows:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-selector-tag">main</span><span class="hljs-selector-attr">[b-bfl5h5967n]</span> {
+    <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;
+}
+</code></pre>
+    <p class="normal">This means the elements need to have an attribute called <code class="inlineCode">b-bfl5h5967n</code> (in this case) for the style to be applied.</p>
+    <p class="normal">The <code class="inlineCode">div</code> tag that has the <code class="inlineCode">CSS</code> tag within the <code class="inlineCode">MainLayout</code> component will be outputted like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">main</span><span class="hljs-tag"> </span><span class="hljs-attr">b-bfl5h5967n</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">For all of this to happen, we also need to have a link to the CSS (which is provided by the template), and it looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">link</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"{Assemblyname}.styles.css"</span><span class="hljs-tag"> </span><span class="hljs-attr">rel</span><span class="hljs-tag">=</span><span class="hljs-string">"stylesheet"</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">This becomes useful for component libraries. We have components that have isolated CSS in our shared library (<code class="inlineCode">NavMenu</code> and <code class="inlineCode">MainLayout</code>), and the CSS for the <code class="inlineCode">NavMenu</code> component is included in the <code class="inlineCode">{Assemblyname}.styles.css</code> file.</p>
+    <p class="normal">We don’t have to do anything extra for our shared CSS to be included. If we are creating a library for anyone to use, we should think about using the isolated CSS approach if our components need some CSS to work correctly.</p>
+    <p class="normal">If we are starting our Blazor project from an empty template, we need to add a link to the isolated CSS.</p>
+    <p class="normal">This way, our users won’t have to add a reference to our CSS, and there is no risk of our CSS breaking something in the user’s app (since it’s isolated). The important thing is that we use the right approach when it makes sense.</p>
+    <p class="normal">Suppose we are creating a component that has very specific styles, which only that component will use. In that case, isolated CSS is a great way to go, it is easier to find (right by the component), and we can use CSS variables for colors and such.</p>
+    <p class="normal">We should be careful when styling similar things inside of the isolated CSS, so we don’t end up having a bunch of different CSS files styling a button, for example.</p>
+    <p class="normal">As mentioned, the isolated CSS only affects the HTML tags inside the component, but what if we have a component inside our component?</p>
+    <p class="normal">If we <a id="_idIndexMarker423"></a>open <code class="inlineCode">Component/Shared/NavMenu.css</code>, we can see that for the <code class="inlineCode">.nav-item</code> styles, some of them are using the keyword <code class="inlineCode">::deep</code>;<strong class="keyWord"> </strong>this is to say that even child components should also be affected by this style.</p>
+    <p class="normal">Take a look at this code:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-selector-class">.nav-item</span> ::deep a {…}
+</code></pre>
+    <p class="normal">It is targeting the <code class="inlineCode">&lt;a&gt;</code> tag, but the Razor code looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-item px-3"</span><span class="hljs-tag">&gt;</span>
+     <span class="hljs-tag">&lt;</span><span class="hljs-name">NavLink</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"nav-link"</span><span class="hljs-tag"> </span><span class="hljs-attr">href</span><span class="hljs-tag">=</span><span class="hljs-string">"Admin/Blogposts"</span><span class="hljs-tag">&gt;</span>
+         <span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"oi oi-signpost"</span><span class="hljs-tag"> </span><span class="hljs-attr">aria-hidden</span><span class="hljs-tag">=</span><span class="hljs-string">"true"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span> Blog posts
+     <span class="hljs-tag">&lt;/</span><span class="hljs-name">NavLink</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">It is the <code class="inlineCode">NavLink</code> component that renders the <code class="inlineCode">&lt;a&gt;</code> <code class="inlineCode">t</code>ag; by adding <code class="inlineCode">::deep</code>, we are saying we want to apply this style to all elements with the class <code class="inlineCode">.nav-item</code> and all the <code class="inlineCode">&lt;a&gt;</code> <code class="inlineCode">t</code>ags inside that element.</p>
+    <p class="normal">There is one more thing we need to know about – <code class="inlineCode">::deep</code>; it makes sure to share the ID of the attribute (<code class="inlineCode">b-bfl5h5967n</code>, for example), and it needs an HTML tag to do so. So if we have a component that consists of other components (not adding any HTML tags at all), we need to add an HTML tag around the content to make <code class="inlineCode">::deep</code> work.</p>
+    <p class="normal">Before we summarize this chapter, let us do one more thing.</p>
+    <p class="normal">Let’s fix the<a id="_idIndexMarker424"></a> background color of the menu:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Open <code class="inlineCode">Components/Shared/MainLayout.razor.css</code>.</li>
+      <li class="numberedList">Look for the <code class="inlineCode">.sidebar</code> style and replace it with:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-selector-class">.sidebar</span> {
+    <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">180deg</span>, <span class="hljs-built_in">var</span>(--bs-body-bg) <span class="hljs-number">0%</span>,<span class="hljs-built_in">var</span>(--bs-gray-<span class="hljs-number">800</span>) <span class="hljs-number">70%</span>);
+} 
+</code></pre>
+      </li>
+      <li class="numberedList">Replace the <code class="inlineCode">.top-row</code> style with:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-selector-class">.top-row</span> {
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--bs-primary);
+    <span class="hljs-attribute">justify-content</span>: flex-end;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">3.5rem</span>;
+    <span class="hljs-attribute">display</span>: flex;
+    <span class="hljs-attribute">align-items</span>: center;
+}
+</code></pre>
+    <p class="normal">We replaced the background color and removed a border.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="4">In the <code class="inlineCode">.top-row ::deep a, .top-row ::deep .btn-link</code> style, add:
+        <pre class="programlisting code"><code class="hljs-code">    <span class="hljs-attribute">color</span>:white;
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Now we are <a id="_idIndexMarker425"></a>able to see the login/logout link a bit better.</p>
+    <p class="normal">We now have a working admin interface and a good-looking site.</p>
+    <h1 id="_idParaDest-184" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we have moved components into a shared library and used that library with both our Blazor Server and Blazor WebAssembly projects.</p>
+    <p class="normal">Using shared libraries like this is the way to create shared libraries (for others to use), and it is also a great way to structure our in-house projects (so that it is easy to change from Blazor Server to Blazor WebAssembly, or the other way around). If you have a site already, you can build your Blazor components in a shared library, which we have done throughout the book.</p>
+    <p class="normal">Using components as part of your site (using Blazor Server), you can get started with Blazor bit by bit until you have converted the whole thing. When that is done, you can decide whether or not to keep using Blazor Server (as I mentioned, we use Blazor Server at work) or move to Blazor WebAssembly.</p>
+    <p class="normal">We talked about how we can use SASS and CSS in our site, both <em class="italic">regular</em> CSS and <em class="italic">isolated</em> CSS.</p>
+    <p class="normal">In the next chapter, we will learn about the one thing we are trying to avoid (at least I am) as Blazor developers – JavaScript.</p>
+  </div>
+</body>
+</html>

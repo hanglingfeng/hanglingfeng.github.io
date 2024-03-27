@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_04</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_04" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer046" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">4</h1>
+    <h1 id="_idParaDest-64" class="chapterTitle">Understanding Basic Blazor Components</h1>
+    <p class="normal">In this chapter, we will look at the components that come with the Blazor template and start to build our own components. Knowing the different techniques used for creating Blazor websites will help us when we start building our components.</p>
+    <p class="normal">Blazor uses components for most things, so we will use the knowledge from this chapter throughout the book.</p>
+    <p class="normal">We will start this chapter with theory and end by creating a component to show some blog posts using the API we created previously in <em class="chapterRef">Chapter 3</em>, <em class="italic">Managing State – Part 1</em>.</p>
+    <p class="normal">In this chapter, we will cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Exploring components</li>
+      <li class="bulletList">Learning Razor syntax</li>
+      <li class="bulletList">Understanding dependency injection</li>
+      <li class="bulletList">Figuring out where to put the code</li>
+      <li class="bulletList">Lifecycle events</li>
+      <li class="bulletList">Parameters</li>
+      <li class="bulletList">Writing our first component</li>
+    </ul>
+    <h1 id="_idParaDest-65" class="heading-1">Technical requirements</h1>
+    <p class="normal">Make sure you have followed the previous chapters or use the <code class="inlineCode">Chapter03</code> folder as the starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter04"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter04</span></a>.</p>
+    <p class="normal">For this chapter, we will work with the Blazor Server project, so make sure to right-click on the <strong class="screenText">BlazorServer</strong> project and select <strong class="screenText">Set as Startup Project</strong>.</p>
+    <h1 id="_idParaDest-66" class="heading-1">Exploring components</h1>
+    <p class="normal">In Blazor, a <strong class="keyWord">component</strong> is a <code class="inlineCode">.razor</code> file containing a small, isolated functionality (code and markup) or it <a id="_idIndexMarker141"></a>can be used as a page. A component can host other components as well. This chapter will show us how components work and how to use them.</p>
+    <p class="normal">There are three<a id="_idIndexMarker142"></a> different ways we can create a component:</p>
+    <ul>
+      <li class="bulletList">Using Razor syntax, with the code and HTML sharing the same file</li>
+      <li class="bulletList">Using a code-behind file together with a <code class="inlineCode">.razor</code> file</li>
+      <li class="bulletList">Using only a code-behind file</li>
+    </ul>
+    <p class="normal">We will go through the different options. The templates we will go through next all use the first option, <code class="inlineCode">.razor</code> files, where we have a mix of code and HTML in the same file.</p>
+    <p class="normal">The components in the template are as follows:</p>
+    <ul>
+      <li class="bulletList"><strong class="keyWord">Counter</strong></li>
+      <li class="bulletList"><strong class="keyWord">FetchData</strong></li>
+    </ul>
+    <h2 id="_idParaDest-67" class="heading-2">Counter</h2>
+    <p class="normal">The <strong class="keyWord">counter</strong> page<a id="_idIndexMarker143"></a> shows a button and a counter; if we press the button, the counter<a id="_idIndexMarker144"></a> increases. We will now break the page apart, making it easier to understand.</p>
+    <p class="normal">At the top of the page is the <code class="inlineCode">@page</code> directive, which makes it possible to route to the component directly, as we can see in this code:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/counter"</span>
+</code></pre>
+    <p class="normal">If we start the <strong class="keyWord">BlazorServer</strong> project and add <code class="inlineCode">/counter</code> to the end of the URL, we see that we can directly access the component by using its route. We can also make the route take parameters, but we will return to that later.</p>
+    <p class="normal">Next, let’s explore the<a id="_idIndexMarker145"></a> code. To add code to the page, we use the <code class="inlineCode">@code</code> statement, and within that statement, we can add ordinary C# code, as shown:</p>
+    <pre class="programlisting code"><code class="hljs-code">@code {
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> currentCount = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">IncrementCount</span><span class="hljs-function">()</span>
+    {
+        currentCount++;
+    }
+}
+</code></pre>
+    <p class="normal">In the preceding code block, we have a private <code class="inlineCode">currentCount</code> variable set to <code class="inlineCode">0</code>. Then we have a method called <code class="inlineCode">IncrementCount()</code>, which increments the <code class="inlineCode">currentCount</code> variable by <code class="inlineCode">1</code>.</p>
+    <p class="normal">We show the current value by using the <code class="inlineCode">@</code> sign. In Razor, the <code class="inlineCode">@</code> sign indicates that it is time for some code:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag"> </span><span class="hljs-attr">role</span><span class="hljs-tag">=</span><span class="hljs-string">"status"</span><span class="hljs-tag">&gt;</span>Current count: @currentCount<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">As we can see, Razor is very smart because it understands when the code stops and the markup continues, so there is no need to add something extra to transition from the code to the markup (more on that in the next section).</p>
+    <p class="normal">As we can see in the preceding example, we are mixing HTML tags with <code class="inlineCode">@currentCount</code> , and Razor understands the difference. Next, we have a button that is the trigger for changing the value:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-primary"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"IncrementCount"</span><span class="hljs-tag">&gt;</span>Click me<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">This is an HTML button with a <strong class="keyWord">Bootstrap</strong> class (to make it look a bit nicer). <code class="inlineCode">@onclick</code> binds the button’s <code class="inlineCode">onclick</code> event to the <code class="inlineCode">IncrementCount()</code> method. If we were to use <code class="inlineCode">onclick</code> without the <code class="inlineCode">@</code>, it would refer to the JavaScript event and not work. </p>
+    <p class="normal">So, when we press the button, it will call the <code class="inlineCode">IncrementCount()</code> method (depicted by <strong class="keyWord">1</strong> in <em class="italic">Figure 4.1</em>), the method increments the variable (depicted by <strong class="keyWord">2</strong>), and due to changing the variable, the UI will automatically be updated (depicted by <strong class="keyWord">3</strong>), as shown in <em class="italic">Figure 4.1</em>:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_04_01.png" alt="Figure 4.1 – The flow of the counter component "/></figure>
+    <p class="packt_figref">Figure 4.1: The flow of the counter component</p>
+    <p class="normal">The <code class="inlineCode">counter</code> component is implemented similarly for both Blazor WebAssembly and Blazor Server. The <strong class="keyWord">FetchData</strong> component has two<a id="_idIndexMarker146"></a> different implementations simply because the <a id="_idIndexMarker147"></a>Blazor Server project can access the server data directly and Blazor WebAssembly needs to access it through a web API.</p>
+    <p class="normal">We use the same approach with our API to get a feel for how we can leverage <strong class="keyWord">Dependency Injection</strong> (<strong class="keyWord">DI</strong>) and connect to a database directly when we use Blazor Server.</p>
+    <h2 id="_idParaDest-68" class="heading-2">FetchData</h2>
+    <p class="normal">The next <a id="_idIndexMarker148"></a>component we will take a look at is the <strong class="keyWord">FetchData</strong> component. It’s located in the <code class="inlineCode">Pages/FetchData.razor</code> folder.</p>
+    <p class="normal">The main implementation of the <strong class="keyWord">FetchData</strong> component looks similar in both Blazor WebAssembly and Blazor Server. The top rows of the files and the way it gets data differ in the two versions. For Blazor Server, it looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/fetchdata"</span>
+@using BlazorServer.Data
+@inject WeatherForecastService ForecastService
+</code></pre>
+    <p class="normal">It defines a route, adds a namespace, and injects a service. We can find the service in the <strong class="screenText">Data</strong> folder in the <strong class="screenText">BlazorServer</strong> project.</p>
+    <p class="normal">The service is a class that creates some random forecast data; the code looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">WeatherForecastService</span>
+{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> <span class="hljs-built_in">string</span>[] Summaries = <span class="hljs-keyword">new</span>[]
+    {
+        <span class="hljs-string">"</span><span class="hljs-string">Freezing"</span>, <span class="hljs-string">"Bracing"</span>, <span class="hljs-string">"Chilly"</span>, <span class="hljs-string">"Cool"</span>, <span class="hljs-string">"Mild"</span>, <span class="hljs-string">"Warm"</span>, <span class="hljs-string">"Balmy"</span>, <span class="hljs-string">"Hot"</span>, <span class="hljs-string">"Sweltering"</span>, <span class="hljs-string">"Scorching"</span>
+    };
+    <span class="hljs-keyword">public</span> Task&lt;WeatherForecast[]&gt; GetForecastAsync(DateOnly startDate)
+        {
+            <span class="hljs-keyword">return</span> Task.FromResult(Enumerable.Range(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>).Select(index =&gt; <span class="hljs-keyword">new</span> WeatherForecast
+            {
+                Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(<span class="hljs-number">-20</span>, <span class="hljs-number">55</span>),
+            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        }).ToArray());
+    }
+}
+</code></pre>
+    <p class="normal">As we can see, it generates summaries and randomizes temperatures.</p>
+    <p class="normal">In the <strong class="screenText">code</strong> section of<a id="_idIndexMarker149"></a> the <strong class="keyWord">FetchData</strong> component, we will find the code that calls the service:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span> WeatherForecast[] forecasts;
+<span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+{
+    forecasts = <span class="hljs-keyword">await</span> ForecastService.GetForecastAsync(DateTime.Now);
+}
+</code></pre>
+    <p class="normal">The code will get the data from the service and populate an array of <strong class="keyWord">WeatherForecast</strong> called <code class="inlineCode">forecasts</code>.</p>
+    <p class="normal">In the <code class="inlineCode">BlazorWebAssembly.Client</code> project, things look a bit different. First of all, the top rows of the file look like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"</span><span class="hljs-string">/fetchdata"</span>
+@using BlazorWebAssembly.Shared
+@inject HttpClient Http
+</code></pre>
+    <p class="normal">The code defines a route using a <strong class="keyWord">page</strong> directive, adds <code class="inlineCode">@using</code> reference to our shared library namespace, and injects <code class="inlineCode">HttpClient</code> instead of the service. <code class="inlineCode">HttpClient</code> is used to get the data from the server, which is a more realistic real-world scenario.</p>
+    <p class="normal"><code class="inlineCode">HttpClient</code> is defined in the <code class="inlineCode">Program.cs</code> file and has the same base address as the <code class="inlineCode">BlazorWebAssembly.Server</code> project, since the server project is hosting the client project.</p>
+    <p class="normal">Getting the data looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">private</span> WeatherForecast[] forecasts;
+<span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+{
+    forecasts = <span class="hljs-keyword">await</span> Http.GetFromJsonAsync&lt;WeatherForecast[]&gt;(<span class="hljs-string">"WeatherForecast"</span>);
+}
+</code></pre>
+    <p class="normal">The code<a id="_idIndexMarker150"></a> will get the data and populate an array of <strong class="keyWord">WeatherForecast</strong> called <strong class="keyWord">forecasts</strong>. But instead of getting the data from the service, we are making a call to the <code class="inlineCode">"WeatherForecast"</code> URL. We can find the web API in the <code class="inlineCode">BlazorWebAssembly.Server</code> project.</p>
+    <p class="normal">Notice that we are using the same <strong class="keyWord">WeatherForecast</strong> class on both the server and the client. This is one of the things I really like with Blazor.</p>
+    <p class="normal">The controller (<code class="inlineCode">Controllers/WeatherForcastController.cs</code>) looks like this (with many similarities to the service):</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">ApiController</span>]
+[<span class="hljs-meta">Route(</span><span class="hljs-string">"[controller]"</span><span class="hljs-meta">)</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">WeatherForecastController</span> : <span class="hljs-title">ControllerBase</span>
+{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> <span class="hljs-built_in">string</span>[] Summaries = <span class="hljs-keyword">new</span>[]
+    {
+        <span class="hljs-string">"Freezing"</span>, <span class="hljs-string">"Bracing"</span>, <span class="hljs-string">"Chilly"</span>, <span class="hljs-string">"Cool"</span>, <span class="hljs-string">"Mild"</span>, <span class="hljs-string">"Warm"</span>, <span class="hljs-string">"</span><span class="hljs-string">Balmy"</span>, <span class="hljs-string">"Hot"</span>, <span class="hljs-string">"Sweltering"</span>, <span class="hljs-string">"Scorching"</span>
+    };
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> ILogger&lt;WeatherForecastController&gt; logger;
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">WeatherForecastController</span><span class="hljs-function">(</span><span class="hljs-params">ILogger&lt;WeatherForecastController&gt; logger</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">this</span>.logger = logger;
+    }
+    [<span class="hljs-meta">HttpGet</span>]
+    <span class="hljs-keyword">public</span><span class="hljs-function"> IEnumerable&lt;WeatherForecast&gt; </span><span class="hljs-title">Get</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">var</span> rng = <span class="hljs-keyword">new</span> Random();
+        <span class="hljs-keyword">return</span> Enumerable.Range(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>).Select(index =&gt; <span class="hljs-keyword">new</span> WeatherForecast
+        {
+            Date = DateTime.Now.AddDays(index),
+            TemperatureC = rng.Next(<span class="hljs-number">-20</span>, <span class="hljs-number">55</span>),
+            Summary = Summaries[rng.Next(Summaries.Length)]
+        })
+        .ToArray();
+    }
+}
+</code></pre>
+    <p class="normal">It looks the same <a id="_idIndexMarker151"></a>as the service but is implemented as a web API. As the data looks the same in both versions, getting the data (in both cases) will populate an array with weather forecast data.</p>
+    <p class="normal">In <code class="inlineCode">Pages/FetchData.razor</code>, the code for showing the weather data looks like this in both Blazor WebAssembly and Blazor Server:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>Weather forecast<span class="hljs-tag">&lt;/</span><span class="hljs-name">h1</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>This component demonstrates fetching data from a service.<span class="hljs-tag">&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+@if (forecasts == null)
+{
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;&lt;</span><span class="hljs-name">em</span><span class="hljs-tag">&gt;</span>Loading...<span class="hljs-tag">&lt;/</span><span class="hljs-name">em</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">p</span><span class="hljs-tag">&gt;</span>
+}
+else
+{
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">table</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">table"</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">thead</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;</span><span class="hljs-name">tr</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">th</span><span class="hljs-tag">&gt;</span>Date<span class="hljs-tag">&lt;/</span><span class="hljs-name">th</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">th</span><span class="hljs-tag">&gt;</span>Temp. (C)<span class="hljs-tag">&lt;/</span><span class="hljs-name">th</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">th</span><span class="hljs-tag">&gt;</span>Temp. (F)<span class="hljs-tag">&lt;/</span><span class="hljs-name">th</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">th</span><span class="hljs-tag">&gt;</span>Summary<span class="hljs-tag">&lt;/</span><span class="hljs-name">th</span><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;/</span><span class="hljs-name">tr</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">thead</span><span class="hljs-tag">&gt;</span>
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">tbody</span><span class="hljs-tag">&gt;</span>
+            @foreach (var forecast in forecasts)
+            {
+                <span class="hljs-tag">&lt;</span><span class="hljs-name">tr</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>@forecast.Date.ToShortDateString()
+                    <span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>@forecast.TemperatureC<span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>@forecast.TemperatureF<span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+                    <span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>@forecast.Summary<span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+                <span class="hljs-tag">&lt;/</span><span class="hljs-name">tr</span><span class="hljs-tag">&gt;</span>
+            }
+        <span class="hljs-tag">&lt;/</span><span class="hljs-name">tbody</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;/</span><span class="hljs-name">table</span><span class="hljs-tag">&gt;</span>
+}
+</code></pre>
+    <p class="normal">As we can see, by<a id="_idIndexMarker152"></a> using the Razor syntax, we are seamlessly mixing code with HTML. The code checks whether there is any data – if yes, it will render the table; if not, it will show a loading message. We have full control over the HTML, and Blazor will not add anything to the generated HTML.</p>
+    <p class="normal">There are component libraries that can make this process a bit simpler, which we will look at in the next chapter, <em class="chapterRef">Chapter 5</em>, <em class="italic">Creating Advanced Blazor Components</em>.</p>
+    <p class="normal">Now that we know how the sample template is implemented, it is time to dive deeper into the Razor syntax.</p>
+    <h1 id="_idParaDest-69" class="heading-1">Learning Razor syntax</h1>
+    <p class="normal">One of the things I like about the <a id="_idIndexMarker153"></a>Razor syntax is that it is easy to mix code and HTML tags. By having the code close to the markup, it is, in my opinion, easier to follow and understand. The syntax is very fluid; the razor parser understands when the code stops and markup begins, which means we don’t need to think about it that much. It is also not a new language; instead, we can leverage our existing C# and HTML knowledge to create our components. This section will be a lot of theory to help us understand the Razor syntax.</p>
+    <p class="normal">To transition from HTML to code (C#), we use the <code class="inlineCode">@</code> symbol. There are a handful of ways we can add code to our file:</p>
+    <ul>
+      <li class="bulletList">Razor code blocks</li>
+      <li class="bulletList">Implicit Razor expressions</li>
+      <li class="bulletList">Explicit Razor expressions</li>
+      <li class="bulletList">Expression encoding</li>
+      <li class="bulletList">Directives</li>
+    </ul>
+    <h2 id="_idParaDest-70" class="heading-2">Razor code blocks</h2>
+    <p class="normal">We have already seen some <a id="_idIndexMarker154"></a>code blocks. A code block looks<a id="_idIndexMarker155"></a> like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@code {
+    <span class="hljs-comment">//your code here</span>
+}
+</code></pre>
+    <p class="normal">If we wish, we can skip the <strong class="keyWord">code</strong> keyword like so:</p>
+    <pre class="programlisting code"><code class="hljs-code">@{
+    <span class="hljs-comment">//your code here</span>
+}
+</code></pre>
+    <p class="normal">Inside those curly braces, we can mix HTML and code like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@{
+    <span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">RenderName</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> name</span><span class="hljs-function">)</span>
+    {
+        &lt;p&gt;Name: &lt;strong&gt;@name&lt;/strong&gt;&lt;/p&gt;
+    }
+    RenderName(<span class="hljs-string">"Steve Sanderson"</span>);
+    RenderName(<span class="hljs-string">"Daniel Roth"</span>);
+}
+</code></pre>
+    <p class="normal">Notice how the <code class="inlineCode">RenderName()</code> method transitions from code into the paragraph tags and back to code; this is an implicit transition.</p>
+    <p class="normal">If we want to output text without having an HTML tag, we can use the <code class="inlineCode">text</code> tag instead of using the paragraph tags, as shown in the following example:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">text</span><span class="hljs-tag">&gt;</span>Name: <span class="hljs-tag">&lt;</span><span class="hljs-name">strong</span><span class="hljs-tag">&gt;</span>@name<span class="hljs-tag">&lt;/</span><span class="hljs-name">strong</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">text</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">This would render the same result as the previous code but without the paragraph tags, and the <code class="inlineCode">text</code> tag won’t be rendered.</p>
+    <h2 id="_idParaDest-71" class="heading-2">Implicit Razor expressions</h2>
+    <p class="normal"><strong class="keyWord">Implicit Razor expressions</strong> are <a id="_idIndexMarker156"></a>when we add code inside <a id="_idIndexMarker157"></a>HTML tags.</p>
+    <p class="normal">We have already seen this in the <strong class="keyWord">FetchData</strong> example:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>@forecast.Summary<span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We start with a <code class="inlineCode">&lt;td&gt;</code> tag, then use the <code class="inlineCode">@</code> symbol to switch to C#, and switch back to HTML with the end tag. We can use the <strong class="keyWord">await</strong> keyword together with a method call, but other than that, implicit Razor expressions cannot contain any spaces.</p>
+    <p class="normal">We cannot call a generic <a id="_idIndexMarker158"></a>method using implicit expressions <a id="_idIndexMarker159"></a>since <code class="inlineCode">&lt;&gt;</code> would be interpreted as HTML. Hence, to solve this issue, we can use explicit expressions.</p>
+    <h2 id="_idParaDest-72" class="heading-2">Explicit Razor expressions</h2>
+    <p class="normal">We can use explicit Razor expressions<a id="_idIndexMarker160"></a> if we want to use spaces in the<a id="_idIndexMarker161"></a> code. Write the code with the <code class="inlineCode">@</code> symbol followed by parentheses <code class="inlineCode">( )</code>. So, it would look like this: <code class="inlineCode">@()</code>.</p>
+    <p class="normal">In this sample, we subtract <strong class="keyWord">7</strong> days from the current date:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>@(DateTime.Now - TimeSpan.FromDays(7))<span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We can also use explicit Razor expressions to concatenate text; for example, we can concatenate text and code like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>Temp@(forecast.TemperatureC)<span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">The output would then be <code class="inlineCode">&lt;td&gt;Temp42&lt;/td&gt;</code>.</p>
+    <p class="normal">Using explicit expressions, we can easily call generic methods by using this syntax:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>@(MyGenericMethod<span class="hljs-tag">&lt;</span><span class="hljs-name">string</span><span class="hljs-tag">&gt;</span>())<span class="hljs-tag">&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">The Razor engine knows whether we are using code or not. It also makes sure to encode strings to HTML when outputting it to the browser, called <strong class="keyWord">expression encoding</strong>.</p>
+    <h2 id="_idParaDest-73" class="heading-2">Expression encoding</h2>
+    <p class="normal">If we have HTML as <a id="_idIndexMarker162"></a>a string, it <a id="_idIndexMarker163"></a>will be escaped by default. Take this code, for example:</p>
+    <pre class="programlisting code"><code class="hljs-code">@("<span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span>Hello World<span class="hljs-tag">&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span>")
+</code></pre>
+    <p class="normal">The rendered HTML would look like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">&amp;lt;span&amp;gt;Hello World&amp;lt;/span&amp;gt;
+</code></pre>
+    <p class="normal">To output the actual HTML from a string (something we want to do later on), you can use this syntax:</p>
+    <pre class="programlisting code"><code class="hljs-code">@((MarkupString)"<span class="hljs-tag">&lt;</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span>Hello World<span class="hljs-tag">&lt;/</span><span class="hljs-name">span</span><span class="hljs-tag">&gt;</span>")
+</code></pre>
+    <p class="normal">Using <code class="inlineCode">MarkupString</code>, the <a id="_idIndexMarker164"></a>output will be HTML, showing the HTML tag <a id="_idIndexMarker165"></a>span. In some cases, one line of code isn’t enough; then, we can use code blocks.</p>
+    <h2 id="_idParaDest-74" class="heading-2">Directives</h2>
+    <p class="normal">There are a bunch of directives<a id="_idIndexMarker166"></a> that change the way a component gets parsed or can enable functionality. These<a id="_idIndexMarker167"></a> are reserved keywords that follow the <code class="inlineCode">@</code> symbol. We will go through the most common and useful ones.</p>
+    <p class="normal">I find that it is pretty nice to have the layout and the code inside of the same <code class="inlineCode">.razor</code> file.</p>
+    <p class="normal">Note that we can use code-behind to write our code to get a bit more separation between the code and layout. Later in this chapter, we will look at how to use code-behind instead of Razor syntax for everything. For now, the following examples will look at how we would do the same directives using both Razor syntax and code-behind.</p>
+    <h3 id="_idParaDest-75" class="heading-3">Adding an attribute</h3>
+    <p class="normal">To add an <a id="_idIndexMarker168"></a>attribute to our page, we can use the <code class="inlineCode">attribute</code> directive:</p>
+    <pre class="programlisting code"><code class="hljs-code">@attribute [Authorize]
+</code></pre>
+    <p class="normal">If we were using a code-behind file, we would use the following syntax instead:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Authorize</span>]
+</code></pre>
+    <h3 id="_idParaDest-76" class="heading-3">Adding an interface</h3>
+    <p class="normal">To implement an<a id="_idIndexMarker169"></a> interface (<code class="inlineCode">IDisposable</code> in this case), we would use the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code">@implements IDisposable
+</code></pre>
+    <p class="normal">Then we would implement the methods the interface needs in a <code class="inlineCode">@code{}</code> section.</p>
+    <p class="normal">To do the same<a id="_idIndexMarker170"></a> in a code-behind scenario, we would add the interface after the class name, as shown in the following example:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SomeClass</span> : <span class="hljs-title">IDisposable</span> {}
+</code></pre>
+    <h3 id="_idParaDest-77" class="heading-3">Inheriting</h3>
+    <p class="normal">To inherit<a id="_idIndexMarker171"></a> another class, we should use the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code">@inherits TypeNameOfClassToInheritFrom
+</code></pre>
+    <p class="normal">To do the same in a code-behind scenario, we would add the class we want to inherit from after the class name:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SomeClass</span> : <span class="hljs-title">TypeNameOfClassToInheritFrom</span> {}
+</code></pre>
+    <h3 id="_idParaDest-78" class="heading-3">Generics</h3>
+    <p class="normal">We can define<a id="_idIndexMarker172"></a> our component as a generic component.</p>
+    <p class="normal">Generics<a id="_idIndexMarker173"></a> allow us to define the data type, so the component works with any data type.</p>
+    <p class="normal">To define a component as a generic component, we add the <code class="inlineCode">@typeparam</code> directive; then, we can use the type in the code of the component like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@typeparam TItem
+@code
+{
+      [<span class="hljs-meta">Parameter</span>]
+      <span class="hljs-keyword">public</span> List&lt;TItem&gt; Data { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+}
+</code></pre>
+    <p class="normal">Generics are super-powerful when creating reusable components, and we will return to generics in <em class="chapterRef">Chapter 6</em>, <em class="italic">Building Forms with Validation</em>.</p>
+    <h3 id="_idParaDest-79" class="heading-3">Changing the layout</h3>
+    <p class="normal">If we want to have a<a id="_idIndexMarker174"></a> specific layout for a page (not the default one specified in the <code class="inlineCode">A</code><code class="inlineCode">pp.razor</code> file), we can use the <code class="inlineCode">@layout</code> directive:</p>
+    <pre class="programlisting code"><code class="hljs-code">@layout AnotherLayoutFile
+</code></pre>
+    <p class="normal">This way, our<a id="_idIndexMarker175"></a> component will use the specified layout file (this only works for components with the <code class="inlineCode">@page</code> directive).</p>
+    <h3 id="_idParaDest-80" class="heading-3">Setting a namespace</h3>
+    <p class="normal">By default, the component’s <a id="_idIndexMarker176"></a>namespace will be the name of the default namespace of our project, plus the folder structure. If we want our component to be in a specific namespace, we can use the following:</p>
+    <pre class="programlisting code"><code class="hljs-code">@namespace Another.NameSpace
+</code></pre>
+    <h3 id="_idParaDest-81" class="heading-3">Setting a route</h3>
+    <p class="normal">We have already<a id="_idIndexMarker177"></a> touched on the <code class="inlineCode">@page</code> directive. If we want our component to be directly accessed using a URL, we can use the <code class="inlineCode">@page</code> directive:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/theurl"</span>
+</code></pre>
+    <p class="normal">The URL can contain parameters, subfolders, and much more, which we will return to later in this chapter.</p>
+    <h3 id="_idParaDest-82" class="heading-3">Adding a using statement</h3>
+    <p class="normal">To add a<a id="_idIndexMarker178"></a> namespace to our component, we can use the <code class="inlineCode">@using</code> directive:</p>
+    <pre class="programlisting code"><code class="hljs-code">@using System.IO
+</code></pre>
+    <p class="normal">If there are namespaces that we use in several of our components, then we can add them to the <code class="inlineCode">_Imports.razor</code> file instead. This way, they will be available in all the components we create.</p>
+    <p class="normal">Now we know more about how Razor syntax works. Don’t worry; we will have plenty of time to practice it. There is one more directive that I haven’t covered in this section, and that is <code class="inlineCode">inject</code>. We have seen it a couple of times already, but to cover all the bases, we first need to understand what DI is and how it works, which we will see in the next section.</p>
+    <h1 id="_idParaDest-83" class="heading-1">Understanding dependency injection</h1>
+    <p class="normal">DI is a<a id="_idIndexMarker179"></a> software pattern and a technique to <a id="_idIndexMarker180"></a>implement <strong class="keyWord">Inversion of Control</strong> (<strong class="keyWord">IoC</strong>).</p>
+    <p class="normal">IoC is a generic term that means we can indicate that the class needs a class instance instead of letting our classes instantiate an object. We can say that our class wants either a specific class or a specific interface. The creation of the class is somewhere else, and it is up to IoC what class it will create.</p>
+    <p class="normal">When it comes to DI, it is a form of IoC when an object (class instance) is passed through constructors, parameters, or service lookups.</p>
+    <p class="normal">Here is a great resource if you want to<a id="_idIndexMarker181"></a> dive deeper into DI in .NET: <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection"><span class="url">https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection</span></a>.</p>
+    <p class="normal">In Blazor, we can configure DI by providing a way to instantiate an object. In Blazor, this is a key architecture pattern that we should use. We have already seen a couple of references to it, for example, in <code class="inlineCode">Startup.cs</code>:</p>
+    <pre class="programlisting code"><code class="hljs-code">services.AddSingleton&lt;WeatherForecastService&gt;();
+</code></pre>
+    <p class="normal">Here, we say that if any class wants <code class="inlineCode">WeatherForecastService</code>, the application should instantiate an object of the <code class="inlineCode">WeatherForecastService</code> type. In this case, we don’t use an interface; instead, we could create an interface and configure it like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">services.AddSingleton&lt;IWeatherForecastService, WeatherForecastService&gt;();
+</code></pre>
+    <p class="normal">In this case, if a class asks for an instance of <code class="inlineCode">IWeatherForecastService</code>, the app will instantiate a <code class="inlineCode">WeatherForecastService</code> object and return it. We did this in the previous chapter, <em class="chapterRef">Chapter 3</em>, <em class="italic">Managing State – Part 1</em>. We created an <em class="italic">IBlogApi</em> interface that returned an instance of <code class="inlineCode">BlogApiJsonDirectAccess</code>; when we implement the WebAssembly version,<a id="_idIndexMarker182"></a> DI will return another class instead.</p>
+    <p class="normal">There are many advantages to using DI. Our dependencies are loosely coupled, so we don’t instantiate another class in our class. Instead, we ask for an instance, which makes it easier to write tests and change implementations depending on platforms.</p>
+    <p class="normal">Any external dependencies will be much more apparent since we must pass them into the class. We also can set the way we should instantiate the object in a central place. We configure the DI in <strong class="keyWord">Program.cs</strong>.</p>
+    <p class="normal">We can configure the creation of objects in different ways, such as the following:</p>
+    <ul>
+      <li class="bulletList">Singleton</li>
+      <li class="bulletList">Scoped</li>
+      <li class="bulletList">Transient</li>
+    </ul>
+    <h2 id="_idParaDest-84" class="heading-2">Singleton</h2>
+    <p class="normal">When we use a <a id="_idIndexMarker183"></a>singleton, the object will be the same for all site users. The object will only be created once.</p>
+    <p class="normal">To configure a singleton service, use the following:</p>
+    <pre class="programlisting code"><code class="hljs-code">services.AddSingleton&lt;IWeatherForecastService, WeatherForecastService&gt;();
+</code></pre>
+    <p class="normal">We should use a singleton when we want to share our object with all the users of our site, but beware that the state is shared, so do not store any data connected to one particular user or user preference because it will affect all the users.</p>
+    <h2 id="_idParaDest-85" class="heading-2">Scoped</h2>
+    <p class="normal">When we use scoped, a new <a id="_idIndexMarker184"></a>object will be created once for each connection, and since Blazor Server needs a connection to work, it will be the same object as long as the user has a connection. WebAssembly does not have the concept of scoped, since there is no connection, so all the code runs inside the user’s web browser. If we use scoped, it will work the same way as a singleton for Blazor WebAssembly, since we only have one user and everything running inside the browser. The recommendation is still to use scoped if the idea is to scope a service to the current user. This makes it easier to move code between Blazor Server and Blazor WebAssembly and gives a bit more context on how the service is supposed to be used.</p>
+    <p class="normal">To configure a scoped service, use the following:</p>
+    <pre class="programlisting code"><code class="hljs-code">services.AddScoped&lt;IWeatherForecastService, WeatherForecastService&gt;();
+</code></pre>
+    <p class="normal">We should use scoped if we have data that belongs to the user. We can keep the user’s state by using scoped objects. More on that in <em class="chapterRef">Chapter 11</em>, <em class="italic">Managing State – Part 2</em>.</p>
+    <h2 id="_idParaDest-86" class="heading-2">Transient</h2>
+    <p class="normal">When we use <a id="_idIndexMarker185"></a>transient, a new object will be created every time we ask for it.</p>
+    <p class="normal">To configure a transient service, use the following:</p>
+    <pre class="programlisting code"><code class="hljs-code">services.AddTransient&lt;IWeatherForecastService, WeatherForecastService&gt;();
+</code></pre>
+    <p class="normal">We should use <a id="_idIndexMarker186"></a>transient if we don’t need to keep any state, and we don’t mind the object being created every time we ask for it.</p>
+    <p class="normal">Now that we know how to configure a service, we need to start using the service by injecting it.</p>
+    <h2 id="_idParaDest-87" class="heading-2">Injecting the service</h2>
+    <p class="normal">There are three <a id="_idIndexMarker187"></a>ways to inject a service.</p>
+    <p class="normal">We have already seen the first method in the <strong class="keyWord">FetchData</strong> component code. We can use the <code class="inlineCode">@inject</code> directive in the Razor file:</p>
+    <pre class="programlisting code"><code class="hljs-code">@inject WeatherForecastService ForecastService
+</code></pre>
+    <p class="normal">This will make sure we have access to <code class="inlineCode">WeatherForecastService</code> in our component.</p>
+    <p class="normal">The second way is to create a property by adding the <code class="inlineCode">Inject</code> attribute if we are using code-behind:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Inject</span>]
+<span class="hljs-keyword">public</span> WeatherForecastService ForecastService { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">The third way is if we want to inject a service into another service, then we need to inject the services using the constructor:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyService</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">MyService</span><span class="hljs-function">(</span><span class="hljs-params">WeatherForecastService</span>
+<span class="hljs-params">      weatherForecastService</span><span class="hljs-function">)</span>
+    {
+    }
+}
+</code></pre>
+    <p class="normal">Now we know how DI works and why we should use it.</p>
+    <p class="normal">In this chapter, we have mentioned code-behind a couple of times. In the next section, we will look at how we can use code-behind with Razor files and skip the Razor files altogether.</p>
+    <h1 id="_idParaDest-88" class="heading-1">Figuring out where to put the code</h1>
+    <p class="normal">We have seen examples of writing code directly in the Razor file. I prefer doing that unless the code gets too complicated. I always lean in favor of readability.</p>
+    <p class="normal">There are<a id="_idIndexMarker188"></a> four ways we can write our components:</p>
+    <ul>
+      <li class="bulletList">In the Razor file</li>
+      <li class="bulletList">In a partial class</li>
+      <li class="bulletList">Inheriting a class</li>
+      <li class="bulletList">Only code</li>
+    </ul>
+    <p class="normal">Let’s go through each item on this list in more detail.</p>
+    <h2 id="_idParaDest-89" class="heading-2">In the Razor file</h2>
+    <p class="normal">If we are writing a file that is <a id="_idIndexMarker189"></a>not that complex, it would be nice not to switch files when writing components. As we already covered in this chapter, we can use the <code class="inlineCode">@code</code> directive to add code directly to our Razor file. </p>
+    <p class="normal">If we want to move the code to a code-behind file, then it is only the directives that we need to change. For the rest of the code, we can just move to the code-behind class. When I started with Blazor, writing code and markup in the same file felt strange, but I suggest you try it out when developing your web apps.</p>
+    <p class="normal">At work, we started using code-behind but switched to writing code in the <code class="inlineCode">.razor</code> file instead, and we haven’t looked back since.</p>
+    <p class="normal">But many developers prefer code-behind, separating code from the layout. For that, we can use a partial class.</p>
+    <h2 id="_idParaDest-90" class="heading-2">In a partial class</h2>
+    <p class="normal">We can create a partial class <a id="_idIndexMarker190"></a>with the same filename as the Razor file and just add <code class="inlineCode">.cs</code>.</p>
+    <p class="normal">If you have downloaded the source code (or you can check the code on GitHub) for <em class="chapterRef">Chapter 3</em>,<em class="italic"> Managing State – Part 1</em>, you can look at <code class="inlineCode">FetchDataWithCodeBehind.razor.cs</code> in the <strong class="keyWord">BlazorServer</strong> project. I have moved all the code to the code-behind file; the result when compiling this will be the same as if we kept the code in the Razor file. It is just a matter of preference.</p>
+    <p class="normal">The code-behind looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> <span class="hljs-title">FetchDataWithCodeBehind</span>
+{
+    <span class="hljs-keyword">private</span> WeatherForecast[]? forecasts;
+    [<span class="hljs-meta">Inject</span>]
+    <span class="hljs-keyword">public</span> WeatherForecastService? ForecastService { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">if</span> (ForecastService != <span class="hljs-literal">null</span>)
+        {
+            forecasts = <span class="hljs-keyword">await</span> ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
+        }
+    }
+}
+</code></pre>
+    <p class="normal">As we can see, instead of using <code class="inlineCode">@inject</code>, we are using <code class="inlineCode">[Inject]</code> like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">Inject</span>]
+<span class="hljs-keyword">public</span> WeatherForecastService ForecastService { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">Other than that, I <a id="_idIndexMarker191"></a>have just copied the code from the Razor file.</p>
+    <p class="normal">This is not the only way to use a code-behind file; we can also inherit from a code-behind file.</p>
+    <h2 id="_idParaDest-91" class="heading-2">Inheriting a class</h2>
+    <p class="normal">We can also create a <a id="_idIndexMarker192"></a>completely different class (the common pattern is to call it the same thing as the Razor file and add <strong class="keyWord">Model</strong> at the end) and inherit it in our Razor file. For that to work, we need to inherit from <strong class="keyWord">ComponentBase</strong>. In the case of a partial class, the class already inherits from <strong class="keyWord">ComponentBase</strong>, since the Razor file does that.</p>
+    <p class="normal">Fields must be protected or public (not private) for the page to access the fields. I recommend using the partial class if we don’t need to inherit from our base class.</p>
+    <p class="normal">This is a snippet of the code-behind class declaration:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">FetchDataWithInheritsModel</span>:<span class="hljs-title">ComponentBase</span>
+</code></pre>
+    <p class="normal">We’ll need to inherit from <code class="inlineCode">ComponentBase</code> or from a class that inherits from <code class="inlineCode">ComponentBase</code>.</p>
+    <p class="normal">In the Razor file, we will use the <code class="inlineCode">@inherits</code> directive:</p>
+    <pre class="programlisting code"><code class="hljs-code">@inherits FetchDataWithInheritsModel
+</code></pre>
+    <p class="normal">The Razor file will now inherit from our code-behind class (this was the first available way to create <a id="_idIndexMarker193"></a>code-behind classes).</p>
+    <p class="normal">Both the partial and inherit options are simple ways of moving the code to a code-behind file. But another option is to entirely skip the Razor file and use only code.</p>
+    <h2 id="_idParaDest-92" class="heading-2">Only code</h2>
+    <p class="normal">Visual Studio will use source<a id="_idIndexMarker194"></a> generators to convert the Razor code into C#. We will dig deeper into source generators in <em class="chapterRef">Chapter 17</em>, <em class="italic">Examining Source Generators</em>. The Razor file will generate code at compile time. We can skip the Razor step if we want to and write our layout completely in code.</p>
+    <p class="normal">This file (<code class="inlineCode">CounterWithoutRazor.cs</code>) is available on GitHub.</p>
+    <p class="normal">The counter sample would look like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.Rendering;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Components.Web;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorServer.Pages</span>
+{
+    [<span class="hljs-meta">Route(</span><span class="hljs-string">"/CounterWithoutRazor"</span><span class="hljs-meta">)</span>]
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CounterWithoutRazor</span>: <span class="hljs-title">ComponentBase</span>
+    {
+        <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">BuildRenderTree</span>
+<span class="hljs-function">          (</span><span class="hljs-params">RenderTreeBuilder builder</span><span class="hljs-function">)</span>
+        {
+            builder.AddMarkupContent(<span class="hljs-number">0</span>, <span class="hljs-string">"&lt;h1&gt;Counter&lt;/h1&gt;\r\n\r\n"</span>);
+            builder.OpenElement(<span class="hljs-number">1</span>, <span class="hljs-string">"p"</span>);
+            builder.AddContent(<span class="hljs-number">2</span>, <span class="hljs-string">"Current count: "</span>);
+            builder.AddContent(<span class="hljs-number">3</span>,currentCount);
+            builder.CloseElement();
+            builder.AddMarkupContent(<span class="hljs-number">4</span>, <span class="hljs-string">"\r\n\r\n"</span>);
+            builder.OpenElement(<span class="hljs-number">5</span>, <span class="hljs-string">"</span><span class="hljs-string">button"</span>);
+            builder.AddAttribute(<span class="hljs-number">6</span>, <span class="hljs-string">"class"</span>,<span class="hljs-string">"btn btn-primary"</span>);
+            builder.AddAttribute(<span class="hljs-number">7</span>,<span class="hljs-string">"onclick"</span>, EventCallback.Factory.Create&lt;MouseEventArgs&gt;(<span class="hljs-keyword">this</span>,IncrementCount));
+            builder.AddContent(<span class="hljs-number">8</span>, <span class="hljs-string">"Click me"</span>);
+            builder.CloseElement();
+        }
+        <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> currentCount = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">IncrementCount</span><span class="hljs-function">()</span>
+        {
+            currentCount++;
+        }
+    }
+}
+</code></pre>
+    <p class="normal">The Razor file will first be converted in to something roughly the same as the previous code, and then the code is compiled. It adds the elements one by one, which, in the end, will render the HTML.</p>
+    <p class="normal">The numbers in the code are how Blazor keeps track of each element in the render tree. Some prefer to write the code as in the previous code block rather than using the Razor syntax; there are even efforts in the community to simplify the process of manually writing the <code class="inlineCode">BuildRenderTree()</code> function.</p>
+    <p class="normal">Some of Microsoft’s <a id="_idIndexMarker195"></a>built-in components are built in this way.</p>
+    <p class="normal">I recommend never writing this manually, but I’ve kept it in the book because it shows how Razor files get compiled. Now that we know how to use code-behind let’s look at the life cycle events of Blazor and when they get executed.</p>
+    <h1 id="_idParaDest-93" class="heading-1">Lifecycle events</h1>
+    <p class="normal">We can use a couple of lifecycle events<a id="_idIndexMarker196"></a> to run our code. In this section, we will go through them and see when we should use them. Most life cycle events have two versions – synchronous and asynchronous.</p>
+    <h2 id="_idParaDest-94" class="heading-2">OnInitialized and OnInitializedAsync</h2>
+    <p class="normal">The first time the component is loaded, <code class="inlineCode">OnInitialized()</code> is called, then <code class="inlineCode">OnInitializedAsync()</code>. This is a<a id="_idIndexMarker197"></a> great method to load any data, as the UI has not yet been rendered. If we are doing long-running tasks (such as getting data from a database), we <a id="_idIndexMarker198"></a>should put that code in the <code class="inlineCode">OnInitializedAsync()</code> method.</p>
+    <p class="normal">These methods will only run once. If we want to update the UI when a parameter changes, see <code class="inlineCode">OnParametersSet()</code> and <code class="inlineCode">OnParametersSetAsync()</code>.</p>
+    <h2 id="_idParaDest-95" class="heading-2">OnParametersSet and OnParametersSetAsync</h2>
+    <p class="normal"><code class="inlineCode">OnParametersSet()</code> and <code class="inlineCode">OnParametersSetAsync()</code> are called when the <a id="_idIndexMarker199"></a>component is initialized (after <code class="inlineCode">OnInitialized()</code> and <code class="inlineCode">OnInitializedAsync()</code>) and whenever we change the value of a<a id="_idIndexMarker200"></a> parameter.</p>
+    <p class="normal">If we, for example, load data in the <code class="inlineCode">OnInitialized()</code> method but it does use a parameter, the data won’t be reloaded if the parameter is changed, since <code class="inlineCode">OnInitialized()</code> will only run once. We need to trigger a reload of the data in <code class="inlineCode">OnParametersSet()</code> or <code class="inlineCode">OnParametersSetAsync()</code>, or move the loading to that method.</p>
+    <h2 id="_idParaDest-96" class="heading-2">OnAfterRender and OnAfterRenderAsync</h2>
+    <p class="normal">After the component <a id="_idIndexMarker201"></a>renders, the <code class="inlineCode">OnAfterRender()</code> and <code class="inlineCode">OnAfterRenderAsync()</code> methods are called. When the methods are being called, all the elements are <a id="_idIndexMarker202"></a>rendered, so if we want/need to call any JavaScript code, we have to do that from these methods (we will get an error if we try to make a JavaScript interop from any of the other lifecycle event methods). We also have access to a <code class="inlineCode">firstRender</code> parameter, so we can only run our code on the first render.</p>
+    <h2 id="_idParaDest-97" class="heading-2">ShouldRender</h2>
+    <p class="normal"><code class="inlineCode">ShouldRender()</code> is called when <a id="_idIndexMarker203"></a>our component is re-rendered; if it returns <code class="inlineCode">false</code>, the component will not be rendered again. It will always render once; it is only when it is re-rendered that the method runs.</p>
+    <p class="normal"><code class="inlineCode">ShouldRender()</code> does not have an asynchronous option.</p>
+    <p class="normal">Now we know when the different lifecycle events happen and in what order. A component can also have parameters, and that way, we can reuse them but with different data.</p>
+    <h1 id="_idParaDest-98" class="heading-1">Parameters</h1>
+    <p class="normal">A <strong class="keyWord">parameter</strong> makes it possible<a id="_idIndexMarker204"></a> to send a value to a component. To add a parameter to a component, we use the <code class="inlineCode">[Parameter]</code> attribute on the <code class="inlineCode">public</code> property:</p>
+    <pre class="programlisting code"><code class="hljs-code">@code {
+    [<span class="hljs-meta">Parameter</span>]
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> MyParameter { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+}
+</code></pre>
+    <p class="normal">We can also do the same using a code-behind file. We can add a parameter using the <code class="inlineCode">@page</code> directive by specifying it in the route:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/parameterdemo/{MyParameter}"</span>
+</code></pre>
+    <p class="normal">In this case, we have to have a parameter specified with the same name as the name inside the curly braces. To set the parameter in the <code class="inlineCode">@page</code> directive, we go to <code class="inlineCode">/parameterdemo/THEVALUE</code>.</p>
+    <p class="normal">There are cases where we want to specify another type instead of a string (string is the default). We can add the data type after the parameter name like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/parameterdemo/{MyParameter:int}"</span>
+</code></pre>
+    <p class="normal">This will <a id="_idIndexMarker205"></a>match the route only if the data type is an integer. We can also pass parameters using cascading parameters.</p>
+    <h2 id="_idParaDest-99" class="heading-2">Cascading parameters</h2>
+    <p class="normal">If we want to pass a value to <a id="_idIndexMarker206"></a>multiple components, we can use a <a id="_idIndexMarker207"></a>cascading parameter.</p>
+    <p class="normal">Instead of using <code class="inlineCode">[Parameter]</code>, we can use <code class="inlineCode">[CascadingParameter]</code> like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">CascadingParameter</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> MyParameter { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</code></pre>
+    <p class="normal">To pass a value to the component, we surround it with a <code class="inlineCode">CascadingValue</code> component like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">&lt;CascadingValue Value=<span class="hljs-string">"MyProperty"</span>&gt;
+    &lt;ComponentWithCascadingParameter/&gt;
+&lt;/CascadingValue&gt; 
+@code {
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> MyProperty { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"Test Value"</span>;
+}
+</code></pre>
+    <p class="normal"><code class="inlineCode">CascadingValue</code> is the value we pass to the component, and <code class="inlineCode">CascadingParameter</code> is the property that receives the value.</p>
+    <p class="normal">As we can see, we don’t pass any parameter values to the <code class="inlineCode">ComponentWithCascadingParameter</code> component; the cascading value will match the parameter with the same data type. If we have multiple parameters of the same type, we can specify the name of the parameter in the component with the cascading parameter like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">CascadingParameter(Name = </span><span class="hljs-string">"MyCascadingParameter"</span><span class="hljs-meta">)</span>]
+</code></pre>
+    <p class="normal">We can also do so for the component that passes <code class="inlineCode">CascadingValue</code>, like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">CascadingValue</span><span class="hljs-tag"> </span><span class="hljs-attr">Value</span><span class="hljs-tag">=</span><span class="hljs-string">"MyProperty"</span><span class="hljs-tag"> </span><span class="hljs-attr">Name</span><span class="hljs-tag">=</span><span class="hljs-string">"MyCascadingParameter"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ComponentWithCascadingParameter</span><span class="hljs-tag">/&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">CascadingValue</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">If we know that the value won’t change, we can specify that by using the <code class="inlineCode">IsFixed</code> property:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">CascadingValue</span><span class="hljs-tag"> </span><span class="hljs-attr">Value</span><span class="hljs-tag">=</span><span class="hljs-string">"MyProperty"</span><span class="hljs-tag"> </span><span class="hljs-attr">Name</span><span class="hljs-tag">=</span><span class="hljs-string">"MyCascadingParameter"</span><span class="hljs-tag"> </span><span class="hljs-attr">IsFixed</span><span class="hljs-tag">=</span><span class="hljs-string">"True"</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">ComponentWithCascadingParameter</span><span class="hljs-tag">/&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">CascadingValue</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">This way, Blazor <a id="_idIndexMarker208"></a>won’t look for changes. The cascading values/parameters cannot be updated upward but are updated only downward. This <a id="_idIndexMarker209"></a>means that to update a cascading value, we need to implement it in another way; updating it from inside the component won’t change any components that are higher in the hierarchy.</p>
+    <p class="normal">In <em class="chapterRef">Chapter 5</em>, <em class="italic">Creating Advanced Blazor Components</em>, we will look at events, which are one way to solve the problem of updating a cascading value.</p>
+    <p class="normal">Phew! This has been an information-heavy chapter, but now we know the basics of Blazor components. Now it is time to build one!</p>
+    <h1 id="_idParaDest-100" class="heading-1">Writing our first component</h1>
+    <p class="normal">The first component<a id="_idIndexMarker210"></a> we will build shows all the blog posts on a site. To be fair, we haven’t written any blog posts yet, but we will temporarily solve that so we can start doing something fun.</p>
+    <p class="normal">In <em class="chapterRef">Chapter 3</em>, <em class="italic">Managing State – Part 1</em>, we created a JSON repository and an API (or interface); now, it is time to use them.</p>
+    <p class="normal">Components with or without a page directive can be shared across different projects. By the end of this book, we will have built a blog in both Blazor Server and Blazor WebAssembly that share code.</p>
+    <p class="normal">There is a whole chapter on sharing (<em class="chapterRef">Chapter 9</em>, <em class="italic">Sharing Code and Resources</em>) but let’s start now.</p>
+    <h2 id="_idParaDest-101" class="heading-2">Creating a components library</h2>
+    <p class="normal">The first thing we need to <a id="_idIndexMarker211"></a>do is to create a new project and then add our components to that project.</p>
+    <p class="normal">To create our first component, follow these instructions:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">Right-click on the <strong class="screenText">MyBlog</strong> solution and select <strong class="screenText">Add</strong> | <strong class="screenText">New Project</strong>.</li>
+      <li class="numberedList">Find the template <strong class="screenText">Razor Class Library</strong> and click <strong class="screenText">Next</strong>.</li>
+      <li class="numberedList">Name the project <code class="inlineCode">Components</code> and click <strong class="screenText">Next</strong>.</li>
+      <li class="numberedList">Select <strong class="screenText">.NET 7.0 (</strong><strong class="screenText">Standard Term Support)</strong> and click <strong class="screenText">Create</strong>.</li>
+      <li class="numberedList">We now have a project called <strong class="screenText">Components</strong>, where we can add all the components we want to share. Remove the <code class="inlineCode">Component1.razor</code> and <code class="inlineCode">ExampleJsInterop.cs</code> that are created by default.</li>
+      <li class="numberedList">In the <strong class="screenText">Components</strong> project, add a project reference to <strong class="screenText">Data.Models</strong>.</li>
+      <li class="numberedList">In the <strong class="screenText">BlazorServer</strong> project, in the <code class="inlineCode">Pages</code> folder, delete all <code class="inlineCode">.razor </code>files.</li>
+      <li class="numberedList">In the <strong class="screenText">BlazorServer</strong> project, delete the <code class="inlineCode">Shared</code> folder completely.</li>
+      <li class="numberedList">Now, we will move some of the files from the <strong class="screenText">BlazorWebAssembly.Client</strong> project. These are the files we can share between the projects.
+    <p class="normal">That would be the files in the <code class="inlineCode">Pages</code> folder and <code class="inlineCode">Shared</code> folder. In the <strong class="screenText">BlazorWebAssembly.Client</strong> project, cut the <code class="inlineCode">Pages</code> and <code class="inlineCode">Shared</code> folders, and paste them into the <strong class="screenText">Components</strong> project.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="10">Since <code class="inlineCode">FetchData</code> has a bit of a different implementation, let’s delete that one as well.
+    <p class="normal">In the <code class="inlineCode">Components</code> project, delete <code class="inlineCode">Pages/FetchData.razor</code>.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="11">In the <strong class="screenText">Components</strong> project, open <code class="inlineCode">_Imports.razor</code> and add the following lines:
+        <pre class="programlisting code"><code class="hljs-code">@using System.Net.Http
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop
+@using Components.Pages
+@using Components.Shared
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">We have a new project, moved<a id="_idIndexMarker212"></a> components, and cleaned up the <strong class="keyWord">BlazorServer</strong> and <strong class="keyWord">BlazorWebAssembly</strong> projects.</p>
+    <p class="normal">Next, we will put the components to use.</p>
+    <h2 id="_idParaDest-102" class="heading-2">Using our components library</h2>
+    <p class="normal">We have a nice library, and<a id="_idIndexMarker213"></a> can start using the components right now, but we also want to trigger the routes. We want our site to get the <code class="inlineCode">Index</code> component if we navigate to <code class="inlineCode">"</code><code class="inlineCode">/"</code>.</p>
+    <p class="normal">To do that, we need to follow a couple of steps:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">BlazorServer</strong> project, add a project reference to the <strong class="screenText">Components</strong> project.</li>
+      <li class="numberedList">Open <code class="inlineCode">App.razor</code> and add the following property to the <strong class="screenText">Router</strong> component:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">Router</span><span class="hljs-tag"> </span><span class="hljs-attr">AppAssembly</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(App).Assembly"</span><span class="hljs-tag"> </span><span class="hljs-attr">AdditionalAssemblies</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">new[] { typeof(Components.Pages.Index).Assembly}"</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">We are telling Blazor to look for Razor components inside the assembly where the app component lives.</p>
+    <p class="normal">This means the BlazorServer assembly in this case.</p>
+    <p class="normal">We also want Blazor to look for components in the assembly where the <code class="inlineCode">Index</code> component is located, which is the components assembly.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Open <code class="inlineCode">_Imports.razor</code> and add the following:
+        <pre class="programlisting code"><code class="hljs-code">@using Components.Pages
+@using Components.Shared
+</code></pre>
+      </li>
+      <li class="numberedList">Remove the <code class="inlineCode">@using BlazorServer.Shared</code> since that namespace doesn’t exist now we have moved our files.
+    <p class="normal">Now we need to do the same thing for our WebAssembly project.</p></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">In the <strong class="screenText">BlazorWebAsesembly.Client</strong> project, add a project reference to the <strong class="screenText">Components</strong> project.</li>
+      <li class="numberedList">Open <code class="inlineCode">A</code><code class="inlineCode">pp.razor</code> and add the following property to the <strong class="screenText">Router</strong> component.
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">Router</span><span class="hljs-tag"> </span><span class="hljs-attr">AppAssembly</span><span class="hljs-tag">=</span><span class="hljs-string">"@typeof(App).Assembly"</span><span class="hljs-tag"> </span><span class="hljs-attr">AdditionalAssemblies</span><span class="hljs-tag">=</span><span class="hljs-string">"new[] { typeof(Components.Pages.Index).Assembly}"</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">Just as with Blazor Server, we are telling Blazor that it should look for Razor components inside the assembly where the app component lives.</p>
+    <p class="normal">This means <a id="_idIndexMarker214"></a>the <strong class="screenText">BlazorWebAssembly.Client</strong> assembly in this case.</p>
+    <p class="normal">We also want Blazor to look for components in the assembly where the <code class="inlineCode">Index</code> component is located, which is the components assembly.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="7">Open <code class="inlineCode">_Imports.razor</code> and add the following:
+        <pre class="programlisting code"><code class="hljs-code">@using Components.Pages
+@using Components.Shared
+</code></pre>
+      </li>
+      <li class="numberedList">Remove<a id="_idIndexMarker215"></a> the <code class="inlineCode">@using BlazorWebAssembly.Client.Shared</code> since that namespace doesn’t exist after we moved our files.</li>
+    </ol>
+    <p class="normal">Great! we have all our components in a separate library and are sharing the components between the <strong class="screenText">BlazorServer</strong> and the <strong class="screenText">BlazorWebAssembly</strong> projects.</p>
+    <h2 id="_idParaDest-103" class="heading-2">Creating our own component</h2>
+    <p class="normal">Now it’s time to start <a id="_idIndexMarker216"></a>adding our own component!</p>
+    <p class="normal">OK, this is not completely true because we will reuse <code class="inlineCode">Index.razor</code>. Let’s start by creating a component that lists our blog posts:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, open <strong class="screenText">Pages/Index.razor</strong>.</li>
+      <li class="numberedList">Replace the contents of that file with the following code:
+        <pre class="programlisting code"><code class="hljs-code">@page <span class="hljs-string">"/"</span>
+@using Data.Models.Interfaces
+@using Data.Models
+@inject IBlogApi _api
+@code{
+}
+</code></pre>
+    <p class="normal">If we start from the top, we can see a page directive. It will ensure that the component is shown when the route is “<strong class="keyWord">/</strong>”. Then, we have three <code class="inlineCode">@using</code> directives, bringing in the namespaces so we can use them in the Razor file. </p>
+    <p class="normal">Then we inject our API (using DI) and name the instance <code class="inlineCode">_api</code>. </p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Add a variable that holds all our posts. In the <code class="inlineCode">code</code> section, add the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">protected</span> List&lt;BlogPost&gt; posts = <span class="hljs-keyword">new</span> List&lt;BlogPost&gt;();
+</code></pre>
+      </li>
+      <li class="numberedList">Now we <a id="_idIndexMarker217"></a>need to load the data.
+    <p class="normal">To load posts, add the following in the <code class="inlineCode">code</code> section:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+{
+    posts = <span class="hljs-keyword">await</span> _api.GetBlogPostsAsync(<span class="hljs-number">10</span>, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">await</span> <span class="hljs-keyword">base</span>.OnInitializedAsync();
+}
+</code></pre></li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Now, when the page loads, the posts will be loaded as well: <code class="inlineCode">10</code> posts and page <code class="inlineCode">0</code> (the first page).</li>
+      <li class="numberedList">Under the <code class="inlineCode">@inject</code> row, add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+    @foreach (var p in posts)
+    {
+        <span class="hljs-tag">&lt;</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>@p.Title<span class="hljs-tag">&lt;/</span><span class="hljs-name">li</span><span class="hljs-tag">&gt;</span>
+    }
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">ul</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">We add an <strong class="keyWord">Unordered List</strong> (<strong class="keyWord">UL</strong>); inside that, we loop over <strong class="keyWord">blog posts</strong> and show the title.</p>
+    <p class="normal">Now we can run the application by pressing <em class="keystroke">Ctrl</em> + <em class="keystroke">F5</em> (<strong class="screenText">Debug</strong> | <strong class="screenText">Start Without Debugging</strong>). Make sure you have the <strong class="keyWord">BlazorServer</strong> selected as the startup project.</p>
+    <p class="normal">Since we don’t have any blog posts, this would take us to an empty page. Luckily there is a folder in the repo called <strong class="screenText">Example data</strong>.; if you download that, put those files in the <strong class="screenText">Data</strong> folder, and reload the web, you should see a couple of posts.</p>
+    <p class="normal">Great job, we have created our first component!</p>
+    <p class="normal">There are a few <a id="_idIndexMarker218"></a>noteworthy things; the <strong class="screenText">Components</strong> project knows nothing about the JSON repository implementation and only knows about the <strong class="keyWord">IBlogApi</strong> interface.</p>
+    <p class="normal">The <strong class="keyWord">Index</strong> component<a id="_idIndexMarker219"></a> asks for an instance <a id="_idIndexMarker220"></a>of <strong class="keyWord">IBlogApi,</strong> and the <strong class="keyWord">BlazorServer</strong> project knows it should return an instance of <strong class="keyWord">BlogApiJsonDirectAccess</strong>. This is <a id="_idIndexMarker221"></a>one of the things I love about Blazor; we can create components that only consume an interface and know nothing about the implementation.</p>
+    <p class="normal">We will come back to this when we implement a web API for WebAssembly in <em class="chapterRef">Chapter 7</em>, <em class="italic">Creating an API</em>.</p>
+    <h1 id="_idParaDest-104" class="heading-1">Summary</h1>
+    <p class="normal">In this chapter, we learned a lot about Razor syntax – something we will use throughout the book. We learned about DI, directives, and parameters and, of course, created our first component. This knowledge will help us understand how to create and reuse components.</p>
+    <p class="normal">In the next chapter, we will look at more advanced component scenarios.</p>
+  </div>
+  <div id="_idContainer048" class="Basic-Text-Frame">
+    <h1 class="heading-1">Join our community on Discord&#160;</h1>
+    <p class="normal">Join our community’s Discord space for discussions with the author and other readers:&#160;</p>
+    <p class="normal"><a href="https://packt.link/WebDevBlazor2e"><span class="url">https://packt.link/WebDevBlazor2e</span></a></p>
+    <p class="normal"><span class="url"><img src="../Images/QR_Code748085881713038109.png" alt=""/></span></p>
+  </div>
+</body>
+</html>

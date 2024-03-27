@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+  <title>Chapter_10</title>
+  <link href="../Styles/syntax-highlighting.css" rel="stylesheet" type="text/css"/>
+  <link href="../Styles/epub.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body id="Chapter_10" lang="en-US" xml:lang="en-US">
+  <div id="_idContainer066" class="Basic-Text-Frame">
+    <h1 class="chapterNumber">10</h1>
+    <h1 id="_idParaDest-185" class="chapterTitle">JavaScript Interop</h1>
+    <p class="normal">In this chapter, we will take a look at JavaScript. In specific scenarios, we still need to use JavaScript, or we will want to use an existing library that relies on JavaScript. Blazor uses JavaScript to update the <strong class="keyWord">Document Object Model</strong> (<strong class="keyWord">DOM</strong>), download files, and access local storage on the client.</p>
+    <p class="normal">So, there are, and always will be, cases when we need to communicate with JavaScript or have JavaScript communicate with us. Don’t worry. The Blazor community is an amazing one, so chances are someone has already built the interop we need.</p>
+    <p class="normal">In this chapter, we will cover the following topics:</p>
+    <ul>
+      <li class="bulletList">Why do we need JavaScript?</li>
+      <li class="bulletList">.NET to JavaScript</li>
+      <li class="bulletList">JavaScript to .NET</li>
+      <li class="bulletList">Implementing an existing JavaScript library</li>
+      <li class="bulletList">JavaScript interop in WebAssembly</li>
+    </ul>
+    <h1 id="_idParaDest-186" class="heading-1">Technical requirements</h1>
+    <p class="normal">Ensure you have followed the previous chapters or use the <code class="inlineCode">Chapter09</code> folder as a starting point.</p>
+    <p class="normal">You can find the source code for this chapter’s result at <a href="https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter10"><span class="url">https://github.com/PacktPublishing/Web-Development-with-Blazor-Second-Edition/tree/main/Chapter10</span></a>.</p>
+    <div class="note">
+      <p class="normal">If you are jumping into this chapter using the code from GitHub, make sure you have added Auth0 account information in the settings files. You can find the instructions in <em class="chapterRef">Chapter 8</em>, <em class="italic">Authentication and Authorization</em>.</p>
+    </div>
+    <h1 id="_idParaDest-187" class="heading-1">Why do we need JavaScript?</h1>
+    <p class="normal">Many say <a id="_idIndexMarker426"></a>Blazor is the JavaScript killer, but the truth is that Blazor needs JavaScript to work. Some events only get triggered in JavaScript, and if we want to use those events, we need to make an interop.</p>
+    <p class="normal">I jokingly say that I have never written so much JavaScript as when I started developing with Blazor. Calm down… it’s not that bad.</p>
+    <p class="normal">I have written a<a id="_idIndexMarker427"></a> couple of libraries that require JavaScript to work. They are <a id="_idIndexMarker428"></a>called <strong class="keyWord">Blazm.Components</strong> and <strong class="keyWord">Blazm.Bluetooth</strong>.</p>
+    <p class="normal">The first one is a grid component that uses JavaScript interop to trigger C# code (JavaScript to .NET) when the window is resized, to remove columns if they can’t fit inside the window.</p>
+    <p class="normal">When that is triggered, the C# code calls JavaScript to get the size of the columns based on the client width, which only the web browser knows, and based on that answer, it removes columns if needed.</p>
+    <p class="normal">The second one, <strong class="keyWord">Blazm.Bluetooth</strong>, makes it possible to interact with <a id="_idIndexMarker429"></a>Bluetooth devices using Web Bluetooth, which is a web standard accessible through, you guessed it, JavaScript.</p>
+    <p class="normal">It uses two-way communication; Bluetooth events can trigger C# code, and C# code can iterate over devices and send data to them. They are both open source, so if you are interested in looking at a real-world project, you can check them out on my GitHub: <a href="https://github.com/EngstromJimmy"><span class="url">https://github.com/EngstromJimmy</span></a>.</p>
+    <p class="normal">In most cases, I would argue that we won’t need to write JavaScript ourselves. The Blazor community is very big, so chances are that someone has already written what we need. But we don’t need to be afraid of using JavaScript, either. Next, we will look at different ways to add JavaScript calls to our Blazor project.</p>
+    <h1 id="_idParaDest-188" class="heading-1">.NET to JavaScript</h1>
+    <p class="normal">Calling <a id="_idIndexMarker430"></a>JavaScript from .NET is pretty simple. There are two ways of doing that:</p>
+    <ul>
+      <li class="bulletList">Global JavaScript</li>
+      <li class="bulletList">JavaScript Isolation</li>
+    </ul>
+    <p class="normal">We will go through both ways to see what the difference is.</p>
+    <h2 id="_idParaDest-189" class="heading-2">Global JavaScript (the old way)</h2>
+    <p class="normal">To access the JavaScript method, we need to make it accessible. One way is to define it globally through the JavaScript window object. This is a bad practice since it is accessible by all scripts and could <a id="_idIndexMarker431"></a>replace the functionality in other scripts (if we accidentally use the same names).</p>
+    <p class="normal">What we can do is, for example, use scopes, create an object in the global space, and put our variables and methods on that object so that we lower the risk a bit at least.</p>
+    <p class="normal">Using a scope could look something like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">window.myscope = {};
+window.myscope.methodName = () =&gt; { ... }
+</code></pre>
+    <p class="normal">We create an object with the name <code class="inlineCode">myscope</code>. Then we declare a method on that object called <code class="inlineCode">methodName</code>. In this example, there is no code in the method; this only demonstrates how it could be done.</p>
+    <p class="normal">Then, to call the method from C#, we would call it using <code class="inlineCode">JSRuntime</code> like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@inject IJSRuntime jsRuntime
+<span class="hljs-keyword">await</span> jsRuntime.InvokeVoidAsync(<span class="hljs-string">"myscope.methodName"</span>);
+</code></pre>
+    <p class="normal">There are two different methods we can use to call JavaScript:</p>
+    <ul>
+      <li class="bulletList"><code class="inlineCode">InvokeVoidAsync</code>, which calls JavaScript, but doesn’t expect a return value</li>
+      <li class="bulletList"><code class="inlineCode">InvokeAsync&lt;T&gt;</code>, which calls JavaScript and expects a return value of type <code class="inlineCode">T</code></li>
+    </ul>
+    <p class="normal">We can also send in parameters to our JavaScript method if we want. We also need to refer to JavaScript, and<a id="_idIndexMarker432"></a> JavaScript must be stored in the <code class="inlineCode">wwwroot</code> folder.</p>
+    <p class="normal">The other way is <strong class="keyWord">JavaScript Isolation</strong>, which uses the methods described here, but with modules.</p>
+    <h2 id="_idParaDest-190" class="heading-2">JavaScript Isolation</h2>
+    <p class="normal">In .NET 5, we got a new way to add <a id="_idIndexMarker433"></a>JavaScript using JavaScript Isolation, which is a much nicer way to call JavaScript. It doesn’t use global methods, and it doesn’t require us to refer to the JavaScript file.</p>
+    <p class="normal">This is awesome for component vendors and end users because JavaScript will be loaded when needed. It will only be loaded once (Blazor handles that for us), and we don’t need to add a reference to the JavaScript file, which makes it easier to start and use a library.</p>
+    <p class="normal">So, let’s implement that instead.</p>
+    <p class="normal">Isolated JavaScript can be stored in the <code class="inlineCode">wwwroot</code> folder, but since an update in .NET 6, we can add them in the same way we add isolated CSS. Add them to your component’s folder and name it <code class="inlineCode">js</code> at the end (<code class="inlineCode">mycomponent.razor.js</code>).</p>
+    <p class="normal">Let’s do just that!</p>
+    <p class="normal">In our project, we can delete categories and components. Let’s implement a simple JavaScript call to reveal a prompt to make sure that the user wants to delete the category or tag:</p>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="1">In the <strong class="screenText">Components</strong> project, select the <code class="inlineCode">RazorComponents/ItemList.razor</code> file, create a new JavaScript file, and name the file <code class="inlineCode">ItemList.razor.js</code>.</li>
+      <li class="numberedList">Open the new file and add the following code:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title">showConfirm</span>(<span class="hljs-params">message</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title">confirm</span>(message);
+}
+</code></pre>
+    <p class="normal">JavaScript Isolation uses the standard ES modules and can be loaded on demand. The methods it exposes are only accessible through that object and not globally, as with the <em class="italic">old</em> way.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="3">Open <code class="inlineCode">ItemList.razor</code> and inject <code class="inlineCode">IJSRuntime</code> at the top of the file:
+        <pre class="programlisting code"><code class="hljs-code">@inject IJSRuntime jsRuntime
+</code></pre>
+      </li>
+      <li class="numberedList">In <a id="_idIndexMarker434"></a>the <code class="inlineCode">code</code> section, let’s add a method that will call JavaScript:
+        <pre class="programlisting code"><code class="hljs-code">IJSObjectReference jsmodule;
+<span class="hljs-keyword">private</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task&lt;</span><span class="hljs-built_in">bool</span><span class="hljs-function">&gt; </span><span class="hljs-title">ShouldDelete</span><span class="hljs-function">()</span>
+{
+    jsmodule = <span class="hljs-keyword">await</span> jsRuntime.InvokeAsync&lt;IJSObjectReference&gt;(<span class="hljs-string">"import"</span>, <span class="hljs-string">"/_content/Components/RazorComponents/ItemList.razor.js"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> jsmodule.InvokeAsync&lt;<span class="hljs-built_in">bool</span>&gt; (<span class="hljs-string">"showConfirm"</span>, <span class="hljs-string">"Are you sure?"</span>);
+}
+</code></pre>
+    <p class="normal"><code class="inlineCode">IJSObjectReference</code> is a reference to the specific script that we will import further down. It has access to the exported methods in our JavaScript, and nothing else.</p>
+    <p class="normal">We run the <code class="inlineCode">Import</code> command and send the filename as a parameter. This will run the JavaScript command <code class="inlineCode">let mymodule = import("/_content/Components/RazorComponents/ItemList.razor.js")</code> and return the module.</p>
+    <p class="normal">Now we can use that module to access our <code class="inlineCode">showConfirm</code> method and send in the argument <code class="inlineCode">"Are you sure?"</code>.</p>
+      </li>
+    </ol>
+    <ol class="numberedList" style="list-style-type: decimal;">
+      <li class="numberedList" value="5">Change the <code class="inlineCode">Delete</code> button we have in the component to the following:
+        <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-danger"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"@(async ()=&gt;{ if (await ShouldDelete()) { await DeleteEvent.InvokeAsync(item); } })"</span><span class="hljs-tag">&gt;</span>Delete<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">td</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+      </li>
+    </ol>
+    <p class="normal">Instead of just calling our <code class="inlineCode">Delete</code> event callback, we first call our new method. Let JavaScript confirm that you really want to delete it, and if so, then<a id="_idIndexMarker435"></a> run the <code class="inlineCode">Delete</code> event callback.</p>
+    <p class="normal">This is a simple implementation of JavaScript.</p>
+    <h1 id="_idParaDest-191" class="heading-1">JavaScript to .NET</h1>
+    <p class="normal">What about<a id="_idIndexMarker436"></a> the other way around? I would argue that calling .NET code from JavaScript isn’t a very common scenario, and if we find ourselves in that scenario, we might want to think about what we are doing.</p>
+    <p class="normal">As Blazor developers, we should avoid using JavaScript as much as possible. </p>
+    <p class="normal">I am not bashing JavaScript in any way, but I see this often happen where developers use what they used before and kind of shoehorn it into their Blazor project.</p>
+    <p class="normal">They are solving things with JavaScript that are easy to do with an <code class="inlineCode">if</code> statement in Blazor. So that’s why I think it’s essential to think about when to use JavaScript and when not to use JavaScript.</p>
+    <p class="normal">There are, of course, times when JavaScript is the only option, and as I mentioned earlier, Blazm uses communication both ways.</p>
+    <p class="normal">There are three ways of doing a callback from JavaScript to .NET code:</p>
+    <ul>
+      <li class="bulletList">A static .NET method call</li>
+      <li class="bulletList">An instance method call</li>
+      <li class="bulletList">A component instance method call</li>
+    </ul>
+    <p class="normal">Let’s take a closer look at them.</p>
+    <h2 id="_idParaDest-192" class="heading-2">Static .NET method call</h2>
+    <p class="normal">To call a .NET function <a id="_idIndexMarker437"></a>from JavaScript, we can make the function static, and we also need to add the <code class="inlineCode">JSInvokable</code> attribute to the method.</p>
+    <p class="normal">We can add a function such as this in the <code class="inlineCode">code</code> section of a Razor component, or inside a class:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">JSInvokable</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Task&lt;<span class="hljs-built_in">int</span>[]&gt; ReturnArrayAsync()
+{
+   <span class="hljs-keyword">return</span> Task.FromResult(<span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>[] { <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> });
+}
+</code></pre>
+    <p class="normal">In the JavaScript file, we can call that function using the following code:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-title">DotNet</span>.<span class="hljs-title">invokeMethodAsync</span>(<span class="hljs-string">'BlazorWebAssemblySample'</span>, <span class="hljs-string">'ReturnArrayAsync'</span>)
+      .<span class="hljs-title">then</span>(<span class="hljs-params">data</span><span class="hljs-function"> =&gt;</span> {
+        data.<span class="hljs-title">push</span>(<span class="hljs-number">4</span>);
+          <span class="hljs-variable">console</span>.<span class="hljs-title">log</span>(data);
+      });
+</code></pre>
+    <p class="normal">The <code class="inlineCode">DotNet</code> object comes from the <code class="inlineCode">Blazor.js</code> or <code class="inlineCode">blazor.server.js</code> file.</p>
+    <p class="normal"><code class="inlineCode">BlazorWebAssemblySample</code> is the name of the assembly, and <code class="inlineCode">ReturnArrayAsync</code> is the name of the static .NET function.</p>
+    <p class="normal">It is also possible to specify the name of the function in the <code class="inlineCode">JSInvokeable</code> attribute if we don’t want it to be the same as the method name like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">[<span class="hljs-meta">JSInvokable(</span><span class="hljs-string">"DifferentMethodName"</span><span class="hljs-meta">)</span>]
+</code></pre>
+    <p class="normal">In this sample, JavaScript calls back to .NET code, which returns an <code class="inlineCode">int</code> array.</p>
+    <p class="normal">It is returned<a id="_idIndexMarker438"></a> as a promise in the JavaScript file that we are waiting for, and then (using the <code class="inlineCode">then</code> operator) we continue with the execution, adding a <code class="inlineCode">4</code> to the array and then outputting the values in the console.</p>
+    <h2 id="_idParaDest-193" class="heading-2">Instance method call</h2>
+    <p class="normal">This method<a id="_idIndexMarker439"></a> is a bit tricky; we need to pass an instance of the .NET object to call it (this is the method that <code class="inlineCode">Blazm.Bluetooth</code> is using).</p>
+    <p class="normal">First, we need a class that will handle the method call:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> Microsoft.JSInterop;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">HelloHelper</span>
+{
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-title">HelloHelper</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> name</span><span class="hljs-function">)</span>
+    {
+        Name = name;
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Name { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    [<span class="hljs-meta">JSInvokable</span>]
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-built_in">string</span><span class="hljs-function"> </span><span class="hljs-title">SayHello</span><span class="hljs-function">()</span> =&gt; <span class="hljs-string">$"Hello, </span><span class="hljs-subst">{Name}</span><span class="hljs-string">!"</span>;
+}
+</code></pre>
+    <p class="normal">This class takes a string (a name) in the constructor and a method called <code class="inlineCode">SayHello</code> that returns a string containing <code class="inlineCode">"Hello,"</code>, and the name we supplied when we created the instance.</p>
+    <p class="normal">So, we need to create an instance of that class, supply a name, and create <code class="inlineCode">DotNetObjectReference&lt;T&gt;</code>, which will give JavaScript access to the instance.</p>
+    <p class="normal">But first, we need JavaScript that can call the .NET function:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span> (hellohelperref) {
+    <span class="hljs-keyword">return</span> hellohelperref.<span class="hljs-title">invokeMethodAsync</span>(<span class="hljs-string">'SayHello'</span>).<span class="hljs-title">then</span>(<span class="hljs-params">r</span><span class="hljs-function"> =&gt;</span> <span class="hljs-variable">console</span>.<span class="hljs-title">log</span>(r));
+}
+</code></pre>
+    <p class="normal">In this case, we are using the export syntax, and we export a function called <code class="inlineCode">sayHello</code>, which takes an instance of <code class="inlineCode">DotNetObjectReference</code> called <code class="inlineCode">dotnetHelper</code>.</p>
+    <p class="normal">In that instance, we invoke the <code class="inlineCode">SayHello</code> method, which is the <code class="inlineCode">SayHello</code> method on the .NET object. In this case, it will reference an instance of the <code class="inlineCode">HelloHelper</code> class.</p>
+    <p class="normal">We also<a id="_idIndexMarker440"></a> need to call the JavaScript method, and we can do that from a class or, in this case, from a component:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/interop"
+@inject IJSRuntime jsRuntime
+@implements IDisposable
+<span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> </span><span class="hljs-attr">type</span><span class="hljs-tag">=</span><span class="hljs-string">"button"</span><span class="hljs-tag"> </span><span class="hljs-attr">class</span><span class="hljs-tag">=</span><span class="hljs-string">"btn btn-primary"</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"</span><span class="hljs-string">async ()=&gt; { await TriggerNetInstanceMethod(); }"</span><span class="hljs-tag">&gt;</span>    Trigger .NET instance method HelloHelper.SayHello <span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+@code {
+    <span class="hljs-keyword">private</span> DotNetObjectReference&lt;HelloHelper&gt; objRef;
+    
+    IJSObjectReference jsmodule;
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> ValueTask&lt;</span><span class="hljs-built_in">string</span><span class="hljs-function">&gt;</span>
+<span class="hljs-function">      </span><span class="hljs-title">TriggerNetInstanceMethod</span><span class="hljs-function">()</span>
+    {
+        objRef = DotNetObjectReference.Create(<span class="hljs-keyword">new</span> HelloHelper(<span class="hljs-string">"</span><span class="hljs-string">Bruce Wayne"</span>));
+        jsmodule = <span class="hljs-keyword">await</span> jsRuntime. InvokeAsync&lt;IJSObjectReference&gt;(<span class="hljs-string">"import"</span>, <span class="hljs-string">"/_content/MyBlog.Shared/Interop.razor.js"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> jsmodule.InvokeAsync&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"sayHello"</span>, objRef);
+    }
+    <span class="hljs-keyword">public</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">Dispose</span><span class="hljs-function">()</span>
+    {
+        objRef?.Dispose();
+    }
+}
+</code></pre>
+    <p class="normal">Let’s go<a id="_idIndexMarker441"></a> through the class. We inject <code class="inlineCode">IJSRuntime</code> because we need one to call the JavaScript function. To avoid any memory leaks, we also have to make sure to implement <code class="inlineCode">IDiposable</code>, and toward the bottom of the file, we make sure to dispose of the <code class="inlineCode">DotNetObjectReference</code> instance.</p>
+    <p class="normal">We create a private variable of the <code class="inlineCode">DotNetObjectReference&lt;HelloHelper&gt;</code> type, which is going to contain our reference to our <code class="inlineCode">HelloHelper</code> instance. We create <code class="inlineCode">IJSObjectReference</code> so that we can load our JavaScript function.</p>
+    <p class="normal">Then we create an instance of <code class="inlineCode">DotNetObjectReference.Create(new HelloHelper("Bruce Wayne"))</code> of our reference to a new instance of the <code class="inlineCode">HelloHelper</code> class, which we supply with the name <code class="inlineCode">"</code><code class="inlineCode">Bruce Wayne"</code>.</p>
+    <p class="normal">Now we have <code class="inlineCode">objRef</code>, which we will send to the JavaScript method, but first, we load the JavaScript module, and then we call <code class="inlineCode">JavaScriptMethod</code> and pass in the reference to our <code class="inlineCode">HelloHelper</code> instance. Now, the JavaScript <code class="inlineCode">sayHello</code> method will run <code class="inlineCode">hellohelperref.invokeMethodAsync('SayHello')</code>, which will make a call to <code class="inlineCode">SayHelloHelper</code> and get back a string with <code class="inlineCode">"Hello, Bruce Wayne"</code>.</p>
+    <p class="normal">There are two more ways that we can use to call .NET functions from JavaScript. We can call a method on a component instance where we can trigger an action, and it is not a recommended approach for Blazor Server. We can also call a method on a component instance by <a id="_idIndexMarker442"></a>using a <code class="inlineCode">helper</code> class.</p>
+    <p class="normal">Since calling .NET from JavaScript is rare, we won’t go into the two examples. Instead, we’ll dive into things to think about when implementing an existing JavaScript library.</p>
+    <h1 id="_idParaDest-194" class="heading-1">Implementing an existing JavaScript library</h1>
+    <p class="normal">The best approach, in my <a id="_idIndexMarker443"></a>opinion, is to avoid porting JavaScript libraries. Blazor needs to keep the DOM and the render tree in sync, and having JavaScript manipulate the DOM can jeopardize that.</p>
+    <p class="normal">Most component vendors, such as Telerik, Synfusion, Radzen, and, of course, Blazm, have native components. They don’t just wrap a JavaScript but are explicitly written for Blazor in C#. Even though the components use JavaScript in some capacity, the goal is to keep that to a minimum.</p>
+    <p class="normal">So, if you are a library maintainer, my recommendation would be to write a native Blazor version of the library, keep JavaScript to a minimum, and, most importantly, not force Blazor developers to write JavaScript to use your components.</p>
+    <p class="normal">Some components will be unable to use JavaScript implementations since they need to manipulate the DOM.</p>
+    <p class="normal">Blazor is pretty smart when syncing the DOM and render tree, but try to avoid manipulating the DOM. If we need to use JavaScript for something, make sure to put a tag outside the manipulation area, and Blazor will then keep track of that tag and not think about what is inside the tag.</p>
+    <p class="normal">Since we started with Blazor at my workplace very early, many vendors had not yet completed their Blazor components. We needed a graph component fast. On our previous website (before Blazor), we used a component called <strong class="keyWord">Highcharts</strong>.</p>
+    <p class="normal">Highcharts is not a free<a id="_idIndexMarker444"></a> component but is free to use for non-commercial <a id="_idIndexMarker445"></a>projects. When building our wrapper, we had a couple of things we wanted to ensure. We wanted the component to work in a similar way to the existing one, and we wanted it to be as simple to use as possible.</p>
+    <p class="normal">Let’s walk through what we did.</p>
+    <p class="normal">First, we added a reference to the <code class="inlineCode">Highcharts</code> JavaScript:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">script</span><span class="hljs-tag"> </span><span class="hljs-attr">src</span><span class="hljs-tag">=</span><span class="hljs-string">"https://code.highcharts.com/highcharts.js"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">script</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <p class="normal">And then we added a JavaScript file as follows:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title">loadHighchart</span>(<span class="hljs-params">id, json</span>) {
+<span class="hljs-keyword">var</span> obj = <span class="hljs-title">looseJsonParse</span>(json);
+    <span class="hljs-title">Highcharts</span>.<span class="hljs-title">chart</span>(id, obj);
+};
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title">looseJsonParse</span>(<span class="hljs-params">obj</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title">Function</span>(<span class="hljs-string">'"use strict";return ('</span> + obj + <span class="hljs-string">')'</span>)();
+}
+</code></pre>
+    <p class="normal">The <code class="inlineCode">loadHighchart</code> method takes <code class="inlineCode">id</code> of the <code class="inlineCode">div</code> tag, which should be converted to a chart and the JSON for configuration.</p>
+    <p class="normal">There is also a method that converts the JSON to a JSON object so that it can be passed into the <code class="inlineCode">chart</code> method.</p>
+    <p class="normal">The <code class="inlineCode">Highchart</code> Razor <a id="_idIndexMarker446"></a>component <a id="_idIndexMarker447"></a>looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@inject Microsoft.JSInterop.IJSRuntime jsruntime
+<span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+    <span class="hljs-tag">&lt;</span><span class="hljs-name">div</span><span class="hljs-tag"> </span><span class="hljs-attr">id</span><span class="hljs-tag">=</span><span class="hljs-string">"@id.ToString()"</span><span class="hljs-tag">&gt;&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">div</span><span class="hljs-tag">&gt;</span>
+@code
+{
+    [<span class="hljs-meta">Parameter</span>] <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> Json { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">string</span> id { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"Highchart"</span> + Guid.NewGuid().ToString();
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">OnParametersSet</span><span class="hljs-function">()</span>
+    {
+        StateHasChanged();
+        <span class="hljs-keyword">base</span>.OnParametersSet();
+    }
+    IJSObjectReference jsmodule;
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> Task </span><span class="hljs-title">OnAfterRenderAsync</span><span class="hljs-function">(</span><span class="hljs-built_in">bool</span><span class="hljs-params"> firstRender</span><span class="hljs-function">)</span>
+    {
+        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">string</span>.IsNullOrEmpty(Json))
+        {
+            jsmodule = <span class="hljs-keyword">await</span> jsruntime.InvokeAsync&lt;IJSObjectReference&gt;(<span class="hljs-string">"import"</span>, <span class="hljs-string">"/_content/Components/RazorComponents/HighChart.razor.js"</span>);
+            <span class="hljs-keyword">await</span> jsmodule.InvokeAsync&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"loadHighchart"</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">object</span>[] { id, Json });
+        }
+        <span class="hljs-keyword">await</span> <span class="hljs-keyword">base</span>.OnAfterRenderAsync(firstRender);
+    }
+}
+</code></pre>
+    <p class="normal">The important thing to notice here is that we have two nested <code class="inlineCode">div</code> tags: one on the outside that we want Blazor to track and one on the inside that Highchart will add things to.</p>
+    <p class="normal">We pass a JSON parameter in the JSON for the configuration and then call our JavaScript function. We run our JavaScript interop in the <code class="inlineCode">OnAfterRenderAsync</code> method because otherwise, it would throw an exception, as you may recall from <em class="chapterRef">Chapter 4</em>, <em class="italic">Understanding Basic Blazor Components</em>.</p>
+    <p class="normal">Now, the only <a id="_idIndexMarker448"></a>thing left to do is to use the component, and that looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/HighChartTest"
+<span class="hljs-tag">&lt;</span><span class="hljs-name">HighChart</span><span class="hljs-tag"> </span><span class="hljs-attr">Json</span><span class="hljs-tag">=</span><span class="hljs-string">"@chartjson"</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">HighChart</span><span class="hljs-tag">&gt;</span>
+@code {
+    <span class="hljs-built_in">string</span> chartjson = <span class="hljs-string">@" {</span>
+<span class="hljs-string">    chart: { type: 'pie'},</span>
+<span class="hljs-string">    series: [{</span>
+<span class="hljs-string">        data: [{</span>
+<span class="hljs-string">            name: 'Does not look like Pacman',</span>
+<span class="hljs-string">            color:'black',</span>
+<span class="hljs-string">            y: 20,</span>
+<span class="hljs-string">        }, {</span>
+<span class="hljs-string">            name: 'Looks like Pacman',</span>
+<span class="hljs-string">            color:'yellow',</span>
+<span class="hljs-string">            y: 80</span>
+<span class="hljs-string">        }]</span>
+<span class="hljs-string">    }]</span>
+<span class="hljs-string">}"</span>;
+}
+</code></pre>
+    <p class="normal">This test code will show a pie chart that looks like <em class="italic">Figure 10.1</em>:</p>
+    <figure class="mediaobject"><img src="../Images/B18549_10_01.png" alt="Figure 10.1 – Chart example"/></figure>
+    <p class="packt_figref">Figure 10.1: Chart example</p>
+    <p class="normal">We have now gone through how we got a JavaScript library to work with Blazor, so this is an option if there is something we need.</p>
+    <p class="normal">As mentioned, the component vendors are investing in Blazor, so chances are that they have what we need, so we might not need to invest time in creating our own component library.</p>
+    <h1 id="_idParaDest-195" class="heading-1">JavaScript interop in WebAssembly</h1>
+    <p class="normal">All the things <a id="_idIndexMarker449"></a>mentioned so far in this chapter will work great for Blazor Server and Blazor WebAssembly.</p>
+    <p class="normal">But with Blazor WebAssembly we have direct access to the <code class="inlineCode">JSRuntime</code> (since all the code is running inside the browser. Direct access will give us a really big performance boost. For most applications, we are doing one or two JavaScript calls. Performance is not really going to be a problem. Some applications are more JavaScript-heavy though and would benefit from using the JSRuntime directly.</p>
+    <p class="normal">We have had direct access to the JSRuntime using the <code class="inlineCode">IJSInProcessRuntime</code> and <code class="inlineCode">IJSUnmarshalledRuntime</code>. But with .NET 7, both are now obsolete, and we have gotten a nicer syntax.</p>
+    <p class="normal">In the GitHub repo, I have added a couple of files to the <strong class="screenText">BlazorWebAssembly.Client</strong> project if you want to try the code.</p>
+    <p class="normal">We will start by looking at calling JavaScript from .NET.</p>
+    <p class="normal">To be able to use these features, we need to enable them in the project file by enabling <code class="inlineCode">AllowUnsafeBlocks</code>.</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-tag">&lt;</span><span class="hljs-name">PropertyGroup</span><span class="hljs-tag">&gt;</span>
+  <span class="hljs-tag">&lt;</span><span class="hljs-name">AllowUnsafeBlocks</span><span class="hljs-tag">&gt;</span>true<span class="hljs-tag">&lt;/</span><span class="hljs-name">AllowUnsafeBlocks</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;/</span><span class="hljs-name">PropertyGroup</span><span class="hljs-tag">&gt;</span>
+</code></pre>
+    <h2 id="_idParaDest-196" class="heading-2">.NET to JavaScript</h2>
+    <p class="normal">To show the difference, the sample <a id="_idIndexMarker450"></a>below is the same <code class="inlineCode">ShowAlert</code> function as earlier in the chapter.</p>
+    <p class="normal">The Razor <a id="_idIndexMarker451"></a>file looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/nettojswasm"
+@using System.Runtime.InteropServices.JavaScript
+<span class="hljs-tag">&lt;</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>This is a demo how to call JavaScript from .NET<span class="hljs-tag">&lt;/</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"ShowAlert"</span><span class="hljs-tag">&gt;</span>Show Alert<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+@code {
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">ShowAlert</span><span class="hljs-function">()</span>
+    {
+        ShowAlert(<span class="hljs-string">"Hello from .NET"</span>);
+    }
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">await</span> JSHost.ImportAsync(<span class="hljs-string">"nettojs"</span>, <span class="hljs-string">"../JSInteropSamples/NetToJS.razor.js"</span>);
+    }
+}
+</code></pre>
+    <p class="normal">We are using <code class="inlineCode">JSHost</code> to import the JavaScript and give it the name <code class="inlineCode">"nettojs"</code>. A Source Generator generates the implementation for calling the JavaScript, and to be sure that it can pick up what it should do, we need to add some code in a code-behind.</p>
+    <p class="normal">The code-behind it looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> System.Runtime.InteropServices.JavaScript;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorWebAssembly.Client.JSInteropSamples</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> <span class="hljs-title">NetToJS</span>
+{
+    [<span class="hljs-meta">JSImport(</span><span class="hljs-string">"</span><span class="hljs-string">showAlert"</span><span class="hljs-meta">, </span><span class="hljs-string">"nettojs"</span><span class="hljs-meta">)</span>]
+    <span class="hljs-keyword">internal</span><span class="hljs-function"> </span><span class="hljs-keyword">static</span><span class="hljs-function"> </span><span class="hljs-keyword">partial</span><span class="hljs-function"> </span><span class="hljs-built_in">string</span><span class="hljs-function"> </span><span class="hljs-title">ShowAlert</span><span class="hljs-function">(</span><span class="hljs-built_in">string</span><span class="hljs-params"> message</span><span class="hljs-function">)</span>;
+}
+</code></pre>
+    <p class="normal">The JavaScript file looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title">showAlert</span>(<span class="hljs-params">message</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title">alert</span>(message);
+}
+</code></pre>
+    <p class="normal">We add a <code class="inlineCode">JSImport</code> attribute to a method, which will automatically be mapped to the JavaScript call.</p>
+    <p class="normal">This is a <a id="_idIndexMarker452"></a>much nicer implementation, I think, and a lot faster.</p>
+    <p class="normal">Next, we will look at calling .NET from JavaScript.</p>
+    <h2 id="_idParaDest-197" class="heading-2">JavaScript to .NET</h2>
+    <p class="normal">When calling a .NET method <a id="_idIndexMarker453"></a>from JavaScript, a new attribute makes that possible called <code class="inlineCode">JSExport</code>.</p>
+    <p class="normal">The Razor file implementation looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code">@page "/jstostaticnetwasm"
+@using System.Runtime.InteropServices.JavaScript
+<span class="hljs-tag">&lt;</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>This is a demo how to call .NET from JavaScript<span class="hljs-tag">&lt;/</span><span class="hljs-name">h3</span><span class="hljs-tag">&gt;</span>
+<span class="hljs-tag">&lt;</span><span class="hljs-name">button</span><span class="hljs-tag"> @</span><span class="hljs-attr">onclick</span><span class="hljs-tag">=</span><span class="hljs-string">"ShowMessage"</span><span class="hljs-tag">&gt;</span>Show alert with message<span class="hljs-tag">&lt;/</span><span class="hljs-name">button</span><span class="hljs-tag">&gt;</span>
+@code {
+    <span class="hljs-keyword">protected</span><span class="hljs-function"> </span><span class="hljs-keyword">override</span><span class="hljs-function"> </span><span class="hljs-keyword">async</span><span class="hljs-function"> Task </span><span class="hljs-title">OnInitializedAsync</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">await</span> JSHost.ImportAsync(<span class="hljs-string">"jstonet"</span>, <span class="hljs-string">"../JSInteropSamples/JSToStaticNET.razor.js"</span>);
+    }
+}
+</code></pre>
+    <p class="normal">Calling <code class="inlineCode">JSHost.ImportAsync</code> is not necessary for the <code class="inlineCode">JSExport</code> part of the demo, but we need it to call JavaScript so that we can make the .NET call from JavaScript.</p>
+    <p class="normal">Similarly, here we need to have the methods in a code behind class that looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">using</span> System.Runtime.InteropServices.JavaScript;
+<span class="hljs-keyword">using</span> System.Runtime.Versioning;
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BlazorWebAssembly.Client.JSInteropSamples</span>;
+[<span class="hljs-meta">SupportedOSPlatform(</span><span class="hljs-string">"browser"</span><span class="hljs-meta">)</span>]
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">partial</span> <span class="hljs-keyword">class</span> <span class="hljs-title">JSToStaticNET</span>
+{
+    [<span class="hljs-meta">JSExport</span>]
+    <span class="hljs-keyword">internal</span><span class="hljs-function"> </span><span class="hljs-keyword">static</span><span class="hljs-function"> </span><span class="hljs-built_in">string</span><span class="hljs-function"> </span><span class="hljs-title">GetAMessageFromNET</span><span class="hljs-function">()</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"This is a message from .NET"</span>;
+    }
+    [<span class="hljs-meta">JSImport(</span><span class="hljs-string">"showMessage"</span><span class="hljs-meta">, </span><span class="hljs-string">"jstonet"</span><span class="hljs-meta">)</span>]
+    <span class="hljs-keyword">internal</span><span class="hljs-function"> </span><span class="hljs-keyword">static</span><span class="hljs-function"> </span><span class="hljs-keyword">partial</span><span class="hljs-function"> </span><span class="hljs-keyword">void</span><span class="hljs-function"> </span><span class="hljs-title">ShowMessage</span><span class="hljs-function">()</span>;
+}
+</code></pre>
+    <p class="normal">Here we are using the <code class="inlineCode">SupportedOSPlatform</code> attribute to ensure that this code can only run on a browser.</p>
+    <p class="normal">The JavaScript<a id="_idIndexMarker454"></a> portion of this demo looks like this:</p>
+    <pre class="programlisting code"><code class="hljs-code"><span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title">setMessage</span>() {
+    <span class="hljs-keyword">const</span> { getAssemblyExports } = <span class="hljs-keyword">await</span> globalThis.<span class="hljs-title">getDotnetRuntime</span>(<span class="hljs-number">0</span>);
+    <span class="hljs-keyword">var</span> <span class="hljs-built_in">exports</span> = <span class="hljs-keyword">await</span> <span class="hljs-title">getAssemblyExports</span>(<span class="hljs-string">"BlazorWebAssembly.Client.dll"</span>);
+    <span class="hljs-title">alert</span>(<span class="hljs-built_in">exports</span>.<span class="hljs-property">BlazorWebAssembly</span>.<span class="hljs-property">Client</span>.<span class="hljs-property">JSInteropSamples</span>.<span class="hljs-property">JSToStaticNET</span>.<span class="hljs-title">GetAMessageFromNET</span>());
+}
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title">showMessage</span>() {
+    <span class="hljs-keyword">await</span> <span class="hljs-title">setMessage</span>();
+}
+</code></pre>
+    <p class="normal">We call the <code class="inlineCode">showMessage</code> JavaScript function from .NET, and it will then call the <code class="inlineCode">setMessage</code> function.</p>
+    <p class="normal">The <code class="inlineCode">setMessage</code> function uses the <code class="inlineCode">globalThis</code> object to access the .NET runtime and get access to the <code class="inlineCode">getAssemblyExports</code> method.</p>
+    <p class="normal">It will retrieve all the<a id="_idIndexMarker455"></a> exports for our assembly and then run the method. The .NET method will return the string <code class="inlineCode">"This is a message from .NET"</code> and show the string in an alert box.</p>
+    <p class="normal">Even though I prefer not to make any JavaScript calls in my Blazor applications, I love having the power to bridge between .NET code and JavaScript code with ease.</p>
+    <h1 id="_idParaDest-198" class="heading-1">Summary</h1>
+    <p class="normal">This chapter taught us about calling JavaScript from .NET and calling .NET from JavaScript. In most cases, we won’t need to do JavaScript calls, and chances are that the Blazor community or component vendors have solved the problem for us.</p>
+    <p class="normal">We also looked at how we can port an existing library if needed.</p>
+    <p class="normal">In the next chapter, we will continue to look at state management.</p>
+  </div>
+  <div id="_idContainer068" class="Basic-Text-Frame">
+    <h1 class="heading-1">Join our community on Discord&#160;</h1>
+    <p class="normal">Join our community’s Discord space for discussions with the author and other readers:&#160;</p>
+    <p class="normal"><a href="https://packt.link/WebDevBlazor2e"><span class="url">https://packt.link/WebDevBlazor2e</span></a></p>
+    <p class="normal"><span class="url"><img src="../Images/QR_Code748085881713038109.png" alt=""/></span></p>
+  </div>
+</body>
+</html>
