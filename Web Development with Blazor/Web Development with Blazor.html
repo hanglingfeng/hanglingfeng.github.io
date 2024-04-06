@@ -311,7 +311,7 @@ BlogApiJsonDirectAccess.cs代码如下：</li>
         options<span class="token punctuation">.</span>CategoriesFolder <span class="token operator">=</span> <span class="token string">"Categories"</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     builder<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddScoped</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>IBlogApi<span class="token punctuation">,</span> BlogApiJsonDirectAccess<span class="token punctuation">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><p>这段代码片段是我们用于指定文件存储位置的设置。您可以根据需求更改DataPath属性以指定文件存储的具体路径。无论何时我们请求IOptions<blogapijsondirectaccesssetting>，依赖注入机制都会返回一个填充了上述已提供的信息的对象。这是一个绝佳的位置，可以从.NET配置、密钥保管库或数据库加载配置信息。</blogapijsondirectaccesssetting></p>
+</code></pre><p>这段代码片段是我们用于指定文件存储位置的设置。您可以根据需求更改DataPath属性以指定文件存储的具体路径。无论何时我们请求<code>IOptions&lt;BlogApiJsonDirectAccessSetting</code>&gt;，依赖注入机制都会返回一个填充了上述已提供的信息的对象。这是一个绝佳的位置，可以从.NET配置、密钥保管库或数据库加载配置信息。</p>
 <p>另外，这里我们也指定了当我们请求IBlogAPI接口时，依赖注入将会返回一个BlogApiJsonDirectAccess类的实例。关于依赖注入的深入探讨，我们将在第四章“理解基本Blazor组件”中进一步讲解。</p>
 <p>现在我们可以使用我们的API来访问Blazor Server项目中的数据库。</p>
 <h2 id="understanding-basic-blazor-components-理解基本的blozor组件">Understanding Basic Blazor Components 理解基本的Blozor组件 </h2>
@@ -348,7 +348,7 @@ BlogApiJsonDirectAccess.cs代码如下：</li>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Name: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">&gt;</span></span>Steve Sanderson<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Name: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">&gt;</span></span>Daniel Roth<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>article</span><span class="token punctuation">&gt;</span></span>
-</code></pre><p>如果希望输出纯文本而不借助HTML标签，可以使用<text>标签代替段落标签，如下例所示：</text></p>
+</code></pre><p>如果希望输出纯文本而不借助HTML标签，可以使用&lt;<code>text</code>&gt;标签代替段落标签，如下例所示：</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>text</span><span class="token punctuation">&gt;</span></span>Name: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">&gt;</span></span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">name</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>text</span><span class="token punctuation">&gt;</span></span>
 </code></pre><p>生成的对应html如下：</p>
 <pre data-role="codeBlock" data-info="html" class="language-html html"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>article</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content px-4<span class="token punctuation">"</span></span> <span class="token attr-name">b-1xn416caqo</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
@@ -356,7 +356,7 @@ BlogApiJsonDirectAccess.cs代码如下：</li>
         Welcome to your new app.
         Name: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">&gt;</span></span>Steve Sanderson<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span>Name: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">&gt;</span></span>Daniel Roth<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>article</span><span class="token punctuation">&gt;</span></span>
-</code></pre><p>这样渲染的结果将与之前使用段落标签的代码相同，但不会包含段落标签，而且<text>标签本身也不会被渲染到最终的HTML文档中。</text></p>
+</code></pre><p>这样渲染的结果将与之前使用段落标签的代码相同，但不会包含段落标签，而且&lt;<code>text</code>&gt;标签本身也不会被渲染到最终的HTML文档中。</p>
 <h3 id="implicit-razor-expressions-隐式razor表达式">Implicit Razor expressions 隐式Razor表达式 </h3>
 <p>隐式Razor表达式是在HTML标签中添加代码时使用的。</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">forecast<span class="token punctuation">.</span>Summary</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
@@ -695,12 +695,12 @@ BlogApiJsonDirectAccess.cs代码如下：</li>
 <p>在下一章，第6章，使用验证构建表单，我们将继续研究与input/form组件的绑定。</p>
 <p>当然，我们也可以使用EventCallback创建事件。</p>
 <h2 id="actions-and-eventcallback-动作和事件回调">Actions and EventCallback 动作和事件回调 </h2>
-<p>为了实现组件间的通信和数据变化的通知，我们可以使用EventCallback，就像在双向绑定部分所展示的那样。EventCallback<t>与我们在.NET中常见的事件处理机制略有不同。EventCallback<t>是专门为Blazor设计的一个类，使得组件能够将其事件回调作为参数公开。</t></t></p>
-<p>在.NET中，通常可以为一个事件添加多个监听器（多播），而使用EventCallback<t>时，只能添加一个监听器（单播）。</t></p>
-<p>值得一提的是，在Blazor中，你可以沿用.NET中熟悉的事件处理方式，不过通常建议使用EventCallback<t>，因为它相比传统的.NET事件有很多优势。</t></p>
+<p>为了实现组件间的通信和数据变化的通知，我们可以使用EventCallback，就像在双向绑定部分所展示的那样。EventCallback<t>与我们在.NET中常见的事件处理机制略有不同。<code>EventCallback&lt;T&gt;</code>是专门为Blazor设计的一个类，使得组件能够将其事件回调作为参数公开。</t></p>
+<p>在.NET中，通常可以为一个事件添加多个监听器（多播），而使用<code>EventCallback&lt;T&gt;</code>时，只能添加一个监听器（单播）。</p>
+<p>值得一提的是，在Blazor中，你可以沿用.NET中熟悉的事件处理方式，不过通常建议使用<code>EventCallback&lt;T&gt;</code>，因为它相比传统的.NET事件有很多优势。</p>
 <p>.NET事件通常基于类，而EventCallback基于结构体。这意味着在Blazor中，在调用EventCallback之前无需进行空值检查，因为结构体不能为null。</p>
 <p>EventCallback是异步的，可以被await。当EventCallback被调用时，Blazor会自动在消费组件上调用StateHasChanged方法，确保组件进行更新（如果需要的话）。</p>
-<p>因此，如果你需要支持多个监听器，可以选择使用Action<t>。否则，最佳做法是使用EventCallback<t>。</t></t></p>
+<p>因此，如果你需要支持多个监听器，可以选择使用<code>Action&lt;T&gt;</code>。否则，最佳做法是使用<code>EventCallback&lt;T&gt;</code>。</p>
 <p>有些事件类型有我们可以访问的事件参数，它们是可选的，所以在大多数情况下你不需要添加它们。</p>
 <p>你可以在方法中指定它们，或者使用Lambda表达式，如下所示：</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@onclick</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp"><span class="token punctuation">(</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Msg <span class="token operator">=</span> <span class="token interpolation-string"><span class="token string">$"</span><span class="token interpolation"><span class="token punctuation">{</span><span class="token expression language-csharp">e<span class="token punctuation">.</span>ClientX</span><span class="token punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token punctuation">{</span><span class="token expression language-csharp">e<span class="token punctuation">.</span>ClientY</span><span class="token punctuation">}</span></span><span class="token string">"</span></span> <span class="token punctuation">)</span></span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>OK<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
@@ -708,10 +708,10 @@ BlogApiJsonDirectAccess.cs代码如下：</li>
 </code></pre><h2 id="using-renderfragment-使用renderfragment">Using RenderFragment 使用RenderFragment </h2>
 <p>为了使我们的组件更具可重用性，我们可以为它们提供一段Razor语法。在Blazor中，你可以指定RenderFragment，这是一个你可以执行和显示的Razor语法片段。</p>
 <p>现在我们已经添加了动作并使用EventCallback来传递更改，我们将在下一节中看到如何执行RenderFragment。</p>
-<p>有两种类型的渲染元素，RenderFragment和RenderFragment<t>。RenderFragment仅仅是一个没有任何输入参数的Razor片段，而RenderFragment<t>有一个输入参数，你可以在Razor片段代码内部通过使用context关键字来使用这个参数。现在我们不会深入探讨如何使用这个特性，但在本章后续部分，我们会讨论一个使用RenderFragment<t>的组件（Virtualize），并且在下一章，即第6章《构建带有验证功能的表单》中，我们将实现一个使用RenderFragment<t>的组件。</t></t></t></t></p>
+<p>有两种类型的渲染元素，<code>RenderFragment</code>和<code>RenderFragment&lt;T&gt;</code>。RenderFragment仅仅是一个没有任何输入参数的Razor片段，而<code>RenderFragment&lt;T&gt;</code>有一个输入参数，你可以在Razor片段代码内部通过使用context关键字来使用这个参数。现在我们不会深入探讨如何使用这个特性，但在本章后续部分，我们会讨论一个使用<code>RenderFragment&lt;T&gt;</code>的组件（Virtualize），并且在下一章，即第6章《构建带有验证功能的表单》中，我们将实现一个使用<code>RenderFragment&lt;T&gt;</code>的组件。</p>
 <p>我们不仅可以将RenderFragment作为组件标签内的默认内容，还可以为其赋予一个默认值。接下来，我们将探索这一特性并利用这些功能构建一个组件。</p>
-<p>如果你想深入了解渲染片段（Render Fragments）的工作原理，请查阅Blazm.Components项目，其中包含了一个大量使用RenderFragment<t>的网格组件。在我目前工作的场合，我们正是在使用这个组件，并且它是基于真实世界场景开发而成的。<br>
-<a href="https://github.com/EngstromJimmy/Blazm.Components">https://github.com/EngstromJimmy/Blazm.Components</a></t></p>
+<p>如果你想深入了解渲染片段（Render Fragments）的工作原理，请查阅Blazm.Components项目，其中包含了一个大量使用R<code>enderFragment&lt;T&gt;</code>的网格组件。在我目前工作的场合，我们正是在使用这个组件，并且它是基于真实世界场景开发而成的。<br>
+<a href="https://github.com/EngstromJimmy/Blazm.Components">https://github.com/EngstromJimmy/Blazm.Components</a></p>
 <h2 id="childcontent">ChildContent </h2>
 <p>通过将渲染片段命名为ChildContent，Blazor将会自动将组件标签之间的东西作为内容使用。但是，这种方式仅适用于你使用单个渲染片段的情况；如果你使用了多个渲染片段，则还需要明确指定ChildComponent标签。</p>
 <h2 id="default-value-默认值">Default value 默认值 </h2>
@@ -825,7 +825,7 @@ BlogApiJsonDirectAccess.cs代码如下：</li>
     <span class="token punctuation">}</span></span></span>
 </code></pre><p>通过使用@ref，我们可以为任何类型的组件或标签指定一个引用，以便于访问输入框。按钮的 onclick方法将会执行FocusAsync()方法，并将焦点设置在文本框上。</p>
 <h3 id="influencing-the-html-head-影响html头部">Influencing the HTML head 影响HTML头部 </h3>
-<p>有时，我们希望能够设置页面标题或更改社交网络元标签。这些标签位于_blazor.server.js（Blazor Server模式下）或index.html（Blazor WebAssembly模式下），这部分页面并不会随着应用内容的重新加载或重绘而改变（只有app组件内部的组件才会重绘）。有一个叫做HeadOutlet的组件可以解决这个问题。</p>
+<p>有时，我们希望能够设置页面标题或更改社交网络元标签。这些&lt;<code>head</code>&gt;标签位于_blazor.server.js（Blazor Server模式下）或index.html（Blazor WebAssembly模式下），这部分页面并不会随着应用内容的重新加载或重绘而改变（只有app组件内部的组件才会重绘）。有一个叫做HeadOutlet的组件可以解决这个问题。</p>
 <h3 id="component-virtualization-组件虚拟化">Component virtualization 组件虚拟化 </h3>
 <p>Virtualize是Blzor中的一个组件，它可以确保只渲染适合屏幕的组件或行，如果你有一个大的项目列表，渲染所有项目会对内存产生很大的影响。</p>
 <p>虚拟化组件（Virtualize component）能够根据屏幕窗口大小及item的高度计算出屏幕上能容纳多少个items。当你滚动页面时，Blazor会在内容列表前后添加一个div标签，确保滚动条显示的是正确的位置和比例（即使此时并没有渲染出所有项目）。</p>
@@ -842,8 +842,8 @@ BlogApiJsonDirectAccess.cs代码如下：</li>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Virtualize</span> <span class="token attr-name">Items</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>posts<span class="token punctuation">"</span></span> <span class="token attr-name">Context</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>p<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/Post/<span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">p<span class="token punctuation">.</span>Id</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">p<span class="token punctuation">.</span>Title</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Virtualize</span><span class="token punctuation">&gt;</span></span>
-</code></pre><p>相比于传统的foreach循环，我们现在改用虚拟化组件，并添加一个渲染片段以定义每个项目应该如何渲染。虚拟化组件使用了RenderFragment<t>，默认情况下会将类型为T的项目传递给渲染片段。对于虚拟化组件来说，由于items是一个List<t>类型的博客文章集合，所以对象将会是单个博客文章。我们通过名为context的变量来访问每个文章，不过也可以利用Virtualize组件上的Context属性指定其他名称，因此这里我们不再使用context，而是使用了p来表示每个博客文章。<br>
-如上所述，也可以通过名为context的变量来访问每个文章：</t></t></p>
+</code></pre><p>相比于传统的foreach循环，我们现在改用虚拟化组件，并添加一个渲染片段以定义每个项目应该如何渲染。虚拟化组件使用了<code>RenderFragment&lt;T&gt;</code>，默认情况下会将类型为T的项目传递给渲染片段。对于虚拟化组件来说，由于items是一个<code>List&lt;T&gt;</code>类型的博客文章集合，所以对象将会是单个博客文章。我们通过名为context的变量来访问每个文章，不过也可以利用Virtualize组件上的Context属性指定其他名称，因此这里我们不再使用context，而是使用了p来表示每个博客文章。<br>
+如上所述，也可以通过名为context的变量来访问每个文章：</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Virtualize</span> <span class="token attr-name">Items</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>posts<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/Post/<span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">context<span class="token punctuation">.</span>Id</span></span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">context<span class="token punctuation">.</span>Title</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Virtualize</span><span class="token punctuation">&gt;</span></span>
@@ -930,286 +930,286 @@ BlogApiJsonDirectAccess.cs代码如下：</li>
 <p>我们还可以更改DisplayName，以便自动验证消息反映正确的名称而不是属性的名称，这是默认行为。</p>
 <p>所有控件都不支持DisplayName属性。有些属性仅在组件内部使用，我们稍后将返回这些属性。</p>
 <h3 id="inputcheckbox">InputCheckbox </h3>
-<p>InputCheckbox组件将呈现为<input type="checkbox"> 。</p>
+<p>InputCheckbox组件将呈现为&lt;<code>input type="checkbox"</code>&gt; 。</p>
 <h3 id="inputdatetvalue">InputDate<tvalue> </tvalue></h3>
-<p>InputDate组件将呈现为<input type="date">。我们可以使用DateTime和DateTimeOffset作为InputDate组件的值。</p>
+<p>InputDate组件将呈现为&lt;<code>input type="date"</code>&gt;。我们可以使用DateTime和DateTimeOffset作为InputDate组件的值。</p>
 <p>没有办法格式化日期，它会使用浏览器的当前设置。这种行为是经过设计的，是HTML5规范的一部分。</p>
 <h3 id="inputnumbertvalue">InputNumber<tvalue> </tvalue></h3>
-<p>InputNumber组件将呈现为&lt;inputtype="number"&gt;。我们可以使用Int32、Int64、Single、Double和Decimal。</p>
+<p>InputNumber组件将呈现为&lt;<code>inputtype="number"</code>&gt;。我们可以使用Int32、Int64、Single、Double和Decimal。</p>
 <h3 id="inputselecttvalue">InputSelect<tvalue> </tvalue></h3>
-<p>InputSelect组件将呈现为<select>。我们将在本章稍后创建InputSelect，因此这里不再赘述。
-InputText 
-InputText组件将呈现为</select><input type="text">。</p>
+<p>InputSelect组件将呈现为&lt;<code>select</code>&gt;。我们将在本章稍后创建InputSelect，因此这里不再赘述。</p>
+<h3 id="inputtext">InputText </h3>
+<p>InputText组件将呈现为&lt;<code>input type="text"</code>&gt;。</p>
 <h3 id="inputtextarea">InputTextArea </h3>
-<p>InputTextArea组件将呈现为<textarea>。在本章中，我们将构建这个控件的我们自己的版本。&lt;/p&gt;
-&lt;h3 id="inputradio"&gt;InputRadio &lt;/h3&gt;
-&lt;p&gt;InputRadio组件将呈现为&lt;input type="radio"&gt; 。&lt;/p&gt;
-&lt;h3 id="inputradiogroup"&gt;InputRadioGroup &lt;/h3&gt;
-&lt;p&gt;InputRadioGroup组件将呈现为一组子单选按钮，&lt;Input type="radio"&gt; 。&lt;/p&gt;
-&lt;h3 id="inputfile"&gt;InputFile &lt;/h3&gt;
-&lt;p&gt;InputFile组件将呈现为&lt;Input type="file"&gt;。该组件将使获取文件数据变得更加容易。它将为我们提供每个文件内容的流。&lt;/p&gt;
-&lt;p&gt;如我们所见，几乎所有的HTML表单控件都有一个Blazor组件，它还附带了一些验证等功能。&lt;/p&gt;
-&lt;h2 id="adding-validation"&gt;Adding validation &lt;/h2&gt;
-&lt;p&gt;我们已经谈到了验证；input组件和EditForm中有一些内置功能来处理验证。向表单添加验证的一种方法是使用DataAnnotations。使用数据注释，我们不必编写任何自定义逻辑来确保表单中的数据正确；相反，我们可以向数据模型添加属性，然后让DataAnnotationsValidator处理其余的事情。&lt;/p&gt;
-&lt;p&gt;.NET中已经有很多我们可以使用的DataAnnotations实例；我们还可以构建自己的注释。一些内置的数据注释如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Required：使该字段成为必填字段。&lt;/li&gt;
-&lt;li&gt;Email：将检查输入的值是否是电子邮件地址。&lt;/li&gt;
-&lt;li&gt;MinLength：将检查字符数是否不少于指定的值。&lt;/li&gt;
-&lt;li&gt;MaxLength：将检查字符数是否未超出。&lt;/li&gt;
-&lt;li&gt;Range：将检查该值是否在特定范围内。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;还有更多注释可以帮助我们验证数据。为了测试这一点，让我们向数据类添加数据注释：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;input @bind="msg"&gt;&lt;/input&gt;
+<p>InputTextArea组件将呈现为&lt;<code>textarea</code>&gt;。在本章中，我们将构建这个控件的我们自己的版本。</p>
+<h3 id="inputradio">InputRadio </h3>
+<p>InputRadio组件将呈现为&lt;<code>input type="radio"</code>&gt; 。</p>
+<h3 id="inputradiogroup">InputRadioGroup </h3>
+<p>InputRadioGroup组件将呈现为一组子单选按钮，&lt;<code>Input type="radio"</code>&gt; 。</p>
+<h3 id="inputfile">InputFile </h3>
+<p>InputFile组件将呈现为&lt;<code>Input type="file"</code>&gt;。该组件将使获取文件数据变得更加容易。它将为我们提供每个文件内容的流。</p>
+<p>如我们所见，几乎所有的HTML表单控件都有一个Blazor组件，它还附带了一些验证等功能。</p>
+<h2 id="adding-validation">Adding validation </h2>
+<p>我们已经谈到了验证；input组件和EditForm中有一些内置功能来处理验证。向表单添加验证的一种方法是使用DataAnnotations。使用数据注释，我们不必编写任何自定义逻辑来确保表单中的数据正确；相反，我们可以向数据模型添加属性，然后让DataAnnotationsValidator处理其余的事情。</p>
+<p>.NET中已经有很多我们可以使用的DataAnnotations实例；我们还可以构建自己的注释。一些内置的数据注释如下：</p>
+<ul>
+<li>Required：使该字段成为必填字段。</li>
+<li>Email：将检查输入的值是否是电子邮件地址。</li>
+<li>MinLength：将检查字符数是否不少于指定的值。</li>
+<li>MaxLength：将检查字符数是否未超出。</li>
+<li>Range：将检查该值是否在特定范围内。</li>
+</ul>
+<p>还有更多注释可以帮助我们验证数据。为了测试这一点，让我们向数据类添加数据注释：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">@bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>input</span><span class="token punctuation">&gt;</span></span>
 
-    @code{     
-        [Required,MinLength(5)]
-        private string msg { get; set; } = "Sumbit";        
-    }
-&lt;/pre&gt;&lt;h2 id="validationmessage-验证消息"&gt;ValidationMessage 验证消息 &lt;/h2&gt;
-&lt;p&gt;ValidationMessage 组件可以向我们显示特定属性的单独错误消息。我们希望使用此组件来显示表单元素下的验证错误。要添加 ValidationMessage 组件，我们必须指定 For 属性以及我们想要显示验证错误的属性名称：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;ValidationMessage For="@(() =&gt; model.Name)"/&gt;
-&lt;/pre&gt;&lt;h3 id="validationsummary"&gt;ValidationSummary &lt;/h3&gt;
-&lt;p&gt;ValidationSummary 组件会将所有验证错误显示为整个 EditContext 的列表。&lt;/p&gt;
-&lt;p&gt;为了确保输入控件与 Bootstrap 主题(或任何我们可能使用的主题)匹配，我们可以创建自定义验证类。&lt;/p&gt;
-&lt;h3 id="custom-validation-class-attributes-自定义验证类属性"&gt;Custom validation class attributes 自定义验证类属性 &lt;/h3&gt;
-&lt;h2 id="looking-at-bindings-查看绑定"&gt;Looking at bindings 查看绑定 &lt;/h2&gt;
-&lt;h3 id="binding-to-html-elements-绑定到-html-元素"&gt;Binding to HTML elements 绑定到 HTML 元素 &lt;/h3&gt;
-&lt;p&gt;对于HTML元素，我们可以使用@bind绑定到该元素。&lt;br&gt;
-如果我们要绑定到一个文本框，我们可以这样做：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;input type="text" @bind="Msg"/&gt;
-&lt;/pre&gt;&lt;p&gt;@bind和@bind-value都可以工作并且做同样的事情。请注意小写的v。&lt;/p&gt;
-&lt;p&gt;默认情况下，当文本框失去焦点时，变量中的值将会改变。但我们可以通过添加@bind:event属性来更改该行为：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;input @bind="msg" @bind:event="oninput" /&gt;
-&lt;/pre&gt;&lt;p&gt;我们甚至可以通过使用@bind:get和@bind:set属性来完全控制正在发生的事情，它们与@bind执行相同的操作，因此我们不能将它们与@bind一起使用。示例如下：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;input @bind:event="oninput" @bind:get="inputValue" @bind:set="OnInput" /&gt;
-    &lt;p&gt;@inputValue&lt;/p&gt;
+    <span class="token block"><span class="token keyword keyword-@code">@code</span><span class="token csharp language-csharp"><span class="token punctuation">{</span>     
+        <span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">Required</span><span class="token punctuation">,</span><span class="token class-name">MinLength</span><span class="token attribute-arguments"><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span></span></span><span class="token punctuation">]</span>
+        <span class="token keyword keyword-private">private</span> <span class="token return-type class-name"><span class="token keyword keyword-string">string</span></span> msg <span class="token punctuation">{</span> <span class="token keyword keyword-get">get</span><span class="token punctuation">;</span> <span class="token keyword keyword-set">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token string">"Sumbit"</span><span class="token punctuation">;</span>        
+    <span class="token punctuation">}</span></span></span>
+</code></pre><h2 id="validationmessage-验证消息">ValidationMessage 验证消息 </h2>
+<p>ValidationMessage 组件可以向我们显示特定属性的单独错误消息。我们希望使用此组件来显示表单元素下的验证错误。要添加 ValidationMessage 组件，我们必须指定 For 属性以及我们想要显示验证错误的属性名称：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ValidationMessage</span> <span class="token attr-name">For</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> model<span class="token punctuation">.</span>Name<span class="token punctuation">)</span></span></span><span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+</code></pre><h3 id="validationsummary">ValidationSummary </h3>
+<p>ValidationSummary 组件会将所有验证错误显示为整个 EditContext 的列表。</p>
+<p>为了确保输入控件与 Bootstrap 主题(或任何我们可能使用的主题)匹配，我们可以创建自定义验证类。</p>
+<h3 id="custom-validation-class-attributes-自定义验证类属性">Custom validation class attributes 自定义验证类属性 </h3>
+<h2 id="looking-at-bindings-查看绑定">Looking at bindings 查看绑定 </h2>
+<h3 id="binding-to-html-elements-绑定到-html-元素">Binding to HTML elements 绑定到 HTML 元素 </h3>
+<p>对于HTML元素，我们可以使用@bind绑定到该元素。<br>
+如果我们要绑定到一个文本框，我们可以这样做：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">@bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Msg<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+</code></pre><p>@bind和@bind-value都可以工作并且做同样的事情。请注意小写的v。</p>
+<p>默认情况下，当文本框失去焦点时，变量中的值将会改变。但我们可以通过添加@bind:event属性来更改该行为：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">@bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>event</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oninput<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+</code></pre><p>我们甚至可以通过使用@bind:get和@bind:set属性来完全控制正在发生的事情，它们与@bind执行相同的操作，因此我们不能将它们与@bind一起使用。示例如下：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name"><span class="token namespace">@bind:</span>event</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oninput<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>get</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>inputValue<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>set</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>OnInput<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">inputValue</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
 
-    @code {
-        private string? inputValue;
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token keyword keyword-private">private</span> <span class="token class-name"><span class="token keyword keyword-string">string</span><span class="token punctuation">?</span></span> inputValue<span class="token punctuation">;</span>
 
-        private void OnInput(string value) {
-            var newValue = value ?? string.Empty;
-            inputValue = newValue.Length &gt; 4 ? "Long!" : newValue;
-        }
-    }
-&lt;/pre&gt;&lt;p&gt;@bind:set属性还有另一个不错的功能。当我们设置一个值时，我们可以运行异步方法。&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;input @bind:event="oninput" @bind:get="inputValue" @bind:set="OnInput" /&gt;
-    &lt;p&gt;@inputValue&lt;/p&gt;
+        <span class="token keyword keyword-private">private</span> <span class="token return-type class-name"><span class="token keyword keyword-void">void</span></span> <span class="token function">OnInput</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> <span class="token keyword keyword-value">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token class-name"><span class="token keyword keyword-var">var</span></span> newValue <span class="token operator">=</span> <span class="token keyword keyword-value">value</span> <span class="token operator">??</span> <span class="token keyword keyword-string">string</span><span class="token punctuation">.</span>Empty<span class="token punctuation">;</span>
+            inputValue <span class="token operator">=</span> newValue<span class="token punctuation">.</span>Length <span class="token operator">&gt;</span> <span class="token number">4</span> <span class="token punctuation">?</span> <span class="token string">"Long!"</span> <span class="token punctuation">:</span> newValue<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>@bind:set属性还有另一个不错的功能。当我们设置一个值时，我们可以运行异步方法。</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name"><span class="token namespace">@bind:</span>event</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oninput<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>get</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>inputValue<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>set</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>OnInput<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">inputValue</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
 
-    @code {
-        private string? inputValue;
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token keyword keyword-private">private</span> <span class="token class-name"><span class="token keyword keyword-string">string</span><span class="token punctuation">?</span></span> inputValue<span class="token punctuation">;</span>
 
-        private async void OnInput(string value) {
-            await Task.Delay(100);
-            var newValue = value ?? string.Empty;
-            inputValue = newValue.Length &gt; 4 ? "Long!" : newValue;
-        }
-    }
-&lt;/pre&gt;&lt;p&gt;我们还有一种方法可以在设置值后运行方法，使用@bind:after即可：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;input @bind:event="oninput" @bind="inputValue" @bind:after="OnInputAfter" /&gt;
-    &lt;input @bind:event="oninput" @bind="inputValue" @bind:after="OnInputAfterAsync" /&gt;
-    &lt;p&gt;@inputValue&lt;/p&gt;
+        <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name"><span class="token keyword keyword-void">void</span></span> <span class="token function">OnInput</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> <span class="token keyword keyword-value">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-await">await</span> Task<span class="token punctuation">.</span><span class="token function">Delay</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token class-name"><span class="token keyword keyword-var">var</span></span> newValue <span class="token operator">=</span> <span class="token keyword keyword-value">value</span> <span class="token operator">??</span> <span class="token keyword keyword-string">string</span><span class="token punctuation">.</span>Empty<span class="token punctuation">;</span>
+            inputValue <span class="token operator">=</span> newValue<span class="token punctuation">.</span>Length <span class="token operator">&gt;</span> <span class="token number">4</span> <span class="token punctuation">?</span> <span class="token string">"Long!"</span> <span class="token punctuation">:</span> newValue<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>我们还有一种方法可以在设置值后运行方法，使用@bind:after即可：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name"><span class="token namespace">@bind:</span>event</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oninput<span class="token punctuation">"</span></span> <span class="token attr-name">@bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>inputValue<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>after</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>OnInputAfter<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name"><span class="token namespace">@bind:</span>event</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oninput<span class="token punctuation">"</span></span> <span class="token attr-name">@bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>inputValue<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>after</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>OnInputAfterAsync<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">inputValue</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
 
-    @code {
-        private string? inputValue;
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token keyword keyword-private">private</span> <span class="token class-name"><span class="token keyword keyword-string">string</span><span class="token punctuation">?</span></span> inputValue<span class="token punctuation">;</span>
 
-        private void OnInputAfter() {
+        <span class="token keyword keyword-private">private</span> <span class="token return-type class-name"><span class="token keyword keyword-void">void</span></span> <span class="token function">OnInputAfter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-            inputValue = inputValue.Length &gt; 4 ? "Long!" : inputValue;
-        }
+            inputValue <span class="token operator">=</span> inputValue<span class="token punctuation">.</span>Length <span class="token operator">&gt;</span> <span class="token number">4</span> <span class="token punctuation">?</span> <span class="token string">"Long!"</span> <span class="token punctuation">:</span> inputValue<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        private async Task OnInputAfterAsync() {
-            await Task.Delay(100);
-            inputValue = inputValue.Length &gt; 4 ? "Long!" : inputValue;
-        }
-    }
-&lt;/pre&gt;&lt;p&gt;最重要的是，我们还可以使用@bind:culture设置区域性。日期和数字字段都使用不变的区域性，并将使用适当的浏览器格式，但也可以通过@bind:culture更改，不过并不建议更改。如下所示：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;input type="text" @bind="dateTime" @bind:culture="@(new CultureInfo("en-us"))" /&gt;
+        <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name">Task</span> <span class="token function">OnInputAfterAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-await">await</span> Task<span class="token punctuation">.</span><span class="token function">Delay</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            inputValue <span class="token operator">=</span> inputValue<span class="token punctuation">.</span>Length <span class="token operator">&gt;</span> <span class="token number">4</span> <span class="token punctuation">?</span> <span class="token string">"Long!"</span> <span class="token punctuation">:</span> inputValue<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>最重要的是，我们还可以使用@bind:culture设置区域性。日期和数字字段都使用不变的区域性，并将使用适当的浏览器格式，但也可以通过@bind:culture更改，不过并不建议更改。如下所示：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">@bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dateTime<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>culture</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp"><span class="token punctuation">(</span><span class="token keyword keyword-new">new</span> <span class="token constructor-invocation class-name">CultureInfo</span><span class="token punctuation">(</span><span class="token string">"en-us"</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span><span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
 
-    @code {
-        private DateTime dateTime = DateTime.Now;
-    }
-&lt;/pre&gt;&lt;p&gt;最后，我们可以使用@bind:format设置格式。这只对DateTime有效，其他格式表达式（如货币或数字格式）目前不可用：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;input type="text" @bind="dateTime" @bind:format="yyyy/MM/dd"/&gt;
-&lt;/pre&gt;&lt;h3 id="binding-to-components-绑定到组件"&gt;Binding to components 绑定到组件 &lt;/h3&gt;
-&lt;p&gt;绑定到组件时Get、Set和After也将起作用。Culture、Event和Format适用于某些组件。&lt;/p&gt;
-&lt;p&gt;绑定到组件时，我们使用@bind-{ParameterName}，因此对于参数Value，它看起来像这样：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;InputText @bind-Value="msg"/&gt;
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token keyword keyword-private">private</span> <span class="token class-name">DateTime</span> dateTime <span class="token operator">=</span> DateTime<span class="token punctuation">.</span>Now<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>最后，我们可以使用@bind:format设置格式。这只对DateTime有效，其他格式表达式（如货币或数字格式）目前不可用：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">@bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dateTime<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind:</span>format</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yyyy/MM/dd<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+</code></pre><h3 id="binding-to-components-绑定到组件">Binding to components 绑定到组件 </h3>
+<p>绑定到组件时Get、Set和After也将起作用。Culture、Event和Format适用于某些组件。</p>
+<p>绑定到组件时，我们使用@bind-{ParameterName}，因此对于参数Value，它看起来像这样：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>InputText</span> <span class="token attr-name">@bind-Value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
 
-    @code {        
-        private string msg { get; set; } = "The msg";
-    }
-&lt;/pre&gt;&lt;p&gt;在后台，@bind-Value将影响另外两个参数，ValueExpression和ValueChanged。这意味着如果您使用@bind-Value，您将无法手动设置它们。当我们改变值时，ValueChanged就会被触发，我们可以监听该事件并在它改变时让事情发生。&lt;/p&gt;
-&lt;p&gt;我们还可以像这样使用Get和Set，注意必须始终提供Get和Set：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;InputText @bind-Value:get="msg" @bind-Value:set="@(value =&gt; msg = $"{value}11")"/&gt;
-    &lt;InputText @bind-Value:get="msg" @bind-Value:set="OnSetAsync" /&gt;
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>        
+        <span class="token keyword keyword-private">private</span> <span class="token return-type class-name"><span class="token keyword keyword-string">string</span></span> msg <span class="token punctuation">{</span> <span class="token keyword keyword-get">get</span><span class="token punctuation">;</span> <span class="token keyword keyword-set">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token string">"The msg"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>在后台，@bind-Value将影响另外两个参数，ValueExpression和ValueChanged。这意味着如果您使用@bind-Value，您将无法手动设置它们。当我们改变值时，ValueChanged就会被触发，我们可以监听该事件并在它改变时让事情发生。</p>
+<p>我们还可以像这样使用Get和Set，注意必须始终提供Get和Set：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>InputText</span> <span class="token attr-name"><span class="token namespace">@bind-Value:</span>get</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind-Value:</span>set</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp"><span class="token punctuation">(</span><span class="token keyword keyword-value">value</span> <span class="token operator">=&gt;</span> msg <span class="token operator">=</span> <span class="token interpolation-string"><span class="token string">$"</span><span class="token interpolation"><span class="token punctuation">{</span><span class="token expression language-csharp"><span class="token keyword keyword-value">value</span></span><span class="token punctuation">}</span></span><span class="token string">11"</span></span><span class="token punctuation">)</span></span></span><span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>InputText</span> <span class="token attr-name"><span class="token namespace">@bind-Value:</span>get</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind-Value:</span>set</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>OnSetAsync<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
 
-    @code {
-        private async Task OnSetAsync(string value) {
-            await Task.Delay(100);
-            msg = value.Length &gt; 4 ? "Long!" : value;
-        }
-    }
-&lt;/pre&gt;&lt;p&gt;这些示例使用内置Blazor组件InputText，但此概念适用于任何组件上的任何参数。After也是如此。它可以与任何组件一起使用，如下所示：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;InputText @bind-Value="msg" @bind-Value:after="() =&gt; { }" /&gt;
-    &lt;InputText @bind-Value="msg" @bind-Value:after="OnInputAfterAsync" /&gt;
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name">Task</span> <span class="token function">OnSetAsync</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> <span class="token keyword keyword-value">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-await">await</span> Task<span class="token punctuation">.</span><span class="token function">Delay</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            msg <span class="token operator">=</span> <span class="token keyword keyword-value">value</span><span class="token punctuation">.</span>Length <span class="token operator">&gt;</span> <span class="token number">4</span> <span class="token punctuation">?</span> <span class="token string">"Long!"</span> <span class="token punctuation">:</span> <span class="token keyword keyword-value">value</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>这些示例使用内置Blazor组件InputText，但此概念适用于任何组件上的任何参数。After也是如此。它可以与任何组件一起使用，如下所示：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>InputText</span> <span class="token attr-name">@bind-Value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind-Value:</span>after</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>() =&gt; { }<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>InputText</span> <span class="token attr-name">@bind-Value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">@bind-Value:</span>after</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>OnInputAfterAsync<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
 
-    @code {
-        private async Task OnInputAfterAsync() {
-            await Task.Delay(100);
-            msg = msg.Length &gt; 4 ? "Long!" : msg;
-        }
-    }
-&lt;/pre&gt;&lt;p&gt;我们可以使用一些不错的绑定特性，它们在绑定到组件和HTML元素时都能正常工作。&lt;/p&gt;
-&lt;h3 id="building-an-admin-interface-构建管理界面"&gt;Building an admin interface 构建管理界面 &lt;/h3&gt;
-&lt;h1 id="sharing-code-and-resources-共享代码和资源"&gt;Sharing Code and Resources 共享代码和资源 &lt;/h1&gt;
-&lt;p&gt;在本书中，我们一直同时构建 Blazor Server 和 Blazor WebAssembly，如果我们想在未来更进一步地切换技术，或者在客户门户和内部 CRM 系统之间共享组件，那么这是构建项目的好方法。我们大多数人可能有一个托管模型，而不是两个，但这样构建它确实有一些好处。总是考虑我们正在构建的组件是否可能有可共享的部分；这样，我们就可以重用它，如果我们向组件添加一些东西，我们就可以为所有组件获得好处。但是这不仅仅是关于在我们自己的项目中共享组件。如果我们想要创建一个可以与其他部门共享的库，或者甚至是一个与世界共享组件的开源项目，会怎么样呢？&lt;/p&gt;
-&lt;p&gt;本章将介绍在共享组件时已经使用过的一些东西，以及共享CSS和其他静态文件。&lt;/p&gt;
-&lt;h2 id="adding-static-files-添加静态文件"&gt;Adding static files 添加静态文件 &lt;/h2&gt;
-&lt;p&gt;Blazor可以使用静态文件，例如图像、CSS和JavaScript。如果我们将文件放在wwwroot文件夹中，它们将自动暴露在互联网上，并且可以从我们网站的根目录访问。Blazor的好处是我们可以对库做同样的事情；在库中分发静态文件非常容易。&lt;/p&gt;
-&lt;p&gt;在工作中，我们在所有Blzor项目之间共享组件，共享库也可以依赖于其他库。通过共享组件和构建我们自己的组件(有时在其他库之上)，我们确保我们在整个网站上拥有相同的外观和感觉。我们还共享静态内容，如图像和CSS，这使得它简单和快速，如果我们需要改变一些东西，我们希望所有网站都受到影响。&lt;/p&gt;
-&lt;p&gt;要链接到另一个库/程序集中的资源，我们可以使用_content文件夹。&lt;/p&gt;
-&lt;p&gt;看看这个例子：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="html" data-parsed-info="{"language":"html","attributes":{"class":"html"}}" data-normalized-info="{"language":"html","attributes":{"class":"html"}}" &gt;    &lt;link rel="stylesheet" href="_content/Components/MyBlogStyle.min.css" /&gt;
-&lt;/pre&gt;&lt;p&gt;HTML link标记、rel、href是普通的HTML标记和属性，但是添加以_content开头的URL告诉我们我们想要访问的内容在另一个库中。库的名称（程序集名称）（在我们的示例中为Components）后面跟着我们要访问的文件，该文件存储在库的wwwroot文件夹中。&lt;/p&gt;
-&lt;p&gt;Blazor最终只是HTML，而HTML可以使用CSS进行样式化。如前所述，Blazor模板默认使用Bootstrap，我们也会继续使用它。有一个非常好的网站，提供易于使用的Bootstrap主题，可以从这里下载：&lt;a href="https://bootswatch.com/%E3%80%82%E6%88%91%E5%96%9C%E6%AC%A2Darkly%E4%B8%BB%E9%A2%98%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E5%B0%86%E4%BD%BF%E7%94%A8%E5%AE%83%EF%BC%8C%E4%BD%86%E7%A8%8D%E5%90%8E%E5%8F%AF%E4%BB%A5%E9%9A%8F%E6%84%8F%E5%B0%9D%E8%AF%95%E3%80%82"&gt;https://bootswatch.com/。我喜欢Darkly主题，所以我们将使用它，但稍后可以随意尝试。&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id="choosing-between-frameworks-框架的选择"&gt;Choosing between frameworks 框架的选择 &lt;/h2&gt;
-&lt;p&gt;我经常被问到如何为Blazor应用程序设置样式，事实上你可以使用你习惯的所有东西，最后，Blazor将输出HTML，有许多语言和框架可以用来编写CSS。我们可以使用CSS、SASS和LESS，只要输出是CSS就可以使用。本章我们将继续使用Bootstrap和CSS,Sass和LESS不在本书的讨论范围之内。&lt;/p&gt;
-&lt;h2 id="adding-a-new-style-添加新样式"&gt;Adding a new style 添加新样式 &lt;/h2&gt;
-&lt;p&gt;Bootstrap的问题(以及为什么有些人不喜欢它)是许多网站使用Bootstrap，并且“所有”网站看起来都一样。如果我们正在构建一个LOB(业务线)，这可能是好的，但如果我们试图创新，这可能是坏的。当涉及到下载时，Bootstrap也是相当大的，所以这也是反对它的一个论点。&lt;/p&gt;
-&lt;p&gt;本章要让博客看起来更漂亮，所以我们会继续使用Bootstrap，但我们应该知道，如果我们使用其他东西来处理CSS，它也会与Blazor一起工作。Bootswatch就是其中一个模板网站，它为我们提供了传统Bootstrap主题的一些漂亮变体：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;访问&lt;a href="https://bootswatch.com/darkly/"&gt;https://bootswatch.com/darkly/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;在名为“Darkly”的顶部菜单中，有一些链接。下载bootstrap.min.css。&lt;/li&gt;
-&lt;li&gt;在Components项目的 wwwroot文件夹中，添加bootstrap.min.css文件。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id="adding-css-to-blazorserver-在blazorserver中添加css"&gt;Adding CSS to BlazorServer 在BlazorServer中添加CSS &lt;/h2&gt;
-&lt;p&gt;现在是时候为我们的网站添加一个新的样式了，让我们从BlazorServer开始：&lt;br&gt;
-TODO：这部分设置在.Net8中无效，因为wwwroot下没有index.html文件。&lt;br&gt;
-TODO：一直到下一小节(CSS isolation CSS隔离)都没看&lt;/p&gt;
-&lt;h2 id="css-isolation-css隔离"&gt;CSS isolation CSS隔离 &lt;/h2&gt;
-&lt;p&gt;在.NET5中，微软添加了一种叫做隔离CSS的东西，这是许多其他框架也拥有的东西，其思想是专门为一个组件编写CSS，当然，好处是我们创建的CSS不会影响任何其他组件。&lt;/p&gt;
-&lt;p&gt;CSS有如下命名约定：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="css" data-parsed-info="{"language":"css","attributes":{"class":"css"}}" data-normalized-info="{"language":"css","attributes":{"class":"css"}}" &gt;    main {
-        flex: 1;
-    }
-&lt;/pre&gt;&lt;p&gt;它将被改写如下：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="css" data-parsed-info="{"language":"css","attributes":{"class":"css"}}" data-normalized-info="{"language":"css","attributes":{"class":"css"}}" &gt;    main[b-bfl5h5967n] {
-        flex: 1;
-    }
-&lt;/pre&gt;&lt;p&gt;这意味着元素需要有一个名为b-bfl5h5967n的属性（在本例中）才能应用样式。&lt;/p&gt;
-&lt;p&gt;MainLayout组件中包含CSS标记的div将如下输出：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="html" data-parsed-info="{"language":"html","attributes":{"class":"html"}}" data-normalized-info="{"language":"html","attributes":{"class":"html"}}" &gt;    &lt;main b-bfl5h5967n&gt;
-&lt;/pre&gt;&lt;p&gt;为了实现所有这些，我们还需要一个到CSS的链接(由模板提供)，它看起来像这样：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="html" data-parsed-info="{"language":"html","attributes":{"class":"html"}}" data-normalized-info="{"language":"html","attributes":{"class":"html"}}" &gt;    &lt;link href="{Assemblyname}.styles.css" rel="stylesheet"&gt;
-&lt;/pre&gt;&lt;p&gt;这对于组件库非常有用。我们的共享库中的组件具有独立的CSS（NavMenu和MainLayout），并且NavMenu组件的CSS包含在{Assemblyname}.styles.css中。&lt;/p&gt;
-&lt;p&gt;隔离的CSS只影响组件内部的HTML标签，但如果我们在组件中有一个组件呢？&lt;/p&gt;
-&lt;p&gt;如果我们打开Component/Shared/NavMenu.css，我们可以看到对于.nav-item 样式，其中一些样式使用了关键字::deep；这就是说，即使是子组件也应该也受到这种风格的影响。&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="css" data-parsed-info="{"language":"css","attributes":{"class":"css"}}" data-normalized-info="{"language":"css","attributes":{"class":"css"}}" &gt;    .nav-item ::deep a.active {
-        background-color: rgba(255,255,255,0.25);
-        color: white;
-    }
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name">Task</span> <span class="token function">OnInputAfterAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-await">await</span> Task<span class="token punctuation">.</span><span class="token function">Delay</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            msg <span class="token operator">=</span> msg<span class="token punctuation">.</span>Length <span class="token operator">&gt;</span> <span class="token number">4</span> <span class="token punctuation">?</span> <span class="token string">"Long!"</span> <span class="token punctuation">:</span> msg<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>我们可以使用一些不错的绑定特性，它们在绑定到组件和HTML元素时都能正常工作。</p>
+<h3 id="building-an-admin-interface-构建管理界面">Building an admin interface 构建管理界面 </h3>
+<h1 id="sharing-code-and-resources-共享代码和资源">Sharing Code and Resources 共享代码和资源 </h1>
+<p>在本书中，我们一直同时构建 Blazor Server 和 Blazor WebAssembly，如果我们想在未来更进一步地切换技术，或者在客户门户和内部 CRM 系统之间共享组件，那么这是构建项目的好方法。我们大多数人可能有一个托管模型，而不是两个，但这样构建它确实有一些好处。总是考虑我们正在构建的组件是否可能有可共享的部分；这样，我们就可以重用它，如果我们向组件添加一些东西，我们就可以为所有组件获得好处。但是这不仅仅是关于在我们自己的项目中共享组件。如果我们想要创建一个可以与其他部门共享的库，或者甚至是一个与世界共享组件的开源项目，会怎么样呢？</p>
+<p>本章将介绍在共享组件时已经使用过的一些东西，以及共享CSS和其他静态文件。</p>
+<h2 id="adding-static-files-添加静态文件">Adding static files 添加静态文件 </h2>
+<p>Blazor可以使用静态文件，例如图像、CSS和JavaScript。如果我们将文件放在wwwroot文件夹中，它们将自动暴露在互联网上，并且可以从我们网站的根目录访问。Blazor的好处是我们可以对库做同样的事情；在库中分发静态文件非常容易。</p>
+<p>在工作中，我们在所有Blzor项目之间共享组件，共享库也可以依赖于其他库。通过共享组件和构建我们自己的组件(有时在其他库之上)，我们确保我们在整个网站上拥有相同的外观和感觉。我们还共享静态内容，如图像和CSS，这使得它简单和快速，如果我们需要改变一些东西，我们希望所有网站都受到影响。</p>
+<p>要链接到另一个库/程序集中的资源，我们可以使用_content文件夹。</p>
+<p>看看这个例子：</p>
+<pre data-role="codeBlock" data-info="html" class="language-html html"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_content/Components/MyBlogStyle.min.css<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+</code></pre><p>HTML link标记、rel、href是普通的HTML标记和属性，但是添加以_content开头的URL告诉我们我们想要访问的内容在另一个库中。库的名称（程序集名称）（在我们的示例中为Components）后面跟着我们要访问的文件，该文件存储在库的wwwroot文件夹中。</p>
+<p>Blazor最终只是HTML，而HTML可以使用CSS进行样式化。如前所述，Blazor模板默认使用Bootstrap，我们也会继续使用它。有一个非常好的网站，提供易于使用的Bootstrap主题，可以从这里下载：<a href="https://bootswatch.com/%E3%80%82%E6%88%91%E5%96%9C%E6%AC%A2Darkly%E4%B8%BB%E9%A2%98%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E5%B0%86%E4%BD%BF%E7%94%A8%E5%AE%83%EF%BC%8C%E4%BD%86%E7%A8%8D%E5%90%8E%E5%8F%AF%E4%BB%A5%E9%9A%8F%E6%84%8F%E5%B0%9D%E8%AF%95%E3%80%82">https://bootswatch.com/。我喜欢Darkly主题，所以我们将使用它，但稍后可以随意尝试。</a></p>
+<h2 id="choosing-between-frameworks-框架的选择">Choosing between frameworks 框架的选择 </h2>
+<p>我经常被问到如何为Blazor应用程序设置样式，事实上你可以使用你习惯的所有东西，最后，Blazor将输出HTML，有许多语言和框架可以用来编写CSS。我们可以使用CSS、SASS和LESS，只要输出是CSS就可以使用。本章我们将继续使用Bootstrap和CSS,Sass和LESS不在本书的讨论范围之内。</p>
+<h2 id="adding-a-new-style-添加新样式">Adding a new style 添加新样式 </h2>
+<p>Bootstrap的问题(以及为什么有些人不喜欢它)是许多网站使用Bootstrap，并且“所有”网站看起来都一样。如果我们正在构建一个LOB(业务线)，这可能是好的，但如果我们试图创新，这可能是坏的。当涉及到下载时，Bootstrap也是相当大的，所以这也是反对它的一个论点。</p>
+<p>本章要让博客看起来更漂亮，所以我们会继续使用Bootstrap，但我们应该知道，如果我们使用其他东西来处理CSS，它也会与Blazor一起工作。Bootswatch就是其中一个模板网站，它为我们提供了传统Bootstrap主题的一些漂亮变体：</p>
+<ol>
+<li>访问<a href="https://bootswatch.com/darkly/">https://bootswatch.com/darkly/</a></li>
+<li>在名为“Darkly”的顶部菜单中，有一些链接。下载bootstrap.min.css。</li>
+<li>在Components项目的 wwwroot文件夹中，添加bootstrap.min.css文件。</li>
+</ol>
+<h2 id="adding-css-to-blazorserver-在blazorserver中添加css">Adding CSS to BlazorServer 在BlazorServer中添加CSS </h2>
+<p>现在是时候为我们的网站添加一个新的样式了，让我们从BlazorServer开始：<br>
+TODO：这部分设置在.Net8中无效，因为wwwroot下没有index.html文件。<br>
+TODO：一直到下一小节(CSS isolation CSS隔离)都没看</p>
+<h2 id="css-isolation-css隔离">CSS isolation CSS隔离 </h2>
+<p>在.NET5中，微软添加了一种叫做隔离CSS的东西，这是许多其他框架也拥有的东西，其思想是专门为一个组件编写CSS，当然，好处是我们创建的CSS不会影响任何其他组件。</p>
+<p>CSS有如下命名约定：</p>
+<pre data-role="codeBlock" data-info="css" class="language-css css"><code>    <span class="token selector">main</span> <span class="token punctuation">{</span>
+        <span class="token property">flex</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre><p>它将被改写如下：</p>
+<pre data-role="codeBlock" data-info="css" class="language-css css"><code>    <span class="token selector">main<span class="token attribute"><span class="token punctuation">[</span><span class="token attr-name">b-bfl5h5967n</span><span class="token punctuation">]</span></span></span> <span class="token punctuation">{</span>
+        <span class="token property">flex</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre><p>这意味着元素需要有一个名为b-bfl5h5967n的属性（在本例中）才能应用样式。</p>
+<p>MainLayout组件中包含CSS标记的div将如下输出：</p>
+<pre data-role="codeBlock" data-info="html" class="language-html html"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main</span> <span class="token attr-name">b-bfl5h5967n</span><span class="token punctuation">&gt;</span></span>
+</code></pre><p>为了实现所有这些，我们还需要一个到CSS的链接(由模板提供)，它看起来像这样：</p>
+<pre data-role="codeBlock" data-info="html" class="language-html html"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{Assemblyname}.styles.css<span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre><p>这对于组件库非常有用。我们的共享库中的组件具有独立的CSS（NavMenu和MainLayout），并且NavMenu组件的CSS包含在{Assemblyname}.styles.css中。</p>
+<p>隔离的CSS只影响组件内部的HTML标签，但如果我们在组件中有一个组件呢？</p>
+<p>如果我们打开Component/Shared/NavMenu.css，我们可以看到对于.nav-item 样式，其中一些样式使用了关键字::deep；这就是说，即使是子组件也应该也受到这种风格的影响。</p>
+<pre data-role="codeBlock" data-info="css" class="language-css css"><code>    <span class="token selector"><span class="token class">.nav-item</span> <span class="token pseudo-element">::deep</span> a<span class="token class">.active</span></span> <span class="token punctuation">{</span>
+        <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token color"><span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.25</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+        <span class="token property">color</span><span class="token punctuation">:</span> <span class="token color">white</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    .nav-item ::deep a:hover {
-        background-color: rgba(255,255,255,0.1);
-        color: white;
-    }
-&lt;/pre&gt;&lt;p&gt;它的目标是&lt;a&gt;标签，但Razor代码如下：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;div class="@NavMenuCssClass" @onclick="ToggleNavMenu"&gt;
-        &lt;nav class="flex-column"&gt;
-            &lt;div class="nav-item px-3"&gt;
-                &lt;NavLink class="nav-link" href="" Match="NavLinkMatch.All"&gt;
-                    &lt;span class="oi oi-home" aria-hidden="true"&gt;&lt;/span&gt; Home
-                &lt;/NavLink&gt;
-            &lt;/div&gt;
-            &lt;div class="nav-item px-3"&gt;
-                &lt;NavLink class="nav-link" href="counter"&gt;
-                    &lt;span class="oi oi-plus" aria-hidden="true"&gt;&lt;/span&gt; Counter
-                &lt;/NavLink&gt;
-            &lt;/div&gt;
-            &lt;div class="nav-item px-3"&gt;
-                &lt;NavLink class="nav-link" href="weather"&gt;
-                    &lt;span class="oi oi-list-rich" aria-hidden="true"&gt;&lt;/span&gt; Weather
-                &lt;/NavLink&gt;
-            &lt;/div&gt;
-        &lt;/nav&gt;
-    &lt;/div&gt;
-&lt;/pre&gt;&lt;p&gt;NavLink组件呈现&lt;a&gt;标记；通过添加::deep，我们是说将此样式应用于所有具有类.nav-item和处于其中的所有&lt;a&gt;标记。&lt;/p&gt;
-&lt;p&gt;我们还需要了解一件事，::deep确保共享属性的ID（例如b-bfl5h5967n），并且需要一个HTML标记来执行此操作。因此，如果我们有一个由其他组件组成的组件（根本不添加任何HTML标签），我们需要在内容周围添加一个HTML标签以使::deep 工作。&lt;/p&gt;
-&lt;h1 id="managing-state--part-2-管理状态--第-2-部分"&gt;Managing State – Part 2 管理状态 – 第 2 部分 &lt;/h1&gt;
-&lt;p&gt;状态就是以某种方式持久化的信息，可以是存储在数据库中的数据、会话状态，甚至是存储在URL中的内容。&lt;/p&gt;
-&lt;p&gt;在页面导航或会话之间保存状态可以提高用户体验。重新加载页面，你购物车中的所有商品都不见了，你很可能不会再在那里购物了。现在想象一下，一周或一个月后再回到一个页面，所有这些东西都还在那里。&lt;/p&gt;
-&lt;h2 id="storing-data-on-the-server-side-在服务器端存储数据"&gt;Storing data on the server side 在服务器端存储数据 &lt;/h2&gt;
-&lt;p&gt;在服务器端存储数据有许多不同的方法，唯一需要记住的是Blazor WebAssembly总是需要一个API，Blazor Server不需要API，因为我们可以直接访问服务器端的资源。&lt;/p&gt;
-&lt;h2 id="storing-data-in-the-url-在url中存储数据"&gt;Storing data in the URL 在URL中存储数据 &lt;/h2&gt;
-&lt;p&gt;你想保存在URL中的东西是您希望以后能够链接到的东西，例如博客文章。要从 URL 中读取参数，我们使用以下语法：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    @page "/post/{BlogPostId:int}"
+    <span class="token selector"><span class="token class">.nav-item</span> <span class="token pseudo-element">::deep</span> a<span class="token pseudo-class">:hover</span></span> <span class="token punctuation">{</span>
+        <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token color"><span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.1</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+        <span class="token property">color</span><span class="token punctuation">:</span> <span class="token color">white</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre><p>它的目标是<a href="">标签，但Razor代码如下：</a></p><a href="">
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">NavMenuCssClass</span></span><span class="token punctuation">"</span></span> <span class="token attr-name">@onclick</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ToggleNavMenu<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>flex-column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-item px-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NavLink</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-link<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">Match</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>NavLinkMatch.All<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oi oi-home<span class="token punctuation">"</span></span> <span class="token attr-name">aria-hidden</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span> Home
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>NavLink</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-item px-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NavLink</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-link<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oi oi-plus<span class="token punctuation">"</span></span> <span class="token attr-name">aria-hidden</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span> Counter
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>NavLink</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-item px-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NavLink</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-link<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>weather<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oi oi-list-rich<span class="token punctuation">"</span></span> <span class="token attr-name">aria-hidden</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span> Weather
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>NavLink</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nav</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre><p>NavLink组件呈现&lt;<code>a</code>&gt;标记；通过添加::deep，我们是说将此样式应用于所有具有类.nav-item和处于其中的所有&lt;<code>a</code>&gt;标记。</p>
+<p>我们还需要了解一件事，::deep确保共享属性的ID（例如b-bfl5h5967n），并且需要一个HTML标记来执行此操作。因此，如果我们有一个由其他组件组成的组件（根本不添加任何HTML标签），我们需要在内容周围添加一个HTML标签以使::deep 工作。</p>
+<h1 id="managing-state--part-2-管理状态--第-2-部分">Managing State – Part 2 管理状态 – 第 2 部分 </h1>
+<p>状态就是以某种方式持久化的信息，可以是存储在数据库中的数据、会话状态，甚至是存储在URL中的内容。</p>
+<p>在页面导航或会话之间保存状态可以提高用户体验。重新加载页面，你购物车中的所有商品都不见了，你很可能不会再在那里购物了。现在想象一下，一周或一个月后再回到一个页面，所有这些东西都还在那里。</p>
+<h2 id="storing-data-on-the-server-side-在服务器端存储数据">Storing data on the server side 在服务器端存储数据 </h2>
+<p>在服务器端存储数据有许多不同的方法，唯一需要记住的是Blazor WebAssembly总是需要一个API，Blazor Server不需要API，因为我们可以直接访问服务器端的资源。</p>
+<h2 id="storing-data-in-the-url-在url中存储数据">Storing data in the URL 在URL中存储数据 </h2>
+<p>你想保存在URL中的东西是您希望以后能够链接到的东西，例如博客文章。要从 URL 中读取参数，我们使用以下语法：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token directive"><span class="token keyword keyword-@page">@page</span> <span class="token csharp language-csharp"><span class="token string">"/post/{BlogPostId:int}"</span></span></span>
 
-    @code {
-        [Parameter]
-        public int BlogPostId{ get; set; }
-    }
-&lt;/pre&gt;&lt;p&gt;如果我们在U​​RL中存储数据，我们需要确保使用OnParametersSet或OnParametersSetAsync方法；否则，如果我们更改参数，数据将不会重新加载。如果参数更改，Blazor将不会再次运行OnInitializedAsync。这就是为什么我们的post.razor组件在OnParametersSet中加载根据URL中的参数变化的东西，而在 OnInitializedAsync中加载不受参数影响的东西。&lt;/p&gt;
-&lt;p&gt;我们可以通过将可选参数指定为nullable来使用它们，如下所示：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    @page "/post/{BlogPostId:int?}"
-&lt;/pre&gt;&lt;h3 id="route-constraints-路由约束"&gt;Route constraints 路由约束 &lt;/h3&gt;
-&lt;p&gt;当我们指定参数的类型时，这被称为路由约束，我们添加了一个约束，这样只有当参数值可以转换为我们指定的类型时，才会发生匹配。&lt;br&gt;
-有以下约束：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;bool&lt;/li&gt;
-&lt;li&gt;int&lt;/li&gt;
-&lt;li&gt;long&lt;/li&gt;
-&lt;li&gt;float&lt;/li&gt;
-&lt;li&gt;decimal&lt;/li&gt;
-&lt;li&gt;guid&lt;/li&gt;
-&lt;li&gt;datetime&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;URL元素将被转换为C#对象，因此，在将它们添加到URL时使用不变区域性是很重要的。&lt;/p&gt;
-&lt;h3 id="using-a-query-string-使用查询字符串"&gt;Using a query string 使用查询字符串 &lt;/h3&gt;
-&lt;p&gt;到目前为止，我们只讨论了page指令中指定的路由，但我们也可以从查询字符串中读取数据。&lt;br&gt;
-NavigationManager使我们能够访问URI，因此通过使用此代码，我们可以访问查询字符串参数：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    @inject NavigationManager Navigation
-    @code{
-        string query = new Uri(Navigation.Uri).Query;
-    }
-&lt;/pre&gt;&lt;p&gt;我们不会深入研究这个问题，但现在我们知道，如果需要的话，访问查询字符串参数是可能的。&lt;/p&gt;
-&lt;p&gt;我们还可以使用特性来访问查询参数，这种语法比较好用，如下所示：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    [Parameter, SupplyParameterFromQuery(Name = "parameterName")] 
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">Parameter</span></span><span class="token punctuation">]</span>
+        <span class="token keyword keyword-public">public</span> <span class="token return-type class-name"><span class="token keyword keyword-int">int</span></span> BlogPostId<span class="token punctuation">{</span> <span class="token keyword keyword-get">get</span><span class="token punctuation">;</span> <span class="token keyword keyword-set">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>如果我们在U​​RL中存储数据，我们需要确保使用OnParametersSet或OnParametersSetAsync方法；否则，如果我们更改参数，数据将不会重新加载。如果参数更改，Blazor将不会再次运行OnInitializedAsync。这就是为什么我们的post.razor组件在OnParametersSet中加载根据URL中的参数变化的东西，而在 OnInitializedAsync中加载不受参数影响的东西。</p>
+<p>我们可以通过将可选参数指定为nullable来使用它们，如下所示：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token directive"><span class="token keyword keyword-@page">@page</span> <span class="token csharp language-csharp"><span class="token string">"/post/{BlogPostId:int?}"</span></span></span>
+</code></pre><h3 id="route-constraints-路由约束">Route constraints 路由约束 </h3>
+<p>当我们指定参数的类型时，这被称为路由约束，我们添加了一个约束，这样只有当参数值可以转换为我们指定的类型时，才会发生匹配。<br>
+有以下约束：</p>
+<ul>
+<li>bool</li>
+<li>int</li>
+<li>long</li>
+<li>float</li>
+<li>decimal</li>
+<li>guid</li>
+<li>datetime</li>
+</ul>
+<p>URL元素将被转换为C#对象，因此，在将它们添加到URL时使用不变区域性是很重要的。</p>
+<h3 id="using-a-query-string-使用查询字符串">Using a query string 使用查询字符串 </h3>
+<p>到目前为止，我们只讨论了page指令中指定的路由，但我们也可以从查询字符串中读取数据。<br>
+NavigationManager使我们能够访问URI，因此通过使用此代码，我们可以访问查询字符串参数：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token directive"><span class="token keyword keyword-@inject">@inject</span> <span class="token csharp language-csharp">NavigationManager Navigation</span></span>
+    <span class="token block"><span class="token keyword keyword-@code">@code</span><span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token class-name"><span class="token keyword keyword-string">string</span></span> query <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token constructor-invocation class-name">Uri</span><span class="token punctuation">(</span>Navigation<span class="token punctuation">.</span>Uri<span class="token punctuation">)</span><span class="token punctuation">.</span>Query<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>我们不会深入研究这个问题，但现在我们知道，如果需要的话，访问查询字符串参数是可能的。</p>
+<p>我们还可以使用特性来访问查询参数，这种语法比较好用，如下所示：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    [Parameter, SupplyParameterFromQuery(Name = "parameterName")] 
     public string ParameterFromQuery { get; set; }
-&lt;/pre&gt;&lt;h3 id="scenarios-that-are-not-that-common-不常见的场景"&gt;Scenarios that are not that common 不常见的场景 &lt;/h3&gt;
-&lt;p&gt;有些场景可能不是很常见，但是我不想完全把它们排除在本书之外，因为我在一些实现中使用了它们。我希望提及它们，以防您可能遇到和我一样的需求。默认情况下，Blozor会假设包含点的URL是一个文件，并尝试为用户提供一个文件(如果我们尝试匹配路由，则可能找不到)。通过将Startup.cs中的以下内容添加到Blazor WebAssembly服务器项目（服务器托管的 WebAssembly 项目），服务器会将请求重定向到index.html文件：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="csharp" data-parsed-info="{"language":"csharp","attributes":{"class":"csharp"}}" data-normalized-info="{"language":"csharp","attributes":{"class":"csharp"}}" &gt;    app.MapFallbackToFile("/example/{param?}", "index.html");
-&lt;/pre&gt;&lt;p&gt;如果URL为example/some.thing，它将把请求重定向到Blazor WebAssembly入口点，并且Blazor路由将处理它。如果没有它，服务器会说找不到文件。&lt;/p&gt;
-&lt;p&gt;路由（包括URL中的点）将起作用，并且为了执行相同的操作，我们需要将以下内容添加到BlazorServer项目中的Startup.cs中：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="csharp" data-parsed-info="{"language":"csharp","attributes":{"class":"csharp"}}" data-normalized-info="{"language":"csharp","attributes":{"class":"csharp"}}" &gt;    app.MapFallbackToPage("/example/{param?}", "/_Host");
-&lt;/pre&gt;&lt;p&gt;我们在这里做同样的事情，但不是重定向到index.html，而是重定向到_Host，这是BlazorServer的入口点。&lt;/p&gt;
-&lt;p&gt;在URL中包含数据并不是真正存储数据。如果我们导航到另一个页面，我们需要确保包含新的URL；否则就会丢失。如果我们想要存储不需要每次都包含在URL中的数据，我们可以使用浏览器存储。&lt;/p&gt;
-&lt;h3 id="implementing-browser-storage-实现浏览器存储"&gt;Implementing browser storage 实现浏览器存储 &lt;/h3&gt;
-&lt;p&gt;浏览器有许多不同的方式来在Web浏览器中存储数据。它们的处理方式取决于我们使用的类型。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;本地存储(Local storage)：范围是用户的浏览器窗口。如果用户重新加载页面甚至关闭Web浏览器，数据仍然会保存。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;会话存储(Session storage)：范围仅限于浏览器选项卡。如果重新加载选项卡，数据将被保存，但如果关闭选项卡，数据将丢失。在某种程度上，SessionsStorage使用起来更安全，因为我们避免了由于多个选项卡操作存储中的相同值而可能出现的错误风险。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;为了访问浏览器存储，我们需要使用JavaScript。幸运的是，我们不需要自己编写代码。在.NET5中，微软引入了受保护的浏览器存储，它在ASP.NETCore中使用数据保护，在WebAssembly中不可用。但是，我们可以使用名为Blazored.LocalStorage的开源库，BlazorServer和Blazor WebAssembly都可以使用该库。因此，让我们实现一个接口，以便我们可以在应用程序中使用这两个版本，这取决于我们正在使用的托管模型。&lt;/p&gt;
-&lt;h4 id="creating-an-interface-创建接口-1"&gt;Creating an interface 创建接口 &lt;/h4&gt;
-&lt;p&gt;我们需要一个可以读写存储的接口。在MyComponents项目中新建文件夹Interfaces，在其中新建一个接口文件IBrowserStorage.cs：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="csharp" data-parsed-info="{"language":"csharp","attributes":{"class":"csharp"}}" data-normalized-info="{"language":"csharp","attributes":{"class":"csharp"}}" &gt;    namespace MyComponents.Interfaces;
-    public interface IBrowserStorage {
-        Task&lt;T?&gt; GetAsync&lt;T&gt;(string key);
-        Task SetAsync(string key, object value);
-        Task DeleteAsync(string key);
-    }
-&lt;/pre&gt;&lt;h4 id="implementing-blazor-server-实现blazor-server"&gt;Implementing Blazor Server 实现Blazor Server &lt;/h4&gt;
-&lt;p&gt;对于Blazor Server，我们将使用受保护的浏览器存储：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;在Blazor Server项目中，添加文件夹Services，在其中新建文件BlogProtectedBrowserStorage.cs：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+</code></pre><h3 id="scenarios-that-are-not-that-common-不常见的场景">Scenarios that are not that common 不常见的场景 </h3>
+<p>有些场景可能不是很常见，但是我不想完全把它们排除在本书之外，因为我在一些实现中使用了它们。我希望提及它们，以防您可能遇到和我一样的需求。默认情况下，Blozor会假设包含点的URL是一个文件，并尝试为用户提供一个文件(如果我们尝试匹配路由，则可能找不到)。通过将Startup.cs中的以下内容添加到Blazor WebAssembly服务器项目（服务器托管的 WebAssembly 项目），服务器会将请求重定向到index.html文件：</p>
+<pre data-role="codeBlock" data-info="csharp" class="language-csharp csharp"><code>    app<span class="token punctuation">.</span><span class="token function">MapFallbackToFile</span><span class="token punctuation">(</span><span class="token string">"/example/{param?}"</span><span class="token punctuation">,</span> <span class="token string">"index.html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>如果URL为example/some.thing，它将把请求重定向到Blazor WebAssembly入口点，并且Blazor路由将处理它。如果没有它，服务器会说找不到文件。</p>
+<p>路由（包括URL中的点）将起作用，并且为了执行相同的操作，我们需要将以下内容添加到BlazorServer项目中的Startup.cs中：</p>
+<pre data-role="codeBlock" data-info="csharp" class="language-csharp csharp"><code>    app<span class="token punctuation">.</span><span class="token function">MapFallbackToPage</span><span class="token punctuation">(</span><span class="token string">"/example/{param?}"</span><span class="token punctuation">,</span> <span class="token string">"/_Host"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>我们在这里做同样的事情，但不是重定向到index.html，而是重定向到_Host，这是BlazorServer的入口点。</p>
+<p>在URL中包含数据并不是真正存储数据。如果我们导航到另一个页面，我们需要确保包含新的URL；否则就会丢失。如果我们想要存储不需要每次都包含在URL中的数据，我们可以使用浏览器存储。</p>
+<h3 id="implementing-browser-storage-实现浏览器存储">Implementing browser storage 实现浏览器存储 </h3>
+<p>浏览器有许多不同的方式来在Web浏览器中存储数据。它们的处理方式取决于我们使用的类型。</p>
+<ul>
+<li>
+<p>本地存储(Local storage)：范围是用户的浏览器窗口。如果用户重新加载页面甚至关闭Web浏览器，数据仍然会保存。</p>
+</li>
+<li>
+<p>会话存储(Session storage)：范围仅限于浏览器选项卡。如果重新加载选项卡，数据将被保存，但如果关闭选项卡，数据将丢失。在某种程度上，SessionsStorage使用起来更安全，因为我们避免了由于多个选项卡操作存储中的相同值而可能出现的错误风险。</p>
+</li>
+</ul>
+<p>为了访问浏览器存储，我们需要使用JavaScript。幸运的是，我们不需要自己编写代码。在.NET5中，微软引入了受保护的浏览器存储，它在ASP.NETCore中使用数据保护，在WebAssembly中不可用。但是，我们可以使用名为Blazored.LocalStorage的开源库，BlazorServer和Blazor WebAssembly都可以使用该库。因此，让我们实现一个接口，以便我们可以在应用程序中使用这两个版本，这取决于我们正在使用的托管模型。</p>
+<h4 id="creating-an-interface-创建接口-1">Creating an interface 创建接口 </h4>
+<p>我们需要一个可以读写存储的接口。在MyComponents项目中新建文件夹Interfaces，在其中新建一个接口文件IBrowserStorage.cs：</p>
+<pre data-role="codeBlock" data-info="csharp" class="language-csharp csharp"><code>    <span class="token keyword keyword-namespace">namespace</span> <span class="token namespace">MyComponents<span class="token punctuation">.</span>Interfaces</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-interface">interface</span> <span class="token class-name">IBrowserStorage</span> <span class="token punctuation">{</span>
+        <span class="token return-type class-name">Task<span class="token punctuation">&lt;</span>T<span class="token punctuation">?</span><span class="token punctuation">&gt;</span></span> <span class="token generic-method"><span class="token function">GetAsync</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>T<span class="token punctuation">&gt;</span></span></span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token return-type class-name">Task</span> <span class="token function">SetAsync</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> key<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword keyword-object">object</span></span> <span class="token keyword keyword-value">value</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token return-type class-name">Task</span> <span class="token function">DeleteAsync</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre><h4 id="implementing-blazor-server-实现blazor-server">Implementing Blazor Server 实现Blazor Server </h4>
+<p>对于Blazor Server，我们将使用受保护的浏览器存储：</p>
+<ol>
+<li>在Blazor Server项目中，添加文件夹Services，在其中新建文件BlogProtectedBrowserStorage.cs：</li>
+</ol>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
     using MyComponents.Interfaces;
 
     namespace BlazorServer.Services;
@@ -1222,8 +1222,8 @@ NavigationManager使我们能够访问URI，因此通过使用此代码，我们
             await Storage.DeleteAsync(key);
         }
 
-        public async Task&lt;T?&gt; GetAsync&lt;T&gt;(string key) {
-            var value = await Storage.GetAsync&lt;T&gt;(key);
+        public async Task<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T?</span><span class="token punctuation">&gt;</span></span> GetAsync<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span>(string key) {
+            var value = await Storage.GetAsync<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span>(key);
             if (value.Success) {
                 return value.Value;
             }
@@ -1234,93 +1234,93 @@ NavigationManager使我们能够访问URI，因此通过使用此代码，我们
             await Storage.SetAsync(key, value);
         }
     }
-&lt;/pre&gt;&lt;ol start="2"&gt;
-&lt;li&gt;在Program.cs中，添加以下内容：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre data-role="codeBlock" data-info="csharp" data-parsed-info="{"language":"csharp","attributes":{"class":"csharp"}}" data-normalized-info="{"language":"csharp","attributes":{"class":"csharp"}}" &gt;    using Components.Interfaces;
-    using BlazorServer.Services;
-    //...
-    builder.Services.AddScoped&lt;IBrowserStorage, BlogProtectedBrowserStorage&gt;();
-&lt;/pre&gt;&lt;p&gt;代码意思是，告知依赖注入框架，每当请求IBrowserStorage接口时，都应该实例化并返回一个BlogProtectedBrowserStorage类型的对象。&lt;/p&gt;
-&lt;h4 id="implementing-webassembly-实现webassembly"&gt;Implementing WebAssembly 实现WebAssembly &lt;/h4&gt;
-&lt;ol&gt;
-&lt;li&gt;在BlazorWebAssembly.Client项目中引用NuGet包Blazored.SessionStorage。&lt;/li&gt;
-&lt;li&gt;在BlazorWebAssembly.Client项目中，添加文件夹Services，在其中新建文件BlogBrowserStorage.cs：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre data-role="codeBlock" data-info="csharp" data-parsed-info="{"language":"csharp","attributes":{"class":"csharp"}}" data-normalized-info="{"language":"csharp","attributes":{"class":"csharp"}}" &gt;    using Blazored.SessionStorage;
-    using MyComponents.Interfaces;
+</code></pre><ol start="2">
+<li>在Program.cs中，添加以下内容：</li>
+</ol>
+<pre data-role="codeBlock" data-info="csharp" class="language-csharp csharp"><code>    <span class="token keyword keyword-using">using</span> <span class="token namespace">Components<span class="token punctuation">.</span>Interfaces</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-using">using</span> <span class="token namespace">BlazorServer<span class="token punctuation">.</span>Services</span><span class="token punctuation">;</span>
+    <span class="token comment">//...</span>
+    builder<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddScoped</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>IBrowserStorage<span class="token punctuation">,</span> BlogProtectedBrowserStorage<span class="token punctuation">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>代码意思是，告知依赖注入框架，每当请求IBrowserStorage接口时，都应该实例化并返回一个BlogProtectedBrowserStorage类型的对象。</p>
+<h4 id="implementing-webassembly-实现webassembly">Implementing WebAssembly 实现WebAssembly </h4>
+<ol>
+<li>在BlazorWebAssembly.Client项目中引用NuGet包Blazored.SessionStorage。</li>
+<li>在BlazorWebAssembly.Client项目中，添加文件夹Services，在其中新建文件BlogBrowserStorage.cs：</li>
+</ol>
+<pre data-role="codeBlock" data-info="csharp" class="language-csharp csharp"><code>    <span class="token keyword keyword-using">using</span> <span class="token namespace">Blazored<span class="token punctuation">.</span>SessionStorage</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-using">using</span> <span class="token namespace">MyComponents<span class="token punctuation">.</span>Interfaces</span><span class="token punctuation">;</span>
 
-    namespace BlazorWebAssembly.Client.Services;
-    public class BlogBrowserStorage : IBrowserStorage {
-        ISessionStorageService Storage { get; set; }
-        public BlogBrowserStorage(ISessionStorageService storage) {
-            Storage = storage;
-        }
-        public async Task DeleteAsync(string key) {
-            await Storage.RemoveItemAsync(key);
-        }
+    <span class="token keyword keyword-namespace">namespace</span> <span class="token namespace">BlazorWebAssembly<span class="token punctuation">.</span>Client<span class="token punctuation">.</span>Services</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">BlogBrowserStorage</span> <span class="token punctuation">:</span> <span class="token type-list"><span class="token class-name">IBrowserStorage</span></span> <span class="token punctuation">{</span>
+        <span class="token return-type class-name">ISessionStorageService</span> Storage <span class="token punctuation">{</span> <span class="token keyword keyword-get">get</span><span class="token punctuation">;</span> <span class="token keyword keyword-set">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token keyword keyword-public">public</span> <span class="token function">BlogBrowserStorage</span><span class="token punctuation">(</span><span class="token class-name">ISessionStorageService</span> storage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Storage <span class="token operator">=</span> storage<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name">Task</span> <span class="token function">DeleteAsync</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-await">await</span> Storage<span class="token punctuation">.</span><span class="token function">RemoveItemAsync</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        public async Task&lt;T?&gt; GetAsync&lt;T&gt;(string key) {
-            return await Storage.GetItemAsync&lt;T&gt;(key);
-        }
+        <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name">Task<span class="token punctuation">&lt;</span>T<span class="token punctuation">?</span><span class="token punctuation">&gt;</span></span> <span class="token generic-method"><span class="token function">GetAsync</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>T<span class="token punctuation">&gt;</span></span></span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-return">return</span> <span class="token keyword keyword-await">await</span> Storage<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetItemAsync</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>T<span class="token punctuation">&gt;</span></span></span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        public async Task SetAsync(string key, object value) {
-            await Storage.SetItemAsync(key, value);
-        }
-    }
-&lt;/pre&gt;&lt;ol start="3"&gt;
-&lt;li&gt;在Program.cs中，添加以下内容：&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre data-role="codeBlock" data-info="csharp" data-parsed-info="{"language":"csharp","attributes":{"class":"csharp"}}" data-normalized-info="{"language":"csharp","attributes":{"class":"csharp"}}" &gt;    using Blazored.SessionStorage;
-    using BlazorWebAssembly.Client.Services;
-    using MyComponents.Interfaces;
+        <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name">Task</span> <span class="token function">SetAsync</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-string">string</span></span> key<span class="token punctuation">,</span> <span class="token class-name"><span class="token keyword keyword-object">object</span></span> <span class="token keyword keyword-value">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-await">await</span> Storage<span class="token punctuation">.</span><span class="token function">SetItemAsync</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token keyword keyword-value">value</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre><ol start="3">
+<li>在Program.cs中，添加以下内容：</li>
+</ol>
+<pre data-role="codeBlock" data-info="csharp" class="language-csharp csharp"><code>    <span class="token keyword keyword-using">using</span> <span class="token namespace">Blazored<span class="token punctuation">.</span>SessionStorage</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-using">using</span> <span class="token namespace">BlazorWebAssembly<span class="token punctuation">.</span>Client<span class="token punctuation">.</span>Services</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-using">using</span> <span class="token namespace">MyComponents<span class="token punctuation">.</span>Interfaces</span><span class="token punctuation">;</span>
 
-    //...
-    builder.Services.AddBlazoredSessionStorage();
-    builder.Services.AddScoped&lt;IBrowserStorage, BlogBrowserStorage&gt;();
-&lt;/pre&gt;&lt;p&gt;AddBlazoredSessionStorage扩展方法完成了所有必要的连接工作，使得我们可以开始使用浏览器会话存储功能。&lt;/p&gt;
-&lt;p&gt;接下来，我们像在Blazor Server中那样为IBrowserStorage添加配置，但在本例中，当我们通过依赖注入请求IBrowserStorage时，返回的是BlogBrowserStorage实例。&lt;/p&gt;
-&lt;h4 id="implementing-the-shared-code-实现共享代码"&gt;Implementing the shared code 实现共享代码 &lt;/h4&gt;
-&lt;p&gt;我们还需要实现一些代码来调用我们刚刚创建的服务，在MyComponents项目中新建文件Index.razor：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    @page "/Index"
-    @inject Interfaces.IBrowserStorage storage
-    &lt;h3&gt;Index @TheName&lt;/h3&gt;
-    &lt;input @bind="TheName" /&gt;
-    &lt;button @onclick="SaveAsync"&gt;Save&lt;/button&gt;
-    @code {
-        public class Person {
-            public int Id { get; set; }
-            public string Name { get; set; } = string.Empty;
-        }
+    <span class="token comment">//...</span>
+    builder<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token function">AddBlazoredSessionStorage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    builder<span class="token punctuation">.</span>Services<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">AddScoped</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>IBrowserStorage<span class="token punctuation">,</span> BlogBrowserStorage<span class="token punctuation">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>AddBlazoredSessionStorage扩展方法完成了所有必要的连接工作，使得我们可以开始使用浏览器会话存储功能。</p>
+<p>接下来，我们像在Blazor Server中那样为IBrowserStorage添加配置，但在本例中，当我们通过依赖注入请求IBrowserStorage时，返回的是BlogBrowserStorage实例。</p>
+<h4 id="implementing-the-shared-code-实现共享代码">Implementing the shared code 实现共享代码 </h4>
+<p>我们还需要实现一些代码来调用我们刚刚创建的服务，在MyComponents项目中新建文件Index.razor：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token directive"><span class="token keyword keyword-@page">@page</span> <span class="token csharp language-csharp"><span class="token string">"/Index"</span></span></span>
+    <span class="token directive"><span class="token keyword keyword-@inject">@inject</span> <span class="token csharp language-csharp">Interfaces<span class="token punctuation">.</span>IBrowserStorage storage</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">&gt;</span></span>Index <span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">TheName</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">@bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>TheName<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@onclick</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>SaveAsync<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Save<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token block"><span class="token keyword keyword-@code">@code</span> <span class="token csharp language-csharp"><span class="token punctuation">{</span>
+        <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-public">public</span> <span class="token return-type class-name"><span class="token keyword keyword-int">int</span></span> Id <span class="token punctuation">{</span> <span class="token keyword keyword-get">get</span><span class="token punctuation">;</span> <span class="token keyword keyword-set">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+            <span class="token keyword keyword-public">public</span> <span class="token return-type class-name"><span class="token keyword keyword-string">string</span></span> Name <span class="token punctuation">{</span> <span class="token keyword keyword-get">get</span><span class="token punctuation">;</span> <span class="token keyword keyword-set">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword keyword-string">string</span><span class="token punctuation">.</span>Empty<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        public Person? ThePerson { get; set; }
-        string TheName = string.Empty;
+        <span class="token keyword keyword-public">public</span> <span class="token return-type class-name">Person<span class="token punctuation">?</span></span> ThePerson <span class="token punctuation">{</span> <span class="token keyword keyword-get">get</span><span class="token punctuation">;</span> <span class="token keyword keyword-set">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token class-name"><span class="token keyword keyword-string">string</span></span> TheName <span class="token operator">=</span> <span class="token keyword keyword-string">string</span><span class="token punctuation">.</span>Empty<span class="token punctuation">;</span>
 
-        protected override async Task OnAfterRenderAsync(bool firstRender) {
-            if (firstRender) {
-                Person? person = await storage.GetAsync&lt;Person&gt;("Jack");
-                if (person!=null) {
-                    ThePerson = person;
-                    TheName = person.Name;
-                    StateHasChanged();
-                }
-            }
-            await base.OnAfterRenderAsync(firstRender);
-        }
+        <span class="token keyword keyword-protected">protected</span> <span class="token keyword keyword-override">override</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name">Task</span> <span class="token function">OnAfterRenderAsync</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword keyword-bool">bool</span></span> firstRender<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>firstRender<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token class-name">Person<span class="token punctuation">?</span></span> person <span class="token operator">=</span> <span class="token keyword keyword-await">await</span> storage<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetAsync</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>Person<span class="token punctuation">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">"Jack"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>person<span class="token operator">!=</span><span class="token keyword keyword-null">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    ThePerson <span class="token operator">=</span> person<span class="token punctuation">;</span>
+                    TheName <span class="token operator">=</span> person<span class="token punctuation">.</span>Name<span class="token punctuation">;</span>
+                    <span class="token function">StateHasChanged</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword keyword-await">await</span> <span class="token keyword keyword-base">base</span><span class="token punctuation">.</span><span class="token function">OnAfterRenderAsync</span><span class="token punctuation">(</span>firstRender<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        public async Task SaveAsync() {
-            if (!string.IsNullOrEmpty(TheName)) {
-                ThePerson = new Person { Id = 1, Name = TheName };
-                await storage.SetAsync("Jack", ThePerson);
-            }
-        }
-    }
-&lt;/pre&gt;&lt;p&gt;之后在Blazor项目中使用&lt;Index&gt;组件即可，注意这里是会话存储，刷新浏览器选项卡后数据依旧存在，但关闭选项卡后数据会丢失。&lt;/p&gt;
-&lt;h3 id="using-an-in-memory-state-container-service-使用内存中的状态容器服务"&gt;Using an in-memory state container service 使用内存中的状态容器服务 &lt;/h3&gt;
-&lt;p&gt;当涉及到内存中的状态容器时，我们只需使用依赖注入来在预定的时间内(范围、单例、瞬态)在内存中保存服务的实例。&lt;br&gt;
-TODO：未看&lt;/p&gt;
-&lt;h1 id="debugging-the-code-调试代码"&gt;Debugging the Code 调试代码 &lt;/h1&gt;
-</textarea></p>
+        <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-async">async</span> <span class="token return-type class-name">Task</span> <span class="token function">SaveAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword keyword-string">string</span><span class="token punctuation">.</span><span class="token function">IsNullOrEmpty</span><span class="token punctuation">(</span>TheName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                ThePerson <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token constructor-invocation class-name">Person</span> <span class="token punctuation">{</span> Id <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> Name <span class="token operator">=</span> TheName <span class="token punctuation">}</span><span class="token punctuation">;</span>
+                <span class="token keyword keyword-await">await</span> storage<span class="token punctuation">.</span><span class="token function">SetAsync</span><span class="token punctuation">(</span><span class="token string">"Jack"</span><span class="token punctuation">,</span> ThePerson<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></span></span>
+</code></pre><p>之后在Blazor项目中使用&lt;<code>Index</code>&gt;组件即可，注意这里是会话存储，刷新浏览器选项卡后数据依旧存在，但关闭选项卡后数据会丢失。</p>
+<h3 id="using-an-in-memory-state-container-service-使用内存中的状态容器服务">Using an in-memory state container service 使用内存中的状态容器服务 </h3>
+<p>当涉及到内存中的状态容器时，我们只需使用依赖注入来在预定的时间内(范围、单例、瞬态)在内存中保存服务的实例。<br>
+TODO：未看</p>
+<h1 id="debugging-the-code-调试代码">Debugging the Code 调试代码 </h1>
+</a>
       </div>
       
       
