@@ -455,7 +455,7 @@ Login.razor:</p>
 <img src="Razor%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%AF%BC%E8%88%AA%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84.jpg" alt=""></p>
 <p>图中列出了应用中的主要页面，每个页面的名称都是Razor页面的类名，名称下的路由就是路由模板，例如，对于About页面，我们可以像下面这样声明路由模板：<br>
 @page "/about"</p>
-<p>@page指令包括两部分：指令名和路由模板。在这个例子中，路由模板是 "/about"，它必须被引号括起来，并且总是以一个斜杠开头。由于Razor页面的最终输出是一个HTML页面，我们可以像在Web页面中一样使用<a href="">来导航到Razor页面，如下所示：</a></p><a href="">
+<p>@page指令包括两部分：指令名和路由模板。在这个例子中，路由模板是 "/about"，它必须被引号括起来，并且总是以一个斜杠开头。由于Razor页面的最终输出是一个HTML页面，我们可以像在Web页面中一样使用<code>a</code>来导航到Razor页面，如下所示：</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/about<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>About<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
 </code></pre><h2 id="passing-data-using-route-parameters-使用路由参数传递数据">Passing data using route parameters 使用路由参数传递数据 </h2>
 <p>当我们使用路由模板导航到一个页面时，我们可以使用路由参数将数据传递给页面。</p>
@@ -466,8 +466,8 @@ Login.razor:</p>
 <p>为了指定路由参数的类型，我们可以使用数据类型为它添加约束，如下所示，我们指定Id的数据类型为int:</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token directive"><span class="token keyword keyword-@page">@page</span> <span class="token csharp language-csharp"><span class="token string">"/user/{Id:int}"</span></span></span>
 </code></pre><h2 id="navigating-with-navigationmanager-使用navigationmanager导航">Navigating with NavigationManager 使用NavigationManager导航 </h2>
-</a><p><a href="">在Razor页面中，虽然我们通常可以使用</a><a href="">导航到另一个页面，但有时我们可能需要使用代码来完成，例如，当我们处理一个事件时，我们可能会在事件处理程序中重定向到一个页面，让我们看看如何使用NavigationManager导航到其它页面：<br>
-Counter.razor</a></p><a href="">
+<p>在Razor页面中，虽然我们通常可以使用<code>a</code>导航到另一个页面，但有时我们可能需要使用代码来完成，例如，当我们处理一个事件时，我们可能会在事件处理程序中重定向到一个页面，让我们看看如何使用NavigationManager导航到其它页面：<br>
+Counter.razor</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token directive"><span class="token keyword keyword-@page">@page</span> <span class="token csharp language-csharp"><span class="token string">"/counter"</span></span></span>
     <span class="token directive"><span class="token keyword keyword-@inject">@inject</span> <span class="token csharp language-csharp">NavigationManager navigationManager</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Counter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
@@ -515,7 +515,7 @@ MainLayout.razor</p>
             <span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">Body</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-</code></pre><p>在MainLayout组件中，它继承了LayoutComponentBase类。它包含了一个NavMenu组件来定义导航菜单。在</p></a><main><a href="">标签内部，它使用Razor语法@Body来指定在布局标记中呈现内容的位置。<p></p>
+</code></pre><p>在MainLayout组件中，它继承了LayoutComponentBase类。它包含了一个NavMenu组件来定义导航菜单。在</p><main>标签内部，它使用Razor语法@Body来指定在布局标记中呈现内容的位置。<p></p>
 <p>我们来详细介绍一下NavMenu组件，因为它是我们应用中的顶级导航方法。</p>
 <p>NavMenu是一个Razor组件，定义了导航链接，NavMenu组件也定义在项目的Shared文件夹中，源代码如下：<br>
 NavMenu.razor：</p>
@@ -581,10 +581,10 @@ NavMenu.razor：</p>
     <span class="token punctuation">}</span></span></span>
 </code></pre><p>在NavMenu组件的源代码中，我们可以看到它是一个带有C#逻辑的Bootstrap的navBar组件。NavBar用Bootstrap的navbar类来定义，如下：</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>top-row ps-3 navbar navbar-dark<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-</code></pre></a><p><a href="">如图中看到的，我们把窗口宽度调小，在屏幕的右上角有一个菜单图标，它使用</a><button><a href="">来切换NavMenu。菜单按钮的UI是使用Bootstrap的navbar-toggler类实现的，如下所示:<br>
-<img src="2024-03-19-12-21-56.png" alt=""><p></p>
-</a><p><a href="">有几个链接使用Bootstrap类nav-item定义为菜单项。该链接使用NavLink而非</a><a href="">来定义。NavLink组件的行为类似于</a><a href="">，但它根据其href是否与当前URL匹配来切换一个active CSS类，如下所示:<br>
-NavMenu.razor部分源码：</a></p><a href="">
+</code></pre><p>如图中看到的，我们把窗口宽度调小，在屏幕的右上角有一个菜单图标，它使用<code>button</code>来切换NavMenu。菜单按钮的UI是使用Bootstrap的navbar-toggler类实现的，如下所示:<br>
+<img src="2024-03-19-12-21-56.png" alt=""></p>
+<p>有几个链接使用Bootstrap类nav-item定义为菜单项。该链接使用NavLink而非<code>a</code>来定义。NavLink组件的行为类似于<code>a</code>，但它根据其href是否与当前URL匹配来切换一个active CSS类，如下所示:<br>
+NavMenu.razor部分源码：</p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-item px-3<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NavLink</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-link<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">Match</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>NavLinkMatch.All<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>oi oi-home<span class="token punctuation">"</span></span> <span class="token attr-name">aria-hidden</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span> Home
@@ -647,14 +647,14 @@ PageLayout.razor</p>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>article</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content px-4<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token value variable"><span class="token keyword keyword-@">@</span><span class="token csharp language-csharp">Body</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>article</span><span class="token punctuation">&gt;</span></span>
-</code></pre><p>PageLayout是一个采用MainLayout的布局组件，它将@Body放置在具有"content px-4"样式的</p></a><article><a href="">标签内，从而使得内容能够应用适合于一段文本的样式。<br>
+</code></pre><p>PageLayout是一个采用MainLayout的布局组件，它将@Body放置在具有"content px-4"样式的</p><article>标签内，从而使得内容能够应用适合于一段文本的样式。<br>
 在About页面中，我们可以将布局设置为PageLayout:<p></p>
 <pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token directive"><span class="token keyword keyword-@page">@page</span> <span class="token csharp language-csharp"><span class="token string">"/about"</span></span></span>
     <span class="token directive"><span class="token keyword keyword-@layout">@layout</span> <span class="token csharp language-csharp">PageLayout</span></span>
 </code></pre><p>现在已经介绍了Blazor的路由和布局。有了这些知识，是时候实现我们应用程序的导航元素了。</p>
 <h2 id="implementing-navigation-elements-实现导航元素">Implementing navigation elements 实现导航元素 </h2>
 <p>要使用Web UI实现列表视图，我们有很多选择，本书坚持使用Bootstrap框架，本书使用Bootstrap 5.1。</p>
-<p>Bootstrap列表组可用于在XAML中构建类似ListView的UI组件。实现这一目标的方法是，我们可以将CSS类"list-group"应用于诸如</p></a><ul><a href="">或</a><div><a href="">等HTML标签上，以创建一个列表组。在列表组内部，将"list-group-item"CSS类应用于组内的列表项。<p></p>
+<p>Bootstrap列表组可用于在XAML中构建类似ListView的UI组件。实现这一目标的方法是，我们可以将CSS类"list-group"应用于诸如</p><ul>或<div>等HTML标签上，以创建一个列表组。在列表组内部，将"list-group-item"CSS类应用于组内的列表项。<p></p>
 <p>在之前的XAML版本中，我们支持使用上下文菜单进行CRUD操作，但是在Bootstrap列表组中没有上下文菜单，所以我们需要自己实现一个上下文菜单，为了在列表组中实现上下文菜单，我们可以使用Bootstrap的下拉组件。</p>
 <p>要使用下拉菜单组件，我们需要在index.html中包含JavaScript依赖。打开index.html，在body标签尾部找到以下代码：</p>
 <pre data-role="codeBlock" data-info="html" class="language-html html"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_framework/blazor.webview.js<span class="token punctuation">"</span></span> <span class="token attr-name">autostart</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
@@ -723,8 +723,8 @@ MainLayout.razor：</p>
 <p>在我们的项目中，我们在共享文件夹中创建可重用组件。这些组件可以被其他组件重用，例如布局组件或NavMenu。</p>
 <p>我们还可以将Razor组件封装在一个单独的库中，以Razor类库的形式。Razor类库中的组件不是特定于项目的，因此可以在任何Blazor项目中使用。我们可以在BlazorHybrid、BlazorWebAssembly或BlazorServer应用程序中使用它们。</p>
 <p>本书中，我们使用Bootstrap构建Razor组件，GitHub上有许多基于Bootstrap构建的开源Razor类库，其中一些已经足够用于商业产品开发，下面是一些例子：</p>
-</a><ul><a href="">
-</a><li><a href="">BootstrapBlazor – </a><a href="https://github.com/dotnetcore/BootstrapBlazor">https://github.com/dotnetcore/BootstrapBlazor</a></li>
+<ul>
+<li>BootstrapBlazor – <a href="https://github.com/dotnetcore/BootstrapBlazor">https://github.com/dotnetcore/BootstrapBlazor</a></li>
 <li>Blazorise – <a href="https://github.com/Megabit/Blazorise">https://github.com/Megabit/Blazorise</a></li>
 <li>Havit.Blazor – <a href="https://github.com/havit/Havit.Blazor/">https://github.com/havit/Havit.Blazor/</a></li>
 </ul>
@@ -1135,7 +1135,7 @@ FirstDialog.razor：&lt;/p&gt;
 &lt;p&gt;它们都很流行，可以根据项目需求进行选择，本章中，我们将使用xUnit来开发单元测试用例，因为它是一个较新的框架，与NUnit相比有许多改进。&lt;/p&gt;
 &lt;p&gt;无论你选择哪种单元测试框架，单元测试开发的过程都是相似的，如果你在项目中使用了不同的框架，本章的内容仍然可以帮助你，单元测试用例只能在跨平台的目标框架上运行，而不是特定于平台的目标框架，在本书中，&lt;a href="http://xn--vnqvnk98bu5r.NET"&gt;我们使用.NET&lt;/a&gt; 6.0，所以单元测试的目标框架是net6.0，而不是net6.0-android或net6.0-ios。&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://xn--siq0gp4mgpn.NET"&gt;为了开发.NET&lt;/a&gt; MAUI的单元测试，我们将介绍基于XAML和基于Blazor的应用程序的测试案例开发。在这两种情况下，我们将在设计中使用MVVM模式。在模型层的单元测试案例对于两者来说是相同的，但在视图和视图模型中的测试是相当不同的。对于基于XAML的应用程序，为视图和视图模型开发单元测试案例是相当复杂的。为了测试视图模型，我们必须解决XAML组件的依赖关系。例如，在我们应用程序的XAML版本中，我们需要在视图模型中调用Shell导航方法，如下所示：&lt;/p&gt;
-</textarea></p></div></ul></article></button></p></main></main>
+</textarea></p></div></ul></article></main></main>
       </div>
       
       
