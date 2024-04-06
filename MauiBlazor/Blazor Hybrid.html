@@ -1082,59 +1082,59 @@ FirstDialog.razor：</p>
 <h2 id="built-in-components-and-validation-内置组件和验证">Built-in components and validation 内置组件和验证 </h2>
 <h2 id="using-built-in-components-使用内置组件">Using built-in components 使用内置组件 </h2>
 <p>在前面的章节中，我们已经使用过内置组件，在介绍Razor组件的路由和布局时，我们使用了Main.razor中的Router、RouteView、LayoutView和MainLayout组件，它们都是内置组件。</p>
-<p>在本节中，我们将探讨内置的输入组件，我们可以使用它来增强数据验证支持的编辑组件的体验。下表是内置输入组件的列表：<br>
-| :---------------                | :------------------                   |<br>
-| Input component                 | HTML tag HTML                         |<br>
-| InputCheckbox                   | <input type="checkbox">               |<br>
-| InputDate<tvalue>               | <input type="date">                   |<br>
-| InputFile                       | <input type="file">                   |<br>
-| InputNumber<tvalue>             | <input type="number">                 |<br>
-| InputRadio<tvalue>              | <input type="radio">                  |<br>
-| InputRadioGroup<tvalue>         | Group of child InputRadio<tvalue>     |<br>
-| InputSelect<tvalue>             | <select>                              |
-| InputText                       | </select><input>                               |<br>
-| InputTextArea                   | <textarea>                            |&lt;br&gt;
-| EditForm                        | &lt;form&gt;                                |&lt;/p&gt;
-&lt;p&gt;在表中，我们可以看到输入组件列表和一个EditForm组件。内置的输入组件是右栏中列出的相应HTML元素的增强版。当我们把内置的输入组件和EditForm一起使用时，EditForm可以协调验证和提交事件。内置的输入组件可以在表单提交时验证用户输入。&lt;/p&gt;
-&lt;h2 id="using-the-editform-component-使用editform组件"&gt;Using the EditForm component 使用EditForm组件 &lt;/h2&gt;
-&lt;p&gt;EditForm组件是HTML中&lt;form&gt;元素的增强版本。要使用EditForm，我们可以参考以下代码，它展示了一个空的EditForm组件：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;EditForm Model="ModelData" OnSubmit="HandleSubmit"
-        OnInValidSubmit="HandleInValidSubmit"
-        OnValidSubmit="HandleValidSubmit"&gt;
-    &lt;/EditForm&gt;
-&lt;/pre&gt;&lt;p&gt;或者，它可以以另一种方式使用：&lt;/p&gt;
-&lt;pre data-role="codeBlock" data-info="razor" data-parsed-info="{"language":"razor","attributes":{"class":"razor"}}" data-normalized-info="{"language":"razor","attributes":{"class":"razor"}}" &gt;    &lt;EditForm EditContext="_editContext" OnSubmit="HandleSubmit"
-        OnInValidSubmit="HandleInValidSubmit"
-        OnValidSubmit="HandleValidSubmit"&gt;
-    &lt;/EditForm&gt;
-&lt;/pre&gt;&lt;p&gt;我们可以使用Model参数或EditContext向它传递数据。&lt;/p&gt;
-&lt;p&gt;我们可以指定一个类实例作为Model在EditForm中编辑。EditContext的实例将基于EditForm所分配的模型实例创建。EditContext被用作表单中其他组件的级联值。如果我们想控制它，我们也可以直接指定一个EditContext实例。&lt;/p&gt;
-&lt;p&gt;为了处理表单编辑的结果，我们可以注册以下回调函数：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;OnSubmit：提交表单时调用这个回调函数。&lt;/li&gt;
-&lt;li&gt;OnInvalidSubmit：当表单提交时，如果EditContext无效，则调用此回调函数。&lt;/li&gt;
-&lt;li&gt;OnValidSubmit：当表单提交且EditContext有效时，将调用此回调函数。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我们将使用EditForm组件和内置输入组件创建一个新的EditFormDialog组件，以便通过数据验证支持来增强我们的键值编辑器。&lt;/p&gt;
-&lt;h1 id="developing-unit-tests-开发单元测试"&gt;Developing Unit Tests 开发单元测试 &lt;/h1&gt;
-&lt;p&gt;在现代软件开发中，测试是确保软件质量的重要方法。在软件开发生命周期中，涉及到不同类型的测试，如单元测试、集成测试和系统测试。单元测试用于在隔离的环境中测试软件模块或组件。它通常由开发人员完成。通过一个精心策划的单元测试策略，可以在软件开发生命周期的早期阶段发现编程问题，因此单元测试是确保软件质量最有效和最经济的方法。&lt;a href="http://xn--3ds.NET"&gt;在.NET&lt;/a&gt; MAUI应用程序开发中，我们可以重用.NET生态系统中现有的单元测试框架或库。通过使用测试框架或库，我们可以加快单元测试的开发。一个好的测试框架通常被设计成可以轻松地与持续集成(CI)和持续部署(CD)环境集成。在本章中，我们将介绍如何设置单元测试并运行单元测试用例，&lt;a href="http://xn--siq70a.NET"&gt;作为.NET&lt;/a&gt; MAUI应用程序开发生命周期的一部分。&lt;/p&gt;
-&lt;h2 id="unit-testing-in-net-net中的单元测试"&gt;Unit testing in .NET .NET中的单元测试 &lt;/h2&gt;
-&lt;p&gt;为了开发单元测试用例，我们通常使用单元测试框架来提高效率。在.NET环境中有几个单元测试框架可用，如下所示：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;微软测试框架(MSTest)：与Visual Studio一起发布。MSTest(V1)的初始版本不是开源产品。第一个版本是与Visual Studio 2005一起发布的。请参阅Lars Powers和Mike Snell的书Microsoft Visual Studio 2005 Unleashed，以找到更多关于MSTest(V1)的信息。后来，微软将新发布的MSTest(V2)开源并托管在GitHub上。第一个MSTest(V2)版本大约在2017年发布。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;NUnit：一个从JUnit移植而来的开源测试框架。它是第一个用于.NET的单元测试框架。最早的版本发布于2004年在SourceForge上。请参阅“进一步阅读”部分的2.0版本发布说明。最近的版本已经转移到GitHub上。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;xUnit：一个更现代、更可扩展的框架，由Jim Newkirk和Brad Wilson开发。他们是NUnit的创始人，与NUnit相比，他们对这个新的测试框架做出了许多改进。请参阅Jim的博客Why Did we Build xUnit 1.0?，以了解更多关于改进的信息。xUnit的第一个稳定版本大约在2015年发布。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;它们都很流行，可以根据项目需求进行选择，本章中，我们将使用xUnit来开发单元测试用例，因为它是一个较新的框架，与NUnit相比有许多改进。&lt;/p&gt;
-&lt;p&gt;无论你选择哪种单元测试框架，单元测试开发的过程都是相似的，如果你在项目中使用了不同的框架，本章的内容仍然可以帮助你，单元测试用例只能在跨平台的目标框架上运行，而不是特定于平台的目标框架，在本书中，&lt;a href="http://xn--vnqvnk98bu5r.NET"&gt;我们使用.NET&lt;/a&gt; 6.0，所以单元测试的目标框架是net6.0，而不是net6.0-android或net6.0-ios。&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://xn--siq0gp4mgpn.NET"&gt;为了开发.NET&lt;/a&gt; MAUI的单元测试，我们将介绍基于XAML和基于Blazor的应用程序的测试案例开发。在这两种情况下，我们将在设计中使用MVVM模式。在模型层的单元测试案例对于两者来说是相同的，但在视图和视图模型中的测试是相当不同的。对于基于XAML的应用程序，为视图和视图模型开发单元测试案例是相当复杂的。为了测试视图模型，我们必须解决XAML组件的依赖关系。例如，在我们应用程序的XAML版本中，我们需要在视图模型中调用Shell导航方法，如下所示：&lt;/p&gt;
-</textarea></tvalue></tvalue></tvalue></tvalue></tvalue></tvalue></p></div></ul></article></main></main>
+<p>在本节中，我们将探讨内置的输入组件，我们可以使用它来增强数据验证支持的编辑组件的体验。下表是内置输入组件的列表：</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>| :---------------                | :------------------                   |
+| Input component                 | HTML tag HTML                         |
+| InputCheckbox                   | &lt;input type="checkbox"&gt;               |
+| InputDate&lt;TValue&gt;               | &lt;input type="date"&gt;                   |
+| InputFile                       | &lt;input type="file"&gt;                   |
+| InputNumber&lt;TValue&gt;             | &lt;input type="number"&gt;                 |
+| InputRadio&lt;TValue&gt;              | &lt;input type="radio"&gt;                  |
+| InputRadioGroup&lt;TValue&gt;         | Group of child InputRadio&lt;TValue&gt;     |
+| InputSelect&lt;TValue&gt;             | &lt;select&gt;                              |
+| InputText                       | &lt;input&gt;                               |
+| InputTextArea                   | &lt;textarea&gt;                            |
+| EditForm                        | &lt;form&gt;                                |
+</code></pre><p>在表中，我们可以看到输入组件列表和一个EditForm组件。内置的输入组件是右栏中列出的相应HTML元素的增强版。当我们把内置的输入组件和EditForm一起使用时，EditForm可以协调验证和提交事件。内置的输入组件可以在表单提交时验证用户输入。</p>
+<h2 id="using-the-editform-component-使用editform组件">Using the EditForm component 使用EditForm组件 </h2>
+<p>EditForm组件是HTML中<code>&lt;form&gt;</code>元素的增强版本。要使用EditForm，我们可以参考以下代码，它展示了一个空的EditForm组件：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>EditForm</span> <span class="token attr-name">Model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ModelData<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">OnSubmit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value javascript language-javascript"><span class="token maybe-class-name">HandleSubmit</span></span><span class="token punctuation">"</span></span></span>
+        <span class="token attr-name">OnInValidSubmit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>HandleInValidSubmit<span class="token punctuation">"</span></span>
+        <span class="token attr-name">OnValidSubmit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>HandleValidSubmit<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>EditForm</span><span class="token punctuation">&gt;</span></span>
+</code></pre><p>或者，它可以以另一种方式使用：</p>
+<pre data-role="codeBlock" data-info="razor" class="language-razor razor"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>EditForm</span> <span class="token attr-name">EditContext</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_editContext<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">OnSubmit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value javascript language-javascript"><span class="token maybe-class-name">HandleSubmit</span></span><span class="token punctuation">"</span></span></span>
+        <span class="token attr-name">OnInValidSubmit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>HandleInValidSubmit<span class="token punctuation">"</span></span>
+        <span class="token attr-name">OnValidSubmit</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>HandleValidSubmit<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>EditForm</span><span class="token punctuation">&gt;</span></span>
+</code></pre><p>我们可以使用Model参数或EditContext向它传递数据。</p>
+<p>我们可以指定一个类实例作为Model在EditForm中编辑。EditContext的实例将基于EditForm所分配的模型实例创建。EditContext被用作表单中其他组件的级联值。如果我们想控制它，我们也可以直接指定一个EditContext实例。</p>
+<p>为了处理表单编辑的结果，我们可以注册以下回调函数：</p>
+<ul>
+<li>OnSubmit：提交表单时调用这个回调函数。</li>
+<li>OnInvalidSubmit：当表单提交时，如果EditContext无效，则调用此回调函数。</li>
+<li>OnValidSubmit：当表单提交且EditContext有效时，将调用此回调函数。</li>
+</ul>
+<p>我们将使用EditForm组件和内置输入组件创建一个新的EditFormDialog组件，以便通过数据验证支持来增强我们的键值编辑器。</p>
+<h1 id="developing-unit-tests-开发单元测试">Developing Unit Tests 开发单元测试 </h1>
+<p>在现代软件开发中，测试是确保软件质量的重要方法。在软件开发生命周期中，涉及到不同类型的测试，如单元测试、集成测试和系统测试。单元测试用于在隔离的环境中测试软件模块或组件。它通常由开发人员完成。通过一个精心策划的单元测试策略，可以在软件开发生命周期的早期阶段发现编程问题，因此单元测试是确保软件质量最有效和最经济的方法。<a href="http://xn--3ds.NET">在.NET</a> MAUI应用程序开发中，我们可以重用.NET生态系统中现有的单元测试框架或库。通过使用测试框架或库，我们可以加快单元测试的开发。一个好的测试框架通常被设计成可以轻松地与持续集成(CI)和持续部署(CD)环境集成。在本章中，我们将介绍如何设置单元测试并运行单元测试用例，<a href="http://xn--siq70a.NET">作为.NET</a> MAUI应用程序开发生命周期的一部分。</p>
+<h2 id="unit-testing-in-net-net中的单元测试">Unit testing in .NET .NET中的单元测试 </h2>
+<p>为了开发单元测试用例，我们通常使用单元测试框架来提高效率。在.NET环境中有几个单元测试框架可用，如下所示：</p>
+<ul>
+<li>
+<p>微软测试框架(MSTest)：与Visual Studio一起发布。MSTest(V1)的初始版本不是开源产品。第一个版本是与Visual Studio 2005一起发布的。请参阅Lars Powers和Mike Snell的书Microsoft Visual Studio 2005 Unleashed，以找到更多关于MSTest(V1)的信息。后来，微软将新发布的MSTest(V2)开源并托管在GitHub上。第一个MSTest(V2)版本大约在2017年发布。</p>
+</li>
+<li>
+<p>NUnit：一个从JUnit移植而来的开源测试框架。它是第一个用于.NET的单元测试框架。最早的版本发布于2004年在SourceForge上。请参阅“进一步阅读”部分的2.0版本发布说明。最近的版本已经转移到GitHub上。</p>
+</li>
+<li>
+<p>xUnit：一个更现代、更可扩展的框架，由Jim Newkirk和Brad Wilson开发。他们是NUnit的创始人，与NUnit相比，他们对这个新的测试框架做出了许多改进。请参阅Jim的博客Why Did we Build xUnit 1.0?，以了解更多关于改进的信息。xUnit的第一个稳定版本大约在2015年发布。</p>
+</li>
+</ul>
+<p>它们都很流行，可以根据项目需求进行选择，本章中，我们将使用xUnit来开发单元测试用例，因为它是一个较新的框架，与NUnit相比有许多改进。</p>
+<p>无论你选择哪种单元测试框架，单元测试开发的过程都是相似的，如果你在项目中使用了不同的框架，本章的内容仍然可以帮助你，单元测试用例只能在跨平台的目标框架上运行，而不是特定于平台的目标框架，在本书中，<a href="http://xn--vnqvnk98bu5r.NET">我们使用.NET</a> 6.0，所以单元测试的目标框架是net6.0，而不是net6.0-android或net6.0-ios。</p>
+<p><a href="http://xn--siq0gp4mgpn.NET">为了开发.NET</a> MAUI的单元测试，我们将介绍基于XAML和基于Blazor的应用程序的测试案例开发。在这两种情况下，我们将在设计中使用MVVM模式。在模型层的单元测试案例对于两者来说是相同的，但在视图和视图模型中的测试是相当不同的。对于基于XAML的应用程序，为视图和视图模型开发单元测试案例是相当复杂的。为了测试视图模型，我们必须解决XAML组件的依赖关系。例如，在我们应用程序的XAML版本中，我们需要在视图模型中调用Shell导航方法，如下所示：</p>
+</div></ul></article></main></main>
       </div>
       
       
