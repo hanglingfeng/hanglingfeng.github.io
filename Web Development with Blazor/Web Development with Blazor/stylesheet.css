@@ -1,0 +1,464 @@
+.alphabeticlist {
+  display: block;
+  font-size: 1em;
+  list-style-type: lower-alpha;
+  margin-bottom: 0.5em;
+  margin-right: 0;
+  margin-top: 0.5em;
+}
+.bm-bookcover {
+  display: block;
+  font-size: 1em;
+  margin: 50px 0 1em;
+}
+.bulletlist {
+  display: list-item;
+  margin: 0;
+}
+.bulletlist1 {
+  display: list-item;
+  margin: 0.1em 0;
+}
+.calibre {
+  display: block;
+  font-family: "Bookerly", "Palatino Linotype", "Palatino", "Century Schoolbook", "Baskerville", "Nimbus Roman No9 L", "Times", "Times New Roman", serif;
+  font-kerning: auto;
+  font-size: 1em;
+  line-height: 1.5;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: left;
+  text-rendering: optimizeLegibility;
+  margin: 0 5pt;
+}
+.calibre1 {
+  display: block;
+}
+.calibre2 {
+  height: auto;
+  width: 120pt;
+}
+.calibre3 {
+  font-family: "Consolas", "Monaco", "Lucida Console", "Lucida Sans Typewriter", "Liberation Mono", monospace;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+.calibre4 {
+  display: block;
+  font-size: 1em;
+  list-style-type: disc;
+  margin-bottom: 0.5em;
+  margin-right: 0;
+  margin-top: 0.5em;
+}
+.calibre5 {
+  height: auto;
+  width: auto;
+}
+.calibre6 {
+  display: block;
+  font-size: 1em;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0 5pt;
+}
+.calibre7 {
+  display: block;
+  font-size: 1.41667em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0.83em 0;
+}
+.calibre8 {
+  display: block;
+  list-style-type: decimal;
+  margin-bottom: 1em;
+  margin-right: 0;
+  margin-top: 1em;
+}
+.calibre9 {
+  display: list-item;
+  list-style-type: none;
+}
+.calibre10 {
+  display: block;
+  list-style-type: none;
+  margin-bottom: 0;
+  margin-right: 0;
+  margin-top: 0;
+}
+.calibre11 {
+  display: list-item;
+}
+.calibre12 {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0.67em 0;
+}
+.calibre13 {
+  display: block;
+  page-break-after: always;
+}
+.calibre14 {
+  display: table-row-group;
+  vertical-align: middle;
+}
+.calibre15 {
+  display: table-row;
+  vertical-align: inherit;
+}
+.calibre16 {
+  height: auto;
+  width: 250px;
+}
+.calibre17 {
+  display: block;
+  font-size: 1em;
+  list-style-type: disc;
+  margin-bottom: 0.5em;
+  margin-right: 0;
+  margin-top: 0.15em;
+}
+.calibre18 {
+  height: auto;
+  width: 200px;
+}
+.calibre19 {
+  display: block;
+  text-align: center;
+}
+.calibre20 {
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
+.chapternumber {
+  display: block;
+  font-family: "Century Gothic", "Futura", "Arial Narrow", "Dejavu Sans", sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 0.5em 0 0;
+}
+.chaptertitle {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", "Bitstream Vera Sans", sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 1em 0 1.5em;
+}
+.eop {
+  display: block;
+  font-size: 1em;
+  page-break-after: always;
+  margin: 1em 0;
+}
+.fm-acknowledgement {
+  display: block;
+  font-size: 1em;
+  font-style: italic;
+  margin: 1em 20pt;
+}
+.fm-authorname {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", sans-serif;
+  font-size: 1.125em;
+  line-height: 1.25;
+  margin: 16pt 0;
+}
+.fm-bookedition {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", sans-serif;
+  font-size: 1.66667em;
+  line-height: 1.25;
+  margin: 20pt 0 0;
+}
+.fm-booktitle {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 60pt 0 0;
+}
+.fm-copyright-bookedition {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", sans-serif;
+  font-size: 1.125em;
+  margin: 1em 0;
+}
+.fm-copyright-booktitle {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", sans-serif;
+  font-size: 1.41667em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 1em 0;
+}
+.fm-copyright-contributorslist {
+  display: block;
+  font-size: 1em;
+  margin: 0.25em 0;
+}
+.fm-copyright-text {
+  display: block;
+  font-size: 1em;
+  margin: 1em 0;
+}
+.fm-packtlogo {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", sans-serif;
+  font-size: 1em;
+  margin: 60pt 0 0;
+}
+.heading {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", "Bitstream Vera Sans", sans-serif;
+  font-size: 1.83333em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 1em 0 0.15em;
+}
+.heading1 {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", "Bitstream Vera Sans", sans-serif;
+  font-size: 1.66667em;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 1em 0 0.15em;
+}
+.heading2 {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", "Bitstream Vera Sans", sans-serif;
+  font-size: 1.41667em;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 1em 0 0.15em;
+}
+.hljs-built_in {
+  color: #c18401;
+}
+.hljs-code {
+  background: #fafafa;
+  color: #383a42;
+  display: block;
+  font-family: "Consolas", "Monaco", "Lucida Console", "Lucida Sans Typewriter", "Liberation Mono", monospace;
+  font-size: 0.75em;
+  overflow-x: auto;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 0.5em;
+}
+.hljs-comment {
+  color: #a0a1a7;
+  font-style: italic;
+}
+.hljs-con {
+  background: 0;
+  color: #000;
+  display: block;
+  font-family: "Consolas", "Monaco", "Lucida Console", "Lucida Sans Typewriter", "Liberation Mono", monospace;
+  font-size: 0.75em;
+  overflow-x: auto;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 0.5em;
+}
+.hljs-keyword {
+  color: #a626a4;
+}
+.hljs-literal {
+  color: #0184bb;
+}
+.hljs-name {
+  color: #e45649;
+}
+.hljs-number {
+  color: #986801;
+}
+.hljs-string {
+  color: #50a14f;
+}
+.hljs-title {
+  color: #4078f2;
+}
+.index-level {
+  display: block;
+  font-family: "Arial", "Helvetica Neue", "Helvetica", sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0.2em;
+}
+.index-level1 {
+  display: block;
+  font-family: "Arial", "Helvetica Neue", "Helvetica", sans-serif;
+  font-size: 1em;
+  margin: 0.2em 0.2em 0.2em 40px;
+}
+.index-section-head {
+  display: block;
+  font-family: "Arial", "Helvetica Neue", "Helvetica", sans-serif;
+  font-size: 1.41667em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 1em 0.2em 0.2em;
+}
+.inlinecode {
+  background-color: rgba(210, 210, 210, 0.6);
+  border-radius: 2px;
+  font-family: "Consolas", "Monaco", "Lucida Console", "Lucida Sans Typewriter", "Liberation Mono", monospace;
+  font-size: 0.75em;
+  white-space: -o-pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 1px 2px;
+}
+.inlinecode1 {
+  background-color: rgba(210, 210, 210, 0.6);
+  border-radius: 2px;
+  font-family: "Consolas", "Monaco", "Lucida Console", "Lucida Sans Typewriter", "Liberation Mono", monospace;
+  font-size: 0.75em;
+  margin-bottom: 0;
+  margin-top: 0;
+  white-space: -o-pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+  padding: 1px 2px;
+}
+.italic {
+  font-style: italic;
+}
+.keyword {
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.kobospan {
+  -webkit-text-combine: inherit;
+}
+.kobospan1 {
+  -webkit-text-combine: inherit;
+  line-height: 1.2;
+}
+.kobospan2 {
+  -webkit-text-combine: inherit;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.mainheading {
+  display: block;
+  font-family: "Trebuchet MS", "Futura", "Segoe UI", "Dejavu Sans", "Bitstream Vera Sans", sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.25;
+  text-align: right;
+  margin: 1em 0 1.5em;
+}
+.mediaobject {
+  text-align: center;
+  margin: 1em 0 0.5em;
+}
+.mediaobject1 {
+  text-align: center;
+  margin: 0.1em 0;
+}
+.normal {
+  display: block;
+  font-size: 1em;
+  margin: 0.15em 0 0.5em;
+}
+.normal1 {
+  display: block;
+  font-size: 1em;
+  margin: 0.5em 0;
+}
+.note {
+  background-image: url(OEBPS/Images/info.png);
+  background-position: 0 center;
+  background-repeat: no-repeat;
+  background-size: 90px auto;
+  display: block;
+  margin: 1em 0;
+  padding: 0 10px 0 110px;
+  border: #ededed solid 3px;
+}
+.numberedlist {
+  display: block;
+  font-size: 1em;
+  list-style-type: decimal;
+  margin-bottom: 0.5em;
+  margin-right: 0;
+  margin-top: 0.5em;
+}
+.numberedlist1 {
+  display: block;
+  font-size: 1em;
+  margin: 0.1em 0;
+}
+.packt_figref {
+  display: block;
+  font-size: 0.75em;
+  font-style: italic;
+  text-align: center;
+  margin: 1em 0;
+}
+.packt_tip {
+  background-image: url(OEBPS/Images/tip.png);
+  background-position: 0 center;
+  background-repeat: no-repeat;
+  background-size: 90px auto;
+  display: block;
+  margin: 1em 0;
+  padding: 0 10px 0 110px;
+  border: #ededed solid 3px;
+}
+.programlisting {
+  background-color: #fafafa;
+  display: block;
+  font-family: "Consolas", "Monaco", "Lucida Console", "Lucida Sans Typewriter", "Liberation Mono", monospace;
+  font-size: 1em;
+  line-height: 1.35;
+  overflow-x: auto;
+  white-space: -o-pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+  margin: 1em 0;
+  padding: 5px 15px;
+  border-left: #e1e1e1 solid 6px;
+}
+.programlisting1 {
+  background: none;
+  background-color: #282a36;
+  display: block;
+  font-family: "Consolas", "Monaco", "Lucida Console", "Lucida Sans Typewriter", "Liberation Mono", monospace;
+  font-size: 1em;
+  line-height: 1.35;
+  overflow-x: auto;
+  white-space: -o-pre-wrap;
+  word-break: break-word;
+  word-wrap: break-word;
+  margin: 1em 0;
+  padding: 5px 15px;
+  border-left: currentColor none medium;
+}
+.screentext {
+  font-weight: bold;
+}
+.table-cell {
+  display: table-cell;
+  text-align: inherit;
+  vertical-align: top;
+  padding: 5px 10px;
+  border: black solid 1px;
+}
+.table-container {
+  border-collapse: collapse;
+  border-spacing: 2px;
+  display: table;
+  text-indent: 0;
+  margin: 1em auto 0.5em;
+  border: black solid 1px;
+}

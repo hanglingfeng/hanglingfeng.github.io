@@ -1,0 +1,1779 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="eng">
+  <head>
+    <meta name="dtb:uid" content="22070be8-7de9-40b1-95ee-81c048ddf7f8"/>
+    <meta name="dtb:depth" content="5"/>
+    <meta name="dtb:generator" content="calibre (6.28.1)"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>Web Development with Blazor</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="uY5FNOuBV4o7qN7TAcNT5M3" playOrder="1" class="chapter">
+      <navLabel>
+        <text>Preface</text>
+      </navLabel>
+      <content src="OEBPS/Text/Preface.xhtml"/>
+      <navPoint id="urQ4wnWTy9y3sckPeDaedeC" playOrder="2" class="chapter">
+        <navLabel>
+          <text>Who this book is for</text>
+        </navLabel>
+        <content src="OEBPS/Text/Preface.xhtml#_idParaDest-7"/>
+      </navPoint>
+      <navPoint id="uPSPqLFxhUclwnjHVKgavrA" playOrder="3" class="chapter">
+        <navLabel>
+          <text>What this book covers</text>
+        </navLabel>
+        <content src="OEBPS/Text/Preface.xhtml#_idParaDest-8"/>
+      </navPoint>
+      <navPoint id="uB6SlPLyRzEnUNxRfcxlcYB" playOrder="4" class="chapter">
+        <navLabel>
+          <text>To get the most out of this book</text>
+        </navLabel>
+        <content src="OEBPS/Text/Preface.xhtml#_idParaDest-9"/>
+      </navPoint>
+      <navPoint id="uM98HFtB8CJq4EdkDiamxEF" playOrder="5" class="chapter">
+        <navLabel>
+          <text>Get in touch</text>
+        </navLabel>
+        <content src="OEBPS/Text/Preface.xhtml#_idParaDest-13"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uiLlw3O8j2CjXu2FIzpaDC7" playOrder="6" class="chapter">
+      <navLabel>
+        <text>Hello Blazor</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-16"/>
+      <navPoint id="uqqp27cuV2XaJgzZjgYiIR5" playOrder="7" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-17"/>
+      </navPoint>
+      <navPoint id="u4UXgMnfTN7RqLaF5ECjuTC" playOrder="8" class="chapter">
+        <navLabel>
+          <text>Why Blazor?</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-18"/>
+      </navPoint>
+      <navPoint id="usbQPcHqHuSqmjJPCidMfp2" playOrder="9" class="chapter">
+        <navLabel>
+          <text>Preceding Blazor</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-19"/>
+      </navPoint>
+      <navPoint id="uXnelgAbBTBhF2UTawqpyR7" playOrder="10" class="chapter">
+        <navLabel>
+          <text>Introducing WebAssembly</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-20"/>
+      </navPoint>
+      <navPoint id="usvMnGJEfYBOjuQINqRW3cA" playOrder="11" class="chapter">
+        <navLabel>
+          <text>Introducing .NET 8</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-21"/>
+      </navPoint>
+      <navPoint id="ujvyH8T2PJp4gHfUpgGTVk7" playOrder="12" class="chapter">
+        <navLabel>
+          <text>Introducing Blazor</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-22"/>
+        <navPoint id="uFV6sypvSxDrx4ZxgqoQSc5" playOrder="13" class="chapter">
+          <navLabel>
+            <text>Blazor Server</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-23"/>
+        </navPoint>
+        <navPoint id="uXJcjO2R8aVu7ONXROT3whB" playOrder="14" class="chapter">
+          <navLabel>
+            <text>Blazor WebAssembly</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-24"/>
+        </navPoint>
+        <navPoint id="uxPWV2HHBlNwZe2hb9IlXD5" playOrder="15" class="chapter">
+          <navLabel>
+            <text>Blazor WebAssembly versus Blazor Server</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-25"/>
+        </navPoint>
+        <navPoint id="u6uFiujfPIsrl27K3yF8qiA" playOrder="16" class="chapter">
+          <navLabel>
+            <text>Blazor Hybrid/.NET MAUI</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-26"/>
+        </navPoint>
+        <navPoint id="ufoeloXagC8FNtmQySuPVCF" playOrder="17" class="chapter">
+          <navLabel>
+            <text>Server-Side Rendering (SSR)</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-27"/>
+        </navPoint>
+        <navPoint id="ujD9xoJk65XKiHPQRpJS4JG" playOrder="18" class="chapter">
+          <navLabel>
+            <text>The feature formerly known as Blazor United</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-28"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uDcMeGWH4Gvj3LjhAA5Y8p9" playOrder="19" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-29"/>
+      </navPoint>
+      <navPoint id="uUfB5J7UDUYu7SL2o2BhKuE" playOrder="20" class="chapter">
+        <navLabel>
+          <text>Further reading</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_01.xhtml#_idParaDest-30"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uRXTsJ3XsSTpQGQCLMisKVA" playOrder="21" class="chapter">
+      <navLabel>
+        <text>Creating Your First Blazor App</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-32"/>
+      <navPoint id="uqpOWVlKoeTiqzCMGgT6CbD" playOrder="22" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-33"/>
+      </navPoint>
+      <navPoint id="uHIt4KOaT97PkiXsIaSeqdD" playOrder="23" class="chapter">
+        <navLabel>
+          <text>Setting up your development environment</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-34"/>
+        <navPoint id="uuFTQeTZLiviqtaDRu7QuJF" playOrder="24" class="chapter">
+          <navLabel>
+            <text>Windows</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-35"/>
+        </navPoint>
+        <navPoint id="upNKy6IO6mWU5qAVfwEh6sA" playOrder="25" class="chapter">
+          <navLabel>
+            <text>macOS and Linux (or Windows)</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-36"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uf2yiWfMY3xbeNbnvTXKOn4" playOrder="26" class="chapter">
+        <navLabel>
+          <text>Creating our first Blazor application</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-37"/>
+        <navPoint id="uFeJQWHjg9FNGeKVujW2zO4" playOrder="27" class="chapter">
+          <navLabel>
+            <text>Exploring the templates</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-38"/>
+          <navPoint id="uuYSuQxAHkiRlmSWZrQkLd6" playOrder="28" class="chapter">
+            <navLabel>
+              <text>Blazor Web App</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-39"/>
+          </navPoint>
+          <navPoint id="ub8z3ChBLfEkYwqdUi4L9W7" playOrder="29" class="chapter">
+            <navLabel>
+              <text>Blazor WebAssembly Standalone App</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-40"/>
+          </navPoint>
+        </navPoint>
+        <navPoint id="ufBJue2DG6Am26QTj8NUrFG" playOrder="30" class="chapter">
+          <navLabel>
+            <text>Creating a Blazor web application</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-41"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="u8lT48gynP9fa7fQLOyLW42" playOrder="31" class="chapter">
+        <navLabel>
+          <text>Using the command line</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-42"/>
+        <navPoint id="uGz9jNqxJEYPj78hvBfO83F" playOrder="32" class="chapter">
+          <navLabel>
+            <text>Creating projects using the command line</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-43"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uzOAcVdl6UVYWLNjcTjLqOB" playOrder="33" class="chapter">
+        <navLabel>
+          <text>Figuring out the project structure</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-44"/>
+        <navPoint id="uMXzucoVzuCOBAN8MervLGD" playOrder="34" class="chapter">
+          <navLabel>
+            <text>Program.cs (BlazorWebApp project)</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-45"/>
+        </navPoint>
+        <navPoint id="uAz8USPigJADUeRNGFvB8A2" playOrder="35" class="chapter">
+          <navLabel>
+            <text>Program.cs (BlazorWebApp.Client)</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-46"/>
+        </navPoint>
+        <navPoint id="ulB83dJseXH2ZJfSdvdoSb8" playOrder="36" class="chapter">
+          <navLabel>
+            <text>App (BlazorWebApp)</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-47"/>
+        </navPoint>
+        <navPoint id="uXhfcYqviqeK7OVBa5hHMV3" playOrder="37" class="chapter">
+          <navLabel>
+            <text>Routes</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-48"/>
+        </navPoint>
+        <navPoint id="uHQVZjucVT9jk6Lfd7wcxeC" playOrder="38" class="chapter">
+          <navLabel>
+            <text>MainLayout</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-49"/>
+        </navPoint>
+        <navPoint id="uAxWAAgFLGJCrLnVQFXsLz9" playOrder="39" class="chapter">
+          <navLabel>
+            <text>CSS</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-50"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uxgCcjwIa8GmupiCYxoLyI6" playOrder="40" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_02.xhtml#_idParaDest-51"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u4NRLaJ2kxw8NSA8FmYmVFA" playOrder="41" class="chapter">
+      <navLabel>
+        <text>Managing State – Part 1</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-52"/>
+      <navPoint id="uIHQYC6IWMcNn27ueqhG9MC" playOrder="42" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-53"/>
+      </navPoint>
+      <navPoint id="ut5vYHALxpooew8s2dXG7L4" playOrder="43" class="chapter">
+        <navLabel>
+          <text>Creating a data project</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-54"/>
+        <navPoint id="u9K9mii7M76IgWXsYtFzWW5" playOrder="44" class="chapter">
+          <navLabel>
+            <text>Creating a new project</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-55"/>
+        </navPoint>
+        <navPoint id="uaVgyIxqosqG8dHiuL4u3L6" playOrder="45" class="chapter">
+          <navLabel>
+            <text>Creating data classes</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-56"/>
+        </navPoint>
+        <navPoint id="usV7bIHRQt9RRAlP4cXLSPG" playOrder="46" class="chapter">
+          <navLabel>
+            <text>Creating an interface</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-57"/>
+        </navPoint>
+        <navPoint id="ufJIjYiXCcnI6CyMXdQsca2" playOrder="47" class="chapter">
+          <navLabel>
+            <text>Implementing the interface</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-58"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="ucqxxAdbgGgUoAOQj8LmH7C" playOrder="48" class="chapter">
+        <navLabel>
+          <text>Adding the API to Blazor</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-59"/>
+      </navPoint>
+      <navPoint id="utlXFLxgYLcfjrNgQWXgcy2" playOrder="49" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_03.xhtml#_idParaDest-60"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uLCUhG5wLdfnXNa9cdPD8pA" playOrder="50" class="chapter">
+      <navLabel>
+        <text>Understanding Basic Blazor Components</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-61"/>
+      <navPoint id="uQCwAlvgUt4enpBYIsBkjW8" playOrder="51" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-62"/>
+      </navPoint>
+      <navPoint id="uwZ5XUMp8NiCZKyHMIVgbN7" playOrder="52" class="chapter">
+        <navLabel>
+          <text>Exploring components</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-63"/>
+        <navPoint id="uOprciRPnFAq7cO5Chr2JOA" playOrder="53" class="chapter">
+          <navLabel>
+            <text>Counter</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-64"/>
+        </navPoint>
+        <navPoint id="uL6lmntVOEU9xw3CZbk6Ll6" playOrder="54" class="chapter">
+          <navLabel>
+            <text>Weather</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-65"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uMHlxLUZegC9SP4dKMLd5s7" playOrder="55" class="chapter">
+        <navLabel>
+          <text>Learning Razor syntax</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-66"/>
+        <navPoint id="uAGW4Z4NskljFx4vZqJmxRD" playOrder="56" class="chapter">
+          <navLabel>
+            <text>Razor code blocks</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-67"/>
+        </navPoint>
+        <navPoint id="u2DiNJFG7xW4HXHNHhEixp4" playOrder="57" class="chapter">
+          <navLabel>
+            <text>Implicit Razor expressions</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-68"/>
+        </navPoint>
+        <navPoint id="uMJlDBMjAyab97uGdYG3FZG" playOrder="58" class="chapter">
+          <navLabel>
+            <text>Explicit Razor expressions</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-69"/>
+        </navPoint>
+        <navPoint id="uMCstRYcKwOpObcAHkqyer4" playOrder="59" class="chapter">
+          <navLabel>
+            <text>Expression encoding</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-70"/>
+        </navPoint>
+        <navPoint id="uMX9YvZtkbdFcdqtDf7SuH9" playOrder="60" class="chapter">
+          <navLabel>
+            <text>Directives</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-71"/>
+          <navPoint id="upklO6OJiEQFDcIl6yHYup6" playOrder="61" class="chapter">
+            <navLabel>
+              <text>Adding an attribute</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-72"/>
+          </navPoint>
+          <navPoint id="upMGbg5AQHGyY4i2YywBbX8" playOrder="62" class="chapter">
+            <navLabel>
+              <text>Adding an interface</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-73"/>
+          </navPoint>
+          <navPoint id="uQIJuZrTXznCotPUNOQENsG" playOrder="63" class="chapter">
+            <navLabel>
+              <text>Inheriting</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-74"/>
+          </navPoint>
+          <navPoint id="uupADIhL6SkwKFZPuS4rRg5" playOrder="64" class="chapter">
+            <navLabel>
+              <text>Generics</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-75"/>
+          </navPoint>
+          <navPoint id="uPE2cYI5BB8HmizeW9jRoUF" playOrder="65" class="chapter">
+            <navLabel>
+              <text>Changing the layout</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-76"/>
+          </navPoint>
+          <navPoint id="uKX6vMNJe4SIEkMQmNLYZJ4" playOrder="66" class="chapter">
+            <navLabel>
+              <text>Setting a namespace</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-77"/>
+          </navPoint>
+          <navPoint id="ugUlkUv6aXcYXU9M8W7JUG5" playOrder="67" class="chapter">
+            <navLabel>
+              <text>Setting a route</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-78"/>
+          </navPoint>
+          <navPoint id="uFruWznLKZDGg5zTjIHhWwG" playOrder="68" class="chapter">
+            <navLabel>
+              <text>Adding a using statement</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-79"/>
+          </navPoint>
+        </navPoint>
+      </navPoint>
+      <navPoint id="um25GkQgJ8SiD7DRAVlYMDE" playOrder="69" class="chapter">
+        <navLabel>
+          <text>Understanding dependency injection</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-80"/>
+        <navPoint id="ug3vu2G3T5b8fjtlpjmRREC" playOrder="70" class="chapter">
+          <navLabel>
+            <text>Singleton</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-81"/>
+        </navPoint>
+        <navPoint id="ua7mpEayWjADgkkGjCXqt84" playOrder="71" class="chapter">
+          <navLabel>
+            <text>Scoped</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-82"/>
+        </navPoint>
+        <navPoint id="ujSkcUEvYJoiNxm4m35lq6B" playOrder="72" class="chapter">
+          <navLabel>
+            <text>Transient</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-83"/>
+        </navPoint>
+        <navPoint id="uUAsv8AfiNFCXcQNDi2X4f2" playOrder="73" class="chapter">
+          <navLabel>
+            <text>Injecting the service</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-84"/>
+        </navPoint>
+        <navPoint id="ubxWikNGDnaUiOT9meuh2F7" playOrder="74" class="chapter">
+          <navLabel>
+            <text>Changing the render mode</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-85"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="utXOYRxy2bAqPlHDiiikm36" playOrder="75" class="chapter">
+        <navLabel>
+          <text>Figuring out where to put the code</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-86"/>
+        <navPoint id="uiVF7xuRtUOEJ45hXwU4Mz6" playOrder="76" class="chapter">
+          <navLabel>
+            <text>In the Razor file</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-87"/>
+        </navPoint>
+        <navPoint id="uNtLGXymVRod6FvNBkoOfF6" playOrder="77" class="chapter">
+          <navLabel>
+            <text>In a partial class</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-88"/>
+        </navPoint>
+        <navPoint id="uTqKFWZpT955Li9dAbmanvB" playOrder="78" class="chapter">
+          <navLabel>
+            <text>Inheriting a class</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-89"/>
+        </navPoint>
+        <navPoint id="uRXuBBqVB38nxObwndQItU7" playOrder="79" class="chapter">
+          <navLabel>
+            <text>Only code</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-90"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uB3He2KRwHutXUUWxzlFSzB" playOrder="80" class="chapter">
+        <navLabel>
+          <text>Lifecycle events</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-91"/>
+        <navPoint id="uThPOV2pttkeE4VU7zPbNyB" playOrder="81" class="chapter">
+          <navLabel>
+            <text>OnInitialized and OnInitializedAsync</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-92"/>
+        </navPoint>
+        <navPoint id="ump6wdpuZcCqknuGrKizye8" playOrder="82" class="chapter">
+          <navLabel>
+            <text>OnParametersSet and OnParametersSetAsync</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-93"/>
+        </navPoint>
+        <navPoint id="uQxd7KFXZs9Wx8yZ6zY2TS7" playOrder="83" class="chapter">
+          <navLabel>
+            <text>OnAfterRender and OnAfterRenderAsync</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-94"/>
+        </navPoint>
+        <navPoint id="u6HAdyB7kJc6K9opTAW5XS2" playOrder="84" class="chapter">
+          <navLabel>
+            <text>ShouldRender</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-95"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uCKrpYS5fsdu6nvRPK8XIaD" playOrder="85" class="chapter">
+        <navLabel>
+          <text>Parameters</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-96"/>
+        <navPoint id="ua4lfPP7YSZLwl8UMeFgCe6" playOrder="86" class="chapter">
+          <navLabel>
+            <text>Cascading parameters</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-97"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="ubZLBsJ5476KsrfpcUv6qV4" playOrder="87" class="chapter">
+        <navLabel>
+          <text>Writing our first component</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-98"/>
+        <navPoint id="uG4erTi3ps5blTAsamB7fSA" playOrder="88" class="chapter">
+          <navLabel>
+            <text>Creating a components library</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-99"/>
+        </navPoint>
+        <navPoint id="ur88i3hJJwEeaO5jGMxLM2H" playOrder="89" class="chapter">
+          <navLabel>
+            <text>Using our components library</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-100"/>
+        </navPoint>
+        <navPoint id="uTlDgvfdom8CHOo22s6Lk4E" playOrder="90" class="chapter">
+          <navLabel>
+            <text>Creating our own component</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-101"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uQM4jHCYFgxIiBtnKe5ysAG" playOrder="91" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_04.xhtml#_idParaDest-102"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uuEKF5rluAtBRi4EmIYm3XB" playOrder="92" class="chapter">
+      <navLabel>
+        <text>Creating Advanced Blazor Components</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-103"/>
+      <navPoint id="uLP6kWMBXAYBQenI799aajA" playOrder="93" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-104"/>
+      </navPoint>
+      <navPoint id="uyM6e57sphCJ5yOriKvrW3A" playOrder="94" class="chapter">
+        <navLabel>
+          <text>Exploring binding</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-105"/>
+        <navPoint id="uEAlCdBJgDarWC7uLPzyVAH" playOrder="95" class="chapter">
+          <navLabel>
+            <text>One-way binding</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-106"/>
+        </navPoint>
+        <navPoint id="uqu7SpT9wuGNQm2LOLyman2" playOrder="96" class="chapter">
+          <navLabel>
+            <text>Two-way binding</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-107"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="u6mGazwXDSeZjtM3gKYCMl8" playOrder="97" class="chapter">
+        <navLabel>
+          <text>Actions and EventCallback</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-108"/>
+      </navPoint>
+      <navPoint id="uQNZBi2fKHSMcg6HJYBvmWG" playOrder="98" class="chapter">
+        <navLabel>
+          <text>Using RenderFragment</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-109"/>
+        <navPoint id="u2tq7JbDBZhXTx7aAQe5AYA" playOrder="99" class="chapter">
+          <navLabel>
+            <text>ChildContent</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-110"/>
+        </navPoint>
+        <navPoint id="uN5dZGSUfjEM6XmQwTFYOi7" playOrder="100" class="chapter">
+          <navLabel>
+            <text>Default value</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-111"/>
+        </navPoint>
+        <navPoint id="unJxeb3ajLfAyCjPB5ac6iD" playOrder="101" class="chapter">
+          <navLabel>
+            <text>Building an alert component</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-112"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uz2yzepiFSiJkQCHRjUEHlG" playOrder="102" class="chapter">
+        <navLabel>
+          <text>Exploring the new built-in components</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-113"/>
+        <navPoint id="ujQf5Wlj3Tdzy5OdnFj3NV6" playOrder="103" class="chapter">
+          <navLabel>
+            <text>Setting the focus of the UI</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-114"/>
+        </navPoint>
+        <navPoint id="uXHkuF8PEWUJDLyjvNKKjcC" playOrder="104" class="chapter">
+          <navLabel>
+            <text>Influencing the HTML head</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-115"/>
+        </navPoint>
+        <navPoint id="uMhd5KRMJW6nMgqSFV6QkMA" playOrder="105" class="chapter">
+          <navLabel>
+            <text>Component virtualization</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-116"/>
+        </navPoint>
+        <navPoint id="uDF2sRJMogMMzwEwwfg55J9" playOrder="106" class="chapter">
+          <navLabel>
+            <text>Error boundaries</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-117"/>
+        </navPoint>
+        <navPoint id="uX9rwATOT3eDmfx6gaaArk9" playOrder="107" class="chapter">
+          <navLabel>
+            <text>Sections</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-118"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uHbKWi7KOc6nQukIgGj64b6" playOrder="108" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_05.xhtml#_idParaDest-119"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uvQCbeHx5J26l6y2ja6nYa8" playOrder="109" class="chapter">
+      <navLabel>
+        <text>Building Forms with Validation</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-121"/>
+      <navPoint id="uGT3CDwgNOjE7ByGfeyLJkG" playOrder="110" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-122"/>
+      </navPoint>
+      <navPoint id="u9KfDJmBjuB2mCt9Yz6Fi4A" playOrder="111" class="chapter">
+        <navLabel>
+          <text>Exploring form elements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-123"/>
+        <navPoint id="uBBkISphizhaCscdUpAl76G" playOrder="112" class="chapter">
+          <navLabel>
+            <text>EditForm</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-124"/>
+        </navPoint>
+        <navPoint id="uczYCCMx2sdHHcGkpd8oY8F" playOrder="113" class="chapter">
+          <navLabel>
+            <text>InputBase&lt;&gt;</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-125"/>
+        </navPoint>
+        <navPoint id="uWZomkIIQASy47dnBLDd9fD" playOrder="114" class="chapter">
+          <navLabel>
+            <text>InputCheckbox</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-126"/>
+        </navPoint>
+        <navPoint id="ux9IPBAfngNSTFXbNV4D9D3" playOrder="115" class="chapter">
+          <navLabel>
+            <text>InputDate&lt;TValue&gt;</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-127"/>
+        </navPoint>
+        <navPoint id="uenONQfsiJYVNpS2XLWBTE6" playOrder="116" class="chapter">
+          <navLabel>
+            <text>InputNumber&lt;TValue&gt;</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-128"/>
+        </navPoint>
+        <navPoint id="uZHXeGnL2uZQZGVCVMP3IC2" playOrder="117" class="chapter">
+          <navLabel>
+            <text>InputSelect&lt;TValue&gt;</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-129"/>
+        </navPoint>
+        <navPoint id="uHK9zVwfzFwYkir3hFhZS49" playOrder="118" class="chapter">
+          <navLabel>
+            <text>InputText</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-130"/>
+        </navPoint>
+        <navPoint id="uQjYsguTGmtJyYH8hnSBEB5" playOrder="119" class="chapter">
+          <navLabel>
+            <text>InputTextArea</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-131"/>
+        </navPoint>
+        <navPoint id="ui7vvJNeLOjbFmLMjSvkBn8" playOrder="120" class="chapter">
+          <navLabel>
+            <text>InputRadio</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-132"/>
+        </navPoint>
+        <navPoint id="u49MQwtdVMeds6AnN47cxy8" playOrder="121" class="chapter">
+          <navLabel>
+            <text>InputRadioGroup</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-133"/>
+        </navPoint>
+        <navPoint id="uzqTVcnTmKLPyc5SKPaQ2BF" playOrder="122" class="chapter">
+          <navLabel>
+            <text>InputFile</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_000.xhtml#_idParaDest-134"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uSE5ldepPtGnbSGp6dxbN76" playOrder="123" class="chapter">
+        <navLabel>
+          <text>Adding validation</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_06_split_001.xhtml"/>
+        <navPoint id="urjjcf3iOOlpjnAKnmNstq9" playOrder="124" class="chapter">
+          <navLabel>
+            <text>ValidationMessage</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_001.xhtml#_idParaDest-136"/>
+        </navPoint>
+        <navPoint id="utEEt6wfZfQDpteHTqXqzoC" playOrder="125" class="chapter">
+          <navLabel>
+            <text>ValidationSummary</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_001.xhtml#_idParaDest-137"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uVYtp6UNhxF6HxaeEbISXN9" playOrder="126" class="chapter">
+        <navLabel>
+          <text>Custom validation class attributes</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_06_split_001.xhtml#_idParaDest-138"/>
+      </navPoint>
+      <navPoint id="unx4YZ39EmI74IsXleRkMAE" playOrder="127" class="chapter">
+        <navLabel>
+          <text>Looking at bindings</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_06_split_001.xhtml#_idParaDest-139"/>
+        <navPoint id="uaVtw62VBpwM4dXIwSAVYd8" playOrder="128" class="chapter">
+          <navLabel>
+            <text>Binding to HTML elements</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_001.xhtml#_idParaDest-140"/>
+        </navPoint>
+        <navPoint id="u2Zsr4MxqlpDelZqWjgnEjA" playOrder="129" class="chapter">
+          <navLabel>
+            <text>Binding to components</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_001.xhtml#_idParaDest-141"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="u89naZ34KEgTVzbAQ5rHgJG" playOrder="130" class="chapter">
+        <navLabel>
+          <text>Building an admin interface</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_06_split_001.xhtml#_idParaDest-142"/>
+        <navPoint id="uONPnALVk7Wn52Cz7onsyoG" playOrder="131" class="chapter">
+          <navLabel>
+            <text>Listing and editing categories</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_002.xhtml"/>
+        </navPoint>
+        <navPoint id="up8CI2NFhFsSxj9hVVQvEc3" playOrder="132" class="chapter">
+          <navLabel>
+            <text>Listing and editing tags</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_002.xhtml#_idParaDest-144"/>
+        </navPoint>
+        <navPoint id="urlrcVjKHBi7OhSEozKMrA7" playOrder="133" class="chapter">
+          <navLabel>
+            <text>Listing and editing blog posts</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_002.xhtml#_idParaDest-145"/>
+        </navPoint>
+        <navPoint id="u5PlYMexUajsKlgBXcwfJIC" playOrder="134" class="chapter">
+          <navLabel>
+            <text>Adding an abstraction layer</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_002.xhtml#_idParaDest-146"/>
+        </navPoint>
+        <navPoint id="uZzkiUcs8GeiLx4JZgJucF9" playOrder="135" class="chapter">
+          <navLabel>
+            <text>Locking the navigation</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_06_split_003.xhtml"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uLI3ktdylcgZtG5SucUtGd3" playOrder="136" class="chapter">
+        <navLabel>
+          <text>Enhanced Form Navigation</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_06_split_003.xhtml#_idParaDest-148"/>
+      </navPoint>
+      <navPoint id="ulFLIiLBuvebiMPMm7V5hK4" playOrder="137" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_06_split_003.xhtml#_idParaDest-149"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uQn4MOzQLsMaKcmm62EMvNG" playOrder="138" class="chapter">
+      <navLabel>
+        <text>Creating an API</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-150"/>
+      <navPoint id="uLAXNMrgvLGksPsrkwC3mE5" playOrder="139" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-151"/>
+      </navPoint>
+      <navPoint id="uKjgL3HkMrBzVOMVoxCuBkD" playOrder="140" class="chapter">
+        <navLabel>
+          <text>Creating the service</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-152"/>
+        <navPoint id="u2cFbrJUI7rFvK2vVmtYKOA" playOrder="141" class="chapter">
+          <navLabel>
+            <text>Learning about Minimal APIs</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-153"/>
+        </navPoint>
+        <navPoint id="uQI8ZWpHzdnbxcDxE23G8d2" playOrder="142" class="chapter">
+          <navLabel>
+            <text>Adding the API controllers</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-154"/>
+          <navPoint id="u5QLwChffxg4dDknaL8pKT3" playOrder="143" class="chapter">
+            <navLabel>
+              <text>Adding APIs for handling blog posts</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-155"/>
+          </navPoint>
+          <navPoint id="uvGuSKKQehDknBeH2t6Upl3" playOrder="144" class="chapter">
+            <navLabel>
+              <text>Adding APIs for handling Categories</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-156"/>
+          </navPoint>
+          <navPoint id="uf3X2D63aSmnEYrIqHNWqV9" playOrder="145" class="chapter">
+            <navLabel>
+              <text>Adding APIs for handling Tags</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-157"/>
+          </navPoint>
+          <navPoint id="uRpSYntnHUBAVwtdmep8xAH" playOrder="146" class="chapter">
+            <navLabel>
+              <text>Adding APIs for handling comments</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-158"/>
+          </navPoint>
+        </navPoint>
+      </navPoint>
+      <navPoint id="utjKgCIcn4mhYg5xEqGA2p2" playOrder="147" class="chapter">
+        <navLabel>
+          <text>Creating the client</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-159"/>
+      </navPoint>
+      <navPoint id="u6945btSSkm7qpCRWxRa5a9" playOrder="148" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_07.xhtml#_idParaDest-160"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uf4CbseSIeSGCPKwIjEUGz3" playOrder="149" class="chapter">
+      <navLabel>
+        <text>Authentication and Authorization</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-161"/>
+      <navPoint id="uszcqNFGAY7ZahbQhSE6qYB" playOrder="150" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-162"/>
+      </navPoint>
+      <navPoint id="uFGMRw3brwuf88VPDEY3FKD" playOrder="151" class="chapter">
+        <navLabel>
+          <text>Setting up authentication</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-163"/>
+        <navPoint id="ugKrebJ4yTcXMnc79rjWld6" playOrder="152" class="chapter">
+          <navLabel>
+            <text>Configuring our Blazor app</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-164"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uowLzdIbO5MP8oDEiZ9GEW9" playOrder="153" class="chapter">
+        <navLabel>
+          <text>Securing our Blazor app</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-165"/>
+      </navPoint>
+      <navPoint id="uUUSThTuin86Ao7YK6iRtF2" playOrder="154" class="chapter">
+        <navLabel>
+          <text>Securing Blazor WebAssembly</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-166"/>
+      </navPoint>
+      <navPoint id="ulk66BmQVLlsv3cXGOAWxaE" playOrder="155" class="chapter">
+        <navLabel>
+          <text>Adding roles</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-167"/>
+        <navPoint id="u23TgkTEnpwYfM2U5jrwW58" playOrder="156" class="chapter">
+          <navLabel>
+            <text>Configuring Auth0 by adding roles</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-168"/>
+        </navPoint>
+        <navPoint id="ud6WYy2mtrvHqt5WgTpYZ48" playOrder="157" class="chapter">
+          <navLabel>
+            <text>Adding roles to Blazor</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-169"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uTyEllAADvLZstKHdVEpcx3" playOrder="158" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_08.xhtml#_idParaDest-170"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uuqkOybaquBHLWEc85Do56C" playOrder="159" class="chapter">
+      <navLabel>
+        <text>Sharing Code and Resources</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-171"/>
+      <navPoint id="uW22arU3BCCbhvMrYlPbZAG" playOrder="160" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-172"/>
+      </navPoint>
+      <navPoint id="uGs6QmFSAHOgCX85hheiK6G" playOrder="161" class="chapter">
+        <navLabel>
+          <text>Adding static files</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-173"/>
+        <navPoint id="uXNCRkNMvx6slVwSgpxJWwA" playOrder="162" class="chapter">
+          <navLabel>
+            <text>Choosing between frameworks</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-174"/>
+        </navPoint>
+        <navPoint id="uc6lvcKD266NBgaa9oZtSrA" playOrder="163" class="chapter">
+          <navLabel>
+            <text>Adding a new style</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-175"/>
+        </navPoint>
+        <navPoint id="ujcqBQHDlydvnLeMcSiIOt4" playOrder="164" class="chapter">
+          <navLabel>
+            <text>Adding CSS</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-176"/>
+        </navPoint>
+        <navPoint id="u5dSzoWtkSQ5DLjPHe4wVZA" playOrder="165" class="chapter">
+          <navLabel>
+            <text>Making the admin interface more usable</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-177"/>
+        </navPoint>
+        <navPoint id="uRO8hglzQxsX4lmfEitebTD" playOrder="166" class="chapter">
+          <navLabel>
+            <text>Making the menu more useful</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-178"/>
+        </navPoint>
+        <navPoint id="u7RYlzlqtpVWAOZiNdoZyfG" playOrder="167" class="chapter">
+          <navLabel>
+            <text>Making the blog look like a blog</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-179"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uVsxcwuq7hZLdUUzRKojwjG" playOrder="168" class="chapter">
+        <navLabel>
+          <text>CSS isolation</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-180"/>
+      </navPoint>
+      <navPoint id="ujOZX76NVHG3kKwWFlKckSA" playOrder="169" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_09.xhtml#_idParaDest-181"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u2Rsj4Oq6Z963afwg6BiXX2" playOrder="170" class="chapter">
+      <navLabel>
+        <text>JavaScript Interop</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-182"/>
+      <navPoint id="ur3WO8S6MFi4SnOQYSiJaXC" playOrder="171" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-183"/>
+      </navPoint>
+      <navPoint id="uYEouxUrhLjXkS5aCS4IUF3" playOrder="172" class="chapter">
+        <navLabel>
+          <text>Why do we need JavaScript?</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-184"/>
+      </navPoint>
+      <navPoint id="u9YLJsDJ7UPzM9MA4e8E4f3" playOrder="173" class="chapter">
+        <navLabel>
+          <text>.NET to JavaScript</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-185"/>
+        <navPoint id="uyIrlP7v6ma4opDzP29ud7A" playOrder="174" class="chapter">
+          <navLabel>
+            <text>Global JavaScript (the old way)</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-186"/>
+        </navPoint>
+        <navPoint id="uhf693dKIXGH3kFTXscmiaE" playOrder="175" class="chapter">
+          <navLabel>
+            <text>JavaScript Isolation</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-187"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uLIlEiwtnxpbL52zqwstjHC" playOrder="176" class="chapter">
+        <navLabel>
+          <text>JavaScript to .NET</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-188"/>
+        <navPoint id="u4CrQfXZWI7gjVlzblSEd43" playOrder="177" class="chapter">
+          <navLabel>
+            <text>Static .NET method call</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-189"/>
+        </navPoint>
+        <navPoint id="u6BQpQXS4mEWLAAYLxWPlnC" playOrder="178" class="chapter">
+          <navLabel>
+            <text>Instance method call</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-190"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="u663Ctrd9cXkH3l6qqRt6VE" playOrder="179" class="chapter">
+        <navLabel>
+          <text>Implementing an existing JavaScript library</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-191"/>
+      </navPoint>
+      <navPoint id="uOPklzTBaj9D4T5LGfmfGAH" playOrder="180" class="chapter">
+        <navLabel>
+          <text>JavaScript interop in WebAssembly</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-192"/>
+        <navPoint id="uj3pFFk9TkWiTfdyCILuhHA" playOrder="181" class="chapter">
+          <navLabel>
+            <text>.NET to JavaScript</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-193"/>
+        </navPoint>
+        <navPoint id="uqZWoEWWv6WtSiPyxQu2kB6" playOrder="182" class="chapter">
+          <navLabel>
+            <text>JavaScript to .NET</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-194"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uZujtbXJwNIBb85DLQViea7" playOrder="183" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_10.xhtml#_idParaDest-195"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uY6NHOISzOzGLdUuPjXTo9A" playOrder="184" class="chapter">
+      <navLabel>
+        <text>Managing State – Part 2</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-197"/>
+      <navPoint id="unWnL2rwNDAkdMuFHEAhAFD" playOrder="185" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-198"/>
+      </navPoint>
+      <navPoint id="u4RKIvc2ZT62EPDqi4qgMp9" playOrder="186" class="chapter">
+        <navLabel>
+          <text>Storing data on the server side</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-199"/>
+      </navPoint>
+      <navPoint id="uvGBFJOHkOEBdBzfbpRlJqE" playOrder="187" class="chapter">
+        <navLabel>
+          <text>Storing data in the URL</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-200"/>
+        <navPoint id="uP25pwFXB7D4PMojP5uLe59" playOrder="188" class="chapter">
+          <navLabel>
+            <text>Route constraints</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-201"/>
+        </navPoint>
+        <navPoint id="uNFwJ2yhKAovnYIbUqiGatE" playOrder="189" class="chapter">
+          <navLabel>
+            <text>Using a query string</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-202"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uopDZHBuQJYJmYKapEh3IL3" playOrder="190" class="chapter">
+        <navLabel>
+          <text>Implementing browser storage</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-203"/>
+        <navPoint id="u4cn4uNEB8VYrTyxGvxzYTE" playOrder="191" class="chapter">
+          <navLabel>
+            <text>Creating an interface</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-204"/>
+        </navPoint>
+        <navPoint id="urmwYSixuRuXHjoH9TY6kRA" playOrder="192" class="chapter">
+          <navLabel>
+            <text>Implementing Blazor Server (InteractiveServer)</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-205"/>
+        </navPoint>
+        <navPoint id="urxd5COk7E4X5siyLjxDUK7" playOrder="193" class="chapter">
+          <navLabel>
+            <text>Implementing WebAssembly (InteractiveWebAssembly)</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-206"/>
+        </navPoint>
+        <navPoint id="ubiHSlpZEIHUedXMj3dnHa7" playOrder="194" class="chapter">
+          <navLabel>
+            <text>Implementing the shared code</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-207"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uZIuDSeHMVyomMdHSB5c6r5" playOrder="195" class="chapter">
+        <navLabel>
+          <text>Using an in-memory state container service</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-208"/>
+        <navPoint id="urANSv5dKCiCdZ8cexdfjt7" playOrder="196" class="chapter">
+          <navLabel>
+            <text>Implementing real-time updates on Blazor Server</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-209"/>
+        </navPoint>
+        <navPoint id="uPKFNpadgUGBiqxxVoBRV7C" playOrder="197" class="chapter">
+          <navLabel>
+            <text>Implementing real-time updates on Blazor WebAssembly</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-210"/>
+        </navPoint>
+        <navPoint id="uqNwjUHwN8tarsuwk8UFT7B" playOrder="198" class="chapter">
+          <navLabel>
+            <text>State management frameworks</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-211"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uERghqysY4F9QEsLsV6SLv2" playOrder="199" class="chapter">
+        <navLabel>
+          <text>Root-level cascading values</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-212"/>
+      </navPoint>
+      <navPoint id="u4NIYCQGxjqec2P96JxcBm4" playOrder="200" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_11.xhtml#_idParaDest-213"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u7ZmildC27RFuUhUasnUUvB" playOrder="201" class="chapter">
+      <navLabel>
+        <text>Debugging the Code</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_12.xhtml#_idParaDest-214"/>
+      <navPoint id="u8YwanVZEYHntayTht3Wnm6" playOrder="202" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_12.xhtml#_idParaDest-215"/>
+      </navPoint>
+      <navPoint id="uDWjpcbN3xgFVfdpT5YvY99" playOrder="203" class="chapter">
+        <navLabel>
+          <text>Making things break</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_12.xhtml#_idParaDest-216"/>
+      </navPoint>
+      <navPoint id="uLqMLXofdPzgufasJCS5uF2" playOrder="204" class="chapter">
+        <navLabel>
+          <text>Debugging Blazor Server</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_12.xhtml#_idParaDest-217"/>
+      </navPoint>
+      <navPoint id="u9WemxAYwWZYenxLuOGTQa5" playOrder="205" class="chapter">
+        <navLabel>
+          <text>Debugging Blazor WebAssembly</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_12.xhtml#_idParaDest-218"/>
+      </navPoint>
+      <navPoint id="uHLTRSGGs6AvGgBngYhlYP7" playOrder="206" class="chapter">
+        <navLabel>
+          <text>Debugging Blazor WebAssembly in the web browser</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_12.xhtml#_idParaDest-219"/>
+      </navPoint>
+      <navPoint id="uRWrZLAPQbyst3LoBz2RyI6" playOrder="207" class="chapter">
+        <navLabel>
+          <text>Hot Reload</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_12.xhtml#_idParaDest-220"/>
+      </navPoint>
+      <navPoint id="uYTIezR2t3uNRUeyIpjl6R7" playOrder="208" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_12.xhtml#_idParaDest-221"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uCOw8RIgEXXHlW8iz3qOFo9" playOrder="209" class="chapter">
+      <navLabel>
+        <text>Testing</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-222"/>
+      <navPoint id="uE4GTiUZYZ35Vu3VSkNM8XD" playOrder="210" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-223"/>
+      </navPoint>
+      <navPoint id="uWymEE2tcnRh6UqQqNtMQHH" playOrder="211" class="chapter">
+        <navLabel>
+          <text>What is bUnit?</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-224"/>
+      </navPoint>
+      <navPoint id="uCnLehkZE4Ab6x52DDozlR5" playOrder="212" class="chapter">
+        <navLabel>
+          <text>Setting up a test project</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-225"/>
+      </navPoint>
+      <navPoint id="uBKDAEAqyYyncnCXqKwnXSE" playOrder="213" class="chapter">
+        <navLabel>
+          <text>Mocking the API</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-226"/>
+      </navPoint>
+      <navPoint id="u7q6D2UwuBxjdeqYhWNRct6" playOrder="214" class="chapter">
+        <navLabel>
+          <text>Writing tests</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-227"/>
+        <navPoint id="uQypWzwTDXLY8Nq9Guy6FqD" playOrder="215" class="chapter">
+          <navLabel>
+            <text>Authentication</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-228"/>
+        </navPoint>
+        <navPoint id="ufLQyVZDzZatonOaex75MRG" playOrder="216" class="chapter">
+          <navLabel>
+            <text>Testing JavaScript</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-229"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uiJrYOQq3FgtKqWq7ua78y3" playOrder="217" class="chapter">
+        <navLabel>
+          <text>Blazm extension</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-230"/>
+      </navPoint>
+      <navPoint id="uefFcUwo7LZzjp5PgiUM4g3" playOrder="218" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_13.xhtml#_idParaDest-231"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uZI2jLZmkNdN9MtV7UoZVe3" playOrder="219" class="chapter">
+      <navLabel>
+        <text>Deploying to Production</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-232"/>
+      <navPoint id="uvTWptj9QACzppXrVeOcAw8" playOrder="220" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-233"/>
+      </navPoint>
+      <navPoint id="uGmkZKxh57OCFJW7P7EY743" playOrder="221" class="chapter">
+        <navLabel>
+          <text>Continuous delivery options</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-234"/>
+      </navPoint>
+      <navPoint id="uW2qy6HlCrXf45qlsX62Bw6" playOrder="222" class="chapter">
+        <navLabel>
+          <text>Hosting options</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-235"/>
+        <navPoint id="uJNKnLC9bRUJDnn8SMut3oB" playOrder="223" class="chapter">
+          <navLabel>
+            <text>Hosting Blazor Server/InteractiveServer</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-236"/>
+        </navPoint>
+        <navPoint id="u97lrJ7WzLBCViCk8JIH656" playOrder="224" class="chapter">
+          <navLabel>
+            <text>Hosting InteractiveWebAssembly</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-237"/>
+        </navPoint>
+        <navPoint id="uoEvxRoIhIp4WjmFbZrBK3D" playOrder="225" class="chapter">
+          <navLabel>
+            <text>Hosting Blazor WebAssembly Standalone</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-238"/>
+        </navPoint>
+        <navPoint id="uonYK6SeWDdqZHU8gSvKMYA" playOrder="226" class="chapter">
+          <navLabel>
+            <text>Hosting on IIS</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-239"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="u3SDHiiLJDtJ7kAekY27wND" playOrder="227" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_14.xhtml#_idParaDest-240"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="udoT7wTxw6DM7LkNLWIZqUG" playOrder="228" class="chapter">
+      <navLabel>
+        <text>Moving from, or Combining with, an Existing Site</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-241"/>
+      <navPoint id="uPGcYqF3yGdpWgtTVViBPGF" playOrder="229" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-242"/>
+      </navPoint>
+      <navPoint id="uy7IebM3TlyqujsSsjnBmJG" playOrder="230" class="chapter">
+        <navLabel>
+          <text>Introducing web components</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-243"/>
+      </navPoint>
+      <navPoint id="uw5xfydkWTDIOne3eHiwmlB" playOrder="231" class="chapter">
+        <navLabel>
+          <text>Exploring custom elements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-244"/>
+      </navPoint>
+      <navPoint id="uGTf8koWi8KjNPkFhLR8Le3" playOrder="232" class="chapter">
+        <navLabel>
+          <text>Exploring the Blazor component</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-245"/>
+      </navPoint>
+      <navPoint id="uqylqidqOvxdnl7fbB57b8H" playOrder="233" class="chapter">
+        <navLabel>
+          <text>Adding Blazor to an Angular site</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-246"/>
+      </navPoint>
+      <navPoint id="ucootSiDdz7BVMzYenZ6TB2" playOrder="234" class="chapter">
+        <navLabel>
+          <text>Adding Blazor to a React site</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-247"/>
+      </navPoint>
+      <navPoint id="ulvusFQvSH87cjTQpO2kV3F" playOrder="235" class="chapter">
+        <navLabel>
+          <text>Adding Blazor to MVC/Razor Pages</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-248"/>
+      </navPoint>
+      <navPoint id="ujXdQIuFk5qjS9c22JYoNXG" playOrder="236" class="chapter">
+        <navLabel>
+          <text>Adding web components to a Blazor site</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-249"/>
+      </navPoint>
+      <navPoint id="udmd3WyzCcMrkLPm2wYj3Z8" playOrder="237" class="chapter">
+        <navLabel>
+          <text>Migrating from Web Forms</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-250"/>
+      </navPoint>
+      <navPoint id="uTdY9C2upvvQ4eTDxC6gBd9" playOrder="238" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_15.xhtml#_idParaDest-251"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ukaN6i3gOac7WXUXXFUiJP8" playOrder="239" class="chapter">
+      <navLabel>
+        <text>Going Deeper into WebAssembly</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-253"/>
+      <navPoint id="uzNvzqqsmLTck4TqRKa2bCC" playOrder="240" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-254"/>
+      </navPoint>
+      <navPoint id="uUuU3UmCmG82tfIREttz6a5" playOrder="241" class="chapter">
+        <navLabel>
+          <text>Exploring the WebAssembly template</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-255"/>
+      </navPoint>
+      <navPoint id="uDGZReS2mY6ErkE4dieRhIE" playOrder="242" class="chapter">
+        <navLabel>
+          <text>.NET WebAssembly build tools</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-256"/>
+      </navPoint>
+      <navPoint id="uAbQFI3MfvuyzTQ6ogW8CmF" playOrder="243" class="chapter">
+        <navLabel>
+          <text>AOT compilation</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-257"/>
+      </navPoint>
+      <navPoint id="uLkYAcxdvP9B33yRbtIZSKD" playOrder="244" class="chapter">
+        <navLabel>
+          <text>WebAssembly Single Instruction, Multiple Data (SIMD)</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-258"/>
+      </navPoint>
+      <navPoint id="uCYpaOknvGcxVtwuAaxX8Z9" playOrder="245" class="chapter">
+        <navLabel>
+          <text>Trimming</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-259"/>
+      </navPoint>
+      <navPoint id="uY6VKjY8zzyn4h4Ilr959I7" playOrder="246" class="chapter">
+        <navLabel>
+          <text>Lazy loading</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-260"/>
+      </navPoint>
+      <navPoint id="uTZLBAiCtO3DLrWhQvDwo35" playOrder="247" class="chapter">
+        <navLabel>
+          <text>Progressive web apps</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-261"/>
+      </navPoint>
+      <navPoint id="udWhpqbK8D3hzDtmQRCDJG4" playOrder="248" class="chapter">
+        <navLabel>
+          <text>Native dependencies</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-262"/>
+      </navPoint>
+      <navPoint id="uhuiexBuZqSXR4NzamZQKtG" playOrder="249" class="chapter">
+        <navLabel>
+          <text>Common problems</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-263"/>
+        <navPoint id="updXErkUIzYLTQjgfAY9hkE" playOrder="250" class="chapter">
+          <navLabel>
+            <text>Progress indicators</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-264"/>
+        </navPoint>
+        <navPoint id="uX6YBhb2af9Yhvt2QBQg4K7" playOrder="251" class="chapter">
+          <navLabel>
+            <text>Prerendering on the server</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-265"/>
+        </navPoint>
+        <navPoint id="u9y6BVeOUur5S6idrcAGcWD" playOrder="252" class="chapter">
+          <navLabel>
+            <text>Preloading and persisting the state</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-266"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uLJNPtw8ajqW53ELfbCvj98" playOrder="253" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_16.xhtml#_idParaDest-267"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="urFB5FWgeWOK8c94jVsKis2" playOrder="254" class="chapter">
+      <navLabel>
+        <text>Examining Source Generators</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-268"/>
+      <navPoint id="uSDkEglU92doj9m3aET5JwC" playOrder="255" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-269"/>
+      </navPoint>
+      <navPoint id="u8Mddv6CODWIS8vCezZ9mRB" playOrder="256" class="chapter">
+        <navLabel>
+          <text>What a source generator is</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-270"/>
+      </navPoint>
+      <navPoint id="ujgMBNhKIp5X5nEIDQvBI7D" playOrder="257" class="chapter">
+        <navLabel>
+          <text>How to get started with source generators</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-271"/>
+      </navPoint>
+      <navPoint id="uEkKjXbIO5o34Bq3pIWGfr6" playOrder="258" class="chapter">
+        <navLabel>
+          <text>Community projects</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-272"/>
+        <navPoint id="uJvYQKxEKSvhWX3gHmVaI53" playOrder="259" class="chapter">
+          <navLabel>
+            <text>InterfaceGenerator</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-273"/>
+        </navPoint>
+        <navPoint id="uURzyHnrogvqsKU4PvUQb7B" playOrder="260" class="chapter">
+          <navLabel>
+            <text>Blazorators</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-274"/>
+        </navPoint>
+        <navPoint id="uBMHGemISEZjtbSyGtwiQb5" playOrder="261" class="chapter">
+          <navLabel>
+            <text>C# source generators</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-275"/>
+        </navPoint>
+        <navPoint id="ugrpaCTIHnWK5h8poGQG2S2" playOrder="262" class="chapter">
+          <navLabel>
+            <text>Roslyn SDK samples</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-276"/>
+        </navPoint>
+        <navPoint id="uOmY9C3WdIxMt6IRBKFGXIG" playOrder="263" class="chapter">
+          <navLabel>
+            <text>Microsoft Learn</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-277"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uRYsXdKRCYj6RIDdL8Mb3KB" playOrder="264" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_17.xhtml#_idParaDest-278"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u9DbyFGAa53EUGkR5482FW9" playOrder="265" class="chapter">
+      <navLabel>
+        <text>Visiting .NET MAUI</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-279"/>
+      <navPoint id="uIfLGMAb2ofWD3ktBzzx6eC" playOrder="266" class="chapter">
+        <navLabel>
+          <text>Technical requirements</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-280"/>
+      </navPoint>
+      <navPoint id="ueDfZLWbF7GlTyH8KmnOe2H" playOrder="267" class="chapter">
+        <navLabel>
+          <text>What is .NET MAUI?</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-281"/>
+      </navPoint>
+      <navPoint id="utTUZxINYTooWxcB2D4M4gA" playOrder="268" class="chapter">
+        <navLabel>
+          <text>Creating a new project</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-282"/>
+        <navPoint id="uJdpThjExn9mVUNNTZdFwUE" playOrder="269" class="chapter">
+          <navLabel>
+            <text>.NET MAUI App</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-283"/>
+        </navPoint>
+        <navPoint id="uoyp4kApKtkABZzsUCkoYa3" playOrder="270" class="chapter">
+          <navLabel>
+            <text>.NET MAUI Class Library</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-284"/>
+        </navPoint>
+        <navPoint id="ubZTE879EE9C6Dw75XqSaD3" playOrder="271" class="chapter">
+          <navLabel>
+            <text>.NET MAUI Blazor Hybrid App</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-285"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="ueXlIFdjXjLO6sggvEu2UQF" playOrder="272" class="chapter">
+        <navLabel>
+          <text>Looking at the template</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-286"/>
+      </navPoint>
+      <navPoint id="uJVNcHUQFqLT6UOXzumLz4D" playOrder="273" class="chapter">
+        <navLabel>
+          <text>Developing for Android</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-287"/>
+        <navPoint id="uXqE4otFb9QPTU7oDV5ZeU2" playOrder="274" class="chapter">
+          <navLabel>
+            <text>Running in an emulator</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-288"/>
+        </navPoint>
+        <navPoint id="uW6FCdt7dBhgDvdFMRfZodF" playOrder="275" class="chapter">
+          <navLabel>
+            <text>Running on a physical device</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-289"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uyjallD5UWIOcvMdPOOWcSF" playOrder="276" class="chapter">
+        <navLabel>
+          <text>Developing for iOS</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-290"/>
+        <navPoint id="u7VJV6AnRBOFIL7iHZmuVmD" playOrder="277" class="chapter">
+          <navLabel>
+            <text>Hot restart</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-291"/>
+          <navPoint id="uWPPJgMIeJOMXHzuunot3xF" playOrder="278" class="chapter">
+            <navLabel>
+              <text>Simulator</text>
+            </navLabel>
+            <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-292"/>
+          </navPoint>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uymb5DxGfhSvyE3eWIUaQVF" playOrder="279" class="chapter">
+        <navLabel>
+          <text>Developing for macOS</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-293"/>
+      </navPoint>
+      <navPoint id="uSAbOEuJumPI2DtVTKg8I9B" playOrder="280" class="chapter">
+        <navLabel>
+          <text>Developing for Windows</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-294"/>
+      </navPoint>
+      <navPoint id="utioyyzN9gtx2gNWUwmAjs9" playOrder="281" class="chapter">
+        <navLabel>
+          <text>Developing for Tizen</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-295"/>
+      </navPoint>
+      <navPoint id="uyNwCACvhMMsdxPaTDzCnG2" playOrder="282" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_18.xhtml#_idParaDest-296"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ucN4TzCx7fT3vICOvUyaeRE" playOrder="283" class="chapter">
+      <navLabel>
+        <text>Where to Go from Here</text>
+      </navLabel>
+      <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-297"/>
+      <navPoint id="uYKXaGILJAtNkdQAZDwn95A" playOrder="284" class="chapter">
+        <navLabel>
+          <text>Take-aways from running Blazor in production</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-298"/>
+        <navPoint id="uzRQvRZ5Kf5F5qYx6izgsEE" playOrder="285" class="chapter">
+          <navLabel>
+            <text>Solving memory problems</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-299"/>
+        </navPoint>
+        <navPoint id="uUs9auhZOvBqmUVaxh3lxX3" playOrder="286" class="chapter">
+          <navLabel>
+            <text>Solving concurrency problems</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-300"/>
+        </navPoint>
+        <navPoint id="unPxz2LnxwRa6aA8j7EN3y3" playOrder="287" class="chapter">
+          <navLabel>
+            <text>Solving errors</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-301"/>
+        </navPoint>
+        <navPoint id="uBvV6GAgFYQoKfpjXpBUSb2" playOrder="288" class="chapter">
+          <navLabel>
+            <text>Old browsers</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-302"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uuBVHI99HmpdRPKSRs5kV96" playOrder="289" class="chapter">
+        <navLabel>
+          <text>The next steps</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-303"/>
+        <navPoint id="u4M2NKMV69exPeQWLKcXUE3" playOrder="290" class="chapter">
+          <navLabel>
+            <text>The community</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-304"/>
+        </navPoint>
+        <navPoint id="uHqk5SBKmJ2t25fzXkabHw7" playOrder="291" class="chapter">
+          <navLabel>
+            <text>The components</text>
+          </navLabel>
+          <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-305"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="uV2imWCSQOLzKPzOYQewHKF" playOrder="292" class="chapter">
+        <navLabel>
+          <text>Summary</text>
+        </navLabel>
+        <content src="OEBPS/Text/Chapter_19.xhtml#_idParaDest-306"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="uUiVgYBSxFzavUFm7sObxW7" playOrder="293" class="chapter">
+      <navLabel>
+        <text>Other Books You May Enjoy</text>
+      </navLabel>
+      <content src="OEBPS/Text/Other_Books_You_May_Enjoy.xhtml#_idParaDest-309"/>
+    </navPoint>
+    <navPoint id="ueuyEpEjhuLcbX59VBN8af9" playOrder="294" class="chapter">
+      <navLabel>
+        <text>Index</text>
+      </navLabel>
+      <content src="OEBPS/Text/B21849_Index.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>

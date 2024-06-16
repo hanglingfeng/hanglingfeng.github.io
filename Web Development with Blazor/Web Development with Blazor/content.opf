@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="uuid_id">
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata">
+    <dc:language>en</dc:language>
+    <dc:title>Web Development with Blazor</dc:title>
+    <dc:creator opf:file-as="Unknown" opf:role="aut">Jimmy Engström</dc:creator>
+    <dc:contributor opf:role="bkp">calibre (6.28.1) [http://calibre-ebook.com]</dc:contributor>
+    <dc:description>Dive into web development with Blazor in this essential guide to creating and deploying production-ready Blazor apps, updated to bring you up to speed with the new features and enhancements introduced in .NET 8.</dc:description>
+    <dc:publisher>Packt Publishing</dc:publisher>
+    <dc:subject>COM051470 - COMPUTERS / Programming Languages / ASP .NET</dc:subject>
+    <dc:subject>COM051310 - COMPUTERS / Programming Languages / C#</dc:subject>
+    <dc:subject>COM051380 - COMPUTERS / Programming / Microsoft</dc:subject>
+    <dc:date>2024-04-24T12:30:47+00:00</dc:date>
+    <meta name="calibre:timestamp" content="2024-05-05T07:37:50.036178+00:00"/>
+    <dc:identifier id="uuid_id" opf:scheme="uuid">22070be8-7de9-40b1-95ee-81c048ddf7f8</dc:identifier>
+    <meta name="cover" content="cover"/>
+  </metadata>
+  <manifest>
+    <item id="cover" href="OEBPS/Images/Cover.png" media-type="image/png"/>
+    <item id="ucBtaxxBMkkeoXT9VgyidBD" href="OEBPS/Text/cover.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Title_Page" href="OEBPS/Text/Title_Page.xhtml" media-type="application/xhtml+xml"/>
+    <item id="TOC.xhtml" href="OEBPS/Text/TOC.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Preface" href="OEBPS/Text/Preface.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_01" href="OEBPS/Text/Chapter_01.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_02" href="OEBPS/Text/Chapter_02.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_03" href="OEBPS/Text/Chapter_03.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_04" href="OEBPS/Text/Chapter_04.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_05" href="OEBPS/Text/Chapter_05.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_064" href="OEBPS/Text/Chapter_06_split_000.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_063" href="OEBPS/Text/Chapter_06_split_001.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_062" href="OEBPS/Text/Chapter_06_split_002.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_061" href="OEBPS/Text/Chapter_06_split_003.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_07" href="OEBPS/Text/Chapter_07.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_08" href="OEBPS/Text/Chapter_08.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_09" href="OEBPS/Text/Chapter_09.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_10" href="OEBPS/Text/Chapter_10.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_11" href="OEBPS/Text/Chapter_11.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_12" href="OEBPS/Text/Chapter_12.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_13" href="OEBPS/Text/Chapter_13.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_14" href="OEBPS/Text/Chapter_14.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_15" href="OEBPS/Text/Chapter_15.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_16" href="OEBPS/Text/Chapter_16.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_17" href="OEBPS/Text/Chapter_17.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_18" href="OEBPS/Text/Chapter_18.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Chapter_19" href="OEBPS/Text/Chapter_19.xhtml" media-type="application/xhtml+xml"/>
+    <item id="Other_Books_You_May_Enjoy" href="OEBPS/Text/Other_Books_You_May_Enjoy.xhtml" media-type="application/xhtml+xml"/>
+    <item id="B21849_Index" href="OEBPS/Text/B21849_Index.xhtml" media-type="application/xhtml+xml"/>
+    <item id="x9781805123385.png" href="OEBPS/Images/9781805123385.png" media-type="image/png"/>
+    <item id="x9781837635870.png" href="OEBPS/Images/9781837635870.png" media-type="image/png"/>
+    <item id="B21849_01_01.png" href="OEBPS/Images/B21849_01_01.png" media-type="image/png"/>
+    <item id="B21849_01_02.png" href="OEBPS/Images/B21849_01_02.png" media-type="image/png"/>
+    <item id="B21849_02_01.png" href="OEBPS/Images/B21849_02_01.png" media-type="image/png"/>
+    <item id="B21849_02_02.png" href="OEBPS/Images/B21849_02_02.png" media-type="image/png"/>
+    <item id="B21849_02_03.png" href="OEBPS/Images/B21849_02_03.png" media-type="image/png"/>
+    <item id="B21849_02_04.png" href="OEBPS/Images/B21849_02_04.png" media-type="image/png"/>
+    <item id="B21849_02_05.png" href="OEBPS/Images/B21849_02_05.png" media-type="image/png"/>
+    <item id="B21849_02_06.png" href="OEBPS/Images/B21849_02_06.png" media-type="image/png"/>
+    <item id="B21849_02_07.png" href="OEBPS/Images/B21849_02_07.png" media-type="image/png"/>
+    <item id="B21849_02_08.png" href="OEBPS/Images/B21849_02_08.png" media-type="image/png"/>
+    <item id="B21849_04_01.png" href="OEBPS/Images/B21849_04_01.png" media-type="image/png"/>
+    <item id="B21849_05_01.png" href="OEBPS/Images/B21849_05_01.png" media-type="image/png"/>
+    <item id="B21849_05_02.png" href="OEBPS/Images/B21849_05_02.png" media-type="image/png"/>
+    <item id="B21849_05_03.png" href="OEBPS/Images/B21849_05_03.png" media-type="image/png"/>
+    <item id="B21849_06_01.png" href="OEBPS/Images/B21849_06_01.png" media-type="image/png"/>
+    <item id="B21849_06_02.png" href="OEBPS/Images/B21849_06_02.png" media-type="image/png"/>
+    <item id="B21849_06_03.png" href="OEBPS/Images/B21849_06_03.png" media-type="image/png"/>
+    <item id="B21849_10_01.png" href="OEBPS/Images/B21849_10_01.png" media-type="image/png"/>
+    <item id="B21849_11_01.png" href="OEBPS/Images/B21849_11_01.png" media-type="image/png"/>
+    <item id="B21849_11_02.png" href="OEBPS/Images/B21849_11_02.png" media-type="image/png"/>
+    <item id="B21849_12_01.png" href="OEBPS/Images/B21849_12_01.png" media-type="image/png"/>
+    <item id="B21849_12_02.png" href="OEBPS/Images/B21849_12_02.png" media-type="image/png"/>
+    <item id="B21849_12_03.png" href="OEBPS/Images/B21849_12_03.png" media-type="image/png"/>
+    <item id="B21849_12_04.png" href="OEBPS/Images/B21849_12_04.png" media-type="image/png"/>
+    <item id="B21849_13_01.png" href="OEBPS/Images/B21849_13_01.png" media-type="image/png"/>
+    <item id="B21849_13_02.png" href="OEBPS/Images/B21849_13_02.png" media-type="image/png"/>
+    <item id="B21849_18_01.png" href="OEBPS/Images/B21849_18_01.png" media-type="image/png"/>
+    <item id="B21849_18_02.png" href="OEBPS/Images/B21849_18_02.png" media-type="image/png"/>
+    <item id="B21849_18_03.png" href="OEBPS/Images/B21849_18_03.png" media-type="image/png"/>
+    <item id="B21849_18_04.png" href="OEBPS/Images/B21849_18_04.png" media-type="image/png"/>
+    <item id="B21849_18_05.png" href="OEBPS/Images/B21849_18_05.png" media-type="image/png"/>
+    <item id="B21849_18_06.png" href="OEBPS/Images/B21849_18_06.png" media-type="image/png"/>
+    <item id="B21849_18_07.png" href="OEBPS/Images/B21849_18_07.png" media-type="image/png"/>
+    <item id="B21849_18_08.png" href="OEBPS/Images/B21849_18_08.png" media-type="image/png"/>
+    <item id="B21849_Free_PDF_QR.png" href="OEBPS/Images/B21849_Free_PDF_QR.png" media-type="image/png"/>
+    <item id="info.png" href="OEBPS/Images/info.png" media-type="image/png"/>
+    <item id="New_Packt_Logo.png" href="OEBPS/Images/New_Packt_Logo.png" media-type="image/png"/>
+    <item id="New_Packt_Logo1.png" href="OEBPS/Images/New_Packt_Logo1.png" media-type="image/png"/>
+    <item id="QR_Code2668029180838459906.png" href="OEBPS/Images/QR_Code2668029180838459906.png" media-type="image/png"/>
+    <item id="tip.png" href="OEBPS/Images/tip.png" media-type="image/png"/>
+    <item id="page_css" href="page_styles.css" media-type="text/css"/>
+    <item id="css" href="stylesheet.css" media-type="text/css"/>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="ucBtaxxBMkkeoXT9VgyidBD"/>
+    <itemref idref="Title_Page"/>
+    <itemref idref="TOC.xhtml"/>
+    <itemref idref="Preface"/>
+    <itemref idref="Chapter_01"/>
+    <itemref idref="Chapter_02"/>
+    <itemref idref="Chapter_03"/>
+    <itemref idref="Chapter_04"/>
+    <itemref idref="Chapter_05"/>
+    <itemref idref="Chapter_064"/>
+    <itemref idref="Chapter_063"/>
+    <itemref idref="Chapter_062"/>
+    <itemref idref="Chapter_061"/>
+    <itemref idref="Chapter_07"/>
+    <itemref idref="Chapter_08"/>
+    <itemref idref="Chapter_09"/>
+    <itemref idref="Chapter_10"/>
+    <itemref idref="Chapter_11"/>
+    <itemref idref="Chapter_12"/>
+    <itemref idref="Chapter_13"/>
+    <itemref idref="Chapter_14"/>
+    <itemref idref="Chapter_15"/>
+    <itemref idref="Chapter_16"/>
+    <itemref idref="Chapter_17"/>
+    <itemref idref="Chapter_18"/>
+    <itemref idref="Chapter_19"/>
+    <itemref idref="Other_Books_You_May_Enjoy"/>
+    <itemref idref="B21849_Index"/>
+  </spine>
+  <guide>
+    <reference type="cover" href="OEBPS/Text/cover.xhtml" title="Cover Image"/>
+    <reference type="other.titlepage" href="OEBPS/Text/cover.xhtml" title="Title page"/>
+  </guide>
+</package>

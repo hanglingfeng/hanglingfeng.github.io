@@ -1,0 +1,514 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <title>Web Development with Blazor, Third Edition</title>
+    <!-- kobo-style -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="../../stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="../../page_styles.css"/>
+</head>
+  <body class="calibre6">
+<nav epub:type="toc" id="toc">
+<h2 class="calibre7">Contents</h2>
+<ol class="calibre8">
+<li class="calibre9"><a href="Preface.xhtml#_idParaDest-6">Preface</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Preface.xhtml#_idParaDest-7">Who this book is for</a></li>
+<li class="calibre9"><a href="Preface.xhtml#_idParaDest-8">What this book covers</a></li>
+<li class="calibre9"><a href="Preface.xhtml#_idParaDest-9">To get the most out of this book</a>
+</li>
+<li class="calibre9"><a href="Preface.xhtml#_idParaDest-13">Get in touch</a></li>
+</ol>
+</li>
+<li value="1" class="calibre11"><a href="Chapter_01.xhtml#_idParaDest-16">Hello Blazor</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-17">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-18">Why Blazor?</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-19">Preceding Blazor</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-20">Introducing WebAssembly</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-21">Introducing .NET 8</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-22">Introducing Blazor</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-23">Blazor Server</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-24">Blazor WebAssembly</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-25">Blazor WebAssembly versus Blazor Server</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-26">Blazor Hybrid/.NET MAUI</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-27">Server-Side Rendering (SSR)</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-28">The feature formerly known as Blazor United</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-29">Summary</a></li>
+<li class="calibre9"><a href="Chapter_01.xhtml#_idParaDest-30">Further reading</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_02.xhtml#_idParaDest-32">Creating Your First Blazor App</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-33">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-34">Setting up your development environment</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-35">Windows</a></li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-36">macOS and Linux (or Windows)</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-37">Creating our first Blazor application</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-38">Exploring the templates</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-39">Blazor Web App</a></li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-40">Blazor WebAssembly Standalone App</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-41">Creating a Blazor web application</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-42">Using the command line</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-43">Creating projects using the command line</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-44">Figuring out the project structure</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-45">Program.cs (BlazorWebApp project)</a></li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-46">Program.cs (BlazorWebApp.Client)</a></li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-47">App (BlazorWebApp)</a></li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-48">Routes</a></li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-49">MainLayout</a></li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-50">CSS</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_02.xhtml#_idParaDest-51">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_03.xhtml#_idParaDest-52">Managing State – Part 1</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_03.xhtml#_idParaDest-53">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_03.xhtml#_idParaDest-54">Creating a data project</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_03.xhtml#_idParaDest-55">Creating a new project</a></li>
+<li class="calibre9"><a href="Chapter_03.xhtml#_idParaDest-56">Creating data classes</a></li>
+<li class="calibre9"><a href="Chapter_03.xhtml#_idParaDest-57">Creating an interface</a></li>
+<li class="calibre9"><a href="Chapter_03.xhtml#_idParaDest-58">Implementing the interface</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_03.xhtml#_idParaDest-59">Adding the API to Blazor</a></li>
+<li class="calibre9"><a href="Chapter_03.xhtml#_idParaDest-60">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_04.xhtml#_idParaDest-61">Understanding Basic Blazor Components</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-62">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-63">Exploring components</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-64">Counter</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-65">Weather</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-66">Learning Razor syntax</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-67">Razor code blocks</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-68">Implicit Razor expressions</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-69">Explicit Razor expressions</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-70">Expression encoding</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-71">Directives</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-72">Adding an attribute</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-73">Adding an interface</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-74">Inheriting</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-75">Generics</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-76">Changing the layout</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-77">Setting a namespace</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-78">Setting a route</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-79">Adding a using statement</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-80">Understanding dependency injection</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-81">Singleton</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-82">Scoped</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-83">Transient</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-84">Injecting the service</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-85">Changing the render mode</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-86">Figuring out where to put the code</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-87">In the Razor file</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-88">In a partial class</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-89">Inheriting a class</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-90">Only code</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-91">Lifecycle events</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-92">OnInitialized and OnInitializedAsync</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-93">OnParametersSet and OnParametersSetAsync</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-94">OnAfterRender and OnAfterRenderAsync</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-95">ShouldRender</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-96">Parameters</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-97">Cascading parameters</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-98">Writing our first component</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-99">Creating a components library</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-100">Using our components library</a></li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-101">Creating our own component</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_04.xhtml#_idParaDest-102">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_05.xhtml#_idParaDest-103">Creating Advanced Blazor Components</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-104">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-105">Exploring binding</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-106">One-way binding</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-107">Two-way binding</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-108">Actions and EventCallback</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-109">Using RenderFragment</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-110">ChildContent</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-111">Default value</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-112">Building an alert component</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-113">Exploring the new built-in components</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-114">Setting the focus of the UI</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-115">Influencing the HTML head</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-116">Component virtualization</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-117">Error boundaries</a></li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-118">Sections</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_05.xhtml#_idParaDest-119">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_06_split_000.xhtml#_idParaDest-121">Building Forms with Validation</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-122">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-123">Exploring form elements</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-124">EditForm</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-125">InputBase&lt;&gt;</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-126">InputCheckbox</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-127">InputDate&lt;TValue&gt;</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-128">InputNumber&lt;TValue&gt;</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-129">InputSelect&lt;TValue&gt;</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-130">InputText</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-131">InputTextArea</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-132">InputRadio</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-133">InputRadioGroup</a></li>
+<li class="calibre9"><a href="Chapter_06_split_000.xhtml#_idParaDest-134">InputFile</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_06_split_001.xhtml#_idParaDest-135">Adding validation</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_06_split_001.xhtml#_idParaDest-136">ValidationMessage</a></li>
+<li class="calibre9"><a href="Chapter_06_split_001.xhtml#_idParaDest-137">ValidationSummary</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_06_split_001.xhtml#_idParaDest-138">Custom validation class attributes</a></li>
+<li class="calibre9"><a href="Chapter_06_split_001.xhtml#_idParaDest-139">Looking at bindings</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_06_split_001.xhtml#_idParaDest-140">Binding to HTML elements</a></li>
+<li class="calibre9"><a href="Chapter_06_split_001.xhtml#_idParaDest-141">Binding to components</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_06_split_001.xhtml#_idParaDest-142">Building an admin interface</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_06_split_002.xhtml#_idParaDest-143">Listing and editing categories</a></li>
+<li class="calibre9"><a href="Chapter_06_split_002.xhtml#_idParaDest-144">Listing and editing tags</a></li>
+<li class="calibre9"><a href="Chapter_06_split_002.xhtml#_idParaDest-145">Listing and editing blog posts</a></li>
+<li class="calibre9"><a href="Chapter_06_split_002.xhtml#_idParaDest-146">Adding an abstraction layer</a></li>
+<li class="calibre9"><a href="Chapter_06_split_003.xhtml#_idParaDest-147">Locking the navigation</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_06_split_003.xhtml#_idParaDest-148">Enhanced Form Navigation</a></li>
+<li class="calibre9"><a href="Chapter_06_split_003.xhtml#_idParaDest-149">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_07.xhtml#_idParaDest-150">Creating an API</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-151">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-152">Creating the service</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-153">Learning about Minimal APIs</a></li>
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-154">Adding the API controllers</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-155">Adding APIs for handling blog posts</a></li>
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-156">Adding APIs for handling Categories</a></li>
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-157">Adding APIs for handling Tags</a></li>
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-158">Adding APIs for handling comments</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-159">Creating the client</a></li>
+<li class="calibre9"><a href="Chapter_07.xhtml#_idParaDest-160">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_08.xhtml#_idParaDest-161">Authentication and Authorization</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-162">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-163">Setting up authentication</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-164">Configuring our Blazor app</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-165">Securing our Blazor app</a></li>
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-166">Securing Blazor WebAssembly</a></li>
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-167">Adding roles</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-168">Configuring Auth0 by adding roles</a></li>
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-169">Adding roles to Blazor</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_08.xhtml#_idParaDest-170">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_09.xhtml#_idParaDest-171">Sharing Code and Resources</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-172">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-173">Adding static files</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-174">Choosing between frameworks</a></li>
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-175">Adding a new style</a></li>
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-176">Adding CSS </a></li>
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-177">Making the admin interface more usable</a></li>
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-178">Making the menu more useful</a></li>
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-179">Making the blog look like a blog</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-180">CSS isolation</a></li>
+<li class="calibre9"><a href="Chapter_09.xhtml#_idParaDest-181">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_10.xhtml#_idParaDest-182">JavaScript Interop</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-183">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-184">Why do we need JavaScript?</a></li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-185">.NET to JavaScript</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-186">Global JavaScript (the old way)</a></li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-187">JavaScript Isolation</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-188">JavaScript to .NET</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-189">Static .NET method call</a></li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-190">Instance method call</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-191">Implementing an existing JavaScript library</a></li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-192">JavaScript interop in WebAssembly</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-193">.NET to JavaScript</a></li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-194">JavaScript to .NET</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_10.xhtml#_idParaDest-195">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_11.xhtml#_idParaDest-197">Managing State – Part 2</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-198">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-199">Storing data on the server side</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-200">Storing data in the URL</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-201">Route constraints</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-202">Using a query string</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-203">Implementing browser storage</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-204">Creating an interface</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-205">Implementing Blazor Server (InteractiveServer)</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-206">Implementing WebAssembly (InteractiveWebAssembly)</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-207">Implementing the shared code</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-208">Using an in-memory state container service</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-209">Implementing real-time updates on Blazor Server</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-210">Implementing real-time updates on Blazor WebAssembly</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-211">State management frameworks</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-212">Root-level cascading values</a></li>
+<li class="calibre9"><a href="Chapter_11.xhtml#_idParaDest-213">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_12.xhtml#_idParaDest-214">Debugging the Code</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_12.xhtml#_idParaDest-215">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_12.xhtml#_idParaDest-216">Making things break</a></li>
+<li class="calibre9"><a href="Chapter_12.xhtml#_idParaDest-217">Debugging Blazor Server</a></li>
+<li class="calibre9"><a href="Chapter_12.xhtml#_idParaDest-218">Debugging Blazor WebAssembly</a></li>
+<li class="calibre9"><a href="Chapter_12.xhtml#_idParaDest-219">Debugging Blazor WebAssembly in the web browser</a></li>
+<li class="calibre9"><a href="Chapter_12.xhtml#_idParaDest-220">Hot Reload</a></li>
+<li class="calibre9"><a href="Chapter_12.xhtml#_idParaDest-221">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_13.xhtml#_idParaDest-222">Testing</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-223">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-224">What is bUnit?</a></li>
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-225">Setting up a test project</a></li>
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-226">Mocking the API</a></li>
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-227">Writing tests</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-228">Authentication</a></li>
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-229">Testing JavaScript</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-230">Blazm extension</a></li>
+<li class="calibre9"><a href="Chapter_13.xhtml#_idParaDest-231">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_14.xhtml#_idParaDest-232">Deploying to Production</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_14.xhtml#_idParaDest-233">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_14.xhtml#_idParaDest-234">Continuous delivery options</a></li>
+<li class="calibre9"><a href="Chapter_14.xhtml#_idParaDest-235">Hosting options</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_14.xhtml#_idParaDest-236">Hosting Blazor Server/InteractiveServer</a></li>
+<li class="calibre9"><a href="Chapter_14.xhtml#_idParaDest-237">Hosting InteractiveWebAssembly</a></li>
+<li class="calibre9"><a href="Chapter_14.xhtml#_idParaDest-238">Hosting Blazor WebAssembly Standalone </a></li>
+<li class="calibre9"><a href="Chapter_14.xhtml#_idParaDest-239">Hosting on IIS</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_14.xhtml#_idParaDest-240">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_15.xhtml#_idParaDest-241">Moving from, or Combining with, an Existing Site</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-242">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-243">Introducing web components</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-244">Exploring custom elements</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-245">Exploring the Blazor component</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-246">Adding Blazor to an Angular site</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-247">Adding Blazor to a React site</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-248">Adding Blazor to MVC/Razor Pages</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-249">Adding web components to a Blazor site</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-250">Migrating from Web Forms</a></li>
+<li class="calibre9"><a href="Chapter_15.xhtml#_idParaDest-251">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_16.xhtml#_idParaDest-253">Going Deeper into WebAssembly</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-254">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-255">Exploring the WebAssembly template</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-256">.NET WebAssembly build tools</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-257">AOT compilation</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-258">WebAssembly Single Instruction, Multiple Data (SIMD)</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-259">Trimming</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-260">Lazy loading</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-261">Progressive web apps</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-262">Native dependencies</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-263">Common problems</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-264">Progress indicators</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-265">Prerendering on the server</a></li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-266">Preloading and persisting the state</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_16.xhtml#_idParaDest-267">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_17.xhtml#_idParaDest-268">Examining Source Generators</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-269">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-270">What a source generator is</a></li>
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-271">How to get started with source generators</a></li>
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-272">Community projects</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-273">InterfaceGenerator</a></li>
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-274">Blazorators</a></li>
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-275">C# source generators</a></li>
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-276">Roslyn SDK samples</a></li>
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-277">Microsoft Learn</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_17.xhtml#_idParaDest-278">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_18.xhtml#_idParaDest-279">Visiting .NET MAUI</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-280">Technical requirements</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-281">What is .NET MAUI?</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-282">Creating a new project</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-283">.NET MAUI App</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-284">.NET MAUI Class Library</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-285">.NET MAUI Blazor Hybrid App</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-286">Looking at the template</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-287">Developing for Android</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-288">Running in an emulator</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-289">Running on a physical device</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-290">Developing for iOS</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-291">Hot restart</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-292">Simulator</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-293">Developing for macOS</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-294">Developing for Windows</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-295">Developing for Tizen</a></li>
+<li class="calibre9"><a href="Chapter_18.xhtml#_idParaDest-296">Summary</a></li>
+</ol>
+</li>
+<li class="calibre11"><a href="Chapter_19.xhtml#_idParaDest-297">Where to Go from Here</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-298">Take-aways from running Blazor in production</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-299">Solving memory problems</a></li>
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-300">Solving concurrency problems</a></li>
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-301">Solving errors</a></li>
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-302">Old browsers</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-303">The next steps</a>
+<ol class="calibre10">
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-304">The community</a></li>
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-305">The components</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Chapter_19.xhtml#_idParaDest-306">Summary</a></li>
+</ol>
+</li>
+<li class="calibre9"><a href="Other_Books_You_May_Enjoy.xhtml#_idParaDest-309">Other Books You May Enjoy</a>
+</li>
+<li class="calibre9"><a href="B21849_Index.xhtml#_idParaDest-312">Index</a>
+</li>
+</ol>
+</nav>
+<nav epub:type="landmarks" hidden="" id="landmarks">
+<h1 class="calibre12">Landmarks</h1>
+<ol class="calibre8">
+<li class="calibre11">
+<a epub:type="cover" href="cover.xhtml">Cover</a>
+</li>
+<li class="calibre11">
+<a epub:type="index" href="B21849_Index.xhtml#_idContainer085">Index</a>
+</li>
+</ol>
+</nav>
+</body>
+</html>
